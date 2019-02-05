@@ -1,0 +1,15 @@
+<?php 
+
+$arrsection = explode('-',$_SUBSECTION);
+$idglossary = $arrsection[0];
+if(!$_GLOSSARY->find($idglossary)) Redirect::javascript('404');
+
+////////////////////// SEO ////////////////////////////////////////
+$_TITLE = $_GLOSSARY->data()->name.' - '.TITLE;
+$_DESCRIPTION = substr(strip_tags($_GLOSSARY->data()->description),0,500);
+$imgjson = json_decode($_GLOSSARY->data()->image);
+$imgheader = '';
+if(!empty($imgjson)){
+	$imgheader = 'img/glossary/'.$imgjson->photoname.'.'.$imgjson->extension;
+	$_IMGFACEBOOK = $imgheader;
+}

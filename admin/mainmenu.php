@@ -1,0 +1,41 @@
+
+<?php 
+$arrAdminMenu = array(
+	array('name'=>'Inicio','permalink'=>'inicio'),
+	array('name'=>'Home','permalink'=>'home'),
+	array('name'=>'Centros','permalink'=>'centros'),
+	array('name'=>'Promos','permalink'=>'promos'),
+	array('name'=>'Usuarios','permalink'=>'usuarios'),
+	array('name'=>'Ventas','permalink'=>'ventas'),
+	array('name'=>'Etiquetas','permalink'=>'etiquetas'),
+	array('name'=>'Blog','permalink'=>'blog'),
+	//array('name'=>'Especiales','permalink'=>'especiales'),
+	//array('name'=>'Opciones Generales','permalink'=>'opciones-generales'),
+	array('name'=>'Vouchers','permalink'=>'vouchers'),
+	array('name'=>'Subscriptores','permalink'=>'subscriptores'),
+	array('name'=>'Vinculaciones','permalink'=>'vinculaciones')
+);
+?>
+
+
+<!-- MAIN MENU -->
+<nav>
+	<div class="container">
+	
+		<i class="fa fa-bars fa-lg cl-white" ></i>
+
+		<ul id="main_menu" class="main-menu" >
+			<?php 
+			foreach($arrAdminMenu as $kmm=>$vmm):
+				$active = '';
+				if($_SECTION == $vmm['permalink']):
+					$active = 'active';
+				endif;
+			?>
+			<li class="<?= $active ?>" ><a href="<?= ROOTPATH.'admin/'.$vmm['permalink'] ?>" ><?= $vmm['name'] ?></a></li>
+			<?php endforeach ?>			
+		</ul>
+
+	</div>
+</nav>
+

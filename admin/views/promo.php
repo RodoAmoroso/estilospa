@@ -1,91 +1,5 @@
-
-<!-- PAGE HEADER -->
-<section class="page-header">
-	<div class="container">
-		<h1>Promos</h1>
-	</div>
-</section>
-
-<!-- LIST -->
-<section id="list_panel" class="admin-box">
-	<div class="container">
-
-		<div class="row">
-			<div class="col-xs-12 col-sm-6">
-				<form id="form_search" class="form-group" autocomplete="off">
-					<label for="fd_search">Buscar por nombre</label>
-					<div class="input-group">
-						<input id="fd_search" type="text" class="form-control">
-						<div class="input-group-btn">
-							<button class="btn btn-primary"><i class="fa fa-search"></i></button>
-						</div>
-					</div>					
-				</form>
-			</div>
-			<div class="col-xs-12 col-sm-6 text-right">
-				<div class="form-group">
-					<label for="" class="dp-block" >&nbsp;</label>
-					<a href="<?=ADMINPATH.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Promo</a>
-				</div>
-			</div>
-		</div>
-
-		<hr>		
-
-		<div class="row">
-			<div class="col-xs-4">
-				<label for="fd_select_status">Filtrar por status</label>
-				<select id="fd_select_status" class="form-control input-sm">
-					<option value="0">-- Todas --</option>
-					<option value="0:0">No iniciada</option>
-					<option value="1:1">En curso</option>
-					<option value="1:0">Finalizadas</option>
-				</select>
-			</div>
-			<div class="col-xs-4">
-				<label for="fd_select_client">Filtrar por cliente</label>
-				<select id="fd_select_client" class="form-control input-sm">
-					<option value="0">-- Todos --</option>
-					<?php 
-					$_CLIENTS = new Clients();
-					$_CLIENTS->sort = 'name';
-					if($_CLIENTS->get()):
-						foreach($_CLIENTS->data() as $client):
-					?>
-					<option value="<?= $client->id ?>"><?= $client->name ?></option>
-					<?php endforeach; endif; ?>
-				</select>
-			</div>
-			<div class="col-xs-12 col-sm-4">
-				<div class="form-group">
-					<label for="fd_select_order">Ordernar</label>
-					<select id="fd_select_order" class="form-control input-sm">
-						<option value="position">Ordenar por posición (asc.)</option>
-						<option value="title">Ordenar por orden alfabético (a-z)</option>
-						<option value="title">Ordenar por orden alfabético (a-z)</option>
-					</select>
-				</div>
-			</div>
-		</div>
-
-
-		<button data-group="views" data-toggle="large" class="btn btn-sm btn-default active"><i class="fa fa-th-large"></i></button>
-		<button data-group="views" data-toggle="list" class="btn btn-sm btn-default"><i class="fa fa-th-list"></i></button>
-
-		<button class="btn btn-sm btn-info" data-toggle="move" data-value="moveup">Mover seleccionados arriba <i class="fa fa-caret-up"></i></button>
-		<hr>
-
-		<div class="well "><div id="promos" class="row"></div></div>
-
-
-		<button class="btn btn-sm btn-info" data-toggle="move" data-value="moveup">Mover seleccionados arriba <i class="fa fa-caret-up"></i></button>
-
-	</div>
-</section>
-
-
 <!-- PROMOS -->
-<section id="edit_panel" class="admin-box bg-gray-5 dp-none">
+<section id="edit_panel" class="admin-box bg-gray-5">
 	<div class="container">
 		<h3 class="fw-600">Editar / Agregar Promo</h3>
 		<hr>
@@ -239,14 +153,14 @@
 		<div class="block-white">
 			<button id="btn_save" class="btn btn-success pull-right">Guardar Promo</button>
 			<button id="btn_cancel" class="btn btn-warning btn-sm">Cancelar</button>
+			<?php if($promodata): ?>
 			<button id="btn_delete" class="btn btn-danger btn-sm">Borrar</button>
+			<?php endif; ?>
 		</div>
 
 
 	</div>
 </section>
-
-
 
 <!-- PROMO TYPES -->
 <section id="promotypes_panel" class="admin-box bg-gray-5 dp-none">
@@ -279,3 +193,5 @@
 
 
 <?php include 'templates.php' ?>
+
+<script>var $_id = '<?=intval($_SUBSECTION)?>';</script>

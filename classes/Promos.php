@@ -125,7 +125,7 @@ class Promos {
 		if($this->expiring){
 			//if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
 			$search .= empty($search) ? "WHERE " : " AND ";
-			$search .= "(DATEDIFF(p.finish, NOW()) < 10 AND DATEDIFF(p.finish, NOW()) > 0)";
+			$search .= "(DATEDIFF(p.finish, NOW()) < 25 AND DATEDIFF(p.finish, NOW()) > 0)";
 		}
 		if($this->expired){
 			//if(empty($search)){$search = "WHERE";}else{$search .= " AND";}

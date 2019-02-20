@@ -1,45 +1,154 @@
 
 <script>var IDPromo = <?= $_PROMOS->data()->id ?>; var islogged = <?= $_USER->logged() ? 1 : 0 ?>;</script>
 
-<section class="overview promo">
-	<div class="container">
-		<!-- BREADCRUMB -->
-		<ul class="breadcrumb sz-9">
-			<li><a href="<?= ROOTPATH ?>">Home</a></li>
-			<li><a href="<?= ROOTPATH.'busqueda' ?>">Promos</a></li>
-			<li><a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>"><?= $_CLIENTS->data()->name ?></a></li>
-			<li><?= $_PROMOS->data()->title ?></li>
-		</ul>
+<section class="promo">
 
+	<div class="container">
+
+		<!-- BREADCRUMB -->
+		<div class="block-white">
+			<ul class="breadcrumb">
+				<li><a href="<?= ROOTPATH ?>">Home</a></li>
+				<li><a href="<?= ROOTPATH.'busqueda' ?>">Promos</a></li>
+				<li><a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>"><?= $_CLIENTS->data()->name ?></a></li>
+				<li><?= $_PROMOS->data()->title ?></li>
+			</ul>
+		</div>
+
+
+
+
+
+		<div class="block-white">
+			<div class="top-header">
+				<div class="info">
+					<h3 class="main-title"><?= $_PROMOS->data()->title ?></h3>
+					<p><?= $_PROMOS->data()->subtitle ?></p>
+				</div>
+				<div class="pricing">
+					
+					<div class="buttons">
+
+						<!-- PRICING -->
+						<?php if($_PROMOS->data()->sale): ?>
+							<?php if($_PROMOS->data()->discount): ?>
+							<p class="sz-14"><span class="strikethrough">$ <?= number_format($_PROMOS->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $_PROMOS->data()->discount ?>% Off</span></p>
+							<?php endif; ?>
+
+						<p class="sz-20"><strong>$ <?= number_format($_PROMOS->data()->price-($_PROMOS->data()->price*$_PROMOS->data()->discount/100),2,',','.') ?></strong></p>
+
+						<!-- AMOUNT -->
+						<p><small><?= $_PROMOS->data()->amount ? $_PROMOS->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></p>
+						
+						<?php endif; ?>
+
+						<div class="shop-action">
+							
+							<?php if($showsalebuttons): ?>
+							<div class="amount">
+								<div class="form-group">
+									<select id="select_amount" type="text" class="form-control">
+										<?php for($i=1; $i<=15; $i++): ?>
+										<option value="<?= $i ?>"><?= $i ?></option>
+										<?php endfor; ?>
+									</select>
+								</div>
+							</div>
+							<?php endif; ?>
+
+							<div class="button-action">
+								<div class="form-group">
+									<?php if($showsalebuttons): ?>
+									<div class="highlight-button" >
+										<i class="fa fa-shopping-bag fa-fw"></i> 
+										<span <?= $_USER->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $_USER->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+									</div>
+									<?php else: ?>
+									<div class="highlight-button" >
+										<i class="fa fa-envelope fa-fw"></i> 
+										<span data-toggle="modal" data-target="#modal_promo_request">Consultar!</span> 
+										<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+									</div>
+									<?php endif; ?>
+
+									<ul id="btn_list" class="btn-list collapse">
+										<?php if($showsalebuttons): ?>
+
+
+										<li data-toggle="modal" data-target="#modal_promo_request" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
+										<li data-toggle="modal" data-target="<?= $_USER->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
+										<?php endif; ?>
+										<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
+									</ul>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+					
+				</div>
+			</div>
+			
 		
+		</div>
+
+
+
+
+
 
 		<!-- OVERVIEW -->
-		<div class="overview-header">		
+		<div class="overview-header">	
+
+
+
+
+			<div class="gallery gallery-section">
+				<?php 				
+				if(count($gallery)):
+					foreach($gallery as $img):
+				?>
+					<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOTPATH.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
+					<?php endforeach; if(count($gallery)>1): ?>
+					<i class="fa fa-chevron-left prev"></i>
+					<i class="fa fa-chevron-right next"></i>
+					<?php endif; ?>
+					<div class="navigation"></div>
+				<?php endif ?>
+			</div>	
+
 
 			<div class="info">
 
 				<a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>" class="overview-promo-client">
-					<div class="logo thumb-cover" style="background-image:url(<?= $logo ?>);"></div>
+					<div class="logo thumb-contain" style="background-image:url(<?= $logo ?>);"></div>
 					<div class="info-client">
 						<h1><?= $_CLIENTS->data()->name ?></h1>
 						<?php if($_STORES->get($_CLIENTS->data()->id)): ?>
-						<h2> <i class="fa fa-map-marker"></i> 
-						<?php foreach($_STORES->data() as $ks=>$vs): ?>
-						<?= $vs->city.($ks==count($_STORES->data())-1 ? '' : ' &bullet; ') ?>
-						<?php endforeach; ?>
+						<h2> <i class="fa fa-map-marker"></i>
+						<?php 
+						if(count($_STORES->data())>1){
+							echo 'Varias sucursales';
+						}else{
+							echo $_STORES->data()[0]->city;
+						} 
+						?>
+
 						</h2>
 						<?php endif; ?>
 						<?= Stars($_CLIENTS->rating($_CLIENTS->data()->id),'sz-7'); ?>
 					</div>
 				</a>
 
-				<!-- TITLE -->
-				<h3 class="fw-700"><?= $_PROMOS->data()->title ?></h3>
-				<p><?= $_PROMOS->data()->subtitle ?></p>
 				<hr>
 
+			
+
 				<!-- STORES -->
-				<p>Disponible en:</p>
+				<!--<p>Disponible en:</p>
 				<ul class="simple-list">
 					<?php 
 					if($_STORES->get($_CLIENTS->data()->id,$_PROMOS->data()->stores)):
@@ -48,20 +157,15 @@
 					?>
 					<li><i class="fa fa-map-marker"></i> <?= $_STORES->data()->address.' - '.$_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince] ?></li>
 					<?php endforeach; endif; ?>
-				</ul>
-				<hr>
+				</ul><hr>--->				
 
-				<!-- PRICING -->
-				<?php if($_PROMOS->data()->sale): ?>
-					<?php if($_PROMOS->data()->discount): ?>
-					<p class="sz-14"><span class="strikethrough">$ <?= number_format($_PROMOS->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $_PROMOS->data()->discount ?>% Off</span></p>
-					<?php endif; ?>
-					<p class="sz-16"><strong>$ <?= number_format($_PROMOS->data()->price-($_PROMOS->data()->price*$_PROMOS->data()->discount/100),2,',','.') ?></strong></p>
+				
 
-					<!-- AMOUNT -->
-					<p class="sz-11"><?= $_PROMOS->data()->amount ? $_PROMOS->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></p>
-					<hr>
-				<?php endif; ?>
+				
+
+
+				<!-- BUTTONS -->
+				
 
 				<!-- ICONS -->
 				<div class="box-icons ">
@@ -91,65 +195,8 @@
 						</div>
 					</div>
 				</div>
-
-
-				<!-- BUTTONS -->
-				<div class="buttons">
-
-					<div class="shop-action">
-						<div class="amount">
-							<div class="form-group">
-								<label for="" >Cantidad</label>
-								<select id="select_amount" type="text" class="form-control">
-									<?php for($i=1; $i<=15; $i++): ?>
-									<option value="<?= $i ?>"><?= $i ?></option>
-									<?php endfor; ?>
-								</select>
-							</div>
-						</div>
-						<div class="button-action">
-							<div class="form-group">
-								<label for="" >&nbsp;</label><br />
-								
-
-								<?php if($showsalebuttons): ?>
-								<div class="highlight-button" ><i class="fa fa-shopping-bag fa-fw"></i> <span <?= $_USER->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $_USER->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i></div>
-								<?php else: ?>
-								<div class="highlight-button" ><i class="fa fa-envelope fa-fw"></i> <span data-toggle="modal" data-target="#modal_promo_request">Consultar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i></div>
-								<?php endif; ?>
-
-								<ul id="btn_list" class="btn-list collapse">
-									<?php if($showsalebuttons): ?>
-
-
-									<li data-toggle="modal" data-target="#modal_promo_request" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
-									<li data-toggle="modal" data-target="<?= $_USER->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
-									<?php endif; ?>
-									<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
-								</ul>
-							</div>
-
-						</div>
-
-					</div>
-
-				</div>
 				
-			</div>
-
-			<div class="gallery gallery-section">
-				<?php 				
-				if(count($gallery)):
-					foreach($gallery as $img):
-				?>
-					<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOTPATH.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
-					<?php endforeach; if(count($gallery)>1): ?>
-					<i class="fa fa-chevron-left prev"></i>
-					<i class="fa fa-chevron-right next"></i>
-					<?php endif; ?>
-					<div class="navigation"></div>
-				<?php endif ?>
-			</div>						
+			</div>					
 
 		</div>
 

@@ -104,10 +104,15 @@
 </section>
 
 
-<!-- OFERTAS -->
-<section class="home-carousel">	
+<!-- PROMOS -->
+<section class="home-carousel bg-gray-5">	
+	<div class="container text-center cl-gray-60 pad-20">
+		<h2><i class="fa fa-shopping-bag"></i> Ofertas Imperdibles!!!</h2>
+		<a href="<?=View::url('busqueda')?>">ver más</a>
+	</div>
+
 	<div class="container">
-		<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Ofertas Imperdibles!!!</h3>
+
 		<div class="promos-highlight">
 		<?php
 		$_PROMOS->status = '1:1';
@@ -119,6 +124,7 @@
 			foreach($_PROMOS->data() as $kp=>$promo):
 				if($_CLIENTS->find($promo->idclient)):
 					$imgpromo = json_decode($promo->gallery);
+					$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 					$_STORES->get($_CLIENTS->data()->id,$promo->stores);
 					echo '<div class="mod-promo mod-promo-4">';
 					include 'mods/mod-promo.php';
@@ -137,9 +143,14 @@
 
 <!-- SERVICIOS DESTACADOS -->
 <section class="home-carousel ">
+	
+	<div class="container text-center cl-gray-60 pad-20">
+		<h2><i class="fa fa-leaf"></i> Servicios y Tratamientos más buscados</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa tempore et quis quaerat laudantium magnam delectus. Quaerat quasi laborum eos temporibus, voluptate, soluta modi deleniti similique iure reprehenderit sequi, perferendis!</p>
+	</div>
+
 	<div class="container">
 
-		<h3 class="title-bar" ><i class="fa fa-leaf"></i> Servicios y Tratamientos más buscados</h3>
 		<div id="glossary_carousel" class="row">
 		<?php 
 		$_GLOSSARY->limit = '0,12';
@@ -166,11 +177,17 @@
 
 
 <!-- CENTROS -->
-<section class="home-carousel">
-	<div class="container">
-		<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Destacados!!!</h3>
+<section class="bg-gray-5">
+	<div class="container text-center cl-gray-60 pad-20">
+		<h2><i class="fa fa-heart"></i> Centros Destacados!!!</h2>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa tempore et quis quaerat laudantium magnam delectus. Quaerat quasi laborum eos temporibus, voluptate, soluta modi deleniti similique iure reprehenderit sequi, perferendis!</p>
+	</div>
 
-		<div id="clients_carousel" class="clients-carousel">
+
+	<div class="container">
+		<!--<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Destacados!!!</h3>-->
+
+		<div id="clients_carousel" class="clients-carousel dp-none">
 
 			<?php 
 			$_CLIENTS->sort = 'rand';
@@ -195,10 +212,13 @@
 
 <!-- NOTICIAS -->
 <section class="news-home">
+
+	<div class="container text-center cl-gray-60 pad-20">		
+		<h2><i class="fa fa-newspaper-o"></i>  Notas &bullet; Noticias &bullet; Blog</h2>
+		<a href="<?=ROOT.'blog'?>">ver todas</a>
+	</div>
+		
 	<div class="container">
-		
-		<h3 class="title-bar"><i class="fa fa-newspaper-o"></i> Notas &bullet; Noticias &bullet; Blog</h3>
-		
 		<div id="blog_carousel" class="carousel">
 			<?php
 			$_BLOG->limit = '0,8';

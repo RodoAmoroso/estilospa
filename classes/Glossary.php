@@ -118,4 +118,10 @@ class Glossary {
 		return $this->_data;
 	}
 
+
+	public function addvisit($id=0){
+		$this->_db->query("UPDATE {glossary} SET views=views+1 WHERE id=?",array($id));
+	}
+
+
 }

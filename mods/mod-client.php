@@ -2,6 +2,9 @@
 	<div class="wrapper">
 		<div class="thumb thumb-contain" style="background-image:url(<?= ROOTPATH.'img/clients/'.$logo->photoname.'.'.$logo->extension ?>)">
 			<img src="<?= ROOTPATH.'assets/blank-square.gif' ?>" alt="" class="wd-100">
+			<div class="fav">
+				<i class="fa fa-heart-o"></i>
+			</div>
 		</div>
 		<div class="data">
 			<div class="title"><?= $client->name ?></div>

@@ -291,6 +291,7 @@ for pc in 0 .. 100
 /*--------------------------------------*/
 body 
 	font-family 'Raleway', sans-serif
+	//font-family 'Fira Sans Condensed', sans-serif
 	font-weight normal
 	Antialiased()
 	position relative
@@ -305,7 +306,7 @@ h1,h2,h3,h4
 	color aqua_5
 	color white
 	padding 8px 0
-	margin 0
+	margin 16px 0 10px 0
 	text-align center
 section,footer,header
 	position relative
@@ -632,7 +633,7 @@ nav
 .news-home
 	padding 36px 0
 .home-carousel
-	margin 10px 0 
+	margin 0 
 .carousel
 	padding 16px 0
 .search-bar,.newsletter
@@ -787,18 +788,22 @@ footer
 		margin-bottom 6px	
 	.overview-header
 		background-color white
-		align-items stretch
 		display flex
 		min-height 360px
 		.info,.gallery
-			flex-grow 1
 			position relative
 		.gallery 
-			background-color cyan_0
+			background-color white 
+			border-left 1px solid Gray(10)
+			width 100%
+			.navigation 
+				i
+					font-size 1rem 
+					margin 0
 		.info
 			padding 0 16px
-			max-width 480px
-			width 480px
+			min-width 476px
+			width 476px
 			h1
 				margin 0
 			hr 
@@ -868,75 +873,13 @@ footer
 								font-size 20pt
 								&:hover
 									color black
-			.buttons 
-				background-color alpha(cyan_0,.35)
-				padding 8px
-				margin 16px 0 16px 0
-				.shop-action
-					display flex 
-					.amount
-						min-width 80px
-						width 80px
-						select 
-							border 1px solid cyan_3
-							border-radius 0
-							color cyan_4
-					.button 
-						padding 0 0 0 10px
-						flex-grow 1
-						.btn-group 
-							width 100%
-					.button-action
-						padding 0 0 0 10px
-						width 100%
-						position relative
-						.form-group
-							position relative
-							width 200px
-						.highlight-button
-							background-color cyan_2
-							display flex
-							justify-content space-between
-							align-items center
-							border none
-							font-family 'Fira Sans Condensed'
-							color white
-							padding 0
-							text-transform uppercase
-							height 34px
-							width 100%
-							span,i 
-								padding 10px 16px
-								margin 0
-							span 
-								cursor pointer
-							i:last-of-type
-								background-color cyan_4
-								border-top-right-radius 4px
-								cursor pointer
-						.btn-list
-							background-color cyan_4
-							border 1px solid cyan_4
-							position absolute
-							padding 0
-							margin 0
-							z-index 9
-							width 100%
-							li 
-								display block
-								cursor pointer
-								color white
-								padding 8px 16px
-								font-family 'Fira Sans Condensed'
-								text-transform uppercase
-								span
-									margin-left 10px
-								&:hover 
-									background-color cyan_3
-	.overview-promos		
+	.overview-promos
 		padding 16px
 	.overview-info
 		padding 16px
+		.main-title 
+			margin 0 0 8px 0
+			font-weight 600
 		.tab-content			
 			border-right 1px solid Gray(15)
 			border-left 1px solid Gray(15)
@@ -1041,43 +984,93 @@ footer
 					padding 4px 10px
 					margin-right 4px
 					color white
-.promo 
-	.overview-header
-		.info 
-			width 380px
-			min-width 380px
-			hr 
-				border-color Gray(5)
-				margin 8px 0
-			button 
-				margin-bottom 10px
-			.overview-promo-client
-				//background-color aqua_1
-				border-bottom 1px solid Gray(5)
-				//color black
-				display flex 
-				margin 16px 0 0 0
-				&:hover 
-					text-decoration none
-					.info
-						color fucsia_3
-				.logo 
-					width 80px
-					max-width 80px
-				.info-client
-					padding 10px 16px
-					h1,h2
-						margin 2px 0
-					h1
-						font-size 12pt
-						font-weight bold
-					h2
-						font-size 9pt
-						margin-top 4px
-						i 
-							margin-right 4px
-.blog-page
+.promo 	
 	background-color Gray(5)
+	.block-white
+		background-color white
+		padding 15px
+		.breadcrumb
+			background-color transparent			
+			margin 0
+			padding 0
+			font-size 1.265rem		
+		.top-header
+			display flex 
+			.pricing 
+				min-width 420px
+				width 420px
+				text-align right 
+				.price 
+					font-weight 600
+				.buttons 
+					//background-color alpha(cyan_0,.35)
+					padding 0
+					margin 0
+					.shop-action
+						display flex 
+						justify-content flex-end
+						//display block 
+						.amount
+							min-width 60px
+							width 60px
+							select 
+								border 1px solid cyan_3
+								border-radius 0
+								color cyan_4					
+						.button-action
+							padding 0
+							position relative
+							.form-group
+								position relative
+								width 260px
+							.highlight-button
+								background-color cyan_2
+								display flex
+								justify-content space-between
+								align-items center
+								border none
+								font-family 'Fira Sans Condensed'
+								color white
+								padding 0
+								text-transform uppercase
+								height 34px
+								width 260px
+								span,i 
+									padding 10px 16px
+									margin 0
+								span 
+									cursor pointer
+								i:last-of-type
+									background-color cyan_4
+									border-top-right-radius 4px
+									cursor pointer
+							.btn-list
+								background-color cyan_4
+								border 1px solid cyan_4
+								position absolute
+								padding 0
+								margin 0
+								z-index 9
+								text-align left
+								width 100%
+								li 
+									display block
+									cursor pointer
+									color white
+									padding 8px 16px
+									font-family 'Fira Sans Condensed'
+									text-transform uppercase
+									span
+										margin-left 10px
+									&:hover 
+										background-color cyan_3
+			.info 
+				width 100%
+				.main-title
+					font-weight 600
+					margin 0 0 6px 0
+.blog-page
+	background-color Gray(0)
 	padding-bottom 16px
 	.container 
 		display flex
@@ -1113,11 +1106,11 @@ footer
 					max-width 100%
 		.blog-related
 			background-color white
-			border-left 1px solid Gray(5)
+			border-left 1px solid Gray(10)
 			margin 16px 0 0 16px
-			min-width 300px
+			min-width 360px
 			padding 8px 16px
-			width 300px
+			width 360px
 			h1 
 				font-size 14pt
 				margin 0
@@ -1545,7 +1538,8 @@ footer
 			.wrapper 
 				border 1px solid cyan_2
 				box-shadow 5px 5px 6px alpha(black,.1)
-				transform translateY(-1px) translateX(-1px)
+				opacity .85
+				//transform translateY(-1px) translateX(-1px)
 		.wrapper 
 			align-content space-between
 			background-color white
@@ -1815,6 +1809,8 @@ footer
 	margin 0
 .clients-carousel
 	padding 16px 10px	
+	display flex
+	flex-wrap wrap
 	.owl-stage 
 		display flex 
 	.mod-client 
@@ -1826,12 +1822,26 @@ footer
 		&:hover 
 			border 1px solid cyan_2
 			box-shadow 5px 5px 6px alpha(black,.1)
-			transform translateY(-1px) translateX(-1px)
+			//transform translateY(-1px) translateX(-1px)
+			opacity .85
 			text-decoration none			
 		.wrapper 
 			//background-color yellow
 			height 100%
 			position relative
+			.thumb 
+				position relative 
+				.fav 
+					right 8px
+					color Gray(15)
+					cursor pointer
+					position absolute
+					top 6px
+					font-size 2.5rem
+					&:hover 
+						color fucsia_3
+					.active 
+						color fucsia_3
 			.data
 				border-top 1px solid #dfdfdf
 				//height 100px
@@ -1847,7 +1857,7 @@ footer
 					font-size 1.15rem
 					line-height 1.4
 			.location
-				background-color Gray(5)
+				background-color Gray(3)
 				bottom 0
 				font-size 1.15rem
 				padding 4px 8px
@@ -1865,25 +1875,31 @@ footer
 					height 10px
 					width 100%
 .promos-highlight
-	background-color beige
-	padding 8px 0
+	padding 0
 	display flex 
-	//align-items stretch
-	height 100%
 	flex-wrap wrap
-	.mod-promo 
-		padding 8px
-		background-color white
-		background-color red
+	position relative
+	.mod-promo 		
+		padding 0 15px 15px 0
+		//background-color white
+		position relative
 		display block
-		transition 300ms all ease-out
-		height 100%
+		width 100%		
 		&:hover 
-			text-decoration none		
+			text-decoration none
+			.wrapper
+				box-shadow 0px 0px 6px alpha(black,.35)
 		.wrapper
-			border 1px solid alpha(aqua_3,.5)			
+			box-shadow 2px 2px 4px alpha(black,.05)
+			background-color white
+			position relative
+			border 1px solid alpha(aqua_3,.5)
+			height 100%
+			transition 300ms all ease-out
 			.mod-body
-				.image 
+				margin-bottom 66px
+				width 100%
+				.image-wrapper
 					background-color Gray(5)
 					position relative
 					height 160px
@@ -1915,7 +1931,7 @@ footer
 							width 0
 					.fav 
 						right 8px
-						color white
+						color Gray(15)
 						cursor pointer
 						position absolute
 						top 6px
@@ -1931,39 +1947,52 @@ footer
 						color aqua_5
 						display block
 						font-weight 500
+						padding 0
 						font-size 1.5rem
 						line-height 1.2
 					.subtitle
-						//max-height 26px
-						margin 6px 0
+						//max-height 30px
 						//overflow hidden
-						font-size 1.15rem
+						margin 6px 0
+						font-size 1.125rem
 						line-height 1.4
 					.location 
 						display block
-						color Gray(50)
-						margin-top 10px
+						color Gray(45)
+						margin-top 16px
 						font-size 1.10rem
 						line-height 1.2
 			.mod-footer 
-				padding 4px 8px
+				padding 8px 10px
 				background-color Gray(3)
+				position absolute 
+				bottom 0
+				width 100%
 				.actions 
 					margin 12px 0 0 0
 					display flex 
 					justify-content space-between
+					align-items flex-end
 					.pricing 
 						.price 
 							color aqua_5
 							font-weight 500
-							font-size 1.6rem							
+							font-size 1.8rem							
 						.strikethrough
-							font-size 1.2rem
+							font-size 1.2rem							
+	.mod-promo-6
+		width (100/6)%
+	.mod-promo-5
+		width (100/5)%
 	.mod-promo-4
 		width (100/4)%
-		//width 100%
 	.mod-promo-3
 		width (100/3)%
+	.mod-promo-2
+		width (100/2)%
+	.mod-promo-1
+		width 100%
+		padding 0 0 15px 0
 .promo-buttons
 	position relative
 	min-width 136px

@@ -13,6 +13,7 @@
 
 <section class="blog-page">
 	<div class="container">
+		
 		<div class="blog-container">
 
 			<!-- BREADCRUMB -->
@@ -40,22 +41,33 @@
 
 		<div class="blog-related">
 			<h1>Promos con <?= $_GLOSSARY->data()->name ?></h1>
+			<hr>
+
+			<div class="promos-highlight">
 			<?php 
-			$_PROMOS->status = '1:1';
-			$_PROMOS->visible = true;
-			$_PROMOS->keywords = $_GLOSSARY->data()->name;
-			$_PROMOS->limit = '0,6';
-			if($_PROMOS->get()):
-				foreach($_PROMOS->data() as $promo):
-			?>
-			<a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" class="mod-related">
-				<h1><?= $promo->title ?></h1>
-				<p><?= $promo->subtitle ?></p>
-				<?php if($promo->sale): ?>
-				<p class="sz-16"><strong>$ <?= number_format($promo->price,0,',','.') ?></strong></p>
-				<?php endif; ?>
-			</a>
-			<?php endforeach; endif; ?>
+				$_PROMOS->status = '1:1';
+				$_PROMOS->sort = 'rand';
+				$_PROMOS->visible = true;
+				$_PROMOS->keywords = $_GLOSSARY->data()->name;
+				$_PROMOS->limit = '0,6';
+				if($_PROMOS->get()):
+					foreach($_PROMOS->data() as $kp=>$promo):
+						
+						if($_CLIENTS->find($promo->idclient)):
+						$imgpromo = json_decode($promo->gallery);
+						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+						$_STORES->get($_CLIENTS->data()->id,$promo->stores);
+
+						echo '<div class="mod-promo mod-promo-1">';
+						include 'mods/mod-promo-tiny.php';
+						echo '</div>';
+
+						endif;
+
+					endforeach; 
+				endif; ?>
+
+			</div>
 		</div>
 
 
@@ -110,19 +122,27 @@
 <?php 
 $_CLIENTS->visible = 1;
 $_CLIENTS->sort = 'rand';
+$_CLIENTS->limit = '0,12';
 $_CLIENTS->arrglossary = array($_GLOSSARY->data()->id);
 if($_CLIENTS->get()): 
 ?>
-<section class="gral-section">
-	<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Centros con <?= $_GLOSSARY->data()->name ?></h3>
-	<div id="clients_carousel" class="carousel">
-	<?php 	
-	foreach($_CLIENTS->data() as $client):
-		$logo = json_decode($client->logo);
-		$_STORES->get($client->id);
-		include 'mods/mod-client.php';
-	endforeach;
-	?>
+<section class="bg-gray-5">
+	<div class="container text-center cl-gray-60 pad-20">
+		<h2><i class="fa fa-leaf"></i> Centros con <?= $_GLOSSARY->data()->name ?></h2>
+	</div>
+
+	<div class="container">
+		<div id="clients_carousel" class="clients-carousel dp-none">
+		<?php 	
+		foreach($_CLIENTS->data() as $client):
+			$logo = json_decode($client->logo);
+			$clientlink = ROOTPATH.'centros/'.$client->permalink;
+			$_STORES->get($client->id);
+			include 'mods/mod-client.php';
+		endforeach;
+		?>
+		</div>
+
 	</div>
 </section>
 <?php endif; ?>

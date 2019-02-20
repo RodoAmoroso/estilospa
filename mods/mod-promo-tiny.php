@@ -1,15 +1,7 @@
 
 <div class="wrapper">
 	<div class="mod-body">
-		<div class="image-wrapper" >
-			<a href="<?=$promolink?>" class="overprint-absolute" style="background-image:url(<?=ROOTPATH.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)"></a>
-			<div class="fav">
-				<i class="fa fa-heart-o"></i>
-			</div>
-			<?php if($promo->discount): ?>
-			<div class="sale-tag"><span><?=$promo->discount?>% off</span></div>
-			<?php endif; ?>
-		</div>
+
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=$promo->title?></a>
 			<div class="subtitle"><?=$promo->subtitle?></div>		

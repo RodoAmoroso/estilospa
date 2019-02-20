@@ -1,9 +1,4 @@
 
-<?php 
-//$size = getimagesize(PATH.'\assets\logo.png');
-//echo $size[0];
-?>
-
 <!-- PAGE HEADER -->
 <section class="page-header">
 	<div class="container">
@@ -13,6 +8,7 @@
 
 	</div>
 </section>
+
 
 
 

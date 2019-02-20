@@ -147,18 +147,17 @@
 		if($_PROMOS->get()):
 		?>
 		<h4 class="title-bar overview-title">Promos Vigentes</h4>
-		<div class="overview-promos">
+		<div class="overview-info">
 			
-			<div class="row">
+			<div class="promos-highlight">
 				<?php
-					$nm = 0;
-					foreach($_PROMOS->data() as $promo): 
-						echo '<div class="col-sm-4">';
+					foreach($_PROMOS->data() as $kp=>$promo): 
 						$imgpromo = json_decode($promo->gallery);
+						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$_STORES = new Stores();
 						$_STORES->get($_CLIENTS->data()->id,$promo->stores);
+						echo '<div class="mod-promo mod-promo-4">';
 						include 'mods/mod-promo.php';
-						if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
 						echo '</div>';
 					endforeach;
 				?>				

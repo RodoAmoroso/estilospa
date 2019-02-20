@@ -17,3 +17,6 @@ $_GLOSSARY = new Glossary();
 $_GLOSSARYGROUPS = new GlossaryGroups();
 $_FAVS = new Favs();
 $colorsequence = array('yellow-2','green-1','cyan-1','pink-1','aqua-2');
+
+
+$_stats = new Stats();

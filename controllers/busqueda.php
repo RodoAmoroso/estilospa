@@ -5,12 +5,17 @@ $_ARRSEARCH = explode('_-_',$_SUBSECTION);
 $query = isset($_REQUEST['q']) ? $_REQUEST['q'] : '';
 $location = isset($_REQUEST['l']) ? $_REQUEST['l'] : '';
 
+
 $_SEARCH = new Search();
 
 $searchtext = '';
 $search_main = str_replace('-',' ',$query); //clienttype-glossaryname-promotype
 $search_main = empty($search_main) ? ' ' : $search_main;
 $search_locations = isset($location) ? str_replace('-',' ',$location) : '';
+
+$_stats->add_search_word($search_main);
+$_stats->add_search_location($search_locations);
+
 if(!empty($query)){
 	$searchtext = ucwords(str_replace('_',', ',$search_main));
 }

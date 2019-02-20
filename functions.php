@@ -470,4 +470,8 @@ function Fav(){
 	}
 	return '<a href="#" '.$favprop.' class="heart" title="Agregar/Quitar de mis favoritos">'.$fav.'</a>';
 }
-?>
+function show_array($arr=array()){
+	echo '<pre>';
+	print_r($arr);
+	echo '</pre>';
+}

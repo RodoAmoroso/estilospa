@@ -129,7 +129,6 @@
 					echo '<div class="mod-promo mod-promo-4">';
 					include 'mods/mod-promo.php';
 					echo '</div>';
-					if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
 				else:
 					echo '<p>No se encontraron promociones vigentes</p>';
 				endif;

@@ -5,149 +5,162 @@
 
 	<div class="container">
 
-		<!-- BREADCRUMB -->
-		<div class="block-white">
-			<ul class="breadcrumb">
-				<li><a href="<?= ROOTPATH ?>">Home</a></li>
-				<li><a href="<?= ROOTPATH.'busqueda' ?>">Promos</a></li>
-				<li><a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>"><?= $_CLIENTS->data()->name ?></a></li>
-				<li><?= $_PROMOS->data()->title ?></li>
-			</ul>
-		</div>
+		<ul class="breadcrumb">
+			<li><a href="<?= ROOTPATH ?>">Home</a></li>
+			<li><a href="<?= ROOTPATH.'busqueda' ?>">Promos</a></li>
+			<li><a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>"><?= $_CLIENTS->data()->name ?></a></li>
+			<li><?= $_PROMOS->data()->title ?></li>
+		</ul>
 
-
-
-
-
-		<div class="block-white">
-			<div class="top-header">
-				<div class="info">
-					<h3 class="main-title"><?= $_PROMOS->data()->title ?></h3>
-					<p><?= $_PROMOS->data()->subtitle ?></p>
-				</div>
-				<div class="pricing">
-					
-					<div class="buttons">
-
-						<!-- PRICING -->
-						<?php if($_PROMOS->data()->sale): ?>
-							<?php if($_PROMOS->data()->discount): ?>
-							<p class="sz-14"><span class="strikethrough">$ <?= number_format($_PROMOS->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $_PROMOS->data()->discount ?>% Off</span></p>
-							<?php endif; ?>
-
-						<p class="sz-20"><strong>$ <?= number_format($_PROMOS->data()->price-($_PROMOS->data()->price*$_PROMOS->data()->discount/100),2,',','.') ?></strong></p>
-
-						<!-- AMOUNT -->
-						<p><small><?= $_PROMOS->data()->amount ? $_PROMOS->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></p>
-						
-						<?php endif; ?>
-
-						<div class="shop-action">
-							
-							<?php if($showsalebuttons): ?>
-							<div class="amount">
-								<div class="form-group">
-									<select id="select_amount" type="text" class="form-control">
-										<?php for($i=1; $i<=15; $i++): ?>
-										<option value="<?= $i ?>"><?= $i ?></option>
-										<?php endfor; ?>
-									</select>
-								</div>
-							</div>
-							<?php endif; ?>
-
-							<div class="button-action">
-								<div class="form-group">
-									<?php if($showsalebuttons): ?>
-									<div class="highlight-button" >
-										<i class="fa fa-shopping-bag fa-fw"></i> 
-										<span <?= $_USER->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $_USER->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
-									</div>
-									<?php else: ?>
-									<div class="highlight-button" >
-										<i class="fa fa-envelope fa-fw"></i> 
-										<span data-toggle="modal" data-target="#modal_promo_request">Consultar!</span> 
-										<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
-									</div>
-									<?php endif; ?>
-
-									<ul id="btn_list" class="btn-list collapse">
-										<?php if($showsalebuttons): ?>
-
-
-										<li data-toggle="modal" data-target="#modal_promo_request" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
-										<li data-toggle="modal" data-target="<?= $_USER->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
-										<?php endif; ?>
-										<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
-									</ul>
-								</div>
-
-							</div>
-
-						</div>
-
-					</div>
-
-					
-				</div>
-			</div>
-			
-		
-		</div>
-
-
-
-
-
-
-		<!-- OVERVIEW -->
-		<div class="overview-header">	
-
-
-
-
-			<div class="gallery gallery-section">
-				<?php 				
-				if(count($gallery)):
-					foreach($gallery as $img):
+		<a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>" class="client-wrapper">
+			<div class="logo thumb-contain img-circle" style="background-image:url(<?= $logo ?>);"></div>
+			<div class="client-info">
+				<h1 class="client-name"><?= $_CLIENTS->data()->name ?></h1>
+				<?php if($_STORES->get($_CLIENTS->data()->id)): ?>
+				<h2 class="client-location"> <i class="fa fa-map-marker"></i>
+				<?php 
+				if(count($_STORES->data())>1){
+					echo 'Varias sucursales';
+				}else{
+					echo $_STORES->data()[0]->city;
+				} 
 				?>
-					<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOTPATH.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
-					<?php endforeach; if(count($gallery)>1): ?>
-					<i class="fa fa-chevron-left prev"></i>
-					<i class="fa fa-chevron-right next"></i>
-					<?php endif; ?>
-					<div class="navigation"></div>
-				<?php endif ?>
-			</div>	
 
+				</h2>
+				<?php endif; ?>
+				<div class="stars"><?= Stars($_CLIENTS->rating($_CLIENTS->data()->id),''); ?></div>
+			</div>
+		</a>
 
-			<div class="info">
+		<div class="main-wrapper">
+		
+			<?php if(count($gallery)): ?>
+			<div class="gallery gallery-section">
+				
+				<?php foreach($gallery as $img): ?>
+				<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOTPATH.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
+				<?php endforeach; ?>
 
-				<a href="<?= ROOTPATH.'centros/'.$_CLIENTS->data()->permalink ?>" class="overview-promo-client">
-					<div class="logo thumb-contain" style="background-image:url(<?= $logo ?>);"></div>
-					<div class="info-client">
-						<h1><?= $_CLIENTS->data()->name ?></h1>
-						<?php if($_STORES->get($_CLIENTS->data()->id)): ?>
-						<h2> <i class="fa fa-map-marker"></i>
-						<?php 
-						if(count($_STORES->data())>1){
-							echo 'Varias sucursales';
-						}else{
-							echo $_STORES->data()[0]->city;
-						} 
-						?>
+				<?php if(count($gallery)>1): ?>
+				<i class="fa fa-chevron-left prev"></i>
+				<i class="fa fa-chevron-right next"></i>
+				<?php endif; ?>
+				<div class="navigation"></div>
+				
+			</div>
+			<?php endif ?>
 
-						</h2>
-						<?php endif; ?>
-						<?= Stars($_CLIENTS->rating($_CLIENTS->data()->id),'sz-7'); ?>
-					</div>
-				</a>
+			<div class="info-wrapper">
+
+				<h3 class="promo-title"><?= $_PROMOS->data()->title ?></h3>
+				<p class="promo-subtitle"><?= $_PROMOS->data()->subtitle ?></p>
 
 				<hr>
 
-			
 
-				<!-- STORES -->
+				<!-- PRICE -->
+				<div class="pricing">
+
+					<!-- PRICING -->
+					<?php if($_PROMOS->data()->sale): ?>
+						
+						<?php if($_PROMOS->data()->discount): ?>
+						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($_PROMOS->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $_PROMOS->data()->discount ?>% Off</span></div>
+						<?php endif; ?>
+
+					<div class="promo-price"><strong>$ <?= number_format($_PROMOS->data()->price-($_PROMOS->data()->price*$_PROMOS->data()->discount/100),2,',','.') ?></strong></div>
+
+					<!-- AMOUNT -->
+					<div class="stock"><small><?= $_PROMOS->data()->amount ? $_PROMOS->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
+					
+					<?php endif; ?>
+
+
+				</div>
+
+
+				<!-- SHOP -->					
+				<div class="shop-action">
+					
+					<?php if($showsalebuttons): ?>
+					<div class="amount">							
+						<select id="select_amount" type="text" class="form-control">
+							<?php for($i=1; $i<=15; $i++): ?>
+							<option value="<?= $i ?>"><?= $i ?></option>
+							<?php endfor; ?>
+						</select>							
+					</div>
+					<?php endif; ?>
+
+					<div class="button-action">
+						<?php if($showsalebuttons): ?>
+						<div class="highlight-button" >
+							<i class="fa fa-shopping-bag fa-fw"></i> 
+							<span <?= $_USER->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $_USER->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+						</div>
+						<?php else: ?>
+						<div class="highlight-button" >
+							<i class="fa fa-envelope fa-fw"></i> 
+							<span data-toggle="modal" data-target="#modal_promo_request">Consultar!</span> 
+							<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+						</div>
+						<?php endif; ?>
+
+						<ul id="btn_list" class="btn-list collapse">
+							<?php if($showsalebuttons): ?>
+
+
+							<li data-toggle="modal" data-target="#modal_promo_request" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
+							<li data-toggle="modal" data-target="<?= $_USER->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
+							<?php endif; ?>
+							<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
+						</ul>
+						
+
+					</div>
+
+				</div>
+
+				<hr>
+
+				<!-- ICONS -->
+				<div class="box-icons ">
+
+					<!-- Stars -->					
+					<div class="item">
+						<div class="rating">
+						<?php $promstars = $_PROMOS->rating($_PROMOS->data()->id); ?>
+						
+							<div class="stars">
+								<?= Stars($promstars,''); ?><br>
+								<small class="punctuation"><?= round($promstars,1) ?>/5</small>
+							</div>
+						</div>
+					</div>
+
+					<!-- FAV -->
+					<div class="item cl-gray-10">|</div>
+					<div class="item"><?= Fav($_PROMOS->data()->id); ?></div>
+					<div class="item cl-gray-10">|</div>
+
+					<!-- VIEWS -->
+					<div class="item">
+						<div class="views text-right">
+							<i class="fa fa-eye fa-lg"></i><br>
+							<small><?= number_format($_PROMOS->data()->views,0,'','.') ?> visitas</small>
+						</div>
+					</div>				
+					
+				</div>				
+
+			</div>
+		</div>
+		
+
+		<!-- OVERVIEW -->
+		<div class="overview-header">
+			<div class="info">
+			<!-- STORES -->
 				<!--<p>Disponible en:</p>
 				<ul class="simple-list">
 					<?php 
@@ -157,53 +170,14 @@
 					?>
 					<li><i class="fa fa-map-marker"></i> <?= $_STORES->data()->address.' - '.$_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince] ?></li>
 					<?php endforeach; endif; ?>
-				</ul><hr>--->				
-
-				
-
-				
-
-
-				<!-- BUTTONS -->
-				
-
-				<!-- ICONS -->
-				<div class="box-icons ">
-
-					<!-- Stars -->
-					<div class="item pad-10" >
-						<div class="outer">
-							<div class="inner">
-								<div class="rating">
-								<?php $promstars = $_PROMOS->rating($_PROMOS->data()->id); ?>
-								<div class="punctuation"><?= round($promstars,1) ?>/5</div>
-								<div class="stars">
-									<?= Stars($promstars,'fa-lg'); ?>
-								</div>
-								</div>
-							</div>
-
-							<!-- FAV -->
-							<div class="inner"><?= Fav(); ?></div>
-
-							<!-- VIEWS -->
-							<div class="inner">
-								<div class="views">
-									<i class="fa fa-eye fa-lg"></i><br /><span><?= number_format($_PROMOS->data()->views,0,'','.') ?> visitas</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			</div>					
-
+				</ul><hr>--->
+			</div>
 		</div>
 
 
 		<!-- INFO -->
-		<h4 class="title-bar title">Descripción</h4>
-		<div class="overview-info">			
+		<div class="block-white">
+			<h4 class="title-bar">Descripción</h4>
 			<p><?= nl2br($_PROMOS->data()->description) ?></p>
 
 			<?php if(!empty($_PROMOS->data()->includes)): ?>
@@ -238,16 +212,16 @@
 
 		</div>
 
-		<h4 class="title-bar title">Validez</h4>
-		<div class="overview-info">
-			<p class="stores"><i class="fa fa-calendar"></i> Disponible online hasta <?= $_PROMOS->data()->fin ?></p>
+		<div class="block-white">
+			<h4 class="title-bar">Validez</h4>
+			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $_PROMOS->data()->fin ?></p>
 			<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>
 		</div>
 
 		<?php if($_PROMOS->data()->sale):  ?>
 
-		<h4 class="title-bar title">Promociones de cuotas sin interés</h4>
-		<div class="overview-info">
+		<div class="block-white">
+			<h4 class="title-bar">Promociones de cuotas sin interés</h4>
 			<p>Podés pagar en cuotas sin interés. La financiación con tarjeta de crédito está a cargo de MercadoPago. Consultá condiciones <a href="https://www.mercadopago.com.ar/promociones" target="_blank">aquí</a>.</p>
 		</div>
 
@@ -466,10 +440,14 @@ if($_VOUCHERS->getpromo($_PROMOS->data()->id)):
 
 <!-- OFERTAS -->
 <section>
+	<div class="title-bar">
+		<div class="container">
+			
+			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
+		</div>
+	</div>
 
 	<div class="container">
-
-		<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
 		<div class="promos-highlight">
 		<?php
 		$_PROMOS->status = '1:1';
@@ -482,6 +460,7 @@ if($_VOUCHERS->getpromo($_PROMOS->data()->id)):
 				if($_CLIENTS->find($promo->idclient)):
 					$imgpromo = json_decode($promo->gallery);
 					$_STORES->get($promo->idclient,$promo->stores);
+					$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 					echo '<div class="mod-promo mod-promo-4">';
 					include 'mods/mod-promo.php';
 					echo '</div>';

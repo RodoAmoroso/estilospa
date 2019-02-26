@@ -14,7 +14,6 @@
 
   <title><?= isset($_TITLE) ? $_TITLE : TITLE ?></title>
 
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,700|Fira+Sans+Condensed:100,300,400,700|Raleway:300,400,500,700|Lora:100,400,400i,700,700i" >
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/bootstrap.min.css" >
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/jquery-ui.min.css" >
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/font-awesome.min.css" >

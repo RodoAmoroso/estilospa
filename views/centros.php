@@ -66,29 +66,30 @@
 				<div class="box-icons ">
 
 					<!-- Stars -->
-					<div class="item pad-10" >
+					<div class="item" >
 						<div class="outer">
 							<div class="inner">
 								<div class="rating">
-								<?php $promstars = $_CLIENTS->rating($_CLIENTS->data()->id); ?>
-								<div class="punctuation"><?= round($promstars,1) ?>/5</div>
-								<div class="stars">
-									<?= Stars($promstars,'fa-lg'); ?>
-								</div>
+									<?php $promstars = $_CLIENTS->rating($_CLIENTS->data()->id); ?>
+									<div class="stars">
+										<?= Stars($promstars,'fa-lg'); ?>
+									</div>
+									<div class="punctuation"><?= round($promstars,1) ?>/5</div>
 								</div>
 							</div>
 							
 							<!-- FAVS -->
-							<div class="inner"><?= Fav(); ?></div>
+							<div class="inner"><?= Fav(0,$_CLIENTS->data()->id); ?></div>
 
 							<!-- VIEWS -->
 							<div class="inner">
-								<div class="views">
+								<div class="views text-right">
 									<i class="fa fa-eye fa-lg"></i><br /><span><?= number_format($_CLIENTS->data()->views,0,'','.') ?> visitas</span>
 								</div>
 							</div>
 						</div>
 					</div>
+					<hr>
 
 					<div class="item">
 						<div class="outer"><div class="inner">
@@ -106,8 +107,8 @@
 					</div>
 				</div>
 
-				<div class="pad-10 ">
-					<button data-mail="<?= $_CLIENTS->data()->mail ?>" data-toggle="modal" data-target="#modal_client_request" class="btn btn-cyan btn-block"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
+				<div class="button-request">
+					<button data-mail="<?= $_CLIENTS->data()->mail ?>" data-toggle="modal" data-target="#modal_client_request" class="btn btn-default btn-block"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
 				</div>
 
 			</div>	
@@ -127,7 +128,7 @@
 							$img = ROOTPATH.'img/clients/'.$vg->photoname.'-o.'.$vg->extension;
 						endif;
 				?>
-				<div class="overprint-absolute thumb-contain slide" style="background-image:url(<?= $img ?>);" ><?= $play ?></div>
+				<div class="overprint-absolute thumb-cover slide" style="background-image:url(<?= $img ?>);" ><?= $play ?></div>
 				<?php endforeach; if(count($gallery)>1): ?>
 				<i class="fa fa-chevron-left prev"></i>
 				<i class="fa fa-chevron-right next"></i>

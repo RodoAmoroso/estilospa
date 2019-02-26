@@ -14,7 +14,8 @@
 			<li><a href="<?= ROOTPATH.'busqueda/'.Permalink($type->name).'/' ?>"><?= $type->name ?></a></li>
 			<?php endforeach; endif; ?>
 			<li><a href="<?= ROOTPATH.'blog' ?>">Blog</a></li>
-			<li class="highlight"><a href="<?= ROOTPATH.'busqueda/' ?>">Promos</a></li>
+			<li><a href="<?= ROOTPATH.'busqueda/' ?>">Promos</a></li>
+			<li class="highlight"><a href="<?= ROOTPATH.'venta-online/' ?>">Venta Online</a></li>
 			<li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li>
 		</ul>
 

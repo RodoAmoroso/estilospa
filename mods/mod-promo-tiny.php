@@ -4,24 +4,24 @@
 
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=$promo->title?></a>
-			<div class="subtitle"><?=$promo->subtitle?></div>		
+			<div class="subtitle dp-none"><?=$promo->subtitle?></div>		
 			<a href="<?=ROOT.'busqueda/-/'.Permalink($_STORES->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker fa-fw"></i> <?= count($_STORES->data())>1 ? 'Varias Sucursales' : (is_array($_STORES->data()) ? $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] : $_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince]) ?></a>
 			
 		</div>
 	</div>
 	<div class="mod-footer">
 		<div class="actions">
+			
 			<div class="pricing">
-
-			<?php if($promo->sale): ?>				
+			<?php if($promo->sale): ?>
 				<div class="price <?= $promo->discount ? 'strikethrough' : ''?>">$ <?= number_format($promo->price,0,',','.') ?></div>
 
 				<?php if($promo->price && $promo->discount): ?>
 				<div class="price">$ <?= number_format($promo->price-($promo->price*$promo->discount/100),0,',','.') ?></div>
 				<?php endif; ?>
 			<?php endif; ?>
-
 			</div>
+
 			<div class="button promo-buttons">
 
 				<?php if($promo->sale): ?>				

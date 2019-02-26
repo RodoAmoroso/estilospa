@@ -9,7 +9,17 @@ $(function(){
 	});
 
 	var owlClients = $('#clients_carousel');
-	owlClients.owlCarousel({autoplay:true,loop:true,dots:true,autoplaySpeed:1000,responsive:{0:{items:1},600:{items:2},960:{items:3},1200:{items:4}},margin:10});
-	var owlPromos = $('#promos_carousel');	
-	owlPromos.owlCarousel({autoplay:true,loop:true,dots:true,autoplaySpeed:1000,responsive:{0:{items:1},600:{items:2},960:{items:3},1200:{items:4}},margin:10});
+	owlClients.owlCarousel({
+		autoplay:true,
+		loop:true,
+		dots:true,
+		autoplaySpeed:1000,
+		responsive:{
+			0:{items:1},
+			520:{items:2},
+			740:{items:4},
+			991:{items:5}
+		},
+		margin:16
+	});
 });

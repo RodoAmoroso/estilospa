@@ -49,6 +49,7 @@ class Promos {
 		$this->_data = null;
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('p.title','p.subtitle','p.description'));
 		$search = empty($search_main) ? "" : "WHERE (".$search_main;
+		//die( $search);
 		
 		//$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
 		//$search .= empty($search_type) ? "" : (empty($search) ? "WHERE (".$search_type : " AND".$search_type);
@@ -136,6 +137,7 @@ class Promos {
 		$this->search = $search;
 
 		//echo $search;
+
 		$this->_db->query("SELECT p.id, p.title, p.idclient, p.sale, p.stores, p.subtitle, p.gallery, p.price, p.discount, p.amount, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, p.idpromotype, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
 			FROM {$this->_dbprefix}promos p 
 			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient

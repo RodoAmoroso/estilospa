@@ -113,46 +113,56 @@
 <!-- OFERTAS -->
 <section>
 
-	<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
-	<div id="promos_carousel" class="carousel">
-	<?php
-	$_PROMOS->status = '1:1';
-	$_PROMOS->sort = 'rand';
-	$_PROMOS->limit = '0,12';
-	if($_PROMOS->get()):
-		$nm = 0;
-		foreach($_PROMOS->data() as $kp=>$promo):
-			if($_CLIENTS->find($promo->idclient)):
-				$imgpromo = json_decode($promo->gallery);
-				$_STORES->get($_CLIENTS->data()->id,$promo->stores);
-				include 'mods/mod-promo.php';
-				if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
-			else:
-				echo '<p>No se encontraron promociones vigentes</p>';
-			endif;
-		endforeach;
-	endif;
-	?>
+	<div class="container">
+
+		<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
+		<div class="promos-highlight">
+		<?php
+		$_PROMOS->status = '1:1';
+		$_PROMOS->sort = 'rand';
+		$_PROMOS->limit = '0,12';
+		if($_PROMOS->get()):
+			$nm = 0;
+			foreach($_PROMOS->data() as $kp=>$promo):
+				if($_CLIENTS->find($promo->idclient)):
+					$imgpromo = json_decode($promo->gallery);
+					$_STORES->get($_CLIENTS->data()->id,$promo->stores);
+					$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+					echo '<div class="mod-promo mod-promo-4">';
+					include 'mods/mod-promo.php';
+					echo '</div>';
+				else:
+					echo '<p>No se encontraron promociones vigentes</p>';
+				endif;
+			endforeach;
+		endif;
+		?>
+		</div>
+
 	</div>
 
 </section>
 
 <!-- CENTROS -->
 <section class="gral-section">
-	
-	<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Relacionados</h3>
-	<div id="clients_carousel" class="carousel">
-	<?php 
-		$_CLIENTS->sort = 'rand';
-		$_CLIENTS->limit = '0,12';
-		$_CLIENTS->visible = 1;
-		$_CLIENTS->get();
-		foreach($_CLIENTS->data() as $client):
-			$logo = json_decode($client->logo);
-			$_STORES->get($client->id);
-			include 'mods/mod-client.php';
-		endforeach;
-	?>
+
+	<div class="container">
+		
+		<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Relacionados</h3>
+		<div id="clients_carousel" class="clients-carousel">
+		<?php 
+			$_CLIENTS->sort = 'rand';
+			$_CLIENTS->limit = '0,12';
+			$_CLIENTS->visible = 1;
+			$_CLIENTS->get();
+			foreach($_CLIENTS->data() as $client):
+				$logo = json_decode($client->logo);
+				$_STORES->get($client->id);
+				include 'mods/mod-client.php';
+			endforeach;
+		?>
+		</div>
+
 	</div>
 
 </section>

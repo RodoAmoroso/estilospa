@@ -129,7 +129,7 @@
 					//$image = json_decode($promo->gallery);
 					$imgpromo = json_decode($promo->gallery);
 					$_STORES->get($promo->idclient);
-					echo '<div class="mod-promo mod-promo-6">';
+					echo '<div class="mod-promo mod-promo-5">';
 					include 'mods/mod-promo.php';
 					echo '</div>';
 					endforeach; endif; ?>
@@ -142,8 +142,9 @@
 					$logo = json_decode($client->logo);
 					$clientlink = ROOTPATH.'centros/'.$client->permalink;
 					$_STORES->get($client->id);
+					include 'mods/mod-client-search.php';
 					?>
-					<a href="<?= $clientlink ?>" class="mod-client">
+					<!--<a href="<?= $clientlink ?>" class="mod-client">
 						<div class="wrapper">
 							<div class="thumb thumb-cover" style="background-image:url(<?= ROOTPATH.'img/clients/'.$logo->photoname.'.'.$logo->extension ?>)">
 								<img src="<?= ROOTPATH.'assets/blank-square.gif' ?>" alt="" class="wd-100">
@@ -154,7 +155,7 @@
 							</div>
 							<div class="location"><i class="fa fa-fw fa-map-marker"></i> <span><?= count($_STORES->data()) > 1 ? 'Varias Sucursales' : $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] ?></span></div>
 						</div>
-					</a>
+					</a>-->
 					<?php endforeach; endif; ?>
 				</div>
 
@@ -165,7 +166,7 @@
 					<div class="row">
 					<?php						
 						foreach($_BLOG->data() as $blog):
-							echo '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-2">';
+							echo '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">';
 							$img = json_decode($blog->gallery);
 							include 'mods/mod-blog.php';
 							echo '</div>';

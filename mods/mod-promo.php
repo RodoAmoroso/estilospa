@@ -4,36 +4,40 @@
 		<div class="image-wrapper" >
 			<a href="<?=$promolink?>" class="overprint-absolute" style="background-image:url(<?=ROOTPATH.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)"></a>
 			<div class="fav">
-				<i class="fa fa-heart-o"></i>
+				<?= Fav($promo->id); ?>
 			</div>
 			<?php if($promo->discount): ?>
 			<div class="sale-tag"><span><?=$promo->discount?>% off</span></div>
 			<?php endif; ?>
 		</div>
 		<div class="content">
-			<a href="<?=$promolink?>" class="title"><?=$promo->title?></a>
-			<div class="subtitle"><?=$promo->subtitle?></div>		
-			<a href="<?=ROOT.'busqueda/-/'.Permalink($_STORES->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker fa-fw"></i> <?= count($_STORES->data())>1 ? 'Varias Sucursales' : (is_array($_STORES->data()) ? $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] : $_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince]) ?></a>
+			<a href="<?=$promolink?>" class="title"><?=strlen($promo->title)>50 ? substr($promo->title,0,50).'...' : $promo->title ?></a>
+			<div class="subtitle dp-none"><?=strlen($promo->subtitle)>80 ? substr($promo->subtitle,0,80).'...' : $promo->subtitle?></div>		
+			<a href="<?=ROOT.'busqueda/-/'.Permalink($_STORES->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker"></i> <?= count($_STORES->data())>1 ? 'Varias Sucursales' : (is_array($_STORES->data()) ? $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] : $_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince]) ?></a>
 			
+			
+
 		</div>
 	</div>
+
 	<div class="mod-footer">
 		<div class="actions">
-			<div class="pricing">
 
-			<?php if($promo->sale): ?>				
+			<div class="pricing">
+			<?php if($promo->sale): ?>
 				<div class="price <?= $promo->discount ? 'strikethrough' : ''?>">$ <?= number_format($promo->price,0,',','.') ?></div>
 
 				<?php if($promo->price && $promo->discount): ?>
 				<div class="price">$ <?= number_format($promo->price-($promo->price*$promo->discount/100),0,',','.') ?></div>
 				<?php endif; ?>
 			<?php endif; ?>
-
 			</div>
+
+
 			<div class="button promo-buttons">
 
 				<?php if($promo->sale): ?>				
-				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
+				<div class="main-button" ><i class="fa fa-shopping-bag fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php endif; ?>

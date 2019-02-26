@@ -60,7 +60,7 @@ var GetMPLink = function(GIFT,IDCode){
 	});
 }
 $(function(){
-	SetSlider.init('.overview-header .gallery');
+	SetSlider.init('.gallery');
 	var owlPromos = $('#promos_carousel');	
 	owlPromos.owlCarousel({autoplay:true,loop:true,dots:true,autoplaySpeed:1000,responsive:{0:{items:1},600:{items:2},960:{items:3},1200:{items:4}},margin:10});
 	$('#form_promo_request').submit(function(e){
@@ -76,17 +76,7 @@ $(function(){
 			$('#btn_voucher_cancel,#btn_voucher_next').removeAttr('data-gift');
 		}
 	});
-	$('#btn_fav').click(function(e){
-		e.preventDefault();
-		AjaxConnection('jxUsers.php',{Mode:'favs',IDP:IDPromo},function(DATA){
-			$('#btn_fav i').removeClass();
-			if(DATA.IsFav==1){
-				$('#btn_fav i').addClass('fa fa-heart');
-			}else{
-				$('#btn_fav i').addClass('fa fa-heart-o');
-			}
-		});
-	});
+	
 	$('#fd_gift_message').keyup(function(){
 		$('#gift_left_characters').text(255-$(this).val().length);
 	});

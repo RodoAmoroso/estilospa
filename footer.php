@@ -44,8 +44,6 @@
 	</div>
 </section>
 
-<hr>
-
 
 <!-- GLOSARIO -->
 <section class="gral-section glossary-list">
@@ -100,7 +98,6 @@
 <!-- FOOTER -->
 <footer class="cl-white">
 
-	<div class="bg-aqua-4 overprint-absolute"></div>
 	<div class="overprint-absolute bg" style="background-image:url(<?= ROOTPATH ?>assets/bg-6.jpg)" ></div>
 
 	<div class="container">
@@ -110,21 +107,17 @@
 				<img class="logo" src="<?= ROOTPATH ?>assets/logo-white.png" alt="">
 
 				<div class="socials">
-					<a href="http://www.facebook.com/estilospa" target="_blank" class="fa fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x cl-aqua-5"></i>
-						<i class="fa fa-facebook fa-stack-1x cl-white"></i>
+					<a href="http://www.facebook.com/estilospa" target="_blank" class="icon">
+						<i class="fa fa-facebook"></i>
 					</a>
-					<a href="http://www.twitter.com/estilospa" target="_blank" class="fa fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x cl-aqua-5"></i>
-						<i class="fa fa-twitter fa-stack-1x cl-white"></i>
+					<a href="http://www.twitter.com/estilospa" target="_blank" class="icon">
+						<i class="fa fa-twitter"></i>
 					</a>
-					<a  href="https://www.instagram.com/estilospa/" target="_blank" class="fa fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x cl-aqua-5"></i>
-						<i class="fa fa-instagram fa-stack-1x cl-white"></i>
+					<a href="https://www.instagram.com/estilospa/" target="_blank" class="icon">
+						<i class="fa fa-instagram"></i>
 					</a>
-					<a  href="http://www.youtube.com/EstiloSpa" target="_blank" class="fa fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x cl-aqua-5"></i>
-						<i class="fa fa-youtube-play fa-stack-1x cl-white"></i>
+					<a href="http://www.youtube.com/EstiloSpa" target="_blank" class="icon">
+						<i class="fa fa-youtube-play"></i>
 					</a>
 				</div>
 			</div>
@@ -151,7 +144,7 @@
 
 
 <!-- COPYRIGHT -->
-<section class="copyright-footer bg-aqua-5 cl-white">
+<section class="copyright-footer">
 	<div class="container text-center">
 		<p class="sz-9" >&copy; 2006 - <?= date('Y').' '.TITLE ?>. Todos los derechos reservados.</p>
 	</div>

@@ -636,4 +636,21 @@ $(function(){
 		var location = $(this).find('[name="location"]').val();
 		window.location.href=ROOTPATH+'busqueda/'+Permalink(main==''?'-':main)+'/'+Permalink(location);
 	});
+
+
+	$('[data-btn-action="fav"]').click(function(e){
+		var _this = this;
+		e.preventDefault();
+		var promoid = $(this).attr('data-promoid') == undefined ? 0 : $(this).attr('data-promoid');
+		var clientid = $(this).attr('data-clientid') == undefined ? 0 : $(this).attr('data-clientid');
+		AjaxConnection('jxUsers.php',{Mode:'favs',IDP:promoid,IDC:clientid},function(DATA){
+			$(_this).find('i').removeClass();
+			if(DATA.IsFav==1){
+				$(_this).find('i').addClass('fa fa-heart active');
+			}else{
+				$(_this).find('i').addClass('fa fa-heart-o');
+			}
+		});
+	});
+
 });

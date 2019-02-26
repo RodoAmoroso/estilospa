@@ -348,13 +348,16 @@ function YoutubeAPI($idvideo){
 	}
 }
 function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
+
 	$search = '';
+	///show_array($keywords);
 	if(!empty($keywords)){
 		if(is_array($keywords)){
+			//echo 'yyy<br>';
 			$search = " (";
 			foreach($keywords as $kw=>$vw){
 				foreach($arrfields as $fk=>$field){
-					if($operator=='like'){						
+					if($operator=='like'){
 						if(is_numeric($vw)){
 							$search .= "{$field} LIKE '%,{$vw},%' OR {$field} LIKE '{$vw},%' OR {$field} LIKE '%,{$vw}' OR {$field}='{$vw}'";
 						}else{
@@ -375,29 +378,13 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 		}else{
 			if($mixed){
 				$keyword = explode(' ',$keywords);
-				///$search = " (";
-				/*foreach($keyword as $kw=>$vw):
-					if(strlen($vw)>2){
-						foreach($arrfields as $fk=>$field){
-							$search .= "{$field} LIKE '{$vw}'";
-							if($fk+1!=count($arrfields)){
-								$search .= " OR ";
-							}
-						}
-					}
-					if($kw+1 == count($keyword)):
-						$search .= ") ";
-					else:
-						if(strlen($keyword[$kw+1])>2) $search .= " OR ";
-					endif;
-				endforeach;*/
-				
+				//show_array($keyword);
 				foreach ($arrfields as $fk => $field){
 					if($fk==0){
 						$search .= "(";
 					}
 					foreach ($keyword as $kw => $vw){
-						if(strlen($vw)>2){
+						//if(strlen($vw)>0){
 							if($kw==0){
 								$search .= "(";
 							}
@@ -407,7 +394,7 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 							}else{
 								$search .= " AND ";
 							}
-						}
+						//}
 					}
 					if($fk==count($arrfields)-1){
 						$search .= ")";
@@ -415,6 +402,7 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 						$search .= " OR ";
 					}
 				}
+				//echo $search;
 
 			}else{
 				$search = " (";
@@ -445,30 +433,34 @@ function Stars($rate=0,$size=''){
 	endfor;
 	return $stars;
 }
-function Fav(){
+function Fav($promoid=0,$clientid=0){
 	global $_USER;
-	global $_PROMOS;
-	global $_CLIENTS;
+	//global $_PROMOS;
+	//global $_CLIENTS;
 	global $_FAVS;
-	$favprop = 'id="btn_fav"';
+	$favprop = 'data-btn-action="fav"';
 	if($_USER->logged()){
 		//echo $_CLIENTS->data()->id;
-		if($_PROMOS->data()){
-			$_FAVS->idpromo = $_PROMOS->data()->id;
-		}else{
-			$_FAVS->idclient = $_CLIENTS->data()->id;
-		}		
+		if($promoid){
+			$_FAVS->idpromo = $promoid;
+			$_FAVS->idclient = 0;
+		}
+		if($clientid){
+			$_FAVS->idpromo = 0;
+			$_FAVS->idclient = $clientid;
+		}
+
 		$_FAVS->iduser = $_USER->data()->id;
 		if($_FAVS->find()):
-			$fav = '<i class="fa fa-heart"></i>';
+			$fav = '<i class="fa fa-heart active"></i>';
 		else:
 			$fav = '<i class="fa fa-heart-o"></i>';
 		endif;
 	}else{
 		$favprop = 'data-toggle="modal" data-target="#modal_not_logged"';
-		$fav = '<i class="fa fa-heart-o"></i>';
+		$fav = '<i class="fa fa-heart-o" ></i>';
 	}
-	return '<a href="#" '.$favprop.' class="heart" title="Agregar/Quitar de mis favoritos">'.$fav.'</a>';
+	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos">'.$fav.'</a>';
 }
 function show_array($arr=array()){
 	echo '<pre>';

@@ -10,6 +10,7 @@ $_SUBSECTION = isset($_REQUEST['subsct']) ? $_REQUEST['subsct'] : '';
 
 if(!$_USER->logged() || $_USER->data()->idtype != 1) Redirect::to('home');
 
+include 'controllers/main.php';
 if(file_exists('controllers/'.$_SECTION.'.php')) include 'controllers/'.$_SECTION.'.php';
 $hidechat = true;
 require '../head.php';

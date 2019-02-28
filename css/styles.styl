@@ -1203,9 +1203,9 @@ footer
 			background-color white
 			border-left 1px solid Gray(10)
 			margin 16px 0 0 16px
-			min-width 360px
+			min-width 560px
 			padding 8px 16px
-			width 360px
+			width 560px
 			h1 
 				font-size 14pt
 				margin 0
@@ -1648,9 +1648,21 @@ footer
 			height 100%
 			transition 300ms all ease-out
 			.thumb 
-				background-color Gray(4)
+				background-color white
 				border-bottom 1px solid Gray(5)
 				width 100%
+				position relative
+				.fav 
+					right 8px
+					color Gray(15)
+					cursor pointer
+					position absolute
+					top 6px
+					font-size 2.5rem
+					&:hover 
+						color fucsia_3
+					.active 
+						color fucsia_3
 			.data 
 				padding 8px 16px
 				width 100%
@@ -2107,6 +2119,11 @@ footer
 	.mod-promo-1
 		width 100% !important
 		padding 0 0 15px 0
+		.wrapper
+			.mod-body
+				.content
+					.title 
+						height auto
 .promo-buttons
 	position relative
 	min-width 136px

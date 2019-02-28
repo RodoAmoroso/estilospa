@@ -38,6 +38,13 @@
 
 
 <?php require '../scripts.php'; ?>
+
+<?php if(isset($_arrjs)): foreach($_arrjs as $js): ?>
+<script type="text/javascript" src="<?= !$js['folder'] ? $js['script'] : ROOT.$js['folder'].$js['script'].'.js' ?>"></script>
+<?php endforeach; endif; ?>
+
+
+
 <script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/ckeditor.js' ?>"></script>
 <script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/adapters/jquery.js' ?>"></script>
 

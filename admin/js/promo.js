@@ -271,9 +271,23 @@ var Promos = {
 }
 
 
+var Glossary = {
+	get:function(){
+		AjaxConnection('jxGlossary.php',{Mode:'get'},function(data){
+			$('[name="glossary"]').html('');
+			if(!data.Results) return false;
+			$.each(data.Results,function(k,v){
+				$('[name="glossary"]').append('<option value="'+v.id+'">'+v.name+'</option>');
+			});
+			$('[name="glossary"]').bootstrapDualListbox();
+		})
+	}
+}
+
 $(function(){
 	Promos.init();
 	Promotypes.init();
+	Glossary.get();
 	Clients.get();
 	
 });

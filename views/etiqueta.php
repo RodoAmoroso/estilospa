@@ -58,8 +58,8 @@
 						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$_STORES->get($_CLIENTS->data()->id,$promo->stores);
 
-						echo '<div class="mod-promo mod-promo-1">';
-						include 'mods/mod-promo-tiny.php';
+						echo '<div class="mod-promo mod-promo-2">';
+						include 'mods/mod-promo.php';
 						echo '</div>';
 
 						endif;

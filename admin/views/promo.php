@@ -148,6 +148,13 @@
 			<div id="gallery" class="well admin-gallery mod-container-sm"></div>
 			<p class="sz-9">&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la promo.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
 
+
+
+			<hr>
+			<h4>Etiquetas</h4>
+			
+			<select name="glossary" class="form-control" multiple style="height:300px"></select>
+				
 		</div>
 
 		<div class="block-white">

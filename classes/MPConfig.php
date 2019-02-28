@@ -81,6 +81,8 @@ class MPConfig {
 		require PATH.'/mercadopago/mercadopago.php';
 		$mp = new MP($this->_data->access_token); // seller access_token
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
+
+		$promo_url = ROOTPATH.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
 		
 		$preference_data = array(
 			"items" => array(
@@ -102,9 +104,9 @@ class MPConfig {
 				"surname"=>$USER->lastname
 			),
 			"back_urls"=>array(
-				"success"=>ROOTPATH.'pago-status.php?status=success&hash='.$this->_hash,
-				"failure"=>ROOTPATH.'pago-status.php?status=failure&hash='.$this->_hash,
-				"pending"=>ROOTPATH.'pago-status.php?status=pending&hash='.$this->_hash
+				"success"=>ROOTPATH.'pago-status.php?status=success&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"failure"=>ROOTPATH.'pago-status.php?status=failure&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"pending"=>ROOTPATH.'pago-status.php?status=pending&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
 			),
 			"payment_methods"=>array(
 				"excluded_payment_methods"=>array(),

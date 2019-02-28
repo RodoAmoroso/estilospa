@@ -104,7 +104,7 @@ class Clients {
 			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
 			$search .= " c.visible=1";
 		}
-		$query = "SELECT c.id, c.mail, c.name, c.subtitle, c.images, c.logo, c.views, c.visible, c.permalink, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos, c.types 
+		$query = "SELECT c.id, c.mail, c.name, c.subtitle, c.images, c.logo, c.views, c.visible, c.permalink, c.glossary, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos, c.types 
 			FROM {$this->_dbprefix}clients c 
 			{$search} 
 			{$sortby} 

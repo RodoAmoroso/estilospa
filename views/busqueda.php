@@ -142,7 +142,7 @@
 					$logo = json_decode($client->logo);
 					$clientlink = ROOTPATH.'centros/'.$client->permalink;
 					$_STORES->get($client->id);
-					include 'mods/mod-client-search.php';
+					include 'mods/mod-client.php';
 					?>
 					<!--<a href="<?= $clientlink ?>" class="mod-client">
 						<div class="wrapper">

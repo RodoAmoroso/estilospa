@@ -20,6 +20,11 @@
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/animate.css" >
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/owl.carousel.min.css" >
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/owl.theme.default.min.css" >
+
+	<?php if(isset($_arrcss)): foreach ($_arrcss as $css): ?>
+	<link <?= isset($css['rel']) ? 'rel="'.$css['rel'].'"' : '' ?> href="<?= ROOT.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> > 
+	<?php endforeach; endif; ?>
+	
 	<link rel="stylesheet" href="<?= ROOTPATH ?>css/styles.css?id=<?= rand(1111,9999) ?>" >
 
 	<link rel="shortcut icon" href="<?= ROOTPATH ?>assets/favicon.png" type="image/png" >

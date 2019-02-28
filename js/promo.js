@@ -42,7 +42,8 @@ var GetMPLink = function(GIFT,IDCode){
 		}
 		//console.log(DATA.Hash);
 		$('#modal_mp iframe').attr('src',DATA.Link);
-		$('#modal_mp').modal('show');
+		window.location.href=DATA.Link;
+		///$('#modal_mp').modal('show');
 		if(GIFT){
 			AjaxConnection('jxPromos.php',{
 			Mode:'gift',

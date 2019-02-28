@@ -9,7 +9,7 @@ $arrAdminMenu = array(
 	array('name'=>'Ventas','permalink'=>'ventas'),
 	array('name'=>'Etiquetas','permalink'=>'etiquetas'),
 	array('name'=>'Blog','permalink'=>'blog'),
-	//array('name'=>'Especiales','permalink'=>'especiales'),
+	array('name'=>'Estadísticas','permalink'=>'estadisticas'),
 	//array('name'=>'Opciones Generales','permalink'=>'opciones-generales'),
 	array('name'=>'Vouchers','permalink'=>'vouchers'),
 	array('name'=>'Subscriptores','permalink'=>'subscriptores'),

@@ -38,32 +38,42 @@ class Promos {
 			WHERE p.id=?",
 			array($id)
 		);
-		if($this->_db->count()){
-			$this->_data = $this->_db->first();
-			return true;
-		}
-		return false;
+		
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
+		$this->_data->glossary = $this->get_glossary($id);
+		return true;
+		
 	}
 
 	public function get(){
 		$this->_data = null;
+		
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('p.title','p.subtitle','p.description'));
 		$search = empty($search_main) ? "" : "WHERE (".$search_main;
-		//die( $search);
+		
 		
 		//$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
 		//$search .= empty($search_type) ? "" : (empty($search) ? "WHERE (".$search_type : " AND".$search_type);
-		//$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('c.glossary'));
+		
+		//$search_glossary = BuildSearchAssignment($this->arrglossary,'ga.glossaryid');
+		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+
 		
 		$search_promotype = BuildSearch($this->arrpromotypes,$this->searchmixed,array('p.idpromotype'));
 		$search .= empty($search_promotype) ? "" : (empty($search) ? "WHERE (".$search_promotype : " OR".$search_promotype);
 		
-		$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
-		$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE".$search_idclient : " AND".$search_idclient);
-		///echo $search_idclient;
+		$search = !empty($search_main) ? $search.') ' : $search;
+
+		
+		//$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
+		//$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE".$search_idclient : " AND".$search_idclient);
+
+
+		$search .= empty($this->arridclients) ? "" : (empty($search) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
+		///show_array( $this->arridclients);
 
 		//$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE (".$search_glossary : "OR".$search_glossary);
-		$search =  !empty($search_main) ? $search.') ' : $search;
 
 		$sortby = "ORDER BY p.sale DESC, p.added DESC";
 		if(!empty($this->sort)){
@@ -138,19 +148,34 @@ class Promos {
 
 		//echo $search;
 
-		$this->_db->query("SELECT p.id, p.title, p.idclient, p.sale, p.stores, p.subtitle, p.gallery, p.price, p.discount, p.amount, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, p.idpromotype, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
-			FROM {$this->_dbprefix}promos p 
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient
-			LEFT JOIN {$this->_dbprefix}promotypes t ON t.id=p.idpromotype
+		$query = "SELECT p.id, p.title, p.idclient, p.sale, p.stores, p.subtitle, p.gallery, p.price, p.discount, p.amount, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
+			FROM {promos} p 
+			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
+			LEFT JOIN {promos_glossary_assignments} ga ON ga.promoid=p.id
 			{$search} 
+			GROUP BY p.id
 			{$sortby} 
-			{$limitby}"
-		);
+			{$limitby}";
+
+		//echo $query;
+
+		$this->_db->query($query);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;
 		}
 		return false;
+	}
+
+	public function get_glossary($promoid){		
+		$this->_db->get('promos_glossary_assignments',array('promoid','=',$promoid));
+		if(!$this->_db->count()) return false;
+		$arr = array();
+		foreach($this->_db->results() as $g){
+			$arr[] = $g->glossaryid;
+		}
+		return $arr;
 	}
 
 	public function rating($id=0){		
@@ -186,16 +211,29 @@ class Promos {
 		);
 		if(!Input::get('ID')){
 			$sql['added'] = date('Y-m-d H:i:s');
-			if($this->_db->insert('promos',$sql)){
-				$this->_lastid = $this->_db->getLastId();
-				return true;
-			}
+			if(!$this->_db->insert('promos',$sql)) return false;
+			$this->_lastid = $this->_db->getLastId();
 		}else{
-			if($this->_db->update('promos',Input::get('ID'),$sql)){
-				return true;
+			if(!$this->_db->update('promos',Input::get('ID'),$sql)) return false;
+			$this->_lastid = Input::get('ID');
+		}
+		$this->save_glossary();
+
+		return true;
+	}
+
+	public function save_glossary(){
+		$promoid = $this->_lastid;
+		if(Input::get('Glossary')){
+			$this->_db->delete('promos_glossary_assignments',array('promoid','=',$promoid));
+			foreach(Input::get('Glossary') as $glossary){
+				$this->_db->insert('promos_glossary_assignments',array(
+					'promoid'=>$promoid,
+					'glossaryid'=>$glossary
+				));
 			}
 		}
-		return false;
+		return true;
 	}
 
 	public function delete(){

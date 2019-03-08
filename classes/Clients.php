@@ -28,46 +28,74 @@ class Clients {
 	public function find($client=0){
 		$field = is_numeric($client) ? 'c.id' : 'c.permalink';
 		//$this->_db->get('clients',array($field,'=',$client));
-		$this->_db->query("SELECT c.id, c.name, c.subtitle, c.web, c.mail, c.permalink, c.users, c.idplan, c.types, c.glossary, c.images, c.logo, c.visible, c.added, c.modified, c.socials, c.views, c.idref, p.fee, p.promos 
+		$this->_db->query("SELECT c.*, p.fee, p.promos 
 			FROM {$this->_dbprefix}clients c 
 			LEFT JOIN {$this->_dbprefix}clientplans p ON p.id=c.idplan 
 			WHERE {$field}=?",
 			array($client)
 		);
-		if($this->_db->count()){
-			$this->_data = $this->_db->first();
-			//if($this->_data->visible){
-			return true;
-			///}
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
+		$this->_data->glossary = $this->get_glossary($client);
+		$this->_data->types = $this->get_types($client);
+		return true;
+				
+	}
+	public function get_glossary($clientid){		
+		$this->_db->get('clients_glossary_assignments',array('clientid','=',$clientid));
+		if(!$this->_db->count()) return false;
+		$arr = array();
+		foreach($this->_db->results() as $g){
+			$arr[] = $g->glossaryid;
 		}
-		return false;
+		return $arr;
+	}
+	public function get_types($clientid){		
+		$this->_db->get('clients_types_assignments',array('clientid','=',$clientid));
+		if(!$this->_db->count()) return false;
+		$arr = array();
+		foreach($this->_db->results() as $g){
+			$arr[] = $g->typeid;
+		}
+		return $arr;
 	}
 
 	//(glossary LIKE '%,104' OR glossary LIKE '104,%' OR glossary LIKE '%,104,%' OR glossary = 104)
 
 	public function get(){
+		
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('c.name','c.subtitle'));
 		$search = empty($search_main) ? "" : "WHERE (".$search_main;
 
-		$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
-		$search .= empty($search_type) ? "" : (empty($search) ? "WHERE (".$search_type : "OR".$search_type);
+		
 
-		if(!empty($this->arrglossary)){
-			$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('c.glossary'));
-			$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE (".$search_glossary : "OR".$search_glossary);			
-		}
+		///$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
+		$search .= empty($this->arrtypes) ? "" : (empty($search) ? "WHERE " : " OR ")." ta.typeid IN (".implode(',',$this->arrtypes).")";
 
-		$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
-		$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE (".$search_idclient : " AND".$search_idclient);
+		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+
+		//$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+
+
+			//$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('c.glossary'));
+		//	$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE (".$search_glossary : "OR".$search_glossary);			
+		//}
+		//show_array( $search);
+
+		//$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
+		//$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE (".$search_idclient : " AND".$search_idclient);
 		///$search = !empty($search) ? $search : $search;
-		$search = !empty($search) ? $search.') ' : $search;
+		$search = !empty($search_main) ? $search.') ' : $search;
+
+		$search .= empty($this->arridclients) ? "" : (empty($search) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
+		
 		//echo $search;
 
-		if($this->searchpromos){
+		/*if($this->searchpromos){
 			$search .= empty($search) ? "WHERE " : " OR ";
 			$search .= "(SELECT COUNT(*) FROM {$this->_dbprefix}promos ps WHERE ps.idclient=c.id AND (ps.start<=NOW() AND ps.finish >= NOW()) AND (ps.title LIKE '%{$this->keywords}%' OR ps.subtitle LIKE '%{$this->keywords}%') ) > 0";
 			//echo $search;
-		}
+		}*/
 
 		///echo $search;
 
@@ -104,12 +132,16 @@ class Clients {
 			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
 			$search .= " c.visible=1";
 		}
-		$query = "SELECT c.id, c.mail, c.name, c.subtitle, c.images, c.logo, c.views, c.visible, c.permalink, c.glossary, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos, c.types 
-			FROM {$this->_dbprefix}clients c 
+		$query = "SELECT c.*, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos
+			FROM {clients} c 
+			LEFT JOIN {clients_glossary_assignments} ga ON ga.clientid=c.id
+			LEFT JOIN {clients_types_assignments} ta ON ta.clientid=c.id
 			{$search} 
+			GROUP BY c.id
 			{$sortby} 
 			{$limitby}";
 		///echo $search;
+		$this->search = $search;	
 		$this->_db->query($query);
 		//echo $query;
 
@@ -148,9 +180,9 @@ class Clients {
 		if($this->isadmin){
 			$sql['permalink'] = Input::get('Permalink');
 			$sql['idplan'] = Input::get('Plan');
-			$sql['types'] = implode(',',Input::get('Types'));
-			$sql['glossary'] = implode(',',Input::get('Glossary'));
-			$sql['visible'] = Input::get('Visible');
+			//$sql['types'] = implode(',',Input::get('Types'));
+			//$sql['glossary'] = implode(',',Input::get('Glossary'));
+			$sql['visible'] = Input::get('Visible');			
 		}
 		$_FEATURES = new Features();
 		if(!Input::get('ID')){
@@ -158,20 +190,52 @@ class Clients {
 			if($this->find(Input::get('Permalink'))) die(json_encode(array('Status'=>'permalink')));
 			////////////////////////////////////
 			$sql['added'] = date('Y-m-d H:i:s');
-			$this->_db->insert('clients',$sql);
+			if(!$this->_db->insert('clients',$sql)) return false;
 			$this->_lastid = $this->_db->getLastId();
 			$_STORES = new Stores();
-			$_STORES->updateclient($this->_lastid,Input::get('IDStores'));
-			$_FEATURES->save($this->_lastid,Input::get('Features'));
-			return true;
+			if(!$_STORES->updateclient($this->_lastid,Input::get('IDStores'))) return false;
+			if(!$_FEATURES->save($this->_lastid,Input::get('Features'))) return false;
+			//return true;
 		}else{
 			$sql['modified'] = date('Y-m-d H:i:s');
-			$this->_db->update('clients',Input::get('ID'),$sql);
+			if(!$this->_db->update('clients',Input::get('ID'),$sql)) return false;
 			$this->_lastid = Input::get('ID');
-			$_FEATURES->save($this->_lastid,Input::get('Features'));
-			return true;
+			if(!$_FEATURES->save($this->_lastid,Input::get('Features'))) return false;
 		}
-		return false;
+		if($this->isadmin){
+			if(!$this->save_glossary()) return false;
+			if(!$this->save_types()) return false;
+		}
+		return true;
+	}
+
+	public function save_glossary(){
+
+		$clientid = $this->_lastid;
+		if(Input::get('Glossary')){
+			$this->_db->delete('clients_glossary_assignments',array('clientid','=',$clientid));
+			foreach(Input::get('Glossary') as $glossary){
+				$this->_db->insert('clients_glossary_assignments',array(
+					'clientid'=>$clientid,
+					'glossaryid'=>$glossary
+				));
+			}
+		}
+		return true;
+	}
+	public function save_types(){
+
+		$clientid = $this->_lastid;
+		if(Input::get('Types')){
+			$this->_db->delete('clients_types_assignments',array('clientid','=',$clientid));
+			foreach(Input::get('Types') as $type){
+				$this->_db->insert('clients_types_assignments',array(
+					'clientid'=>$clientid,
+					'typeid'=>$type
+				));
+			}
+		}
+		return true;
 	}
 
 	public function delete(){

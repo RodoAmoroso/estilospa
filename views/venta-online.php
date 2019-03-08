@@ -5,7 +5,7 @@
 
 			<div class="left-column hidden-xs hidden-sm">
 
-				<h3>Resultados de la Búsqueda:</h3>
+				<h3>Venta Online:</h3>
 
 				<ul class="button-menu">
 					<!-- WORDS --> 

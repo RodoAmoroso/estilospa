@@ -121,11 +121,13 @@ var Promos = {
 		var today = new Date();
 		var statusstart = from.getTime()<=today.getTime() ? 1 : 0;
 		var statusfinish = to.getTime()>=today.getTime() ? 1 : 0;
+
 		if(to.getTime()-from.getTime() < 0){
 			Messages(true,'La fecha inicial debe ser anterior a la final!');
 			return false;
 		}
 		var gallery = [];
+		//return console.log($('[name="glossary"]').val());
 		$.each($('#gallery .thumbnail'),function(k,v){			
 			gallery.push({photoname:$(this).attr('data-photoname'),extension:$(this).attr('data-extension')});
 			
@@ -175,6 +177,7 @@ var Promos = {
 			Reservation:$('#fd_reservation').val(),
 			Duration:$('#fd_duration').val(),
 			Cancellation:$('#fd_cancellation').val(),
+			Glossary:$('[name="glossary"]').val(),
 			Gallery:gallery,
 			ID:$_id
 		},function(DATA){
@@ -192,6 +195,7 @@ var Promos = {
 	find:function(){
 		AjaxConnection('jxPromos.php',{Mode:'find',ID:$_id},function(DATA){
 			var obj = DATA.Result;
+
 			$('#fd_title').val(obj.title);
 			$('#fd_start').val(obj.inicio);
 			$('#fd_finish').val(obj.fin);
@@ -220,6 +224,10 @@ var Promos = {
 					Promos.buildgallery(v.photoname,v.extension);
 				});				
 			}
+
+			$('[name="glossary"]').val(obj.glossary);
+			$('[name="glossary"]').bootstrapDualListbox();
+
 		});
 	},
 	buildgallery:function(PHTNM,EXT){
@@ -279,7 +287,7 @@ var Glossary = {
 			$.each(data.Results,function(k,v){
 				$('[name="glossary"]').append('<option value="'+v.id+'">'+v.name+'</option>');
 			});
-			$('[name="glossary"]').bootstrapDualListbox();
+			//$('[name="glossary"]').bootstrapDualListbox();
 		})
 	}
 }

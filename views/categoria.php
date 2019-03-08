@@ -81,32 +81,28 @@
 
 			<div class="right-column">
 
-				<div class="promos-highlight">
-					<?php 
-					if($_PROMOS->data()): foreach($_PROMOS->data() as $kp=>$promo):
-					$promolink = ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
-					$clientlink = ROOTPATH.'centros/'.$promo->permalink;
-					$mp = $MPConfig->find($promo->idclient);
-					//$image = json_decode($promo->gallery);
-					$imgpromo = json_decode($promo->gallery);
-					$_STORES->get($promo->idclient);
-					echo '<div class="mod-promo mod-promo-5">';
-					include 'mods/mod-promo.php';
-					echo '</div>';
-					endforeach; endif; ?>					
+				<div class="client-container">
+					<?php if($_CLIENTS->data()): foreach($_CLIENTS->data() as $client): 
+					$logo = json_decode($client->logo);
+					$clientlink = ROOTPATH.'centros/'.$client->permalink;
+					$_STORES->get($client->id);
+					include 'mods/mod-client.php';
+					?>
+					
+					<?php endforeach; endif; ?>
 				</div>
 
 				<?php if($total_results): ?>
 				<p>&nbsp;</p>
 				<ul class="pagination">
 					
-					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
+					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'categoria/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
 					
 					<?php for($i=1; $i<=PageMaker($page_results,$total_results); $i++): ?>
-					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'busqueda/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
+					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'categoria/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
 					<?php endfor; ?>
 
-					<li class="page-item <?=$page==PageMaker($page_results,$total_results) ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page+1) ?>" class="page-link" ><i class="fa fa-angle-double-right"></i></a></li>
+					<li class="page-item <?=$page==PageMaker($page_results,$total_results) ? 'disabled' : ''?>"><a href="<?= ROOT.'categoria/'.$query.'/'.$location.'/'.($page+1) ?>" class="page-link" ><i class="fa fa-angle-double-right"></i></a></li>
 
 				</ul>
 

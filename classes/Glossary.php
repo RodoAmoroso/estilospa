@@ -18,8 +18,10 @@ class Glossary {
 	}
 
 	public function get(){
-		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('g.name','gg.name'));
-		$search = empty($search_main) ? "" : "WHERE".$search_main;		
+		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('g.name','gg.name'));		
+		$search = empty($search_main) ? "" : "WHERE".$search_main;	
+
+		///echo $search;	
 		$sortby = '';
 		if(!empty($this->sort)){
 			switch($this->sort){
@@ -42,13 +44,17 @@ class Glossary {
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
-		$this->_db->query(
-			"SELECT g.id, g.name name, g.description, g.image, g.idgroup, gg.name groupname, (SELECT COUNT(*) FROM {$this->_dbprefix}clients c WHERE (c.glossary LIKE CONCAT('%',g.id,'%') OR c.glossary LIKE CONCAT(g.id,'%') OR c.glossary LIKE CONCAT('%',g.id) OR c.glossary=g.id) AND c.visible=1) as countclients
+		$query = "
+			SELECT g.id, g.name name, g.description, g.image, g.idgroup, gg.name groupname, (SELECT COUNT(*) FROM {$this->_dbprefix}clients c WHERE (c.glossary LIKE CONCAT('%',g.id,'%') OR c.glossary LIKE CONCAT(g.id,'%') OR c.glossary LIKE CONCAT('%',g.id) OR c.glossary=g.id) AND c.visible=1) as countclients
 			FROM {$this->_dbprefix}glossary g 
 			LEFT JOIN {$this->_dbprefix}glossarygroups gg ON gg.id=g.idgroup 
 			{$search} 
 			{$sortby} 
-			{$limitby}");
+			{$limitby}";
+
+		//show_array($query);
+
+		$this->_db->query($query);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

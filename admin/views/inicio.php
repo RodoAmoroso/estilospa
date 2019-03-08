@@ -37,8 +37,11 @@
 							<tbody>
 								<?php foreach($_promos->data() as $promo): ?>
 								<tr>
-									<td><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" title="ver" ><?= $promo->title ?></a></td>
-									<td><?= $promo->finish.' '.($promo->sale ? ' &bullet; <i class="fa fa-shopping-bag" title="Venta Online"></i>' : '') ?></td>
+									<td>
+										<a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" title="ver" ><?=($promo->sale ? '<i class="fa fa-shopping-bag" title="Venta Online"></i>' : '')?> <?= $promo->title ?></a><br>
+
+									</td>
+									<td><?= $promo->finish ?></td>
 									<td><label class="label label-<?=dif_labels($promo->dif)?>"><?= $promo->dif ?> días</label></td>
 									<td><a href="<?= ROOTPATH.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
 								</tr>
@@ -52,7 +55,7 @@
 				<div class="col-md-6">
 					<h3>Promos finalizadas</h3>
 					<div class="table-responsive">
-						<table class="table table-hover table-bordered table-striped sz-10">
+						<table class="table table-hover table-bordered table-striped sz-10 text-danger">
 							<thead>
 								<tr>
 									<th>Promo</th>
@@ -64,6 +67,7 @@
 							<?php 
 							$_promos->expiring = false;
 							$_promos->expired = true;
+							$_promos->sort = 'added';
 							$_promos->get();
 							if($_promos->data()):
 							?>
@@ -88,16 +92,93 @@
 </section>
 
 
+<section class="admin-box bg-gray-5">
+	<div class="container">
 
+		<div class="block-white">
 
+			<div class="row">
+				<div class="col-md-6">
+					<h3>Últimos centros cargados</h3>
+					<div class="table-responsive">
+						<table class="table table-hover table-bordered sz-10 table-striped">
+							<thead>
+								<tr>
+									<th>Centro</th>
+									<th>Cargado el:</th>
+									<th>Promos:</th>
+									<th></th>
+								</tr>							
+							</thead>
+						
+							<?php 
+							if($_clients->data()):
+							?>
+							<tbody>
+								<?php foreach($_clients->data() as $client): ?>
+								<tr>
+									<td><a href="<?= ROOTPATH.'centros/'.$client->permalink ?>" target="_blank" title="ver" ><?= $client->name ?></a></td>
+									<td><?= $client->creado ?></td>
+									<td class="text-center"><label class="label label-primary ?>"><?= $client->promos ?></label></td>
+									<td><a href="<?= ROOTPATH.'admin/centro/'.$client->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+							<?php endif; ?>
 
+						</table>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h3>Últimas promos cargadas</h3>
+					<div class="table-responsive">
+						<table class="table table-hover table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Promo</th>
+									<th>Agregada el:</th>
+									<th>Estatus</th>
+									<th></th>
+								</tr>							
+							</thead>
+						
+							<?php 
+							$_promos->expired = false;
+							$_promos->sort = 'added';
+							$_promos->get();
+							if($_promos->data()):
+							?>
+							<tbody>
+								<?php 
+								foreach($_promos->data() as $promo): 
+									if($promo->statusstart == 0){
+										$status = '<span class="label label-warning">no inició</span>';
+									}
+									if($promo->statusstart == 1 && $promo->statusfinish == 0){
+										$status = '<span class="label label-danger">finalizada</span>';
+									}
+									if($promo->statusstart == 1 && $promo->statusfinish == 1){
+										$status = '<span class="label label-success">en curso</span>';
+									}
+								?>
+								<tr>
+									<td><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></td>
+									<td><?=$promo->creado?></td>
+									<td><?=$status?></td>
+									<td><a href="<?= ROOTPATH.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+							<?php endif; ?>
 
+						</table>
+					</div>
+				</div>
+			</div>
 
-
-
-
-
-
+		</div>
+	</div>
+</section>
 
 
 <section class="gral-section dp-none">
@@ -155,60 +236,10 @@
 	</div>
 </section>
 
-<section class="gral-section">
+<section class="admin-box bg-gray-5">
 	<div class="container">
-
-
-		<div class="row">
-			<div class="col-sm-6">
-
-				<div class="well ">
-					<h3 class="fw-700">Últimos centros cargados</h3>
-					
-					<?php if($_clients->data()): foreach($_clients->data() as $client): ?>
-					<div class="mod-list">
-						<h4><a href="<?= ROOTPATH.'centros/'.$client->permalink ?>" target="_blank"><?= $client->name ?></a></h4>
-						<p>Cant. de Promos: <?= $client->promos ?></p>
-						<hr>
-						<small>Agregado el: <?= $client->creado.' &bullet; '.($client->visible ? '<i class="fa fa-toggle-on" title="Visible"></i>' : '<i class="fa fa-toggle-off" title="Oculto"></i>') ?></small>
-					</div>
-					<?php endforeach; endif; ?>
-				</div>
-
-			</div>
-
-			<div class="col-sm-6">
-				<div class="well ">
-					<h3 class="fw-700">Últimas promos cargadas</h3>
-					
-					<?php
-					$_promos->sort = 'added';
-					$_promos->get();
-					if($_promos->data()): 
-						foreach($_promos->data() as $promo):
-							if($promo->statusstart == 0){
-								$status = '<span class="label label-warning">no inició</span>';
-							}
-							if($promo->statusstart == 1 && $promo->statusfinish == 0){
-								$status = '<span class="label label-danger">finalizada</span>';
-							}
-							if($promo->statusstart == 1 && $promo->statusfinish == 1){
-								$status = '<span class="label label-success">en curso</span>';
-							}
-					?>
-					<div class="mod-list">
-						<h4><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
-						<?= $status ?>
-						<hr>
-						<small>Agregada el: <?= $promo->creado.($promo->sale ? ' &bullet; <i class="fa fa-shopping-bag" title="Venta Online"></i>' : '') ?></small>
-					</div>
-					<?php endforeach; endif; ?>
-				</div>
-			</div>
-		</div>
-
 				
-		<div class="well">
+		<div class="block-white">
 			<h3>Últimas consultas efectuadas</h3>
 
 			<?php 

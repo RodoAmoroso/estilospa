@@ -26,8 +26,8 @@ if($clients){
 			$arr_types[] = array($client->id,$ty);
 		}
 		///show_array($arr);
-		//$_db->insertmultiple('clients_glossary',array('clientid','glossaryid'),$arr_glossary);
-		//$_db->insertmultiple('clients_types',array('clientid','typeid'),$arr_types);
+		$_db->insertmultiple('clients_glossary_assignments',array('clientid','glossaryid'),$arr_glossary);
+		$_db->insertmultiple('clients_types_assignments',array('clientid','typeid'),$arr_types);
 	}
 }
 

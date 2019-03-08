@@ -442,7 +442,6 @@ if($_VOUCHERS->getpromo($_PROMOS->data()->id)):
 <section>
 	<div class="title-bar">
 		<div class="container">
-			
 			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
 		</div>
 	</div>

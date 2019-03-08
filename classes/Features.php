@@ -34,6 +34,7 @@ class Features {
 				);
 			}
 		}
+		return true;
 	}
 
 	public function delete($idclient=0){

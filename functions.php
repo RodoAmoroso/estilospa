@@ -166,15 +166,10 @@ function MakeImage($MaxW, $MaxH, $sufijo, $forced, $trim, $Die){
 		}
 	}
 }
-function PageMaker($PHOTOSXPAG,$TOTAL){
-	//$this->PHOTOSXPAG;
-	$ThumbPagesDec = $TOTAL/$PHOTOSXPAG;
-	$Decimal = floor($ThumbPagesDec);
-	if ($ThumbPagesDec != $Decimal) {
-		return floor($ThumbPagesDec)+1;
-	} else {
-		return floor($ThumbPagesDec);
-	}
+function PageMaker($elements,$total){
+	$split = $total/$elements;
+	if(is_float($split)) return floor($split)+1;
+	return $split;
 }
 function GetPercent($TOT,$PART){
 	if($TOT > 0){
@@ -347,6 +342,9 @@ function YoutubeAPI($idvideo){
 		return $obj->medium->url;
 	}
 }
+function excludeWords($word=''){
+	return strlen($word)>2;
+}
 function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 
 	$search = '';
@@ -378,17 +376,21 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 		}else{
 			if($mixed){
 				$keyword = explode(' ',$keywords);
-				//show_array($keyword);
+				$keyword = array_values((array_filter($keyword,'excludeWords')));
+
 				foreach ($arrfields as $fk => $field){
 					if($fk==0){
 						$search .= "(";
 					}
+
 					foreach ($keyword as $kw => $vw){
-						//if(strlen($vw)>0){
+						//if(strlen($vw)>2){
 							if($kw==0){
 								$search .= "(";
 							}
+							
 							$search .= "{$field} LIKE '%{$vw}%'";
+
 							if($kw==count($keyword)-1){
 								$search .= ")";
 							}else{
@@ -396,6 +398,8 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 							}
 						//}
 					}
+					//echo $search;
+
 					if($fk==count($arrfields)-1){
 						$search .= ")";
 					}else{
@@ -417,6 +421,14 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 		}
 	}
 	return $search;
+}
+function BuildSearchAssignment($glossary=array(),$row=''){
+	$query = "";
+	foreach($glossary as $k=>$gl){
+		$query .= "{$row}={$gl}";
+		$query .= count($glossary)-1 != $k ? " AND " : "";
+	}
+	return $query;
 }
 function Stars($rate=0,$size=''){
 	$leftover = 5;
@@ -460,10 +472,10 @@ function Fav($promoid=0,$clientid=0){
 		$favprop = 'data-toggle="modal" data-target="#modal_not_logged"';
 		$fav = '<i class="fa fa-heart-o" ></i>';
 	}
-	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos">'.$fav.'</a>';
+	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos" data-placement="bottom" >'.$fav.'</a>';
 }
 function show_array($arr=array()){
-	echo '<pre>';
+	echo '<pre style="white-space:normal;">';
 	print_r($arr);
 	echo '</pre>';
 }

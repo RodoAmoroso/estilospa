@@ -61,6 +61,8 @@
 		var ROOTPATH = '<?= ROOTPATH ?>';
 		var PAGENAME = '<?= PAGENAME ?>';
 		var MAXFILES = '<?= MAXFILES ?>';
+		var $_SECTION = '<?= $_SECTION ?>';
+		var $_SUBSECTION = '<?= $_SUBSECTION ?>';
 	</script>	
 
 	<!-- Google Analytics -->

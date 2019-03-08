@@ -264,10 +264,10 @@ var Clients = {
 				Socials.build();
 			}
 			//////////// TYPES /////////////////////////////////
-			var arrTypes = DATA.Client.types.split(',');
+			///var arrTypes = DATA.Client.types.split(',');
 			var passtype = false;
 			$.each($('#list_types button'),function(kb,vb){
-				$.each(arrTypes,function(kt,vt){
+				$.each(DATA.Client.types,function(kt,vt){
 					if($(vb).attr('data-id')==vt){
 						passtype = true;
 					}
@@ -280,10 +280,10 @@ var Clients = {
 				passtype = false;
 			});
 			//////////// GLOSSARY /////////////////////////////////
-			var glossary = DATA.Client.glossary.split(',');
+			///var glossary = DATA.Client.glossary.split(',');
 			var passglossary = false;
 			$.each($('#glossary .list-group-item'),function(kb,vb){
-				$.each(glossary,function(kt,vt){
+				$.each(DATA.Client.glossary,function(kt,vt){
 					if($(vb).attr('data-id')==vt){
 						passglossary = true;
 					}

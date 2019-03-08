@@ -599,7 +599,7 @@ $(function(){
 	CharCount();
 	Subscribe();
 	//FloatingParallax('.floating-parallax');
-	$('[dat-parallax="scroll"]').parallax({});
+	//$('[data-parallax="scroll"]').parallax({});
 	$('nav .fa-bars').click(function(){
 		$('#main_menu').slideToggle();
 	});
@@ -630,11 +630,16 @@ $(function(){
 	/////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////
 	SearchSuggestions('#form_main_search','jxSearch.php','locations',function(INPUT,ths){});
+
 	$('#form_main_search').submit(function(e){
 		e.preventDefault();
 		var main = $(this).find('[name="main"]').val();
 		var location = $(this).find('[name="location"]').val();
-		window.location.href=ROOTPATH+'busqueda/'+Permalink(main==''?'-':main)+'/'+Permalink(location);
+		if($_SECTION == 'categoria'){
+			window.location.href=ROOTPATH+'categoria/'+Permalink(main==''?'-':main)+'/'+Permalink(location);
+		}else{
+			window.location.href=ROOTPATH+'busqueda/'+Permalink(main==''?'-':main)+'/'+Permalink(location);			
+		}
 	});
 
 

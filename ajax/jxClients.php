@@ -38,7 +38,7 @@ switch (Input::get('Mode')) {
 		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'restricted')));
 		if(!Input::check(array('Name','Subtitle','Gallery','Features','Permalink','Mail'))) die(json_encode(array('Status'=>'check')));
 		$_CLIENTS->isadmin = true;
-		$_CLIENTS->save();
+		if(!$_CLIENTS->save()) die(json_encode(array('Status'=>'fail')));
 		$id = $_CLIENTS->getLastId();
 		$_ASSOC->idclient = $id;
 		$_ASSOC->arrusers = Input::get('Users');		

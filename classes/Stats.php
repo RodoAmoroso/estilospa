@@ -18,6 +18,12 @@ class Stats {
 		return true;
 	}
 
+	public function add_search_type($word=''){
+		if(empty($word) || strlen($word)<3) return false;
+		$this->_db->insert('stats_search_types',array('word'=>$word));
+		return true;
+	}
+
 	public function add_search_location($location=''){
 		if(empty($location) || strlen($location)<3) return false;
 		$this->_db->insert('stats_search_locations',array('location'=>$location));

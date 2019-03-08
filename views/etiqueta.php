@@ -1,78 +1,77 @@
 
 <script>var IDGlossary = <?= $_GLOSSARY->data()->id ?>;</script>
 
-<section class="dp-none">
-	<div class="section-header bg-aqua-5">		
-		<div class="bg overprint-absolute op-50" style="background-image:<?= empty($imgheader) ? 'none' : 'url('.ROOTPATH.$imgheader.')' ?>;"></div>
-		<div class="container">
-			<h1><?=  $_GLOSSARY->data()->name ?></h1>
-			<h4><a href="<?= ROOTPATH.'etiquetas/'.$_GLOSSARY->data()->idgroup.'-'.Permalink($_GLOSSARY->data()->groupname) ?>"><?= $_GLOSSARY->data()->groupname ?></a></h4>
-		</div>	
-	</div>
-</section>
 
-<section class="blog-page">
+<section class="glossary-page bg-gray-5">
+	
 	<div class="container">
 		
-		<div class="blog-container">
-
-			<!-- BREADCRUMB -->
-			<ul class="breadcrumb sz-9">
-				<li><a href="<?= ROOTPATH ?>">Home</a></li>
-				<li><a href="<?= ROOTPATH.'etiquetas/'.$_GLOSSARY->data()->idgroup.'-'.Permalink($_GLOSSARY->data()->groupname) ?>"><?= $_GLOSSARY->data()->groupname ?></a></li>
-				<li><?= $_GLOSSARY->data()->name ?></li>
-			</ul>
-
-			<!-- TITLE -->
-			<div class="title-bar title title-header">
-				<div class="bg overprint-absolute op-100" style="background-image:<?= empty($imgheader) ? 'none' : 'url('.ROOTPATH.$imgheader.')' ?>;"></div>
+		<div class="section-header bg-aqua-5">
+			<div class="bg overprint-absolute parallax" style="background-image:<?= empty($imgheader) ? 'none' : 'url('.ROOTPATH.$imgheader.')' ?>;"></div>
+			<div class="container">
 				<h1><?=  $_GLOSSARY->data()->name ?></h1>
 				<h4><a href="<?= ROOTPATH.'etiquetas/'.$_GLOSSARY->data()->idgroup.'-'.Permalink($_GLOSSARY->data()->groupname) ?>"><?= $_GLOSSARY->data()->groupname ?></a></h4>
 			</div>
+		</div>
 
-			<!-- CONTENT -->
-			<div class="blog-content">
+		<div class="page-content" data-collapse="false">
+			<div class="content">
 				<?= $_GLOSSARY->data()->description ?>
-				<hr>
-				<button class="btn btn-primary" data-toggle="modal" data-target="#modal_glossary_request"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $_GLOSSARY->data()->name ?></button>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
+				<p>&nbsp;</p>
 			</div>
-
-		</div>	
-
-		<div class="blog-related">
-			<h1>Promos con <?= $_GLOSSARY->data()->name ?></h1>
-			<hr>
-
-			<div class="promos-highlight">
-			<?php 
-				$_PROMOS->status = '1:1';
-				$_PROMOS->sort = 'rand';
-				$_PROMOS->visible = true;
-				$_PROMOS->keywords = $_GLOSSARY->data()->name;
-				$_PROMOS->limit = '0,6';
-				if($_PROMOS->get()):
-					foreach($_PROMOS->data() as $kp=>$promo):
-						
-						if($_CLIENTS->find($promo->idclient)):
-						$imgpromo = json_decode($promo->gallery);
-						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
-						$_STORES->get($_CLIENTS->data()->id,$promo->stores);
-
-						echo '<div class="mod-promo mod-promo-2">';
-						include 'mods/mod-promo.php';
-						echo '</div>';
-
-						endif;
-
-					endforeach; 
-				endif; ?>
-
+			<div class="view-more">
+				
+				<div class="row">
+					<div class="col-sm-6">
+						<button id="view_more" class="btn btn-default"><span>leer más</span> <i class="fa fa-caret-down"></i></button>
+					</div>
+					<div class="col-sm-6 text-right">
+						<button class="btn btn-primary" data-toggle="modal" data-target="#modal_glossary_request"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $_GLOSSARY->data()->name ?></button>
+					</div>
+				</div>				
 			</div>
 		</div>
 
 
 	</div>
 </section>
+
+
+<?php if($_PROMOS->get()): ?>
+<section>
+	<div class="title-bar">
+		<div class="container">
+			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos con: <?= $_GLOSSARY->data()->name ?></h3>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<div class="promos-highlight">
+		<?php 				
+		foreach($_PROMOS->data() as $kp=>$promo):
+			
+			if($_CLIENTS->find($promo->idclient)):
+			$imgpromo = json_decode($promo->gallery);
+			$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+			$_STORES->get($_CLIENTS->data()->id,$promo->stores);
+
+			echo '<div class="mod-promo mod-promo-4">';
+			include 'mods/mod-promo.php';
+			echo '</div>';
+
+			endif;
+		endforeach;
+		?>
+
+		</div>
+	</div>
+
+</section>
+<?php endif; ?>
+
 
 <!-- MESSAGES -->
 <div class="modal fade" id="modal_glossary_request" tabindex="-1" role="dialog" >
@@ -127,8 +126,10 @@ $_CLIENTS->arrglossary = array($_GLOSSARY->data()->id);
 if($_CLIENTS->get()): 
 ?>
 <section class="bg-gray-5">
-	<div class="container text-center cl-gray-60 pad-20">
-		<h2><i class="fa fa-leaf"></i> Centros con <?= $_GLOSSARY->data()->name ?></h2>
+	<div class="title-bar">
+		<div class="container">
+			<h3 class="title"><i class="fa fa-leaf"></i> Centros con: <?= $_GLOSSARY->data()->name ?></h3>
+		</div>
 	</div>
 
 	<div class="container">

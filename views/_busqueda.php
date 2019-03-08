@@ -15,8 +15,8 @@
 					<?php endif; endforeach; ?>
 					<!-- LOCATIONS -->
 					<?php //if(!empty($search_locations)): ?>
-					<?php foreach($arrwordslocations as $lc): if(strlen($lc)>2): ?>
-					<li data-word="location"><a href="#" ><span><?= $lc ?></span> <i class="fa fa-times"></i> </a></li>
+					<?php foreach($arrwordslocations as $location): if(strlen($location)>2): ?>
+					<li data-word="location"><a href="#" ><span><?= $location ?></span> <i class="fa fa-times"></i> </a></li>
 					<?php endif; endforeach; ?>
 				</ul>
 				<hr>
@@ -49,6 +49,18 @@
 					<?php endforeach; endif; ?>
 				</ul>
 
+				<!-- CITIES
+				<h4 class="title-bar" data-toggle="collapse" href="#list_cities">Localidades/Barrios <i class="fa fa-caret-down"></i></h4>
+				<ul id="list_cities" class="list collapse in">
+					<?php
+					$_STORES->group = 'city';
+					if($_STORES->search()):
+						foreach($_STORES->data() as $store):
+					?>
+					<li data-word="location" ><a href="#"><span><?= $store->city ?></span> <span class="badge hidden">1</span></a></li>
+					<?php endforeach; endif; ?>
+				</ul> --> 
+
 				<?php 
 					$_GLOSSARYGROUPS->keywords = $search_main;
 					if($_GLOSSARYGROUPS->get()):
@@ -77,6 +89,17 @@
 				</ul>
 				<?php endif; ?>
 
+				<!-- PROMO TYPE 
+				<h4 class="title-bar" data-toggle="collapse" href="#list_types">Tipo de Promo <i class="fa fa-caret-down"></i></h4>
+				<ul id="list_types" class="list collapse in">
+					<?php 
+					$_PROMOTYPES->keywords = '';
+					if($_PROMOTYPES->get()):
+						foreach($_PROMOTYPES->data() as $promotype):
+					?>
+					<li data-word="main" ><a href="#"><span><?= $promotype->name ?></span> <span class="badge hidden">1</span></a></li>
+					<?php endforeach; endif; ?>
+				</ul>--> 
 			</div>
 
 			<div class="right-column">
@@ -93,27 +116,51 @@
 					echo '<div class="mod-promo mod-promo-5">';
 					include 'mods/mod-promo.php';
 					echo '</div>';
-					endforeach; endif; ?>					
+					endforeach; endif; ?>
+
+					
 				</div>
 
-				<?php if($total_results): ?>
-				<p>&nbsp;</p>
-				<ul class="pagination">
-					
-					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
-					
-					<?php for($i=1; $i<=PageMaker($page_results,$total_results); $i++): ?>
-					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'busqueda/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
-					<?php endfor; ?>
+				<div class="client-container">
+					<?php if($_QCLIENTS): foreach($_QCLIENTS as $client): 
+					$logo = json_decode($client->logo);
+					$clientlink = ROOTPATH.'centros/'.$client->permalink;
+					$_STORES->get($client->id);
+					//include 'mods/mod-client.php';
+					?>
+					<!--<a href="<?= $clientlink ?>" class="mod-client">
+						<div class="wrapper">
+							<div class="thumb thumb-cover" style="background-image:url(<?= ROOTPATH.'img/clients/'.$logo->photoname.'.'.$logo->extension ?>)">
+								<img src="<?= ROOTPATH.'assets/blank-square.gif' ?>" alt="" class="wd-100">
+							</div>
+							<div class="data">
+								<div class="title"><?= $client->name ?></div>
+								<div class="subtitle"><?= $client->subtitle ?></div>
+							</div>
+							<div class="location"><i class="fa fa-fw fa-map-marker"></i> <span><?= count($_STORES->data()) > 1 ? 'Varias Sucursales' : $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] ?></span></div>
+						</div>
+					</a>-->
+					<?php endforeach; endif; ?>
+				</div>
 
-					<li class="page-item <?=$page==PageMaker($page_results,$total_results) ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page+1) ?>" class="page-link" ><i class="fa fa-angle-double-right"></i></a></li>
 
-				</ul>
-
+				<!-- BLOG -->
+				<?php if($_BLOG->data()): ?>
+				<!-- <div class="block-white">-->
+					<div class="row">
+					<?php						
+						foreach($_BLOG->data() as $blog):
+							echo '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">';
+							$img = json_decode($blog->gallery);
+							//include 'mods/mod-blog.php';
+							echo '</div>';
+						endforeach;
+					?>
+					</div>
+				<!--</div>-->
 				<?php endif; ?>
-
-				
 			</div>
+
 
 		</div>
 

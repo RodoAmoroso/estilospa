@@ -49,17 +49,19 @@
 				</div>
 				<div class="col-sm-4">
 					<label for="fd_filter_client">Filtrar por cliente</label>
+					<?php 
+					$_CLIENTS = new Clients();
+					$_CLIENTS->sort = 'name';
+					if($_CLIENTS->get()):
+					?>
 					<select id="fd_filter_client" class="form-control input-sm">
 						<option value="0">-- Todos --</option>
-						<?php 
-						$_CLIENTS = new Clients();
-						$_CLIENTS->sort = 'name';
-						if($_CLIENTS->get()):
-							foreach($_CLIENTS->data() as $client):
-						?>
+						<?php foreach($_CLIENTS->data() as $client): ?>
 						<option value="<?= $client->id ?>"><?= $client->name ?></option>
-						<?php endforeach; endif; ?>
+						<?php endforeach; ?>
 					</select>
+					<?php endif; ?>
+					
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">

@@ -635,11 +635,11 @@ $(function(){
 		e.preventDefault();
 		var main = $(this).find('[name="main"]').val();
 		var location = $(this).find('[name="location"]').val();
-		if($_SECTION == 'categoria'){
-			window.location.href=ROOTPATH+'categoria/'+Permalink(main==''?'-':main)+'/'+Permalink(location);
-		}else{
-			window.location.href=ROOTPATH+'busqueda/'+Permalink(main==''?'-':main)+'/'+Permalink(location);			
-		}
+		var type = $(this).find('[name="type"]').val();
+		window.location.href=ROOTPATH+type+'/'+Permalink(main==''?'-':main)+'/'+Permalink(location);
+	});
+	$('#form_main_search [name="type"]').change(function(){
+		$('#form_main_search').trigger('submit');
 	});
 
 

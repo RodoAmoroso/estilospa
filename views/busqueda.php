@@ -29,11 +29,11 @@
 					$_STORES->searchmixed = 1;
 					$_STORES->group = 'province';
 					if($_STORES->search()):
-						foreach($_STORES->data() as $store):
+						foreach($_STORES->data() as $i=>$store):
 					?>
 					<li data-word="location" >
-						<a data-toggle="collapse" href="#zones_<?= $store->id ?>" ><span><?= $store->name ?></span> <i class="fa fa-caret-down"></i></a>
-						<ul id="zones_<?= $store->id ?>" class="collapse">
+						<a data-toggle="collapse" href="#zones_<?= $i ?>" ><span><?= $store->name ?></span> <i class="fa fa-caret-down"></i></a>
+						<ul id="zones_<?= $i ?>" class="collapse">
 							<?php 
 							$_stores = new Stores();
 							$_stores->group = 'city';

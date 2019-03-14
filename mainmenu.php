@@ -12,7 +12,7 @@
 			if($_CLIENTTYPES->get()): 
 				foreach($_CLIENTTYPES->data() as $type): 
 			?>
-			<li><a href="<?= ROOTPATH.'categoria/'.Permalink($type->name).'/' ?>"><?= $type->name ?></a></li>
+			<li><a href="<?= ROOTPATH.'busqueda/'.Permalink($type->name).'/' ?>"><?= $type->name ?></a></li>
 			<?php endforeach; endif; ?>
 			<li class="highlight"><a href="<?= ROOTPATH.'venta-online/' ?>">Venta Online</a></li>
 			<li><a href="<?= ROOTPATH.'blog' ?>">Blog</a></li>
@@ -36,19 +36,28 @@
 		<?php endif; ?>
 
 		<form id="form_main_search" class="row" method="POST" >
-			<div class="col-xs-12 col-sm-4">	
+			<div class="col-xs-12 col-sm-3">	
 				<div class="input-group">			
 					<span class="input-group-addon"><i class="fa fa-leaf"></i></span>
 					<input name="main" data-mode="main" id="fd_search_input" type="text" class="form-control" placeholder="Servicio..." value="<?=empty($search_main) ? '' : $search_main?>" autocomplete="off" >
 				</div>				
 			</div>
-			<div class="col-xs-12 col-sm-4">	
+			<div class="col-xs-12 col-sm-3">	
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
 					<input name="location" data-mode="locations" id="fd_search_location" type="text" class="form-control" placeholder="Zona..." value="<?=empty($search_locations) ? '' : $search_locations?>"  autocomplete="off">
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-4">				
+			<div class="col-xs-12 col-sm-3">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-shopping-bag"></i></span>
+					<select name="type" id="" class="form-control">
+						<option value="busqueda" <?= $_SECTION!='categoria' ? 'selected' : '' ?> >Promos</option>
+						<option value="categoria" <?= $_SECTION=='categoria' ? 'selected' : '' ?> >Centros</option>
+					</select>
+				</div>
+			</div>			
+			<div class="col-xs-12 col-sm-3">				
 				<button class="btn btn-default btn-block"><i class="fa fa-search fa-fw"></i> <span class="hidden-xs" >BUSCAR</span></button>
 			</div>
 		</form>

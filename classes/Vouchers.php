@@ -35,13 +35,16 @@ class Vouchers {
 			$where .= " (c.code LIKE '%{$this->keywords}%' OR v.name LIKE '%{$this->keywords}%')";
 		}
 		#(SELECT COUNT(*) FROM {$this->_dbprefix}vouchers_codes vc WHERE vc.idvoucher=a.idvoucher) as totcodes
-		$this->_db->query("SELECT v.id, v.name, v.isunique, v.ispercent, v.value, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish, DATE_FORMAT(v.added, '%d/%m/%Y') creado, (SELECT COUNT(*) FROM {$this->_dbprefix}vouchers_assoc va WHERE va.idvoucher=a.idvoucher) as totpromos, c.code
-			FROM {$this->_dbprefix}vouchers_assoc a
-			LEFT JOIN {$this->_dbprefix}vouchers v ON v.id=a.idvoucher
-			LEFT JOIN {$this->_dbprefix}vouchers_codes c ON v.id=c.idvoucher
+		$this->_db->query(
+			"SELECT DISTINCT v.*, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish, DATE_FORMAT(v.added, '%d/%m/%Y') creado, (SELECT COUNT(*) FROM {vouchers_assoc} va WHERE va.idvoucher=a.idvoucher) as totpromos, c.code
+			FROM {vouchers_assoc} a
+			LEFT JOIN {vouchers} v ON v.id=a.idvoucher
+			LEFT JOIN {vouchers_codes} c ON v.id=c.idvoucher
 			{$where} 
 			GROUP BY a.idvoucher, c.idvoucher
 			ORDER BY v.added DESC");
+		//GROUP BY a.idvoucher, c.idvoucher
+		//show_array($this->_db->getquery()->queryString);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

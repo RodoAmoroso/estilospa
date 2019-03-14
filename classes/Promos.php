@@ -57,7 +57,9 @@ class Promos {
 		//$search .= empty($search_type) ? "" : (empty($search) ? "WHERE (".$search_type : " AND".$search_type);
 		
 		//$search_glossary = BuildSearchAssignment($this->arrglossary,'ga.glossaryid');
-		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+		///$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+
+		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {promos_glossary_assignments} ga WHERE ga.glossaryid IN (".implode(',',$this->arrglossary).") AND ga.promoid=p.id) > 0";
 
 		
 		$search_promotype = BuildSearch($this->arrpromotypes,$this->searchmixed,array('p.idpromotype'));
@@ -152,12 +154,12 @@ class Promos {
 			FROM {promos} p 
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
-			LEFT JOIN {promos_glossary_assignments} ga ON ga.promoid=p.id
 			{$search} 
-			GROUP BY p.id
 			{$sortby} 
 			{$limitby}";
 
+		//GROUP BY p.id
+		//LEFT JOIN {promos_glossary_assignments} ga ON ga.promoid=p.id
 		//echo $query;
 
 		$this->_db->query($query);
@@ -191,6 +193,7 @@ class Promos {
 		$finish = explode('/',Input::get('Finish'));
 		$sql = array(
 		'idclient'=>Input::get('IDClient'),
+		'idpromotype'=>Input::get('IDPromotype'),
 		'sale'=>Input::get('Sale'),
 		'stores'=>implode(',',Input::get('Stores')),
 		'title'=>Input::get('Title'),
@@ -203,7 +206,6 @@ class Promos {
 		'cancellation'=>Input::get('Cancellation'),
 		'gallery'=>json_encode(Input::get('Gallery')),
 		'price'=>Input::get('Price'),
-		'idpromotype'=>Input::get('IDPromotype'),
 		'discount'=>Input::get('Discount'),
 		'amount'=>Input::get('Amount'),
 		'start'=>$start[2].'-'.$start[1].'-'.$start[0],

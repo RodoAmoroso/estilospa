@@ -69,35 +69,15 @@ class Clients {
 
 		
 
-		///$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
-		$search .= empty($this->arrtypes) ? "" : (empty($search) ? "WHERE " : " OR ")." ta.typeid IN (".implode(',',$this->arrtypes).")";
+		$search .= empty($this->arrtypes) ? "" : (empty($search) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {clients_types_assignments} ta WHERE ta.typeid IN (".implode(',',$this->arrtypes).") AND ta.clientid=c.id) > 0";
 
-		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
-
-		//$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {clients_glossary_assignments} ga WHERE ga.glossaryid IN (".implode(',',$this->arrglossary).") AND ga.clientid=c.id) > 0";
 
 
-			//$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('c.glossary'));
-		//	$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE (".$search_glossary : "OR".$search_glossary);			
-		//}
-		//show_array( $search);
-
-		//$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
-		//$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE (".$search_idclient : " AND".$search_idclient);
-		///$search = !empty($search) ? $search : $search;
 		$search = !empty($search_main) ? $search.') ' : $search;
 
 		$search .= empty($this->arridclients) ? "" : (empty($search) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
 		
-		//echo $search;
-
-		/*if($this->searchpromos){
-			$search .= empty($search) ? "WHERE " : " OR ";
-			$search .= "(SELECT COUNT(*) FROM {$this->_dbprefix}promos ps WHERE ps.idclient=c.id AND (ps.start<=NOW() AND ps.finish >= NOW()) AND (ps.title LIKE '%{$this->keywords}%' OR ps.subtitle LIKE '%{$this->keywords}%') ) > 0";
-			//echo $search;
-		}*/
-
-		///echo $search;
 
 
 		$sortby = '';
@@ -134,16 +114,12 @@ class Clients {
 		}
 		$query = "SELECT c.*, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos
 			FROM {clients} c 
-			LEFT JOIN {clients_glossary_assignments} ga ON ga.clientid=c.id
-			LEFT JOIN {clients_types_assignments} ta ON ta.clientid=c.id
-			{$search} 
-			GROUP BY c.id
+			{$search}
 			{$sortby} 
 			{$limitby}";
-		///echo $search;
 		$this->search = $search;	
 		$this->_db->query($query);
-		//echo $query;
+		//show_array( $this->_db->getquery()->queryString);
 
 
 		if($this->_db->count()){

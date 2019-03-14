@@ -53,7 +53,7 @@ if(!empty($search_locations)){
 //show_array($arridclients);
 
 
-$page_results = 30;
+$page_results = 24;
 
 $_CLIENTS->keywords = empty($search_main) ? '' : $search_main;
 $_CLIENTS->sort = 'promocount';

@@ -98,7 +98,7 @@
 <!-- FOOTER -->
 <footer class="cl-white">
 
-	<div class="overprint-absolute bg" style="background-image:url(<?= ROOTPATH ?>assets/bg-6.jpg)" ></div>
+	<div class="overprint-absolute bg" style="background-image:url(<?= ROOTPATH.'assets/bg-6.jpg?id='.rand(111,999) ?>)" ></div>
 
 	<div class="container">
 		<div class="row">

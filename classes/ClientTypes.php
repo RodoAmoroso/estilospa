@@ -39,7 +39,10 @@ class ClientTypes {
 	}
 
 	public function save(){
-		$sql = array('name'=>Input::get('Name'));
+		$sql = array(
+			'name'=>Input::get('Name'),
+			'position'=>0
+		);
 		if(!Input::get('ID')){
 			$this->_db->insert('clienttypes',$sql);
 			$this->_lastid = $this->_db->getLastId();

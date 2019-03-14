@@ -64,8 +64,8 @@ $_STORES->searchmixed = 0;
 $arridclients = array();
 if(!empty($search_locations)){	
 	if($_STORES->search()){
-		foreach($_STORES->data() as $idclient):
-			$arridclients[] = $idclient->idclient;
+		foreach($_STORES->data() as $store):
+			$arridclients[] = $store->idclient;
 		endforeach;
 	}
 }
@@ -89,6 +89,10 @@ $total_results = $_PROMOS->data() ? count($_PROMOS->data()) : 0;
 
 $_PROMOS->limit = (($page*$page_results)-$page_results).','.$page_results;
 $_PROMOS->get();
+
+if(!$total_results){
+	Redirect::to('categoria/'.$query.'/'.$location);
+}
 ///show_array($_PROMOS->limit);
 
 ///////////// CLIENTS ///////////////////

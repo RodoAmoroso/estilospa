@@ -45,12 +45,13 @@ class Stores{
 			$search .= "s.idprovince={$this->idprovince}";
 		}
 		$this->_db->query(
-			"SELECT s.id, s.city, s.idclient, s.idprovince, s.address, p.name, (SELECT COUNT(*) FROM {$this->_dbprefix}stores ss LEFT JOIN {$this->_dbprefix}clients c ON c.id=ss.idclient WHERE ss.city=s.city AND c.visible=1 ) as countclients
-			FROM {$this->_dbprefix}stores s 
-			LEFT JOIN {$this->_dbprefix}provinces p ON p.id=s.idprovince 
+			"SELECT s.id, s.city, s.idclient, s.idprovince, p.name, (SELECT COUNT(*) FROM {stores} ss LEFT JOIN {clients} c ON c.id=ss.idclient WHERE ss.city=s.city AND c.visible=1) as countclients
+			FROM {stores} s 
+			LEFT JOIN {provinces} p ON p.id=s.idprovince 
 			{$search} 
 			{$groupby} 
 			{$limitby}");
+		//show_array($this->_db->getquery()->queryString);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

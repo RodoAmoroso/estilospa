@@ -49,7 +49,7 @@ var Types = {
 			Mode:'save',
 			Name:$('#fd_type_name').val(),			
 			ID:Types.ID
-		},function(){
+		},function(data){
 			Types.reset();
 			Types.get();
 		});

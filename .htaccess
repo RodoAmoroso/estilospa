@@ -4,23 +4,19 @@ DirectoryIndex index.php
 #ErrorDocument 404 /estilospa/404.php
 
 RewriteEngine On
+
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
-
-
-###RewriteCond %{HTTP_HOST} !^www\. [NC]
-###RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-###RewriteCond %{HTTP:X-Forwarded-Proto} !https
-###RewriteCond %{HTTPS} off
-###RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-###RewriteRule ^busqueda/([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)/([0-9]*)$ index.php?sct=busqueda&q=$1&l=$2 [L]
-###RewriteRule ^([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)$ index.php?sct=$1&subsct=$2&ids=$3 [L]
-###RewriteRule ^([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)$ index.php?sct=$1&subsct=$2 [L]
-###RewriteRule ^([a-zA-Z0-9_-]*)$ index.php?sct=$1 [L]
-
-
 RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
+
+#RewriteCond %{HTTP_HOST} !^www\. [NC]
+#RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#RewriteCond %{HTTPS} off
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
 
 # php -- BEGIN cPanel-generated handler, do not edit
 # Set the “ea-php56” package as the default “PHP” programming language.

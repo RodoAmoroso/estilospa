@@ -145,7 +145,7 @@
 	
 	<div class="container text-center cl-gray-60 pad-20">
 		<h2><i class="fa fa-leaf"></i> Servicios y Tratamientos más buscados</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa tempore et quis quaerat laudantium magnam delectus. Quaerat quasi laborum eos temporibus, voluptate, soluta modi deleniti similique iure reprehenderit sequi, perferendis!</p>
+		
 	</div>
 
 	<div class="container">
@@ -179,7 +179,6 @@
 <section class="bg-gray-5">
 	<div class="container text-center cl-gray-60 pad-20">
 		<h2><i class="fa fa-heart"></i> Centros Destacados!!!</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa tempore et quis quaerat laudantium magnam delectus. Quaerat quasi laborum eos temporibus, voluptate, soluta modi deleniti similique iure reprehenderit sequi, perferendis!</p>
 	</div>
 
 

@@ -58,5 +58,5 @@ $mailer->Password = 'WmEsRaPd17';
 $mailer->SMTPSecure = 'ssl';
 $mailer->Port = 465;
 $mailer->setFrom('webmaster@estilospa.com', 'EstiloSPA.com');
-///$mailer->addReplyTo('consultas@estilospa.com', 'EstiloSPA.com');
+$mailer->addReplyTo('consultas@estilospa.com', 'EstiloSPA.com');
 $mailer->isHTML(true);

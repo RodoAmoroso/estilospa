@@ -166,7 +166,7 @@ class Sales {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "s.iduser=".$this->iduser;
 		}
-		$this->_db->query("SELECT s.id, s.idpromo, s.price, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.quantity, ss.name statusname, p.title, p.description, p.gallery, c.name clientname, c.permalink, m.text, m.rate
+		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.quantity, ss.name statusname, p.title, p.description, p.gallery, p.includes, c.name clientname, c.permalink, c.id clientid, c.mail clientemail, u.mail useremail, u.name username, u.phone userphone, m.text, m.rate
 			FROM spa_sales s 
 			LEFT JOIN {$this->_dbprefix}salesstatus ss ON ss.id=s.status 
 			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 

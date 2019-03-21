@@ -103,7 +103,7 @@ Actions = {
 				}
 				mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
 				///////////// USER ////////////////////////////////
-				if(v.image != ''){
+				if(v.image != '' && v.image != null){
 					var imgu = $.parseJSON(v.image);
 					var thumbimage = imgu.photoname+'-t.'+imgu.extension;
 				}else{

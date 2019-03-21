@@ -32,7 +32,7 @@ switch(Input::get('Mode')):
 			die(json_encode(array('Status'=>'wrongpass')));
 		endif;
 		/////////////////////////////////
-		$idu = $user->create(array('name'=>$name,'mail'=>$mail,'pass'=>password_hash($pass,PASSWORD_DEFAULT),'created'=>date('Y-m-d H:i:s'),'hash'=>$hash,'idtype'=>2));
+		$idu = $user->create(array('name'=>$name,'mail'=>strtolower($mail),'pass'=>password_hash($pass,PASSWORD_DEFAULT),'created'=>date('Y-m-d H:i:s'),'hash'=>$hash,'idtype'=>2));
 		///////// ENVIAR MAIL ///////////
 		$MailBody  = '<h1>Bienvenido/a a EstiloSPA.com!!!</h1><br /><br />Estás a un paso de vivir la experiencia de obtener promociones y descuentos en días de spa, tratamientos de belleza, centros de estética, depilación, masajes y mucho más...<br /><br />Para activar tu cuenta debes hacer click en el siguiente enlace: <br /><br /><a href="'.ROOTPATH.'activar-cuenta/'.$idu.'-'.$hash.'">'.ROOTPATH.'activar-cuenta/'.$idu.'-'.$hash.'</a><br /><br /><br />Gracias.<br />El equipo de EstiloSPA.com';
 

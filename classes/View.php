@@ -14,12 +14,12 @@ class View {
 	}
 
 	public static function img($folder='',$image=''){
-		if(!file_exists(PATH.'img'.DS.$folder.DS.$image)) return '';
+		if(!file_exists(PATH.DS.'img'.DS.$folder.DS.$image)) return '';
 		return ROOT.'img/'.$folder.'/'.$image;
 	}
 
 	public static function assets($image=''){
-		if(!file_exists(PATH.'assets'.DS.$image)) return '';
+		if(!file_exists(PATH.DS.'assets'.DS.$image)) return '';
 		return ROOT.'assets/'.$image;
 	}
 

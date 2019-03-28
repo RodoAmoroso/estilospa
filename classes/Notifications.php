@@ -36,6 +36,8 @@ class Notifications {
 				'body'=>"<h4>Hola {$unrated->name}</h4><p>Si ya has vivido la experiencia de la promo <b><a href='".ROOTPATH."promo/{$unrated->permalink}/{$unrated->idpromo}-".Permalink($unrated->promotitle)."'>{$unrated->promotitle}</a></b>, por favor cuéntanos cómo fue. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOTPATH."calificar/{$unrated->idpromo}' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Calificar</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
 				'added'=>date('Y-m-d H:i:s'),
 			));
+
+			///// Contanos como fue y sumá beneficios para tus próximas compras en EstiloSPA
 		}
 		return true;
 

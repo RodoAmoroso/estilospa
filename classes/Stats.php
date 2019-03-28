@@ -30,6 +30,16 @@ class Stats {
 		return true;
 	}
 
+	public function promo_view($userid=0,$promoid=0){
+		if(!$userid && !$promoid) return false;
+		$this->_db->insert('promo_views',array(
+			'promoid'=>$promoid,
+			'userid'=>$userid,
+			'added'=>date('Y-m-d H:i:s')
+		));
+		return true;
+	}
+
 	public function get_top_words(){
 		$this->_db->query("
 			SELECT word, COUNT(word) total

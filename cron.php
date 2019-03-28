@@ -1,8 +1,8 @@
 <?php 
 
 require_once 'config.php';
-require 'ajax/templates-mail.php';
-require 'ajax/phpmailer/PHPMailerAutoload.php';
+require 'templates/templates-mail.php';
+require 'lib/phpmailer/PHPMailerAutoload.php';
 
 $minutos = 15;
 $mailxhora = 100;

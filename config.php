@@ -34,6 +34,7 @@ if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') $HTTP = 'https';
 define('ROOTPATH',$HTTP.'://'.$_SERVER['HTTP_HOST'].'/'.Config::get('paths/root'));
 define('ADMINPATH',ROOTPATH.Config::get('paths/admin'));
 define('ROOT',ROOTPATH);
+define('DS',DIRECTORY_SEPARATOR);
 define('PATH',__DIR__);
 define('IPUSER',$_SERVER['REMOTE_ADDR']);
 

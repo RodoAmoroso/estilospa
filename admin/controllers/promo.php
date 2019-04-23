@@ -1,7 +1,7 @@
 <?php 
 
 $_promo = new Promos();
-$_promo->find($_SUBSECTION);
+$_promo->find($_subsection);
 $promodata = $_promo->data();
 //show_array($promodata);
 

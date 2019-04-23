@@ -250,6 +250,16 @@ class Clients {
 		$this->find($this->_db->first()->idclient);
 		return true;
 	}
+	public function check_assoc($iduser=0,$idclient=0){
+		$this->_db->query(
+			"SELECT * 
+			FROM {assoc_client_user} 
+			WHERE iduser=? AND idclient=?",
+			array($iduser,$idclient)
+		);
+		if(!$this->_db->count()) return false;
+		return true;
+	}
 
 	public function data(){
 		return $this->_data;

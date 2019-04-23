@@ -1,0 +1,101 @@
+http://www.estilospa.com/cpanel 
+
+https://www.efemossesistemas.com.ar/cpanel
+
+Nombre de usuario: estilo
+Contraseña: S5dVx8VyCKnT
+
+Host: ftp.estilospa.com 
+
+Nombre de usuario: estilo
+
+Contraseña: S5dVx8VyCKnT
+
+http://69.16.243.28/~estilo/
+
+bbdd: estilo_site
+user: estilo_rodo
+pass: EsPdAf-17
+
+
+usuario MP
+Rodo
+R0D0Amoroso
+
+
+
+
+//////////////// NEW HOST /////////////////
+
+https://stilospa.com.ar:2083/
+Login: estilospa
+Password: or6ohWKTCkgk
+
+http://weblin.alsolnet.com/mysql/index.php
+bbdd: estilosp_site
+user: estilosp_rodo
+pass: EsPdAf17
+
+https://stilospa.com.ar:2083/cpsess4598966756/3rdparty/phpMyAdmin/index.php
+///////////////////////////////////////////
+
+http://www.alsolnet.com
+Sitio: estilospa.com
+Clave: a17hx33w
+
+
+FTP
+Servidor: estilospa.com (hasta que el dominio este delegado el mismo es weblin.alsolnet.com )
+Usuario: estilospa.com
+Clave: a17hx33w
+
+http://estilospa.com.weblin.alsolnet.com/
+
+
+BBDD
+host: localhost
+user: estilospa_com
+pass: EsPdAf17
+bbdd: estilospa_com
+
+
+webmaster@estilospa.com
+WmEsRaPd17
+
+webmaster@stilospa.com.ar
+WmEsRaPd17
+
+//////////////////////////////////////////////
+
+https://miora.io/
+https://miora.mx/salones/peluqueria/cortes-de-pelo/
+
+http://www.esteticas.com.ar/
+https://www.bucmi.com/tratamientos-estetica
+
+https://www.bigbox.com.ar/
+
+http://demo.goodlayers.com/?theme=skinbeauty
+
+https://banamara.com/
+https://www.airbnb.com.ar/
+http://www.almashopping.com/mx/
+http://www.almashopping.com/
+http://www.guiaoleo.com.ar/
+http://www.casamientosonline.com.ar
+
+cards
+https://hair-beauty.vamtam.com/
+
+
+http://www.estilospa.com/control
+admin
+16sofia08
+
+
+//////////// MERCADO PAGO //////////////
+App ID: 7300466898804487
+
+Secret Key: 4Y7yVlsccQUmJM3ExQT59JioiKPK113K
+
+https://auth.mercadopago.com.ar/authorization?client_id=7300466898804487&response_type=code&platform_id=mp&redirect_uri=https%3A%2F%2Festilospa.com.weblin.alsolnet.com/mp.php

@@ -38,12 +38,12 @@
 								<?php foreach($_promos->data() as $promo): ?>
 								<tr>
 									<td>
-										<a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" title="ver" ><?=($promo->sale ? '<i class="fa fa-shopping-bag" title="Venta Online"></i>' : '')?> <?= $promo->title ?></a><br>
+										<a href="<?= ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" title="ver" ><?=($promo->sale ? '<i class="fa fa-shopping-bag" title="Venta Online"></i>' : '')?> <?= $promo->title ?></a><br>
 
 									</td>
 									<td><?= $promo->finish ?></td>
 									<td><label class="label label-<?=dif_labels($promo->dif)?>"><?= $promo->dif ?> días</label></td>
-									<td><a href="<?= ROOTPATH.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<td><a href="<?= ROOT.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -76,7 +76,7 @@
 								<tr>
 									<td><?= $promo->title ?></td>
 									<td><?= $promo->finish ?></td>
-									<td><a href="<?= ROOTPATH.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<td><a href="<?= ROOT.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -117,10 +117,10 @@
 							<tbody>
 								<?php foreach($_clients->data() as $client): ?>
 								<tr>
-									<td><a href="<?= ROOTPATH.'centros/'.$client->permalink ?>" target="_blank" title="ver" ><?= $client->name ?></a></td>
+									<td><a href="<?= ROOT.'centros/'.$client->permalink ?>" target="_blank" title="ver" ><?= $client->name ?></a></td>
 									<td><?= $client->creado ?></td>
 									<td class="text-center"><label class="label label-primary ?>"><?= $client->promos ?></label></td>
-									<td><a href="<?= ROOTPATH.'admin/centro/'.$client->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<td><a href="<?= ROOT.'admin/centro/'.$client->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -162,10 +162,10 @@
 									}
 								?>
 								<tr>
-									<td><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></td>
+									<td><a href="<?= ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></td>
 									<td><?=$promo->creado?></td>
 									<td><?=$status?></td>
-									<td><a href="<?= ROOTPATH.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<td><a href="<?= ROOT.'admin/promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -247,13 +247,13 @@
 				foreach($_messages->data() as $message): 
 					$where = '';
 					if(!is_null($message->glossaryname)){
-						$where = 'Enviado a la Etiqueta: <a href="'.ROOTPATH.'etiqueta/'.$message->idglossary.'-'.Permalink($message->glossaryname).'" target="_blank">'.$message->glossaryname.'</a>';
+						$where = 'Enviado a la Etiqueta: <a href="'.ROOT.'etiqueta/'.$message->idglossary.'-'.Permalink($message->glossaryname).'" target="_blank">'.$message->glossaryname.'</a>';
 					}
 					if(!is_null($message->promotitle)){
-						$where = 'Enviado a la Promo: <a href="'.ROOTPATH.'promo/'.$message->permalink.'/'.$message->idpromo.'-'.Permalink($message->promotitle).'" target="_blank">'.$message->promotitle.'</a>';
+						$where = 'Enviado a la Promo: <a href="'.ROOT.'promo/'.$message->permalink.'/'.$message->idpromo.'-'.Permalink($message->promotitle).'" target="_blank">'.$message->promotitle.'</a>';
 					}
 					if(!is_null($message->clientname)){
-						$where = 'Enviado al Centro: <a href="'.ROOTPATH.'centros/'.$message->permalink.'" target="_blank">'.$message->clientname.'</a>';
+						$where = 'Enviado al Centro: <a href="'.ROOT.'centros/'.$message->permalink.'" target="_blank">'.$message->clientname.'</a>';
 					}
 			?>
 

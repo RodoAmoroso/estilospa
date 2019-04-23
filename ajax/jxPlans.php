@@ -6,31 +6,31 @@ if(!Input::exists()){
 	die(json_encode(array('Status'=>'fail')));
 }
 
-$_PLANS = new Plans();
+$Plans = new Plans();
 
 switch (Input::get('Mode')) {
 
 	///////////////////// GROUPS ///////////////////////////	
 	case 'save':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_PLANS->save();
-		echo json_encode(array('Status'=>'ok','ID'=>$_PLANS->getLastId()));
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$Plans->save();
+		echo json_encode(array('Status'=>'ok','ID'=>$Plans->getLastId()));
 		break;
 
 	case 'get':
-		$_PLANS->get();
-		echo json_encode(array('Status'=>'ok','Results'=>$_PLANS->data()));
+		$Plans->get();
+		echo json_encode(array('Status'=>'ok','Results'=>$Plans->data()));
 		break;
 
 	case 'delete':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));		
-		$_PLANS->delete();
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));		
+		$Plans->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'find':
-		$_PLANS->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_PLANS->data()));
+		$Plans->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$Plans->data()));
 		break;
 	
 	default:

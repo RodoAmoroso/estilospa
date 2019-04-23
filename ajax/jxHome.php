@@ -5,12 +5,12 @@ require_once '../config.php';
 if(!Input::exists()) die(json_encode(array('Status'=>'fail')));
 
 
-$_BANNERS = new Banners();
+$Banners = new Banners();
 
 switch (Input::get('Mode')):
 
 	case 'upmain':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -19,7 +19,7 @@ switch (Input::get('Mode')):
 		break;
 
 	case 'upside':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -28,33 +28,33 @@ switch (Input::get('Mode')):
 		break;
 
 	case 'save':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 
 		if(!empty(Input::get('Link')['url'])) if(!filter_var(Input::get('Link')['url'],FILTER_VALIDATE_URL)) die(json_encode(array('Status'=>'url')));
 
-		$_BANNERS->save();
-		echo json_encode(array('Status'=>'ok','ID'=>$_BANNERS->getLastId()));		
+		$Banners->save();
+		echo json_encode(array('Status'=>'ok','ID'=>$Banners->getLastId()));		
 		break;
 
 	case 'get':
-		$_BANNERS->sort = 'position';
-		$_BANNERS->get();
-		echo json_encode(array('Status'=>'ok','Results'=>$_BANNERS->data()));
+		$Banners->sort = 'position';
+		$Banners->get();
+		echo json_encode(array('Status'=>'ok','Results'=>$Banners->data()));
 		break;
 
 	case 'find':
-		$_BANNERS->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok','Result'=>$_BANNERS->data()));
+		$Banners->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok','Result'=>$Banners->data()));
 		break;
 
 	case 'delete':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_BANNERS->delete();
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$Banners->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'reorder':
-		$_BANNERS->reorder();
+		$Banners->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 

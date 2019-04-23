@@ -6,13 +6,13 @@ if(!Input::exists()){
 	die(json_encode(array('Status'=>'fail')));
 }
 
-$_BLOG = new Blog();
-$_BLOGCATEGORIES = new BlogCategories();
+$Blog = new Blog();
+$BlogCategories = new BlogCategories();
 
 switch (Input::get('Mode')) {
 	
 	case 'insertimage':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -20,7 +20,7 @@ switch (Input::get('Mode')) {
 		echo json_encode($file);
 		break;
 	case 'upgallery':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -28,49 +28,49 @@ switch (Input::get('Mode')) {
 		echo json_encode($file);
 		break;
 	case 'save':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_BLOG->save();		
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$Blog->save();		
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	case 'get':
-		$_BLOG->keywords = Input::get('Keywords');
-		$_BLOG->idcategory = Input::get('IDCategory');
-		$_BLOG->limit = '0,100';
-		$_BLOG->searchmixed = intval(Input::get('SearchMixed'));
-		$_BLOG->get();
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_BLOG->data()));		
+		$Blog->keywords = Input::get('Keywords');
+		$Blog->idcategory = Input::get('IDCategory');
+		$Blog->limit = '0,100';
+		$Blog->searchmixed = intval(Input::get('SearchMixed'));
+		$Blog->get();
+		echo json_encode(array('Status'=>'ok', 'Results'=>$Blog->data()));		
 		break;
 	case 'find':
-		$_BLOG->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_BLOG->data()));
+		$Blog->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$Blog->data()));
 		break;
 	case 'delete':
-		$_BLOG->delete();
+		$Blog->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	///////////// CATEGORY ////////////////////////////////
 	case 'savecategory':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		if(!Input::check(array('Name'))) die(json_encode(array('Status'=>'fail')));
-		$_BLOGCATEGORIES->save();		
-		echo json_encode(array('Status'=>'ok','ID'=>$_BLOGCATEGORIES->getLastId()));
+		$BlogCategories->save();		
+		echo json_encode(array('Status'=>'ok','ID'=>$BlogCategories->getLastId()));
 		break;
 	case 'getcategories':
-		$_BLOGCATEGORIES->get();
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_BLOGCATEGORIES->data()));
+		$BlogCategories->get();
+		echo json_encode(array('Status'=>'ok', 'Results'=>$BlogCategories->data()));
 		break;
 	case 'findcategory':
-		$_BLOGCATEGORIES->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_BLOGCATEGORIES->data()));
+		$BlogCategories->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$BlogCategories->data()));
 		break;
 	case 'deletecategory':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_BLOGCATEGORIES->delete();
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$BlogCategories->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	case 'reordercategory':
-		$_BLOGCATEGORIES->reorder();
+		$BlogCategories->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 

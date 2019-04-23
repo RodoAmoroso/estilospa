@@ -24,12 +24,12 @@ class User {
 				$user = Session::get($this->_sessionName);
 				if($this->find($user)){
 					$this->_logged = true;
-				}else{
-					$this->_logged = false;
 				}
 			}
 		}else{
-			$this->find($user);
+			if($this->find($user)){
+				$this->_logged = true;
+			}
 		}
 	}
 
@@ -43,11 +43,16 @@ class User {
 		}*/
 	}	
 
+	public function update($userid=0,$array=array()){
+		if(!$this->_db->update('users',$userid,$array)) return false;
+		return true;
+	}
+
 	public function find($user=null){		
 		if($user){
 			$field = is_numeric($user) ? 'u.id' : 'u.mail';
 			//$this->_db->get('users',array($field,'=',$user));
-			$this->_db->query("SELECT u.id, u.name, u.lastname, u.birth, u.mail, u.idtype, u.pass, u.created, u.logged, u.image, u.newsletter, u.address, u.addressobs, u.zipcode, u.city, u.social, u.idprovince, u.phone, u.active, u.hash, u.dni, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos
+			$this->_db->query("SELECT u.*, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos
 				FROM {$this->_dbprefix}users u 
 				LEFT JOIN {$this->_dbprefix}assoc_client_user a ON a.iduser=u.id 
 				LEFT JOIN {$this->_dbprefix}clients c ON c.id=a.idclient 
@@ -118,6 +123,49 @@ class User {
 			}
 		}
 		return false;
+	}
+
+	public function activate($userid=0,$hash=''){
+		$this->_db->query("
+			SELECT id 
+			FROM {users} 
+			WHERE id=? AND hash=?",
+			array($userid,$hash)
+		);
+		if(!$this->_db->count()) return false;
+
+		$this->_db->update('users',$userid,array('active'=>1));
+
+		return true;
+	}
+
+	public function update_hash($userid=null){
+		$hash = hash('sha256', uniqid());
+		if(!$this->_db->update('users',$userid,array('hash'=>$hash))) return false;
+		return $hash;
+	}
+
+	public function check_hash($userid=0,$hash=''){
+		$this->_db->query("
+			SELECT id 
+			FROM {users} 
+			WHERE id=? AND hash=?",
+			array($userid,$hash)
+		);
+		if(!$this->_db->count()) return false;
+		return true;
+	}
+
+	public function reset_password($userid=0,$password=''){
+		$newhash = hash('sha256', uniqid());
+		if(!$this->_db->update('users',$userid,
+			array(
+				'hash'=>$newhash,
+				'pass'=>password_hash($password,PASSWORD_DEFAULT)
+			)
+		)) return false;
+
+		return true;
 	}
 
 	public function getLastId(){

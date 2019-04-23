@@ -1,0 +1,360 @@
+.mod-client-2
+	display block
+	border 1px solid gray(5)
+	padding 8px
+	margin-bottom 26px
+	box-shadow 3px 3px 4px gray(5)
+	transition all 200ms linear
+	&:hover 
+		border 1px solid gray(5)
+		box-shadow 3px 3px 4px gray(5)
+		text-decoration none
+		color gray(40)
+	.caption 
+		.dp-flexbox
+			padding 6px 0 0 0
+			.flexbox-item
+				background-color $fucsia_0
+				flex-grow 1
+				font-size 9pt
+				margin 0 1px
+				padding 6px
+				text-align center
+				&:last-of-type
+					border-right none
+.mod-news 
+	background-color white
+	border 1px solid gray(10)
+	display block
+	overflow hidden
+	margin 0 0 16px 0
+	transition opacity 300ms ease-out
+	.caption
+		height 200px
+		padding 10px
+		position relative
+		i 
+			font-size 9pt
+		p 
+			font-size 8pt
+			margin-top 6px
+		h3,h4
+			font-weight 400
+			margin-top 2px
+		.readmore
+			background-image linear-gradient(bottom,white,white,rgba(255,255,255,0.5))
+			bottom 0
+			left 0
+			padding 26px 10px 4px 10px
+			position absolute
+			width 100%
+	&:hover
+		opacity 0.75		
+		text-decoration none
+.mod-tile-2
+	box-sizing border-box
+	margin 16px 2px
+	min-height 120px
+	//max-width 600px
+	position relative
+	.dp-flexbox
+		.flex-item
+			width 100%
+	.icons
+		background-color white
+		position relative
+	.caption 
+		background-color rgba(231,20,123,0.85)
+		color white
+		bottom 0
+		left 0
+		padding 8px 16px
+		position absolute
+		transition background-color 300ms ease-out
+		width 100%
+		h1,h2,h3,h4
+			margin 4px 0	
+	.sale-tag
+		position absolute
+		top 10%
+		left -5px
+		&:before
+			border-right 5px solid black
+			border-left 5px solid transparent
+			border-top 5px solid transparent
+			border-bottom 5px solid transparent
+			bottom -9px
+			content ''
+			height 0
+			position absolute
+			left -5px
+			width 0
+		span 
+			background-color rgba(231,20,123,1)
+			color #fff
+			font-size 9pt
+			padding 6px 10px
+			position relative
+	&:hover 
+		.caption
+			background-color rgba(0,0,0,0.85)
+		.dp-flexbox
+			color black
+.mod-tile
+	border 1px solid gray(10)
+	display block
+	//max-width 600px
+	margin 10px 0
+	position relative
+	transition opacity 300ms linear
+	&:hover 
+		text-decoration none
+		opacity 0.75
+	.thumb-cover 
+		position relative
+		overflow hidden
+		p
+			font-size 0.9em
+	.caption			
+		background-color $fucsia_3
+		color white
+		padding 4px 16px
+		position relative
+		overflow hidden
+		white-space nowrap
+		.hidden-zone
+			background-image linear-gradient(left, rgba(0,0,0,0), $fucsia_3)
+			height 38px
+			position absolute
+			right 0
+			top 0
+			width 100px
+		h3
+			margin 0 0 4px 0
+			height 28px			
+		h4
+			margin 4px 0
+		p 
+			margin 0
+	.icons 
+		background-color gray(60)
+		background-color $aqua_6
+		color white
+		display flex
+		justify-content space-between
+		padding 4px 16px
+		.col 
+			padding 0
+			text-align center
+			i 
+				font-size 9pt
+	.sale-tag
+		position absolute
+		top 8px
+		left -5px
+		&:before
+			border-right 5px solid black
+			border-left 5px solid transparent
+			border-top 5px solid transparent
+			border-bottom 5px solid transparent
+			bottom -6px
+			content ''
+			height 0
+			position absolute
+			left -5px
+			width 0
+		span 
+			background-color $fucsia_3
+			color #fff
+			font-size 7.5pt
+			padding 4px 10px
+			position relative
+.mod-tile-wide
+	border 1px solid gray(10)
+	display block
+	display flex
+	height auto
+	margin 10px 16px
+	padding 16px
+	.content
+		width 100%
+		.title 
+			margin 0 0 8px 0
+			padding 0
+			font-weight 600
+			color black
+		.caption
+			margin 0 0 8px 0
+		small 
+			color gray(40)
+	.action
+		border-left 1px solid gray(10)
+		text-align right
+		width 140px
+		.btn-group
+			margin 10px 0
+		.price 
+			font-size 14pt
+			font-weight 600
+.mod-mosaic
+	transition opacity 300ms ease-out
+	overflow hidden
+	.bg
+		transition transform 1200ms cubic-bezier(.23,1,.32,1)
+	.caption
+		//background-color rgba(231,18,124,.55)
+		//background-color rgba(104,187,206,.55)
+		background-color rgba(33,86,99,.55)
+		bottom 0
+		border 1px solid $aqua_3
+		display flex
+		align-items center
+		justify-content center
+		color white
+		left 0
+		height 100%
+		padding 6px 16px
+		position absolute
+		text-align center
+		transition all 1200ms cubic-bezier(0.23,1,0.32,1)
+		width 100%
+		h4 
+			margin 0
+			font-size 14pt
+			font-weight 400
+			//text-transform uppercase
+	&:hover
+		.caption 
+			background-color rgba(231,18,124,.75)
+			color white
+		.bg 
+			transform scale3d(1.2,1.2,1)
+			
+
+.mod-sales
+	background-color white
+	border 1px solid gray(10)
+	box-shadow 2px 2px 12px rgba(0,0,0,0.08)
+	margin 0 0 8px 0
+	.sale-header
+		display flex
+		.thumb-container 
+			padding 16px
+			.thumb
+				background-color aqua_4
+				border 1px solid gray(10)
+				height 80px
+				width 80px
+		.caption 
+			flex-grow 1
+			padding 8px 16px
+			h1,h2,h3,h4,h5,hr
+				margin 6px 0
+				a 
+					color black
+					&:hover,&:focus
+						color aqua_3
+						text-decoration none
+		.action 
+			padding 16px
+			width 60px
+		.sale-actions
+			border-top 1px solid gray(10)
+			padding 8px 0
+			margin-top 6px
+			.btn-group
+				margin-left 8px
+		.close 
+			padding 4px 6px
+	.sale-footer 
+		display none
+		padding 0 16px
+		.sale-user
+			background-color gray(3)
+			border-top 1px solid aqua_1
+			border-bottom 1px solid aqua_1
+			padding 16px 10px 0 10px
+			margin-bottom 10px
+			overflow hidden
+			position relative
+			justify-content space-between
+			&:after,&:before
+				color gray(6)
+				font-family 'FontAwesome'
+				font-size 96pt					
+				position absolute
+				z-index 1
+			&:after
+				content '\f10d'
+				top -16px
+				left -6px
+			&:before
+				content '\f10e'
+				bottom -20px
+				right -6px
+			.user
+				position relative
+				display flex
+				z-index 2
+				.item 
+					.user-thumb
+						background-color gray(20)
+						border-radius 4px
+						height 40px
+						width 40px
+				.item:last-of-type
+					flex-grow 1
+					padding 0 20px
+					.mail 
+						color gray(40)
+						font-size 10pt
+						&:hover 
+							color $fucsia_3
+							text-decoration none
+			.feedback
+				padding 10px 0
+				position relative
+				z-index 2
+				p[data-tag="comment"]
+					position relative
+					font-style italic
+				.stars 
+					font-size 9pt
+	.sale-user-footer		
+		display block
+		
+
+.glossary-module-wrapper
+	background-color gray(5)
+	padding 26px 0 66px 0
+.glossary-module
+	background-color white
+	border-radius 6px
+	margin 16px 0
+	.glossary-header
+		background-color $aqua_1
+		padding 16px
+		.title 
+			color $aqua_5
+			font-weight 500
+			font-size 1.8rem
+			margin 0
+		.subtitle 
+			color $aqua_5
+	.glossary-body
+		padding 16px
+		.list 
+			display flex
+			flex-wrap wrap
+			margin 0
+			padding 0
+			.item 
+				display block
+				padding 4px
+				min-width (100/3)%
+				width (100/3)%
+				a 
+					//border 1px solid gray(10)
+					display block 
+					//padding 6px 16px
+					line-height 1.1

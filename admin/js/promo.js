@@ -190,7 +190,7 @@ var Promos = {
 		});
 	},
 	reset:function(){
-		window.location.href = ROOTPATH+'admin/promos';
+		window.location.href = ROOT+'admin/promos';
 	},
 	find:function(){
 		AjaxConnection('jxPromos.php',{Mode:'find',ID:$_id},function(DATA){
@@ -233,7 +233,7 @@ var Promos = {
 	buildgallery:function(PHTNM,EXT){
 		var mod = $('#mod_thumb').clone();
 		mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
-		mod.css({backgroundImage:'url('+ROOTPATH+'img/promos/'+PHTNM+'-t.'+EXT+')'});
+		mod.css({backgroundImage:'url('+ROOT+'img/promos/'+PHTNM+'-t.'+EXT+')'});
 		mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
 		mod.find('.dp-table').remove();
 		$('#gallery').append(mod);

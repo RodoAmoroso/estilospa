@@ -16,7 +16,7 @@
 		<div class="block-white">
 			<h4 class="">No hay ningún centro asociado a esta cuenta. Comunícate con nosotros para poder asociarte tu centro a esta cuenta.</h4>
 			<hr>
-			<a class="btn btn-primary" href="<?= ROOTPATH.'contacto' ?>">Contacto</a>
+			<a class="btn btn-primary" href="<?= ROOT.'contacto' ?>">Contacto</a>
 		</div>
 	</div>
 </section>

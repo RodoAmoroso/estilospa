@@ -3,7 +3,7 @@
 $MailBodyUser  = '
 	<h2>¡Hola '.$_salesdata->username.'!</h2>
 	<h3>Gracias por utilizar EstiloSPA.com!!!</a></h3>
-	<p>Tu pedido está siendo procesado.</p>
+	<p>Estamos procesando tu pago. En breve te estará llegando un email con los detalles de tu compra.</p>
 	<p>
 		Gracias.<br />
 		El equipo de EstiloSPA.com

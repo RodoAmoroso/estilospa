@@ -1,12 +1,14 @@
 Options -Indexes
 DirectoryIndex index.php
 
-ErrorDocument 404 /estilospa/404.php
+##ErrorDocument 404 /estilospa/404.php
 
 RewriteEngine On
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
 
+RewriteRule ^(.+)$ index.php?uri=$1 [QSA,L]
 
-RewriteRule ^([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)$ index.php?sct=$1&subsct=$2 [L]
-RewriteRule ^([a-zA-Z0-9_-]*)$ index.php?sct=$1 [L]
+
+##RewriteRule ^([a-zA-Z0-9_-]*)/([a-zA-Z0-9_-]*)$ index.php?sct=$1&subsct=$2 [L]
+##RewriteRule ^([a-zA-Z0-9_-]*)$ index.php?sct=$1 [L]

@@ -14,7 +14,7 @@
 			<div class="block-white">
 				<h4 class="">No hay ningún centro asociado a esta cuenta. Comunícate con nosotros para poder asociarte tu centro a esta cuenta.</h4>
 				<hr>
-				<a class="btn btn-primary" href="<?= ROOTPATH.'contacto' ?>">Contacto</a>
+				<a class="btn btn-primary" href="<?= ROOT.'contacto' ?>">Contacto</a>
 			</div>
 		</div>
 	</section>
@@ -69,7 +69,7 @@ else:
 
 				<h3>Tu Cuenta de Mercado Pago ya ha sido vinculada con EstiloSPA</h3>
 				<hr>
-				<p>Ya puedes vender tus promociones a través de nuestra plataforma. Dirígite a la sección <a href="<?= ROOTPATH.'cuenta/promos' ?>">Promos</a> para crear o administrar todas las promociones disponibles de tu centro.</p>
+				<p>Ya puedes vender tus promociones a través de nuestra plataforma. Dirígite a la sección <a href="<?= ROOT.'cuenta/promos' ?>">Promos</a> para crear o administrar todas las promociones disponibles de tu centro.</p>
 
 				<hr>
 

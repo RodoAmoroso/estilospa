@@ -55,7 +55,7 @@ var Actions = {
 					$('#th_image_'+type+' .th').css({width:'auto',height:'100%'});
 				}*/
 			}
-			img.src = ROOTPATH+'img/home/'+ArrFiles[0].photoname+'-o.'+ArrFiles[0].extension;		
+			img.src = ROOT+'img/home/'+ArrFiles[0].photoname+'-o.'+ArrFiles[0].extension;		
 		}});	
 	},
 	get:function(){
@@ -69,7 +69,7 @@ var Actions = {
 				mod.find('.edit,.delete').attr({'data-type':v.type,'data-id':v.id});
 				mod.find('p').html('Creado: '+v.added+' &bullet; '+(v.visible==1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>'));
 				var img = $.parseJSON(v.image);
-				mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/home/'+img.photoname+'-t.'+img.extension+')'});
+				mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/home/'+img.photoname+'-t.'+img.extension+')'});
 				if(v.type=='main'){
 					$('#main').append(mod);
 				}
@@ -112,7 +112,7 @@ var Actions = {
 			var arrpos = img.position.split(' ');
 			$('#slider_h_'+type).slider({value:arrpos[0].replace('%','').replace('px','')});
 			$('#slider_v_'+type).slider({value:arrpos[1].replace('%','').replace('px','')});
-			$('#th_image_'+type).attr({'data-photoname':img.photoname,'data-extension':img.extension}).css({backgroundImage:'url('+ROOTPATH+'img/home/'+img.photoname+'-o.'+img.extension+')',backgroundPosition:img.position});
+			$('#th_image_'+type).attr({'data-photoname':img.photoname,'data-extension':img.extension}).css({backgroundImage:'url('+ROOT+'img/home/'+img.photoname+'-o.'+img.extension+')',backgroundPosition:img.position});
 			var link = $.parseJSON(DATA.Result.link);
 			$('#fd_url_'+type).val(link.url);
 			if(link.blank==0){

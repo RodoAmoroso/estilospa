@@ -92,7 +92,7 @@ var Clients = {
 	buildthumbs:function(PHTNM,EXT){
 		var mod = $('#mod_thumb').clone();
 		mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
-		mod.css({backgroundImage:'url('+ROOTPATH+'img/clients/'+PHTNM+'-t.'+EXT+')'});
+		mod.css({backgroundImage:'url('+ROOT+'img/clients/'+PHTNM+'-t.'+EXT+')'});
 		mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
 		mod.find('.dp-table').remove();
 		$('#gallery').append(mod);
@@ -126,7 +126,7 @@ var Clients = {
 				mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);	
 				if(v.logo != ''){
 					var logo = $.parseJSON(v.logo);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
+					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
 				}
 				$('#clients').append(mod);
 			});
@@ -141,7 +141,7 @@ var Clients = {
 				Clients.find();
 			});
 			$('#clients .preview').unbind('click').click(function(){
-				window.open(ROOTPATH+'centros/'+$(this).attr('data-permalink'));
+				window.open(ROOT+'centros/'+$(this).attr('data-permalink'));
 			});
 		});
 	},
@@ -220,7 +220,7 @@ var Clients = {
 				Clients.reset();
 				Clients.get();
 			}else{
-				window.open(ROOTPATH+'centros/'+$('#fd_permalink').val());
+				window.open(ROOT+'centros/'+$('#fd_permalink').val());
 			}
 		});
 	},
@@ -247,7 +247,7 @@ var Clients = {
 			$('#fd_plans option[value="'+DATA.Client.idplan+'"]').prop('selected',true);
 			if(DATA.Client.logo != ''){
 				var logo = $.parseJSON(DATA.Client.logo);
-				$('#logo_client').attr({'data-photoname':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOTPATH+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
+				$('#logo_client').attr({'data-photoname':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
 			}
 			//////////// USERS /////////////////////////////////
 			$.each(DATA.Users,function(k,v){
@@ -633,7 +633,7 @@ var Features = {
 		$('#fd_feature_description').ckeditor({
 			language:'es',
 			height:340,
-			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOTPATH+'css/bootstrap.min.css',ROOTPATH+'css/styles.css'],
+			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOT+'css/bootstrap.min.css',ROOT+'css/styles.css'],
 			allowedContent:true,
 			toolbar:'MyToolBar',
 			toolbar_MyToolBar:[['Bold','Italic','Underline','RemoveFormat'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['FontSize','TextColor','BGColor'],['Link','Unlink'],['NumberedList','Bulletedist','Outdent','Indent','Blockquote'],['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],['Link','Unlink','Anchor']]

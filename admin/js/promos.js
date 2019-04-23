@@ -43,13 +43,13 @@ var Promos = {
 				mod.find('.preview').attr({'data-permalink':v.permalink,'data-title':v.title});
 				if(v.gallery!=''){
 					var img = $.parseJSON(v.gallery);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
+					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 				}
 				$('#promos').append(mod);
 			});
 			$('#promos .edit').unbind('click').click(function(){
 				var id = $(this).attr('data-id');
-				window.location.href = ROOTPATH+'admin/promo/'+id;
+				window.location.href = ROOT+'admin/promo/'+id;
 			});
 			$('#promos .delete').unbind('click').click(function(){
 				var id = $(this).attr('data-id');
@@ -63,7 +63,7 @@ var Promos = {
 				var permalink = $(this).attr('data-permalink');
 				var title = $(this).attr('data-title');
 				//console.log(id,permalink,title);
-				window.open(ROOTPATH+'promo/'+permalink+'/'+id+'-'+Permalink(title));
+				window.open(ROOT+'promo/'+permalink+'/'+id+'-'+Permalink(title));
 			});
 		});
 	},

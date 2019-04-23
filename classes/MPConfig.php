@@ -82,7 +82,7 @@ class MPConfig {
 		$mp = new MP($this->_data->access_token); // seller access_token
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
 
-		$promo_url = ROOTPATH.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
+		$promo_url = ROOT.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
 		
 		$preference_data = array(
 			"items" => array(
@@ -93,7 +93,7 @@ class MPConfig {
 					"unit_price" => ($promoprice-$discountvoucher),
 					"currency_id" => "ARS",
 					"picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-					//"picture_url" => ROOTPATH.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension,
+					//"picture_url" => ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension,
 					"category_id" => "services"
 				)
 			),
@@ -104,9 +104,9 @@ class MPConfig {
 				"surname"=>$USER->lastname
 			),
 			"back_urls"=>array(
-				"success"=>ROOTPATH.'pago-status.php?status=success&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"failure"=>ROOTPATH.'pago-status.php?status=failure&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"pending"=>ROOTPATH.'pago-status.php?status=pending&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
+				"success"=>ROOT.'pago-status.php?status=success&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"failure"=>ROOT.'pago-status.php?status=failure&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"pending"=>ROOT.'pago-status.php?status=pending&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
 			),
 			"payment_methods"=>array(
 				"excluded_payment_methods"=>array(),
@@ -114,7 +114,7 @@ class MPConfig {
 				//"excluded_payment_types"=>array(array("id"=>"atm")),
 				"installments"=>null
 			),
-			"notification_url"=> ROOTPATH."ipn.php",
+			"notification_url"=> ROOT."ipn.php",
 			"external_reference"=> $this->_hash,
 		);
 		try{

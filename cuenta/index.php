@@ -3,17 +3,17 @@
 require_once '../config.php';
 
 ///////////////////////////////////////////////////////////////
-$_SECTION = isset($_REQUEST['sct']) ? $_REQUEST['sct'] : 'dashboard';
-$_SECTION = !empty($_SECTION) ? $_SECTION : 'dashboard';
-$_SUBSECTION = isset($_REQUEST['subsct']) ? $_REQUEST['subsct'] : '';
+$_section = isset($_REQUEST['sct']) ? $_REQUEST['sct'] : 'dashboard';
+$_section = !empty($_section) ? $_section : 'dashboard';
+$_subsection = isset($_REQUEST['subsct']) ? $_REQUEST['subsct'] : '';
 ///////////////////////////////////////////////////////////////
 
-if(!$_USER->logged() || $_USER->data()->idtype != 3) Redirect::to('login#'.ROOTPATH.'cuenta/'.$_SECTION);
+if(!$_USER->logged() || $_USER->data()->idtype != 3) Redirect::to('login#'.ROOT.'cuenta/'.$_section);
 
 
-if(file_exists('controllers/'.$_SECTION.'.php')) include 'controllers/'.$_SECTION.'.php';
+if(file_exists('controllers/'.$_section.'.php')) include 'controllers/'.$_section.'.php';
 require '../head.php';
 require '../header.php';
 include 'mainmenu.php';
-if(file_exists('views/'.$_SECTION.'.php')): include 'views/'.$_SECTION.'.php'; else: include '../views/404.php'; endif;
+if(file_exists('views/'.$_section.'.php')): include 'views/'.$_section.'.php'; else: include '../views/404.php'; endif;
 require 'footer.php';

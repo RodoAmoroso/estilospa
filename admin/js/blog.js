@@ -145,7 +145,7 @@ var Blog = {
 				mod.find('p').html(v.fecha+' &bullet; Vistas: '+v.views);
 				var img = $.parseJSON(v.gallery);
 				if(img[0].video == undefined){
-					mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/blog/'+img[0].photoname+'-t.'+img[0].extension+')'});
+					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/blog/'+img[0].photoname+'-t.'+img[0].extension+')'});
 				}else{
 					GetYoutubeApi(img[0].video,function(data){
 						mod.find('.thumb').css({backgroundImage:'url('+data.items[0].snippet.thumbnails.medium.url+')'});
@@ -168,7 +168,7 @@ var Blog = {
 			});
 			$('#blog .preview').unbind('click').click(function(){
 				var id = $(this).attr('data-id');
-				window.open(ROOTPATH+'blog-pagina/'+id+'-'+Permalink($('.mod-card[data-id="'+id+'"]').find('h1').text()));
+				window.open(ROOT+'blog-pagina/'+id+'-'+Permalink($('.mod-card[data-id="'+id+'"]').find('h1').text()));
 			});
 		});
 	},
@@ -258,7 +258,7 @@ var Blog = {
 	buildthumbs:function(PHTNM,EXT){
 		var mod = $('#mod_thumb').clone();
 		mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
-		mod.css({backgroundImage:'url('+ROOTPATH+'img/blog/'+PHTNM+'-t.'+EXT+')'});
+		mod.css({backgroundImage:'url('+ROOT+'img/blog/'+PHTNM+'-t.'+EXT+')'});
 		mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
 		mod.find('.dp-table').remove();
 		$('#gallery').append(mod);
@@ -284,7 +284,7 @@ var Blog = {
 		$('#fd_content').ckeditor({
 			language:'es',
 			height:540,
-			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOTPATH+'css/bootstrap.min.css',ROOTPATH+'css/styles.css'],
+			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOT+'css/bootstrap.min.css',ROOT+'css/styles.css'],
 			allowedContent:true,
 			toolbar:'MyToolBar',
 			toolbar_MyToolBar:[['Bold','Italic','Underline','RemoveFormat'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['FontSize','TextColor','BGColor'],['Link','Unlink'],['NumberedList','Bulletedist','Outdent','Indent','Blockquote'],['Cut','Copy','Paste','PasteText','PasteFromWord'],['Link','Unlink','Iframe','Image']]
@@ -295,7 +295,7 @@ var Blog = {
 		$('#btn_insertimage').click(function(){
 		});
 		UpFile.Init({MODE:'insertimage',PHP:'jxBlog.php',FOLDER:'img/blog/',FORM:'#form_insertimage',BTN:'#btn_insertimage',Callback:function(ArrFiles){
-			var file = ROOTPATH+'img/blog/'+ArrFiles[0].photoname+'.'+ArrFiles[0].extension;
+			var file = ROOT+'img/blog/'+ArrFiles[0].photoname+'.'+ArrFiles[0].extension;
 			CKEDITOR.instances.fd_content.insertHtml('<p><img src="'+file+'" data-cke-saved-src="'+file+'" style="max-width:100%"></p>');
 		}});
 		UpFile.Init({MODE:'upgallery',PHP:'jxBlog.php',FOLDER:'img/blog/',FORM:'#form_gallery',BTN:'#btn_gallery',Callback:function(ArrFiles){

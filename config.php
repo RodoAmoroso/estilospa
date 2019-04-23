@@ -18,8 +18,12 @@ $GLOBALS['config'] = array(
 		'token_name'=>'token'
 	),
 	'paths'=>array(
-		'root'=>'estilospa/',
-		'admin'=>'admin/'
+		'root'=>'estilospa',
+		'admin'=>'admin',
+		'site'=>'site',
+		'panel'=>'cuenta',
+		'styles'=>'css',
+		'scripts'=>'js',
 	)
 );
 
@@ -31,28 +35,32 @@ require_once 'functions.php';
 
 $HTTP = 'http';
 if(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') $HTTP = 'https';
-define('ROOTPATH',$HTTP.'://'.$_SERVER['HTTP_HOST'].'/'.Config::get('paths/root'));
-define('ADMINPATH',ROOTPATH.Config::get('paths/admin'));
-define('ROOT',ROOTPATH);
+$slash = (!empty(Config::get('paths/root')) ? '/' : '');
+
+define('ROOT',$HTTP.'://'.$_SERVER['HTTP_HOST'].'/'.Config::get('paths/root').$slash );
+define('ADMIN',ROOT.Config::get('paths/admin').'/');
+define('SITE',ROOT.Config::get('paths/site').'/');
+define('CSS',ROOT.Config::get('paths/styles').'/');
+define('JS',ROOT.Config::get('paths/scripts').'/');
+
 define('DS',DIRECTORY_SEPARATOR);
-define('PATH',__DIR__);
+define('PATH',__DIR__.DS);
+define('IMG',PATH.'img'.DS);
+
+
 define('IPUSER',$_SERVER['REMOTE_ADDR']);
 
 define('PAGENAME', basename(__FILE__,'.php'));
 define('MAXFILES',intval(ini_get('max_file_uploads')));
 
-$_CONFIG = DB::getInstance()->get('config',array('id','!=',0));
-define("TITLE",$_CONFIG->results()[0]->value);
-define("DESCRIPTION",$_CONFIG->results()[1]->value);
-define("KEYWORDS",$_CONFIG->results()[4]->value);
+$_site = new Options();
+$_site->get();
+
+define("TITLE",$_site->info()['title']);
+define("DESCRIPTION",$_site->info()['description']);
+define("KEYWORDS",$_site->info()['keywords']);
 date_default_timezone_set('America/Argentina/Buenos_Aires');
-//////////////////
-$_USER = new User();
-if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
-	$hash = Cookie::get(Config::get('cookie/cookie_name'));
-	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
-	if($hashCheck->count()){
-		$_USER = new User($hashCheck->first()->iduser);
-		$_USER->login();
-	}
-}
+
+
+$_arrcss = array();
+$_arrjs = array();

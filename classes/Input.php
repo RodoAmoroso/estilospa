@@ -25,7 +25,7 @@ class Input {
 	}
 
 	public static function check($array=array()){
-		if(!empty($_POST)){
+		if(!empty($_POST) && !empty($array)){
 			foreach($array as $item){
 				if(!array_key_exists($item, $_POST)){
 					return false;

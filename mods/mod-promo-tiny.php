@@ -5,7 +5,7 @@
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=$promo->title?></a>
 			<div class="subtitle dp-none"><?=$promo->subtitle?></div>		
-			<a href="<?=ROOT.'busqueda/-/'.Permalink($_STORES->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker fa-fw"></i> <?= count($_STORES->data())>1 ? 'Varias Sucursales' : (is_array($_STORES->data()) ? $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] : $_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince]) ?></a>
+			<a href="<?=ROOT.'busqueda/-/'.Permalink($Stores->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker fa-fw"></i> <?= count($Stores->data())>1 ? 'Varias Sucursales' : (is_array($Stores->data()) ? $Stores->data()[0]->city.', '.$Provinces[$Stores->data()[0]->idprovince] : $Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince]) ?></a>
 			
 		</div>
 	</div>

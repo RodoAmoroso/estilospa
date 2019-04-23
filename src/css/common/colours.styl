@@ -1,0 +1,45 @@
+$colours = {
+	'gold-1' : #b39743
+	'gold-2' : #756c5d
+	'fucsia-0' : #fceff8
+	'fucsia-1' : #f4cee7
+	'fucsia-2' : #f5b9d3
+	'fucsia-3' : #e7127c
+	'fucsia-4' : #950b4f
+	'fucsia-5' : #5c002e
+	'pink-1' : #fcd9d9
+	'pink-2' : #df7979
+	'pink-3' : #df3e3e
+	'cyan-0' : #d4effb
+	'cyan-1' : #b6d4f2
+	'cyan-2' : #639edb
+	'cyan-3' : #2e71b7
+	'cyan-4' : #224b78
+	'cyan-5' : #172e48
+	'yellow-1' : #fff2dc
+	'yellow-2' : #ffe4bc
+	'yellow-3' : #c79448
+	'yellow-4' : #7f5415
+	'green-1' : #dffadb
+	'green-2' : #7cbe72
+	'green-3' : #407938
+	'green-4' : #164010
+	'aqua-0' : #f0fffc
+	'aqua-1' : #baebe1
+	'aqua-2' : #8ad4d6
+	'aqua-3' : #68bbce
+	'aqua-4' : #5ba4c8
+	'aqua-5' : #215663
+	'aqua-6' : #133941
+}
+
+gray(PC)
+	col = 255-((255*PC)/100)
+	rgb(col,col,col)
+	
+for name,value in $colours 
+	.text-{name}
+		color value
+	.bg-{name}
+		background-color value
+	define('$'+replace('-','_',name),value)

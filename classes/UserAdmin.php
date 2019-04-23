@@ -70,12 +70,15 @@ class UserAdmin {
 			$assoc = new Assoc();
 			$assoc->iduser = $iduser;
 			$assoc->client_user('delete');
+
 			$favs = new Favs();
 			$favs->iduser = $iduser;
 			$favs->deleteall($iduser);
+
 			$comments = new Comments();
 			$comments->iduser = $iduser;
 			$comments->deleteall();
+			
 			if($this->_db->delete('users',array('id','=',$iduser))){
 				return true;
 			}

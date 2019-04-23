@@ -33,7 +33,7 @@ class Notifications {
 				'name_to'=>$unrated->name,
 				'email_to'=>strtolower($unrated->mail),
 				'subject'=>"¡No te olvides de calificar tu experiencia!",
-				'body'=>"<h4>Hola {$unrated->name}</h4><p>Si ya has vivido la experiencia de la promo <b><a href='".ROOTPATH."promo/{$unrated->permalink}/{$unrated->idpromo}-".Permalink($unrated->promotitle)."'>{$unrated->promotitle}</a></b>, por favor cuéntanos cómo fue. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOTPATH."calificar/{$unrated->idpromo}' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Calificar</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
+				'body'=>"<h4>Hola {$unrated->name}</h4><p>Si ya has vivido la experiencia de la promo <b><a href='".ROOT."promo/{$unrated->permalink}/{$unrated->idpromo}-".Permalink($unrated->promotitle)."'>{$unrated->promotitle}</a></b>, por favor cuéntanos cómo fue. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOT."calificar/{$unrated->idpromo}' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Calificar</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
 				'added'=>date('Y-m-d H:i:s'),
 			));
 
@@ -62,7 +62,7 @@ class Notifications {
 				'name_to'=>$unstated->clientname,
 				'email_to'=>strtolower($unstated->clientmail),
 				'subject'=>"¡No te olvides de actualizar el estado de tu venta!",
-				'body'=>"<h4>Hola {$unstated->clientname}</h4><p>¿{$unstated->username} ({$unstated->usermail}) ya tomó el servicio de la promo <b><a href='".ROOTPATH."promo/{$unstated->permalink}/{$unstated->idpromo}-".Permalink($unstated->promotitle)."'>{$unstated->promotitle}</a> - Nro de Comprobante: {$unstated->collection_id}?</b>.<br /> Si es así, por favor ingresa al sitio de EstiloSPA y actualiza el estado del servicio como <b>Brindado</b>, (o <b>Cancelado</b> en caso de haberse cancelado el servicio). Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOTPATH."cuenta/mi-cuenta' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Establecer Estado</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
+				'body'=>"<h4>Hola {$unstated->clientname}</h4><p>¿{$unstated->username} ({$unstated->usermail}) ya tomó el servicio de la promo <b><a href='".ROOT."promo/{$unstated->permalink}/{$unstated->idpromo}-".Permalink($unstated->promotitle)."'>{$unstated->promotitle}</a> - Nro de Comprobante: {$unstated->collection_id}?</b>.<br /> Si es así, por favor ingresa al sitio de EstiloSPA y actualiza el estado del servicio como <b>Brindado</b>, (o <b>Cancelado</b> en caso de haberse cancelado el servicio). Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOT."cuenta/mi-cuenta' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Establecer Estado</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
 				'added'=>date('Y-m-d H:i:s'),
 			));
 		}

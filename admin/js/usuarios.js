@@ -64,7 +64,7 @@ var Users = {
 			$('#fd_provinces option[value="'+d.idprovince+'"]').prop('selected',true);
 			if(d.image != ''){
 				var img = $.parseJSON(d.image);
-				$('#avatar').css({backgroundImage:'url('+ROOTPATH+'img/users/'+img.photoname+'-t.'+img.extension+')'}).attr({'data-photoname':img.photoname,'data-extension':img.extension});
+				$('#avatar').css({backgroundImage:'url('+ROOT+'img/users/'+img.photoname+'-t.'+img.extension+')'}).attr({'data-photoname':img.photoname,'data-extension':img.extension});
 			}
 		});
 	},

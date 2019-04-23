@@ -14,7 +14,7 @@
 		<div class="block-white">
 			<h4 class="">No hay ningún centro asociado a esta cuenta. Comunícate con nosotros para poder asociarte tu centro a esta cuenta.</h4>
 			<hr>
-			<a class="btn btn-primary" href="<?= ROOTPATH.'contacto' ?>">Contacto</a>
+			<a class="btn btn-primary" href="<?= ROOT.'contacto' ?>">Contacto</a>
 		</div>
 	</div>
 </section>
@@ -201,7 +201,7 @@ var IDClient = <?= $_USER->data()->idclient ?>;
 			</div>
 			<div class="alert alert-danger sz-12">
 				<h4 class="fw-600">Importante:</h4>
-				<p >Para poder habilitar la opción de venta online, debes vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOTPATH.'cuenta/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador.</p>
+				<p >Para poder habilitar la opción de venta online, debes vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOT.'cuenta/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador.</p>
 			</div>
 			<?php endif; ?>
 			<hr>

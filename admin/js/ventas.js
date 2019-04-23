@@ -80,7 +80,7 @@ Actions = {
 				if(v.title == null){
 					mod.find('[data-tag="title"]').html('La promo fue borrada');
 				}else{
-					mod.find('[data-tag="title"]').html('<a href="'+ROOTPATH+'promo/'+v.permalink+'/'+v.idpromo+'-'+Permalink(v.title)+'" target="_blank">'+v.title+'</a> - <a href="'+ROOTPATH+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
+					mod.find('[data-tag="title"]').html('<a href="'+ROOT+'promo/'+v.permalink+'/'+v.idpromo+'-'+Permalink(v.title)+'" target="_blank">'+v.title+'</a> - <a href="'+ROOT+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
 				}
 				var discountvoucher = 0;
 				var vouchertext = '';
@@ -99,7 +99,7 @@ Actions = {
 				//Actions.status(v.id,v.status);
 				if(v.gallery != null){
 					var img = $.parseJSON(v.gallery);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
+					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 				}
 				mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
 				///////////// USER ////////////////////////////////
@@ -109,7 +109,7 @@ Actions = {
 				}else{
 					var thumbimage = 'user-default.png';
 				}
-				mod.find('.user-thumb').css({backgroundImage:'url('+ROOTPATH+'img/users/'+thumbimage+')'});
+				mod.find('.user-thumb').css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
 				mod.find('[data-tag="username"]').text(v.username);
 				mod.find('[data-tag="mail"]').text(v.mail);
 				if(v.text != null){

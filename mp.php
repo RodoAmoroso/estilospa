@@ -1,10 +1,10 @@
 <?php
 require_once 'config.php';
 
-require 'controllers/main.php';
-require 'head.php';
-include 'header.php';
-include 'mainmenu.php';
+require 'site/controllers/main.php';
+require 'site/views/head.php';
+include 'site/views/header.php';
+include 'site/views/mainmenu.php';
 
 /*echo $_REQUEST['code'].'<br /><br />';
 echo $_USER->logged() ? 'loggeado' : 'no loggeado';
@@ -23,7 +23,7 @@ if( !isset($_REQUEST['code']) ):
 	</div>
 </section>
 <?php
-require 'footer.php';
+require 'site/views/footer.php';
 die();
 endif;
 if( !$_USER->logged() ):
@@ -37,7 +37,7 @@ if( !$_USER->logged() ):
 	</div>
 </section>
 <?php
-require 'footer.php';
+require 'site/views/footer.php';
 die();
 endif;
 if( intval($_USER->data()->idtype) != 3 ):
@@ -51,7 +51,7 @@ if( intval($_USER->data()->idtype) != 3 ):
 	</div>
 </section>
 <?php
-require 'footer.php';
+require 'site/views/footer.php';
 die();
 endif;
 ////if( !$_USER->logged() && $_USER->data()->idtype != 3 ) die('No estás logueado en EstiloSPA o tu usuario no es un cliente - ID:'.$_USER->data()->id);

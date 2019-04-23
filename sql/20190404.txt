@@ -1,0 +1,9 @@
+[NEW]
+promo_views
+tables
+stats_views
+stats_events
+
+[UPDATE]
+glossarygroups -> image;
+config -> maintenance=0

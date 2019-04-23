@@ -2,7 +2,7 @@
 <div class="wrapper">
 	<div class="mod-body">
 		<div class="image-wrapper" >
-			<a href="<?=$promolink?>" class="overprint-absolute" style="background-image:url(<?=ROOTPATH.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)"></a>
+			<a href="<?=$promolink?>" class="overprint-absolute" style="background-image:url(<?=ROOT.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)"></a>
 			<div class="fav">
 				<?= Fav($promo->id); ?>
 			</div>
@@ -13,7 +13,7 @@
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=strlen($promo->title)>50 ? substr($promo->title,0,50).'...' : $promo->title ?></a>
 			<div class="subtitle dp-none"><?=strlen($promo->subtitle)>80 ? substr($promo->subtitle,0,80).'...' : $promo->subtitle?></div>		
-			<a href="<?=ROOT.'busqueda/-/'.Permalink($_STORES->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker"></i> <?= count($_STORES->data())>1 ? 'Varias Sucursales' : (is_array($_STORES->data()) ? $_STORES->data()[0]->city.', '.$_PROVINCES[$_STORES->data()[0]->idprovince] : $_STORES->data()->city.', '.$_PROVINCES[$_STORES->data()->idprovince]) ?></a>
+			<a href="<?=ROOT.'busqueda/-/'.Permalink($Stores->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker"></i> <?= count($Stores->data())>1 ? 'Varias Sucursales' : (is_array($Stores->data()) ? $Stores->data()[0]->city.', '.$Provinces[$Stores->data()[0]->idprovince] : $Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince]) ?></a>
 			
 			
 

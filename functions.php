@@ -446,24 +446,24 @@ function Stars($rate=0,$size=''){
 	return $stars;
 }
 function Fav($promoid=0,$clientid=0){
-	global $_USER;
+	global $User;
 	//global $_PROMOS;
 	//global $_CLIENTS;
-	global $_FAVS;
+	global $Favs;
 	$favprop = 'data-btn-action="fav"';
-	if($_USER->logged()){
+	if($User->logged()){
 		//echo $_CLIENTS->data()->id;
 		if($promoid){
-			$_FAVS->idpromo = $promoid;
-			$_FAVS->idclient = 0;
+			$Favs->idpromo = $promoid;
+			$Favs->idclient = 0;
 		}
 		if($clientid){
-			$_FAVS->idpromo = 0;
-			$_FAVS->idclient = $clientid;
+			$Favs->idpromo = 0;
+			$Favs->idclient = $clientid;
 		}
 
-		$_FAVS->iduser = $_USER->data()->id;
-		if($_FAVS->find()):
+		$Favs->iduser = $User->data()->id;
+		if($Favs->find()):
 			$fav = '<i class="fa fa-heart active"></i>';
 		else:
 			$fav = '<i class="fa fa-heart-o"></i>';
@@ -475,7 +475,7 @@ function Fav($promoid=0,$clientid=0){
 	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos" data-placement="bottom" >'.$fav.'</a>';
 }
 function show_array($arr=array()){
-	echo '<pre style="white-space:normal;">';
+	echo '<pre>';
 	print_r($arr);
 	echo '</pre>';
 }

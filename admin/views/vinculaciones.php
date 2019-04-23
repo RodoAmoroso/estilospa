@@ -19,7 +19,7 @@
 
 				<?php if($_mp): foreach($_mp as $mp): ?>
 				<div class="mod-list">
-					<h4><a href="<?= ROOTPATH.'centros/'.$mp->permalink ?>" target="_blank" ><?= $mp->name ?></a></h4>
+					<h4><a href="<?= ROOT.'centros/'.$mp->permalink ?>" target="_blank" ><?= $mp->name ?></a></h4>
 					<p>Vinculado el <?= $mp->creado ?> &bullet; Fecha de expiración: <?= $mp->expira ?></p>
 					<div class="buttons">
 						<button class="btn btn-xs btn-danger unlink" data-id="<?= $mp->idclient ?>" ><i class="fa fa-unlink fa-fw"></i> Desvincular</button>

@@ -2,7 +2,7 @@
 Clients.buildthumbs = function(PHTNM,EXT){
 	var mod = $('#mod_thumb').clone();
 	mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
-	mod.css({backgroundImage:'url('+ROOTPATH+'img/clients/'+PHTNM+'-t.'+EXT+')'});
+	mod.css({backgroundImage:'url('+ROOT+'img/clients/'+PHTNM+'-t.'+EXT+')'});
 	mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
 	mod.find('.dp-table').remove();
 	$('#gallery').append(mod);
@@ -62,7 +62,7 @@ Clients.save = function(action){
 		if(action=='save'){
 			window.location.reload();
 		}else{
-			window.open(ROOTPATH+'centros/'+Clients.Permalink);
+			window.open(ROOT+'centros/'+Clients.Permalink);
 		}
 	});
 }
@@ -75,7 +75,7 @@ Clients.find = function(){
 		Clients.Permalink = DATA.Client.permalink;
 		if(DATA.Client.logo != ''){
 			var logo = $.parseJSON(DATA.Client.logo);
-			$('#logo_client').attr({'data-photoname':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOTPATH+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
+			$('#logo_client').attr({'data-photoname':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
 		}
 		//////////// STORES /////////////////////////////////
 		Stores.get();
@@ -347,7 +347,7 @@ var Features = {
 		$('#fd_feature_description').ckeditor({
 			language:'es',
 			height:340,
-			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOTPATH+'css/bootstrap.min.css',ROOTPATH+'css/styles.css'],
+			contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOT+'css/bootstrap.min.css',ROOT+'css/styles.css'],
 			allowedContent:true,
 			toolbar:'MyToolBar',
 			toolbar_MyToolBar:[['Bold','Italic','Underline','RemoveFormat'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['FontSize','TextColor','BGColor'],['Link','Unlink'],['NumberedList','Bulletedist','Outdent','Indent','Blockquote'],['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],['Link','Unlink','Anchor']]

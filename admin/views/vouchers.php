@@ -156,7 +156,7 @@
 						
 						<div id="code_list" class="well list-group mod-container-sm"></div>
 
-						<form action="<?= ADMINPATH.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
+						<form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
 							<button class="btn btn-xs btn-success"><i class="fa fa-download fa-fw"></i> Exportar códigos</button>
 							<input type="hidden" name="codes" value="[]" >
 						</form>

@@ -1,24 +1,24 @@
 <?php
 
 require_once '../config.php';
-require 'templates-mail.php';
-require 'phpmailer/PHPMailerAutoload.php';
+///require 'templates-mail.php';
+///require 'phpmailer/PHPMailerAutoload.php';
 
 if(!Input::exists()) die(json_encode(array('Status'=>'fail')));
 
 $DB = DB::getInstance();
-$_CLIENTS = new Clients();
-$_FEATURES = new Features();
-$_STORES = new Stores();
-$_PROMOS = new Promos();
-$_ASSOC = new Assoc();
-$_SALES = new Sales();
-$_MPConfig = new MPConfig();
+$Clients = new Clients();
+$Features = new Features();
+$Stores = new Stores();
+$Promos = new Promos();
+$Assoc = new Assoc();
+$Sales = new Sales();
+$MPConfig = new MPConfig();
 
 
 switch (Input::get('Mode')) {
 	case 'upgallery':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 1 || $_USER->data()->idtype != 3)) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && ($User->data()->idtype != 1 || $User->data()->idtype != 3)) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -26,7 +26,7 @@ switch (Input::get('Mode')) {
 		echo json_encode($file);
 		break;
 	case 'uplogo':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 1 || $_USER->data()->idtype != 3)) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && ($User->data()->idtype != 1 || $User->data()->idtype != 3)) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();
@@ -35,116 +35,118 @@ switch (Input::get('Mode')) {
 		break;
 
 	case 'save':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'restricted')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'restricted')));
 		if(!Input::check(array('Name','Subtitle','Gallery','Features','Permalink','Mail'))) die(json_encode(array('Status'=>'check')));
-		$_CLIENTS->isadmin = true;
-		if(!$_CLIENTS->save()) die(json_encode(array('Status'=>'fail')));
-		$id = $_CLIENTS->getLastId();
-		$_ASSOC->idclient = $id;
-		$_ASSOC->arrusers = Input::get('Users');		
-		$_ASSOC->client_user('save');
+		$Clients->isadmin = true;
+		if(!$Clients->save()) die(json_encode(array('Status'=>'fail')));
+		$id = $Clients->getLastId();
+		$Assoc->idclient = $id;
+		$Assoc->arrusers = Input::get('Users');		
+		$Assoc->client_user('save');
 		/////////////////////////////////////////////////
 		echo json_encode(array('Status'=>'ok','ID'=>$id));
 		break;
 	case 'saveclient':
-		if(!$_USER->logged() && $_USER->data()->idtype != 3) die(json_encode(array('Status'=>'restricted')));
-		if($_USER->data()->idclient != Input::get('ID')) die(json_encode(array('Status'=>'restricted')));
+		if(!$User->logged() && $User->data()->idtype != 3) die(json_encode(array('Status'=>'restricted')));
+		if($User->data()->idclient != Input::get('ID')) die(json_encode(array('Status'=>'restricted')));
 		if(!Input::check(array('Name','Subtitle','Gallery','Features','Mail'))) die(json_encode(array('Status'=>'check')));
-		$_CLIENTS->isadmin = false;
-		$_CLIENTS->save();
-		$id = $_CLIENTS->getLastId();
+		$Clients->isadmin = false;
+		$Clients->save();
+		$id = $Clients->getLastId();
 		/////////////////////////////////////////////////
-		echo json_encode(array('Status'=>'ok','ID'=>$id,'IDC1'=>$_USER->data()->idclient ,'IDC2'=>Input::get('ID')));
+		echo json_encode(array('Status'=>'ok','ID'=>$id,'IDC1'=>$User->data()->idclient ,'IDC2'=>Input::get('ID')));
 		break;
 
 	case 'find':
 		$id = Input::get('ID');
-		$_CLIENTS->find($id);
-		$_ASSOC->idclient = $id;
-		$_ASSOC->client_user('get');
-		$_STORES->get($id);
-		$_FEATURES->get($id);
-		echo json_encode(array('Status'=>'ok','Client'=>$_CLIENTS->data(),'Stores'=>$_STORES->data(),'Features'=>$_FEATURES->data(),'Users'=>$_ASSOC->data()));
+		$Clients->find($id);
+		$Assoc->idclient = $id;
+		$Assoc->client_user('get');
+		$Stores->get($id);
+		$Features->get($id);
+		echo json_encode(array('Status'=>'ok','Client'=>$Clients->data(),'Stores'=>$Stores->data(),'Features'=>$Features->data(),'Users'=>$Assoc->data()));
 		break;
 	case 'get':
-		$_CLIENTS->keywords = Input::get('Keywords');
-		$_CLIENTS->sort = Input::get('Sort');
-		$_CLIENTS->searchmixed = intval(Input::get('SearchMixed'));
-		$_CLIENTS->get();
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_CLIENTS->data()));		
+		$Clients->keywords = Input::get('Keywords');
+		$Clients->sort = Input::get('Sort');
+		$Clients->searchmixed = intval(Input::get('SearchMixed'));
+		$Clients->get();
+		echo json_encode(array('Status'=>'ok', 'Results'=>$Clients->data()));		
 		break;
 	case 'delete':
 		$DB->delete('comments',array('idclient','=',Input::get('ID')));
 		$DB->delete('favs',array('idclient','=',Input::get('ID')));
 		$DB->delete('mp',array('idclient','=',Input::get('ID')));
-		$_PROMOS->deleteAll(Input::get('ID'));
-		$_STORES->deleteAll(Input::get('ID'));
-		$_FEATURES->delete(Input::get('ID'));		
-		$_CLIENTS->delete();
+		$Promos->deleteAll(Input::get('ID'));
+		$Stores->deleteAll(Input::get('ID'));
+		$Features->delete(Input::get('ID'));		
+		$Clients->delete();
 		echo json_encode(array('Status'=>'ok'));		
 		break;
 	//////////// SEARCH USERS //////////////////////
 	/*case 'searchusers':
-		if(!$_USER->logged() && !$_USER->data()->idtype == 1) die(json_encode(array('Status'=>'fail')));
-		$_USER->search(Input::get('Keyword'));
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_USER->data()));		
+		if(!$User->logged() && !$User->data()->idtype == 1) die(json_encode(array('Status'=>'fail')));
+		$User->search(Input::get('Keyword'));
+		echo json_encode(array('Status'=>'ok', 'Results'=>$User->data()));		
 		break;*/
 	case 'unlink':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 3)) die(json_encode(array('Status'=>'restricted')));
-		if(!$_USER->data()->idclient) die(json_encode(array('Status'=>'restricted')));
-		$_MPConfig->unlink($_USER->data()->idclient);
+		if(!$User->logged() && ($User->data()->idtype != 3)) die(json_encode(array('Status'=>'restricted')));
+		if(!$User->data()->idclient) die(json_encode(array('Status'=>'restricted')));
+		$MPConfig->unlink($User->data()->idclient);
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	case 'unlinkadmin':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
-		$_MPConfig->unlink(Input::get('idclient'));
+		if(!$User->logged() && ($User->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
+		$MPConfig->unlink(Input::get('idclient'));
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	case 'renewadmin':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
-		$_MPConfig->renewtoken(Input::get('idclient'));
+		if(!$User->logged() && ($User->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
+		$MPConfig->renewtoken(Input::get('idclient'));
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	///////////// STORES ///////////////////////////
 	case 'getstores':		
-		$_STORES->get(Input::get('IDC'));
-		echo json_encode(array('Results'=>$_STORES->data()));
+		$Stores->get(Input::get('IDC'));
+		echo json_encode(array('Results'=>$Stores->data()));
 		break;
 	case 'findstore':		
-		$_STORES->find(Input::get('IDS'));
-		$today = $_STORES->scheduleToday($_STORES->data()->schedules);
-		$schedules = $_STORES->schedulesList($_STORES->data()->schedules);
-		echo json_encode(array('Result'=>$_STORES->data(),'Today'=>$today,'Schedules'=>$schedules ));
+		$Stores->find(Input::get('IDS'));
+		$today = $Stores->scheduleToday($Stores->data()->schedules);
+		$schedules = $Stores->schedulesList($Stores->data()->schedules);
+		echo json_encode(array('Result'=>$Stores->data(),'Today'=>$today,'Schedules'=>$schedules ));
 		break;
 	case 'savestore':
-		if(!$_USER->logged()) die(json_encode(array('Status'=>'restricted')));
-		$_STORES->save();
-		echo json_encode(array('Status'=>'ok','ID'=>$_STORES->getLastId()));
+		if(!$User->logged()) die(json_encode(array('Status'=>'restricted')));
+		$Stores->save();
+		echo json_encode(array('Status'=>'ok','ID'=>$Stores->getLastId()));
 		break;
 	case 'reorderstores':
-		$_STORES->reorder();
+		$Stores->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'deletestore':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'restricted')));
-		$_STORES->delete(Input::get('IDS'));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'restricted')));
+		$Stores->delete(Input::get('IDS'));
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	////////////// SALES ///////////////////////////
+	
 	case 'changeplan':
-		$_ASSOC->iduser = $_USER->data()->id;
-		$_ASSOC->client_user('find');
+		$Assoc->iduser = $User->data()->id;
+		$Assoc->client_user('find');
 		//////// SEND MAIL ///////////////////
 		$MailBody = '<h2>Hola</h2>
-		<p>El usuario '.$_ASSOC->data()->name.' ha solicitado cambiar el plan actual de su negocio <a href="'.ROOTPATH.'centros/'.$_ASSOC->data()->permalink.'">'.$_ASSOC->data()->clientname.'</a></p>	
+		<p>El usuario '.$Assoc->data()->name.' ha solicitado cambiar el plan actual de su negocio <a href="'.ROOT.'centros/'.$Assoc->data()->permalink.'">'.$Assoc->data()->clientname.'</a></p>	
 		<h4>Datos del usuario:</h4>
 		<ul>
-			<li>Nombre: '.$_ASSOC->data()->name.' '.$_ASSOC->data()->lastname.'</li>
-			<li>Email: '.$_ASSOC->data()->mail.'</li>
+			<li>Nombre: '.$Assoc->data()->name.' '.$Assoc->data()->lastname.'</li>
+			<li>Email: '.$Assoc->data()->mail.'</li>
 		</ul>
 		';
+		
 		$mailer->addAddress('consultas@estilospa.com', 'EstiloSPA.com');
 		$mailer->Subject = 'Cambio de Plan';
 		$mailer->Body = $MailHead.$MailBody.$MailFoot;
@@ -153,29 +155,30 @@ switch (Input::get('Mode')) {
 		}else{
 			die( json_encode(array('Status'=>'ok')) );
 		}
-		///echo json_encode(array('Status'=>'ok','IDC'=>$_ASSOC->data()));
+		///echo json_encode(array('Status'=>'ok','IDC'=>$Assoc->data()));
 		break;
+
 	case 'getsales':
 		if(!empty(Input::get('From')) && !empty(Input::get('To'))){			
 			$from = explode('/',Input::get('From'));
 			$to = explode('/',Input::get('To'));
-			$_SALES->range = true;
-			$_SALES->from = $from[2].'-'.$from[1].'-'.$from[0].' 00:00:00';
-			$_SALES->to = $to[2].'-'.$to[1].'-'.$to[0].' 23:59:59';
+			$Sales->range = true;
+			$Sales->from = $from[2].'-'.$from[1].'-'.$from[0].' 00:00:00';
+			$Sales->to = $to[2].'-'.$to[1].'-'.$to[0].' 23:59:59';
 		}
-		$_SALES->ordernumber = Input::get('OrderNumber');
-		if($_USER->logged() && $_USER->data()->idtype==3){
-			$_SALES->idclient = $_USER->data()->idclient;
+		$Sales->ordernumber = Input::get('OrderNumber');
+		if($User->logged() && $User->data()->idtype==3){
+			$Sales->idclient = $User->data()->idclient;
 		}
 		if(Input::get('IDClient')){
-			$_SALES->idclient = Input::get('IDClient');
+			$Sales->idclient = Input::get('IDClient');
 		}
-		$_SALES->get();
-		echo json_encode(array('Status'=>'ok','Results'=>$_SALES->data()));
+		$Sales->get();
+		echo json_encode(array('Status'=>'ok','Results'=>$Sales->data()));
 		break;
 	case 'setsalestatus':
-		if(!$_USER->logged() && ($_USER->data()->idtype != 3 || $_USER->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
-		$_SALES->setStatus();
+		if(!$User->logged() && ($User->data()->idtype != 3 || $User->data()->idtype != 1)) die(json_encode(array('Status'=>'restricted')));
+		$Sales->setStatus();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	

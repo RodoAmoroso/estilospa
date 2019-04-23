@@ -1,0 +1,53 @@
+.glossary-list
+	.col 
+		margin 10px 0
+		h4
+			margin-bottom 4px
+		a 
+			font-size 1.3rem
+.glossary
+	display flex
+	flex-wrap wrap
+	.group
+		border 1px solid gray(10)
+		border-radius 4px
+		padding 16px
+		margin 26px 26px 10px 0
+		min-width 240px
+		width 240px
+		.item 
+			display block
+			color $aqua_5
+			padding 2px 0
+			&:hover 
+				color $cyan_4
+.glossary-page 
+	padding 16px 0			
+	.page-content
+		background-color white 
+		padding 26px
+		border-right 1px solid gray(10)
+		border-bottom 1px solid gray(10)
+		border-left 1px solid gray(10)
+		height 360px
+		overflow hidden
+		position relative
+		transition all 400ms cubic-bezier(.32,1,.23,1)
+		.view-more 
+			background-color white
+			//background-color red
+			left 0
+			bottom 0
+			padding 15px 26px
+			position absolute
+			width 100%
+			//background-image linear-gradient(bottom,white,alpha(white,0))
+			&:after 
+				border-bottom 1px solid gray(10)
+				content ''
+				background-image linear-gradient(bottom,white,alpha(white,0))
+				left 0
+				top -40px
+				height 40px 
+				position absolute
+				width 100%

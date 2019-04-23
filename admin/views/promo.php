@@ -201,4 +201,4 @@
 
 <?php include 'templates.php' ?>
 
-<script>var $_id = '<?=intval($_SUBSECTION)?>';</script>
+<script>var $_id = '<?=intval($_subsection)?>';</script>

@@ -18,30 +18,61 @@ class GlossaryGroups {
 
 	public function find($id=0){
 		$this->_db->get('glossarygroups',array('id','=',$id));
-		if($this->_db->count()){
-			$this->_data = $this->_db->first();
-			return true;
-		}
-		return false;
+		
+		if($this->_db->count()) return false;
+		$data = $this->_db->first();
+		$data->image = $this->get_image($data->image);
+		$this->_data = $data;
+		return true;		
 	}
 
 	public function get(){
+		
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('name'));
 		$search = empty($search_main) ? "" : "WHERE".$search_main;
 		$limitby = '';
 		if(!empty($this->limit)) $limitby = "LIMIT {$this->limit}";
-		$this->_db->query("SELECT * FROM {$this->_dbprefix}glossarygroups {$search} ORDER BY position ASC {$limitby}");
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
+		
+		$this->_db->query(
+			"SELECT * 
+			FROM {glossarygroups} 
+			{$search} 
+			ORDER BY position ASC 
+			{$limitby}"
+		);
+		
+		if(!$this->_db->count()) return false;
+
+		$data = $this->_db->results();
+		$Glossary = new Glossary();
+		foreach($data as $k=>$gl){
+			$Glossary->idgroup = $gl->id;
+			$Glossary->get();
+			$data[$k]->glossary = $Glossary->data();
 		}
-		return false;
+
+		$this->_data = $data;
+		return true;
+		
+	}
+	public function get_image($image=''){
+		if(empty($image)) return false;
+		
+		$img = json_decode($image);
+		$data = new stdCLass();
+		$data->big = View::img('glossary',$img->f.'.'.$img->e);
+		$data->f = $img->f;
+		$data->e = $img->e;
+		return $data;
 	}
 
 	public function save(){
 		$sql = array('name'=>Input::get('Name'));
 		if(!Input::get('ID')){
-			$this->_db->query("UPDATE {$this->_dbprefix}glossarygroups SET position=position+1");
+			$this->_db->query(
+				"UPDATE {glossarygroups} 
+				SET position=position+1"
+			);
 			$sql['position'] = 1;
 			$this->_db->insert('glossarygroups',$sql);
 			$this->_lastid = $this->_db->getLastId();
@@ -57,7 +88,12 @@ class GlossaryGroups {
 		if($this->find(Input::get('ID'))){
 			$position = $this->_data->position;
 			if( $this->_db->delete('glossarygroups',array('id','=',Input::get('ID'))) ){
-				$this->_db->query("UPDATE {$this->_dbprefix}glossarygroups SET position=position-1 WHERE position>?",array($position));
+				$this->_db->query(
+					"UPDATE {glossarygroups} 
+					SET position=position-1 
+					WHERE position>?",
+					array($position)
+				);
 				return true;
 			}
 		}
@@ -66,11 +102,11 @@ class GlossaryGroups {
 
 	public function reorder(){
 		$arrid = Input::get('ArrID');
-		if(count($arrid)):
-			foreach($arrid as $k=>$v):
+		if(count($arrid)){			
+			foreach($arrid as $k=>$v){
 				$this->_db->update('glossarygroups',$v,array('position'=>$k+1));
-			endforeach;
-		endif;
+			}
+		}
 		return true;
 	}
 

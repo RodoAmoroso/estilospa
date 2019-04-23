@@ -114,7 +114,7 @@ var Vouchers = {
 				var discount = (v.ispercent==1 ? '' : '$')+v.value+(v.ispercent==0 ? '' : '%');
 				mod.find('p').append('Disponible en '+v.totpromos+' promos &bullet; Creado: ',v.creado,' &bullet; Descuento: ',discount,' &bullet; ',StatusLabel(v.statusstart,v.statusfinish));
 				mod.find('.edit,.delete').attr('data-id',v.id);
-				var btn = Templates.a.clone().attr({href:ROOTPATH+'vouchers/'+Permalink(v.name)+'/'+v.id,target:'_blank'}).addClass('btn btn-xs btn-primary link').append(Templates.i.clone().addClass('fa fa-link fa-fw'));
+				var btn = Templates.a.clone().attr({href:ROOT+'vouchers/'+Permalink(v.name)+'/'+v.id,target:'_blank'}).addClass('btn btn-xs btn-primary link').append(Templates.i.clone().addClass('fa fa-link fa-fw'));
 				mod.find('.buttons').prepend(btn,' ');
 				$('#vouchers').append(mod);				
 			});
@@ -233,7 +233,7 @@ var Vouchers = {
 		$('#fd_code_quantity,#btn_generate,#fd_code').prop('disabled',false);
 	},	
 	generatecodes:function(COD){
-		var code = COD == undefined ? RandomLetters(4).toUpperCase()+Random(1111,9999) : COD;
+		var code = COD == undefined ? random_letters(4).toUpperCase()+random(1111,9999) : COD;
 		var mod = Templates.list_group_item();
 		mod.find('span:first-of-type').addClass('fw-600').text(code);
 		mod.find('.label').attr('data-edit','true').append('<i class="fa fa-pencil"></i>');

@@ -4,35 +4,35 @@ require_once '../config.php';
 
 if(!Input::exists()) die(json_encode(array('Status'=>'fail')));
 
-$_CLIENTTYPES = new ClientTypes();
+$ClientTypes = new ClientTypes();
 
 switch (Input::get('Mode')) {
 
 	///////////////////// GROUPS ///////////////////////////	
 	case 'save':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_CLIENTTYPES->save();
-		echo json_encode(array('Status'=>'ok','ID'=>$_CLIENTTYPES->getLastId()));
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$ClientTypes->save();
+		echo json_encode(array('Status'=>'ok','ID'=>$ClientTypes->getLastId()));
 		break;
 
 	case 'get':
-		$_CLIENTTYPES->get();
-		echo json_encode(array('Status'=>'ok','Result'=>$_CLIENTTYPES->data()));
+		$ClientTypes->get();
+		echo json_encode(array('Status'=>'ok','Result'=>$ClientTypes->data()));
 		break;
 
 	case 'delete':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));		
-		$_CLIENTTYPES->delete();
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));		
+		$ClientTypes->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'find':
-		$_CLIENTTYPES->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_CLIENTTYPES->data()));
+		$ClientTypes->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$ClientTypes->data()));
 		break;
 
 	case 'reorder':
-		$_CLIENTTYPES->reorder();
+		$ClientTypes->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	

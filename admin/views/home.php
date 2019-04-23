@@ -76,7 +76,7 @@
 			</div>
 			<p class="sz-9">Preferentemente imágenes de 960x960 píxeles.</p>
 			<div id="th_image_main" class="thumbnail thumb-cover thumb-400x400 bg-black">
-				<img src="<?= ROOTPATH ?>assets/blank-wide.gif" alt="" class="wd-100">
+				<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
 				<img alt="" class="th" >
 			</div>
 
@@ -156,7 +156,7 @@
 			</div>
 			<p class="sz-9">Preferentemente imágenes de 768x328 píxeles.</p>
 			<div id="th_image_side" class="thumbnail thumb-cover bg-black" style="max-width:634px">
-				<img src="<?= ROOTPATH ?>assets/blank-wide.gif" alt="" class="wd-100">
+				<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
 			</div>
 			<div class="row" style="max-width:634px">
 				<div class="col-sm-12 col-md-6">

@@ -31,7 +31,7 @@
 				<div class="col-xs-12 col-sm-6 text-right">
 					<div class="form-group" >
 						<label for="" class="dp-block" >&nbsp;</label>
-						<a href="<?= ADMINPATH.'views/exportar-subscriptores.php' ?>" target="_blank" class="btn btn-success btn-sm" type="submit"><i class="fa fa-file-excel-o fa-fw"></i> Exportar Listado</a>
+						<a href="<?= ADMIN.'views/exportar-subscriptores.php' ?>" target="_blank" class="btn btn-success btn-sm" type="submit"><i class="fa fa-file-excel-o fa-fw"></i> Exportar Listado</a>
 					</div>
 				</div>
 				

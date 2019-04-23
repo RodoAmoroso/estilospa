@@ -126,7 +126,7 @@
 						<div class="form-group">
 							<label for="fd_permalink">Enlace Permanente	<i class="fa fa-question-circle cl-pink-3" data-toggle="tooltip" title="" data-original-title="El enlace permanente permite identificar a una página de manera fácil y rápida. Se genera automáticamente a partir del título. Si decides editarlo no debe contener espacios, acentos o caracteres especiales para que funcione correctamente."></i></label>
 							<div class="input-group">
-								<div class="input-group-addon"><span id="root_root"><?= ROOTPATH.'centro/' ?></span></div>
+								<div class="input-group-addon"><span id="root_root"><?= ROOT.'centro/' ?></span></div>
 								<input type="text" class="form-control" id="fd_permalink">
 								<div class="input-group-btn">
 									<button id="btn_preview" class="btn btn-success" title="Previsualizar centro" ><i class="fa fa-external-link-square"></i></button>
@@ -305,7 +305,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<h4 class="fw-600">Etiquetas</h4>
 						<div class="buttons">
-							<a href="<?= ADMINPATH.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
+							<a href="<?= ADMIN.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
 							<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> | 
 							<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button> 
 							<button id="btn_check_glossary" data-check="true" class="btn btn-xs btn-white" ><i class="fa fa-check-square"></i> Marcar/Desmarcar Todos</button>

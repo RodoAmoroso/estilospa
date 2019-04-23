@@ -28,7 +28,7 @@ class Sales {
 
 	public function check($idc=0){
 		//$this->_db->query("SELECT id FROM {$this->_dbprefix}sales WHERE merchant_order_id=?",array($merchant_order_id));
-		$this->_db->query("SELECT id FROM {$this->_dbprefix}sales WHERE merchant_order_id=?",array($idc));
+		$this->_db->query("SELECT id FROM {sales} WHERE collection_id=?",array($idc));
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
 		return true;
@@ -88,15 +88,13 @@ class Sales {
 	public function qualify(){
 		$sql = array(
 			'iduser'=>$this->iduser,
-			'idsale'=>Input::get('IDSale'),
-			'text'=>Input::get('Comment'),
-			'rate'=>Input::get('Rate'),
+			'idsale'=>Input::get('idsale'),
+			'text'=>Input::get('comment'),
+			'rate'=>Input::get('rate'),
 			'added'=>date('Y-m-d H:i:s')
 		);
-		if($this->_db->insert('comments',$sql)){
-			return true;
-		}
-		return false;
+		if(!$this->_db->insert('comments',$sql)) return false;
+		return true;
 	}
 
 	public function checkqualify($idsale=0){
@@ -136,7 +134,7 @@ class Sales {
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
-		$this->_db->query("SELECT s.id, s.merchant_order_id, s.collection_status, s.collection_id, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.price, s.quantity, s.status, s.idpromo, ss.name statusname, p.title, p.gallery, c.name clientname, c.permalink, CONCAT(u.name,' ',u.lastname) username, u.mail, u.image, m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, vu.ispercent, vu.value, vu.idvoucher, vc.code, vu.idvoucher
+		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, ss.name statusname, p.title, p.gallery, c.name clientname, c.permalink, CONCAT(u.name,' ',u.lastname) username, u.mail, u.image, m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, vu.ispercent, vu.value, vu.idvoucher, vc.code, vu.idvoucher
 			FROM {$this->_dbprefix}sales s 
 			LEFT JOIN {$this->_dbprefix}salesstatus ss ON ss.id=s.status 
 			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 
@@ -166,7 +164,7 @@ class Sales {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "s.iduser=".$this->iduser;
 		}
-		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.quantity, ss.name statusname, p.title, p.description, p.gallery, p.includes, c.name clientname, c.permalink, c.id clientid, c.mail clientemail, u.mail useremail, u.name username, u.phone userphone, m.text, m.rate
+		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.quantity, ss.name statusname, p.title, p.description, p.subtitle, p.gallery, p.includes, c.name clientname, c.permalink, c.id clientid, c.mail clientemail, u.mail useremail, u.name username, u.phone userphone, m.text, m.rate
 			FROM spa_sales s 
 			LEFT JOIN {$this->_dbprefix}salesstatus ss ON ss.id=s.status 
 			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 

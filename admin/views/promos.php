@@ -25,7 +25,7 @@
 			<div class="col-xs-12 col-sm-6 text-right">
 				<div class="form-group">
 					<label for="" class="dp-block" >&nbsp;</label>
-					<a href="<?=ADMINPATH.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Promo</a>
+					<a href="<?=ADMIN.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Promo</a>
 				</div>
 			</div>
 		</div>

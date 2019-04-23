@@ -6,13 +6,13 @@ if(!Input::exists()){
 	die(json_encode(array('Status'=>'fail')));
 }
 
-$_GLOSSARY = new Glossary();
-$_GLOSSARYGROUPS = new GlossaryGroups();
+$Glossary = new Glossary();
+$GlossaryGroups = new GlossaryGroups();
 
 switch (Input::get('Mode')) {
 	
 	case 'upimage':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();		
@@ -21,7 +21,7 @@ switch (Input::get('Mode')) {
 		break;
 
 	case 'upheader':
-		if(!$_USER->logged() && $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
 		$Folder = '../'.Input::get('Folder');	
 		$upfile = new File($_FILES[0],$Folder);
 		$upfile->MoveFile();		
@@ -30,48 +30,48 @@ switch (Input::get('Mode')) {
 		break;
 
 	case 'save':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_GLOSSARY->save();		
-		echo json_encode(array('Status'=>'ok','ID'=>$_GLOSSARY->getLastId()));
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$Glossary->save();		
+		echo json_encode(array('Status'=>'ok','ID'=>$Glossary->getLastId()));
 		break;
 
 	case 'get':
 		$glossary = array();
 		if(Input::get('IDG')){
-			$_GLOSSARY->find(Input::get('IDG'));
-			$glossary[] = $_GLOSSARY->data();
+			$Glossary->find(Input::get('IDG'));
+			$glossary[] = $Glossary->data();
 		}else{
-			$_GLOSSARY->get();
-			$glossary = $_GLOSSARY->data();
+			$Glossary->get();
+			$glossary = $Glossary->data();
 		}
 		echo json_encode(array('Status'=>'ok','Results'=>$glossary));
 		break;
 
 	case 'delete':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_GLOSSARY->delete();
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$Glossary->delete();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'find':
-		$_GLOSSARY->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_GLOSSARY->data()));
+		$Glossary->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$Glossary->data()));
 		break;
 	
 	case 'reorder':
-		$_GLOSSARY->reorder();
+		$Glossary->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 	///////////////////// GROUPS ///////////////////////////	
 	case 'savegroup':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_GLOSSARYGROUPS->save();
-		$id = $_GLOSSARYGROUPS->getLastId();
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$GlossaryGroups->save();
+		$id = $GlossaryGroups->getLastId();
 		echo json_encode(array('Status'=>'ok','ID'=>$id));
 		break;
 
 	case 'reordergroup':
-		$_GLOSSARYGROUPS->reorder();
+		$GlossaryGroups->reorder();
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
@@ -79,35 +79,35 @@ switch (Input::get('Mode')) {
 		$id = Input::get('IDG');
 		$glossary = array();
 		if(!$id){
-			$_GLOSSARYGROUPS->get();
+			$GlossaryGroups->get();
 		}else{
-			$_GLOSSARYGROUPS->find($id);
+			$GlossaryGroups->find($id);
 		}
-		$groupdata = $_GLOSSARYGROUPS->data();
+		$groupdata = $GlossaryGroups->data();
 		if(is_array($groupdata)){
 			foreach($groupdata as $group):
-				$_GLOSSARY->idgroup = $group->id;
-				$_GLOSSARY->get();
-				$glossary[] = $_GLOSSARY->data();
+				$Glossary->idgroup = $group->id;
+				$Glossary->get();
+				$glossary[] = $Glossary->data();
 			endforeach;
 		}else{
-			$_GLOSSARY->idgroup = $groupdata->id;
-			$_GLOSSARY->get();
-			$glossary[] = $_GLOSSARY->data();
+			$Glossary->idgroup = $groupdata->id;
+			$Glossary->get();
+			$glossary[] = $Glossary->data();
 			$groupdata = array($groupdata);
 		}
 		echo json_encode(array('Status'=>'ok','Results'=>$groupdata,'Glossary'=>$glossary));
 		break;
 
 	case 'deletegroup':
-		if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
-		$_GLOSSARYGROUPS->delete();		
+		if(!$User->logged() || $User->data()->idtype != 1) die(json_encode(array('Status'=>'fail')));
+		$GlossaryGroups->delete();		
 		echo json_encode(array('Status'=>'ok'));
 		break;
 
 	case 'findgroup':
-		$_GLOSSARYGROUPS->find(Input::get('ID'));
-		echo json_encode(array('Status'=>'ok', 'Result'=>$_GLOSSARYGROUPS->data()));
+		$GlossaryGroups->find(Input::get('ID'));
+		echo json_encode(array('Status'=>'ok', 'Result'=>$GlossaryGroups->data()));
 		break;
 	
 	default:

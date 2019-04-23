@@ -127,7 +127,7 @@
 				<h4 class="fw-600">Asociar Etiquetas</h4>
 				<hr>
 				<div class="buttons">
-					<a href="<?= ADMINPATH.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
+					<a href="<?= ADMIN.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
 					<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> | 
 					<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button> 
 					<button id="btn_check_glossary" data-check="true" class="btn btn-xs btn-white" ><i class="fa fa-check-square"></i> Marcar/Desmarcar Todos</button>

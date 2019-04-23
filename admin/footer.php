@@ -2,7 +2,7 @@
 <!-- COPYRIGHT -->
 <section class="bg-aqua-5 cl-white pad-16">
 	<div class="container text-center">
-		<p><img class="logo" src="<?= ROOTPATH ?>assets/logo-white.png" alt="" style="max-width:240px;padding:26px"></p>
+		<p><img class="logo" src="<?= ROOT ?>assets/logo-white.png" alt="" style="max-width:240px;padding:26px"></p>
 		<p class="sz-9" >&copy; 2006 - <?= date('Y').' '.TITLE ?>. Todos los derechos reservados.</p>
 	</div>
 </section>
@@ -45,11 +45,11 @@
 
 
 
-<script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/ckeditor.js' ?>"></script>
-<script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/adapters/jquery.js' ?>"></script>
+<script type="text/javascript" src="<?= ROOT.'js/lib/ckeditor/ckeditor.js' ?>"></script>
+<script type="text/javascript" src="<?= ROOT.'js/lib/ckeditor/adapters/jquery.js' ?>"></script>
 
-<?php if(file_exists('js/'.$_SECTION.'.js')): ?>
-<script type="text/javascript" src="<?= ADMINPATH.'js/'.$_SECTION.'.js?id='.rand(1111,9999) ?>"></script>
+<?php if(file_exists('js/'.$_section.'.js')): ?>
+<script type="text/javascript" src="<?= ADMIN.'js/'.$_section.'.js?id='.rand(1111,9999) ?>"></script>
 <?php endif; ?>
 
 </body>

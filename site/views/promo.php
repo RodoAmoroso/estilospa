@@ -1,0 +1,502 @@
+
+<script>var IDPromo = <?= $Promos->data()->id ?>; var islogged = <?= $User->logged() ? 1 : 0 ?>;</script>
+
+<section class="promo">
+
+	<div class="container">
+
+		<ul class="breadcrumb">
+			<li><a href="<?= ROOT ?>">Home</a></li>
+			<li><a href="<?= ROOT.'busqueda' ?>">Promos</a></li>
+			<li><a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>"><?= $Clients->data()->name ?></a></li>
+			<li><?= $Promos->data()->title ?></li>
+		</ul>
+
+		<a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>" class="client-wrapper">
+			<div class="logo thumb-contain img-circle" style="background-image:url(<?= $logo ?>);"></div>
+			<div class="client-info">
+				<h1 class="client-name"><?= $Clients->data()->name ?></h1>
+				<?php if($Stores->get($Clients->data()->id)): ?>
+				<h2 class="client-location"> <i class="fa fa-map-marker"></i>
+				<?php 
+				if(count($Stores->data())>1){
+					echo 'Varias sucursales';
+				}else{
+					echo $Stores->data()[0]->city;
+				} 
+				?>
+
+				</h2>
+				<?php endif; ?>
+				<div class="stars"><?= Stars($Clients->rating($Clients->data()->id),''); ?></div>
+			</div>
+		</a>
+
+		<div class="main-wrapper">
+		
+			<?php if(count($gallery)): ?>
+			<div class="gallery gallery-section">
+				
+				<?php foreach($gallery as $img): ?>
+				<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOT.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
+				<?php endforeach; ?>			
+				
+			</div>
+			<?php endif ?>
+
+			<div class="info-wrapper">
+
+				<h3 class="promo-title"><?= $Promos->data()->title ?></h3>
+				<p class="promo-subtitle"><?= $Promos->data()->subtitle ?></p>
+
+				<hr>
+
+
+				<!-- PRICE -->
+				<div class="pricing">
+
+					<!-- PRICING -->
+					<?php if($Promos->data()->sale): ?>
+						
+						<?php if($Promos->data()->discount): ?>
+						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
+						<?php endif; ?>
+
+					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),2,',','.') ?></strong></div>
+
+					<!-- AMOUNT -->
+					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
+					
+					<?php endif; ?>
+
+
+				</div>
+
+
+				<!-- SHOP -->					
+				<div class="shop-action">
+					
+					<?php if($showsalebuttons): ?>
+					<div class="amount">							
+						<select id="select_amount" type="text" class="form-control">
+							<?php for($i=1; $i<=15; $i++): ?>
+							<option value="<?= $i ?>"><?= $i ?></option>
+							<?php endfor; ?>
+						</select>							
+					</div>
+					<?php endif; ?>
+
+					<div class="button-action">
+						<?php if($showsalebuttons): ?>
+						<div class="highlight-button" >
+							<i class="fa fa-shopping-bag fa-fw"></i> 
+							<span <?= $User->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+						</div>
+						<?php else: ?>
+						<div class="highlight-button" >
+							<i class="fa fa-envelope fa-fw"></i> 
+							<span data-toggle="scrollto" data-target="#form_question">Consultar!</span> 
+							<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+						</div>
+						<?php endif; ?>
+
+						<ul id="btn_list" class="btn-list collapse">
+							<?php if($showsalebuttons): ?>
+
+
+							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
+							<li data-toggle="modal" data-target="<?= $User->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
+							<?php endif; ?>
+							<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
+						</ul>
+						
+
+					</div>
+
+				</div>
+
+				<hr>
+
+				<!-- ICONS -->
+				<div class="box-icons ">
+
+					<!-- Stars -->					
+					<div class="item">
+						<div class="rating">
+						<?php $promstars = $Promos->rating($Promos->data()->id); ?>
+						
+							<div class="stars">
+								<?= Stars($promstars,''); ?><br>
+								<small class="punctuation"><?= round($promstars,1) ?>/5</small>
+							</div>
+						</div>
+					</div>
+
+					<!-- FAV -->
+					<div class="item cl-gray-10">|</div>
+					<div class="item"><?= Fav($Promos->data()->id); ?></div>
+					<div class="item cl-gray-10">|</div>
+
+					<!-- VIEWS -->
+					<div class="item">
+						<div class="views text-right">
+							<i class="fa fa-eye fa-lg"></i><br>
+							<small><?= number_format($Promos->data()->views,0,'','.') ?> visitas</small>
+						</div>
+					</div>				
+					
+				</div>				
+
+			</div>
+		</div>
+		
+
+		<!-- OVERVIEW -->
+		<div class="overview-header">
+			<div class="info">
+			<!-- STORES -->
+				<!--<p>Disponible en:</p>
+				<ul class="simple-list">
+					<?php 
+					if($Stores->get($Clients->data()->id,$Promos->data()->stores)):
+						foreach($Stores->data() as $store):
+							$Stores->find($store->id);
+					?>
+					<li><i class="fa fa-map-marker"></i> <?= $Stores->data()->address.' - '.$Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince] ?></li>
+					<?php endforeach; endif; ?>
+				</ul><hr>--->
+			</div>
+		</div>
+
+
+		<!-- INFO -->
+		<div class="block-white">
+			<h4 class="title-bar">Descripción</h4>
+			<p><?= nl2br($Promos->data()->description) ?></p>
+
+			<?php if(!empty($Promos->data()->includes)): ?>
+			<hr>
+			<h5 class="fw-700">¿Qué incluye la experiencia?</h5>
+			<p><?= nl2br($Promos->data()->includes) ?></p>
+			<?php endif; ?>
+
+			<?php if(!empty($Promos->data()->recomendations)): ?>
+			<hr>
+			<h5 class="fw-700">¿Que recomendamos que lleve?</h5>
+			<p><?= nl2br($Promos->data()->recomendations) ?></p>
+			<?php endif; ?>
+
+			<?php if(!empty($Promos->data()->reservation)): ?>
+			<hr>
+			<h5 class="fw-700">¿Requiere reserva y/o algún requisito?</h5>
+			<p><?= nl2br($Promos->data()->reservation) ?></p>
+			<?php endif; ?>
+
+			<?php if(!empty($Promos->data()->duration)): ?>
+			<hr>
+			<h5 class="fw-700">Duración de la actividad</h5>
+			<p><?= nl2br($Promos->data()->duration) ?></p>
+			<?php endif; ?>
+
+			<?php if(!empty($Promos->data()->cancellation)): ?>
+			<hr>
+			<h5 class="fw-700">¿Cuál es la política de cancelación?</h5>
+			<p><?= nl2br($Promos->data()->cancellation) ?></p>
+			<?php endif; ?>
+
+		</div>
+
+		<div class="block-white">
+			<h4 class="title-bar">Validez</h4>
+			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
+			<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>
+		</div>
+
+		<?php if($Promos->data()->sale): ?>
+		<div class="block-white">
+			<h4 class="title-bar">Promociones de cuotas sin interés</h4>
+			<p>Podés pagar en cuotas sin interés. La financiación con tarjeta de crédito está a cargo de MercadoPago. Consultá condiciones <a href="https://www.mercadopago.com.ar/promociones" target="_blank">aquí</a>.</p>
+		</div>
+
+		<?php endif; ?>
+
+			
+		<div class="block-white">
+			<h4 class="title-bar">Preguntas y Respuestas</h4>
+
+			<form id="form_question" class="question-form">
+				<div class="form-group">
+					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
+					<input type="hidden" name="rowid" value="<?=$Promos->data()->id?>">
+					<input type="hidden" name="table" value="promo">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>">Preguntar</button>
+				</div>
+			</form>
+
+
+			<hr>
+			<h5>Últimas preguntas:</h5>
+			<div id="questions">
+				<p>Cargando...</p>
+			</div>
+
+
+		</div>
+
+		
+	</div>	
+</section>
+
+
+<!-- MESSAGES -->
+<div class="modal fade" id="modal_promo_request" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3><?= $Promos->data()->title ?></h3>
+				<p><?= $Clients->data()->name ?></p>
+				
+				<!-- Schedules -->
+				<?php
+				$_stores = new Stores();
+				$_stores->get($Clients->data()->id);
+				if(!empty($_stores->data()[0]->schedules)):
+				?>
+				<div class="sz-10 schedules">
+					<span><i class="fa fa-calendar fa-fw icon"></i> <?= $_stores->scheduleToday($_stores->data()[0]->schedules) ?> <i class="fa fa-caret-down fa-fw"></i></span>
+					<div id="schedules_block" class="schedules-block">
+						<?php foreach($_stores->schedulesList($_stores->data()[0]->schedules) as $day): ?>
+							<p class="dropdown-item"><?php print_r($day) ?></p>
+						<?php endforeach; ?>
+					</div>
+				</div>
+				<?php endif ?>
+
+
+			</div>
+			<div class="modal-body ff-futuralight" >
+				<h4 class="modal-title">Consultar acerca de esta promo</h4>
+				<br />
+				<form id="form_promo_request">
+					<div class="form-group">
+						<label for="fd_name">Nombre y Apellido</label>
+						<input id="fd_name" type="text" name="name" class="form-control" required>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="fd_phone">Teléfono</label>
+								<input id="fd_phone" type="text" name="phone" class="form-control" required>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="fd_mail">E-mail</label>
+								<input id="fd_mail" type="email" name="mail" class="form-control" required>
+							</div>
+						</div>
+					</div>
+					<div id="schedules_input">
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="fd_preference_day">Día de Preferencia</label>
+									<input id="fd_preference_day" type="text" class="form-control">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label for="fd_preference_schedule">Horario de Preferencia</label>
+									<select id="fd_preference_schedule" type="text" class="form-control">
+										<option value="mañana">Por la Mañana</option>
+										<option value="tarde">Por la Tarde</option>
+										<option value="noche">Por la Noche</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>					
+					<div class="form-group">
+						<label for="fd_message">Consulta</label>
+						<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" required></textarea>
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" >ENVIAR</button>
+					</div>
+					<div class="status"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- LOGIN OR REGISTER -->
+<div class="modal fade" id="modal_not_logged" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Usuario no registrado</h4>
+			</div>
+			<div class="modal-body ff-futuralight" >
+				<p>Para poder usar esta función tenés que ingresar como usuario Registrado.</p>
+				<a class="btn btn-primary" href="<?= ROOT.'login#'.ROOT.'promo/'.$Clients->data()->permalink.'/'.$Promos->data()->id.'-'.Permalink($Promos->data()->title) ?>">Login</a>
+				<hr>
+				<p>Todavía no te registraste???</p>
+				<a class="btn btn-primary" href="<?= ROOT.'registro' ?>">Registro</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL GIFT -->
+<div id="modal_gift" class="modal fade ">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+				<h3 class="modal-title">Regalar esta promo</h3>
+				<p>Completá los datos de la persona a la que quieres regalar esta promo.</p>
+			</div>
+			<form class="modal-body">
+				<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label for="fd_gift_to">Para:</label>
+							<input name="to" id="fd_gift_to" type="text" class="form-control" placeholder="Ingresá el nombre del destinatario" required>
+						</div>
+						<div class="form-group">
+							<label for="fd_gift_mail">Email:</label>
+							<input name="email" id="fd_gift_mail" type="email" class="form-control" placeholder="Ingresá el email del destinatario" required>
+						</div>
+						<div class="form-group">
+							<label for="fd_gift_from">De:</label>
+							<input name="from" id="fd_gift_from" type="text" class="form-control" value="<?php if($User->logged()) echo $User->data()->name ?>" placeholder="Ingresá tu nombre" required>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-6">
+						<div class="form-group">
+							<label for="fd_gift_message">Mensaje (Opcional):</label>
+							<textarea name="message" id="fd_gift_message" rows="8" class="form-control" placeholder="Incluí algún mensaje" maxlength="255" required ></textarea>
+							<small><span id="gift_left_characters">255</span> caracteres restantes</small>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="form-group text-right">
+					<button id="btn_gift_next" class="btn btn-primary">Siguiente <i class="fa fa-angle-double-right"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL MP -->
+<div id="modal_mp" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+			</div>
+			<div class="modal-body">
+				<iframe frameborder="0" src="<?= ROOT.'views/cargando.php' ?>"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<?php 
+$Vouchers->status = '1:1';
+if($Vouchers->getpromo($Promos->data()->id)):
+?>
+<!-- MODAL VOUCHER -->
+<div id="modal_voucher" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
+			</div>
+			<div class="modal-body">
+				
+					<div class="cl-fucsia-5">
+						<h2>Voucher de Descuento</h2>
+						<p class="sz-11">Si tienes un código para esta promo puedes aplicarlo para obtener un descuento en la compra de esta promoción.</p>
+						<hr>					
+							
+						<form id="form_voucher_apply" class="form-group">
+							<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
+							<label for="fd_voucher_code">Ingresar código</label>
+							<div class="input-group">
+								<input name="code" id="fd_voucher_code" type="text" class="form-control" autocomplete="off" required>
+								<div class="input-group-btn">
+									<button id="btn_voucher_apply" data-loading-text="Validando..." class="btn btn-success">Aplicar</button>
+								</div>
+							</div>
+						</form>
+								
+						<div id="voucher_status" class="alert"></div>
+						<hr>
+						<button id="btn_voucher_cancel" class="btn btn-primary pull-right">No tengo un código promocional <i class="fa fa-angle-double-right"></i></button>
+						<div class="clearfix"></div>
+					</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<?php endif; #has voucher ?>
+
+
+<!-- OFERTAS -->
+<section>
+	<div class="title-bar">
+		<div class="container">
+			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="promos-highlight">
+		<?php
+		$Promos->status = '1:1';
+		$Promos->sort = 'rand';
+		$Promos->exclude = $Promos->data()->id;
+		$Promos->limit = '0,8';
+		if($Promos->get()):
+			$nm = 0;
+			foreach($Promos->data() as $kp=>$promo):
+				if($Clients->find($promo->idclient)):
+					$imgpromo = json_decode($promo->gallery);
+					$Stores->get($promo->idclient,$promo->stores);
+					$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+					echo '<div class="mod-promo mod-promo-4">';
+					include 'mods/mod-promo.php';
+					echo '</div>';
+					if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
+				else:
+					echo '<p>No se encontraron promociones vigentes</p>';
+				endif;
+			endforeach;
+		endif;
+		?>
+		</div>
+
+	</div>
+
+</section>
+
+
+
+
+
+
+<?php include 'mods/mod-socials.php' ?>
+

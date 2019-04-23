@@ -2,7 +2,7 @@
 
 class File {
 
-	public $photoname = 'tempname';
+	public $filename = 'tempname';
 	public $extension = 'jpg';
 	public $image = true;
 	private $folder;
@@ -14,22 +14,22 @@ class File {
 		$this->file = $file;
 		$this->folder = $folder;
 		if(!is_dir($this->folder)) mkdir($this->folder, 0777);
-		if(!is_dir($this->folder)) die (json_encode(array('Status'=>'dir')));
+		if(!is_dir($this->folder)) die(Responses::response('folder_fail'));
 	}
 
 	////////////////////// MOVE FILE ///////////////////////
 	public function MoveFile($image=true){
 		$this->image = $image;
 		$this->arrName = explode('.',$this->file['name']);
-		$this->photoname = Permalink($this->arrName[0]).'-'.rand(1111,9999);
+		$this->filename = Permalink($this->arrName[0]).'-'.rand(1111,9999);
 		$this->extension = strtolower($this->arrName[count($this->arrName)-1]);
-		if($this->file['size'] > ini_get('upload_max_filesize')*1048576){
-			die( json_encode( array('Status'=>'size', 'MaxSize'=>substr(ini_get('upload_max_filesize'),0,-1)) ) );
+		if($this->file['size'] > intval(ini_get('upload_max_filesize'))*1048576){
+			die(Responses::response('maxsize','',array('size'=>substr(ini_get('upload_max_filesize'),0,-1))));
 		}
-		if(move_uploaded_file($this->file['tmp_name'], $this->folder.($this->image ? 'tempname' : $this->photoname).'.'.$this->extension)){
-			return array('Status'=>'ok','Photoname'=>$this->photoname,'Extension'=>$this->extension);
+		if(move_uploaded_file($this->file['tmp_name'], $this->folder.($this->image ? 'tempname' : $this->filename).'.'.$this->extension)){
+			return Responses::response('ok','',array('filename'=>$this->filename,'extension'=>$this->extension));
 		}else{
-			return array('Status'=>'error','Photoname'=>$this->photoname,'Extension'=>$this->extension);
+			return Responses::response('uploadfail','',array('filename'=>$this->filename,'extension'=>$this->extension));
 		}
 	}
 
@@ -49,7 +49,7 @@ class File {
 				///$this->extension = 'png';
 				break;
 			default:
-				die( json_encode( array('Status'=>'type') ));
+				die( Responses::response('upload_fail') );
 				break;
 		}	
 	}
@@ -62,7 +62,7 @@ class File {
 		$resizeHeight = $arrImg[$this->node][1];
 		$sx = $arrImg[$this->node][2];
 
-		$filename = $this->folder.$this->photoname.$sx.'.'.$this->extension;
+		$filename = $this->folder.$this->filename.$sx.'.'.$this->extension;
 		list($imgWidth, $imgHeight, $imgType) = getimagesize($this->folder.'tempname.'.$this->extension);
 
 		$srcimage = $this->ImageCreate($imgType);		
@@ -139,6 +139,6 @@ class File {
 			$this->Resize($arrImg, $forced, $trim);
 		}
 		/////////////////////////////////////////////
-		return array('Status'=>'ok','Photoname'=>$this->photoname,'Extension'=>$this->extension);
+		return array('status'=>'ok','filename'=>$this->filename,'extension'=>$this->extension);
 	}
 }

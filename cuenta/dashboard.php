@@ -34,7 +34,7 @@
 							}
 					?>
 					<div class="mod-list">
-						<h4><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
+						<h4><a href="<?= ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
 						<?= $status ?>
 						<hr>
 						<small>Agregada el: <?= $promo->creado.($promo->sale ? ' &bullet; <i class="fa fa-shopping-bag" title="Venta Online"></i>' : '') ?></small>
@@ -57,7 +57,7 @@
 						foreach($_promos->data() as $promo):
 					?>
 					<div class="mod-list">
-						<h4><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
+						<h4><a href="<?= ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
 						<hr>
 						<small>Vence el: <?= $promo->finish.' '.($promo->sale ? ' &bullet; <i class="fa fa-shopping-bag" title="Venta Online"></i>' : '') ?> &bullet; Quedan: <?= $promo->dif ?> días</small>
 					</div>
@@ -77,7 +77,7 @@
 						foreach($_promos->data() as $promo):
 					?>
 					<div class="mod-list">
-						<h4><a href="<?= ROOTPATH.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
+						<h4><a href="<?= ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title) ?>" target="_blank" ><?= $promo->title ?></a></h4>
 						<hr>
 						<small>Finalizó el: <?= $promo->finish.' &bullet; '.($promo->sale ? '<i class="fa fa-shopping-bag" title="Venta Online"></i>' : '') ?></small>
 					</div>
@@ -96,13 +96,13 @@
 				foreach($_messages->data() as $message): 
 					$where = '';
 					if(!is_null($message->glossaryname)){
-						$where = 'Enviado a la Etiqueta: <a href="'.ROOTPATH.'etiqueta/'.$message->idglossary.'-'.Permalink($message->glossaryname).'" target="_blank">'.$message->glossaryname.'</a>';
+						$where = 'Enviado a la Etiqueta: <a href="'.ROOT.'etiqueta/'.$message->idglossary.'-'.Permalink($message->glossaryname).'" target="_blank">'.$message->glossaryname.'</a>';
 					}
 					if(!is_null($message->promotitle)){
-						$where = 'Enviado a la Promo: <a href="'.ROOTPATH.'promo/'.$message->permalink.'/'.$message->idpromo.'-'.Permalink($message->promotitle).'" target="_blank">'.$message->promotitle.'</a>';
+						$where = 'Enviado a la Promo: <a href="'.ROOT.'promo/'.$message->permalink.'/'.$message->idpromo.'-'.Permalink($message->promotitle).'" target="_blank">'.$message->promotitle.'</a>';
 					}
 					if(!is_null($message->clientname)){
-						$where = 'Enviado al Centro: <a href="'.ROOTPATH.'centros/'.$message->permalink.'" target="_blank">'.$message->clientname.'</a>';
+						$where = 'Enviado al Centro: <a href="'.ROOT.'centros/'.$message->permalink.'" target="_blank">'.$message->clientname.'</a>';
 					}
 			?>
 

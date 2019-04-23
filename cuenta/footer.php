@@ -2,13 +2,13 @@
 <footer class="cl-white">
 
 	<div class="bg-aqua-4 overprint-absolute"></div>
-	<div class="overprint-absolute bg" style="background-image:url(<?= ROOTPATH ?>assets/bg-6.jpg)" ></div>
+	<div class="overprint-absolute bg" style="background-image:url(<?= ROOT ?>assets/bg-6.jpg)" ></div>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 
-				<img class="logo" src="<?= ROOTPATH ?>assets/logo-white.png" alt="">
+				<img class="logo" src="<?= ROOT ?>assets/logo-white.png" alt="">
 
 				<div class="socials">
 					<a href="http://www.facebook.com/estilospa" target="_blank" class="fa fa-stack fa-lg">
@@ -31,18 +31,18 @@
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<ul>
-					<li><a href="<?= ROOTPATH.'sobre-estilospa' ?>">Sobre EstiloSPA</a></li>
-					<li><a href="<?= ROOTPATH.'como-funciona' ?>">¿Cómo Funciona?</a></li>
-					<li><a href="<?= ROOTPATH.'como-comprar' ?>">¿Cómo Comprar?</a></li>
-					<li><a href="<?= ROOTPATH.'dudas-frecuentes' ?>">Dudas Frecuentes</a></li>
+					<li><a href="<?= ROOT.'sobre-estilospa' ?>">Sobre EstiloSPA</a></li>
+					<li><a href="<?= ROOT.'como-funciona' ?>">¿Cómo Funciona?</a></li>
+					<li><a href="<?= ROOT.'como-comprar' ?>">¿Cómo Comprar?</a></li>
+					<li><a href="<?= ROOT.'dudas-frecuentes' ?>">Dudas Frecuentes</a></li>
 				</ul>
 			</div>
 			<div class="col-xs-12 col-sm-4">
 				<ul>
-					<li><a href="<?= ROOTPATH.'contacto' ?>">Contacto</a></li>
+					<li><a href="<?= ROOT.'contacto' ?>">Contacto</a></li>
 					<li><a href="https://www.mercadopago.com.ar/promociones" target="_blank">Promociones Bancarias</a></li>
-					<li><a href="<?= ROOTPATH.'publica-tu-centro' ?>">Publicá tu Centro</a></li>
-					<li><a href="<?= ROOTPATH.'terminos-condiciones' ?>">Términos y Condiciones</a></li>
+					<li><a href="<?= ROOT.'publica-tu-centro' ?>">Publicá tu Centro</a></li>
+					<li><a href="<?= ROOT.'terminos-condiciones' ?>">Términos y Condiciones</a></li>
 				</ul>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 <!-- COPYRIGHT -->
 <section class="bg-aqua-5 cl-white pad-16">
 	<div class="container text-center">
-		<p><img class="logo" src="<?= ROOTPATH ?>assets/logo-white.png" alt="" style="max-width:240px;padding:26px"></p>
+		<p><img class="logo" src="<?= ROOT ?>assets/logo-white.png" alt="" style="max-width:240px;padding:26px"></p>
 		<p class="sz-9" >&copy; 2006 - <?= date('Y').' '.TITLE ?>. Todos los derechos reservados.</p>
 	</div>
 </section>
@@ -88,14 +88,14 @@
 
 
 <?php require '../scripts.php'; ?>
-<script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/ckeditor.js' ?>"></script>
-<script type="text/javascript" src="<?= ROOTPATH.'js/lib/ckeditor/adapters/jquery.js' ?>"></script>
+<script type="text/javascript" src="<?= ROOT.'js/lib/ckeditor/ckeditor.js' ?>"></script>
+<script type="text/javascript" src="<?= ROOT.'js/lib/ckeditor/adapters/jquery.js' ?>"></script>
 
 <?php 
-if(file_exists('js/'.$_SECTION.'.js')):
+if(file_exists('js/'.$_section.'.js')):
 	if(!is_null($_USER->data()->idclient)):
 ?>
-<script type="text/javascript" src="<?= ROOTPATH.'cuenta/js/'.$_SECTION.'.js' ?>"></script>
+<script type="text/javascript" src="<?= ROOT.'cuenta/js/'.$_section.'.js' ?>"></script>
 <?php endif; endif; ?>
 
 </body>

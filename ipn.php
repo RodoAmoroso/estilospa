@@ -3,7 +3,7 @@ require_once 'config.php';
 require_once 'mercadopago/mercadopago.php';
 require 'ajax/templates-mail.php';
 require 'ajax/phpmailer/PHPMailerAutoload.php';
-error_reporting(0);
+error_reporting(1);
 
 $mp = new MP("APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583");
 $_SALES = new Sales();
@@ -29,7 +29,7 @@ switch($_GET["topic"]) {
 
 			
 			/*echo '<pre>';
-			print_r($payment_info);
+			print_r(!empty($payment_info['response']['order']));
 			echo '</pre>';
 			die();*/
 
@@ -38,7 +38,7 @@ switch($_GET["topic"]) {
 			//$hash = '08c6578d8d450033563cb955cc9db572ff92fcdb64c3c0ff71fe4e51a65b771b';
 			$collection_id = $payment_info["response"]['id'];
 			$payment_type = $payment_info["response"]['payment_type_id'];
-			$merchant_order_id = $payment_info["response"]['order']['id'];
+			$merchant_order_id = !empty($payment_info["response"]['order']) ? $payment_info["response"]['order']['id'] : '';
 			$collection_status = $payment_info["response"]['status'];
 
 			if($_SALES->findtemp($hash)){
@@ -55,7 +55,7 @@ switch($_GET["topic"]) {
 					'collection_id'=>$collection_id,
 					'collection_status'=>$collection_status,
 					'preference_id'=>'',
-					'external_reference'=>'',
+					'external_reference'=>$hash,
 					'payment_type'=>$payment_type,
 					'merchant_order_id'=>$merchant_order_id,	
 					'price'=>$price,
@@ -84,12 +84,12 @@ switch($_GET["topic"]) {
 					}
 				}
 				//////////////////////////////
-				$_SALES->deletetemp($hash);
+				//$_SALES->deletetemp($hash);
 				
 			}
 
 
-			if($_SALES->check($merchant_order_id)){
+			if($_SALES->check($collection_id)){
 				$saleid = $_SALES->data()->id;
 				$_SALES->update($saleid,array(
 					'collection_id'=>$collection_id,
@@ -97,7 +97,9 @@ switch($_GET["topic"]) {
 					'payment_type'=>$payment_type,
 					'modified'=>date('Y-m-d H:i:s')
 				));
-			}					
+			}
+
+			if(!$saleid) die(http_response_code(400));
 			
 
 			/*if(!$_USER->find($iduser)){
@@ -125,14 +127,16 @@ switch($_GET["topic"]) {
 				$price = $_salesdata->price;
 				$priceformat = number_format($price,2,',','.');
 				
-				//print_r($_salesdata);
 				include 'ipn-success.php';
+				//echo 'success';
 			}
 			if($collection_status == 'pending'){
 				include 'ipn-pending.php';
+				//echo 'pending';
 			}
 			if($collection_status == 'rejected'){
 				include 'ipn-rejected.php';
+				//echo 'rejected';
 			}
 
 		}

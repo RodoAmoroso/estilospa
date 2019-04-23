@@ -28,11 +28,11 @@ $arrAdminMenu = array(
 			<?php 
 			foreach($arrAdminMenu as $kmm=>$vmm):
 				$active = '';
-				if($_SECTION == $vmm['permalink']):
+				if($_section == $vmm['permalink']):
 					$active = 'active';
 				endif;
 			?>
-			<li class="<?= $active ?>" ><a href="<?= ROOTPATH.'admin/'.$vmm['permalink'] ?>" ><?= $vmm['name'] ?></a></li>
+			<li class="<?= $active ?>" ><a href="<?= ROOT.'admin/'.$vmm['permalink'] ?>" ><?= $vmm['name'] ?></a></li>
 			<?php endforeach ?>			
 		</ul>
 

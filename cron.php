@@ -9,10 +9,10 @@ $mailxhora = 100;
 $limite = floor($minutos*$mailxhora/60);
 
 //////////// MESSAGES //////////////////////
-$_notifications = new Notifications();
-$_notifications->limit = '0,'.$limite;
-if($_notifications->get()){
-	foreach($_notifications->data() as $notify){
+$Notifications = new Notifications();
+$Notifications->limit = '0,'.$limite;
+if($Notifications->get()){
+	foreach($Notifications->data() as $notify){
 		$mailer->addReplyTo($notify->email_from, $notify->name_from);
 		$mailer->setFrom($notify->email_from, $notify->name_from);
 		$mailer->Subject = $notify->subject;
@@ -27,7 +27,7 @@ if($_notifications->get()){
 		if(!$mailer->send()) echo 'fail';
 		$mailer->clearAllRecipients();
 		$mailer->clearReplyTos();
-		$_notifications->delete($notify->id);
+		$Notifications->delete($notify->id);
 
 	}
 }

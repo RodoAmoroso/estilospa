@@ -147,7 +147,7 @@ var Promos = {
 				mod.find('.preview').attr({'data-permalink':v.permalink,'data-title':v.title});
 				if(v.gallery != ''){
 					var img = $.parseJSON(v.gallery);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOTPATH+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
+					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 				}
 				$('#promos').append(mod);
 			});
@@ -168,7 +168,7 @@ var Promos = {
 				var permalink = $(this).attr('data-permalink');
 				var title = $(this).attr('data-title');
 				//console.log(id,permalink,title);
-				window.open(ROOTPATH+'promo/'+permalink+'/'+id+'-'+Permalink(title));
+				window.open(ROOT+'promo/'+permalink+'/'+id+'-'+Permalink(title));
 			});
 		});
 	},
@@ -208,7 +208,7 @@ var Promos = {
 	buildgallery:function(PHTNM,EXT){
 		var mod = $('#mod_thumb').clone();
 		mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
-		mod.css({backgroundImage:'url('+ROOTPATH+'img/promos/'+PHTNM+'-t.'+EXT+')'});
+		mod.css({backgroundImage:'url('+ROOT+'img/promos/'+PHTNM+'-t.'+EXT+')'});
 		mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
 		mod.find('.dp-table').remove();
 		$('#gallery').append(mod);

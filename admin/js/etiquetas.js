@@ -161,7 +161,7 @@ var Glossary = {
 			$('#fd_groups option[value="'+DATA.Result.idgroup+'"]').prop('selected',true);
 			if(DATA.Result.image != ''){
 				var img = $.parseJSON(DATA.Result.image);
-				$('#header').attr({'data-photoname':img.photoname,'data-extension':img.extension}).css({backgroundImage:'url('+ROOTPATH+'img/glossary/'+img.photoname+'.'+img.extension+')'});
+				$('#header').attr({'data-photoname':img.photoname,'data-extension':img.extension}).css({backgroundImage:'url('+ROOT+'img/glossary/'+img.photoname+'.'+img.extension+')'});
 			}
 		});
 	}
@@ -169,7 +169,7 @@ var Glossary = {
 $(function(){
 	UpFile.Init({MODE:'upimage',FORM:'#form_image',BTN:'#btn_image',PHP:'jxGlossary.php',FOLDER:'img/glossary/',Callback:function(ArrFiles){
 			$.each(ArrFiles,function(ki,vi){
-				var file = ROOTPATH+'img/glossary/'+vi.photoname+'.'+vi.extension;
+				var file = ROOT+'img/glossary/'+vi.photoname+'.'+vi.extension;
 				if(vi.extension == 'jpg' || vi.extension == 'jpeg' || vi.extension == 'gif' || vi.extension == 'png'){
 					CKEDITOR.instances.fd_description.insertHtml('<p><img src="'+file+'" data-cke-saved-src="'+file+'" style="max-width:100%"></p>');
 				}else{
@@ -206,7 +206,7 @@ $(function(){
 	$('#fd_description').ckeditor({
 		language:'es',
 		height:400,
-		contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOTPATH+'css/bootstrap.min.css',ROOTPATH+'css/styles.css'],
+		contentsCss:['https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:300,400,700|Raleway:300,400,700',ROOT+'css/bootstrap.min.css',ROOT+'css/styles.css'],
 		allowedContent:true,
 		toolbar:'MyToolBar',
 		toolbar_MyToolBar:[['Bold','Italic','Underline','RemoveFormat'],['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],['FontSize','TextColor','BGColor'],['Link','Unlink'],['NumberedList','Bulletedist','Outdent','Indent','Blockquote'],['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],['Link','Unlink','Anchor']]

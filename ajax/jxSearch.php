@@ -4,20 +4,20 @@ require_once '../config.php';
 
 if(!Input::exists()) die(json_encode(array('Status'=>'fail')));
 
-$_SEARCH = new Search();
-$_SEARCH->keywords = Input::get('Keywords');
-$_SEARCH->searchmixed = Input::get('SearchMixed');
-$_SEARCH->limit = '0,10';
+$Search = new Search();
+$Search->keywords = Input::get('Keywords');
+$Search->searchmixed = Input::get('SearchMixed');
+$Search->limit = '0,10';
 
 switch (Input::get('Mode')):
 	case 'locations':
-		$_SEARCH->locations();
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_SEARCH->data()));		
+		$Search->locations();
+		echo json_encode(array('Status'=>'ok', 'Results'=>$Search->data()));		
 		break;
 
 	case 'main':
-		$_SEARCH->main();
-		echo json_encode(array('Status'=>'ok', 'Results'=>$_SEARCH->data()));		
+		$Search->main();
+		echo json_encode(array('Status'=>'ok', 'Results'=>$Search->data()));		
 		break;
 	
 	default:

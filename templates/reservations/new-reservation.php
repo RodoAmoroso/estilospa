@@ -1,0 +1,21 @@
+<h3>¡Hola <?=$obj->client->name?>, tenés una solicitud de reserva de turno para la promo: <a href="<?=ROOT.'promo'.$obj->client->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a></h3>
+
+<div style="background-color:rgb(246,246,246);padding:16px;margin:16px 0;line-height: 1.5rem;">
+	<div>Nombre de Usuario: <?=$obj->user->name.' '.$obj->user->lastname?></div>
+	<div>Email: <?= $obj->user->mail ?></div>
+	<div>Día y Hora: <?= date('d/m/Y H:i:s',strtotime($obj->book_date)) ?></div>
+</div>
+
+<p>&nbsp;</p>
+
+
+<p>Para confirmar o cancelarlo, hacé click en el siguiente enlace: <a href="<?=PANEL.'reserva/'.$obj->id?>"><?=PANEL.'reserva/'.$obj->id?></a></p>
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<p>
+	Gracias.<br />
+	El equipo de EstiloSPA.com
+</p>

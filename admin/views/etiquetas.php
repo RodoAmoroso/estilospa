@@ -75,14 +75,17 @@
 			</div>
 
 			<hr>
+			
 			<div class="form-group">
 				<label class="dp-block" for="btn_header">Imagen Cabecera</label>
-				<button id="btn_header" class="btn btn-primary btn-sm">Examinar...</button>
-				<form id="form_header" class="dp-none">
-					<input type="file" accept="image/*">
-				</form>
+				<div data-input="header">
+					<button class="btn btn-primary btn-sm">Examinar...</button>
+					<input type="file" accept="image/*" class="d-none" >
+				</div>		
 			</div>
-			<div id="header" class="thumbnail thumb-cover thumb-fullx280 bg-black"></div>
+			<div id="header" class="thumbnail thumb-cover thumb-fullx280 bg-gray-10"></div>
+
+
 			<hr>
 
 			<div class="form-group">
@@ -92,10 +95,10 @@
 
 			<hr>
 			<div class="form-group">
-				<button id="btn_image" class="btn btn-sm btn-primary"><i class="fa fa-chevron-up"></i> Agregar Imagen...</button>
-				<form id="form_image" class="dp-none">
-					<input type="file" accept="image/*">
-				</form>
+				<div data-input="image">
+					<button id="btn_image" class="btn btn-sm btn-primary"><i class="fa fa-chevron-up"></i> Agregar Imagen...</button>
+					<input type="file" accept="image/*" class="d-none" >
+				</div>
 			</div>
 		</div>
 

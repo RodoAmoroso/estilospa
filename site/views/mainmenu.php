@@ -25,8 +25,6 @@
 
 <!-- SEARCH -->
 <section id="search_bar" class="search-bar <?=$_section=='categoria'?'search-bar-category':'' ?>" >
-	<!-- <div class="overprint-absolute" style="background-image:url(<?= ROOT.'assets/bg-2.jpg' ?>)" ></div>
-	<div class="overprint-absolute bg-gradient op-80"></div> -->
 
 	<div class="container">	
 		<?php if($_section=='categoria'): ?>	

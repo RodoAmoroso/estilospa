@@ -63,17 +63,71 @@ class Stats {
 		return $this->_db->results();
 	}
 
-	public function get_top_promos(){
+	public function get_top_promos($idclient=null){
+		$where = '';
+		$values = array();
+		if(!is_null($idclient)){
+			$where = "WHERE p.idclient=?";
+			$values[] = $idclient;
+		}
 		$this->_db->query("
 			SELECT p.id, p.title, p.views, c.name, c.permalink
 			FROM {promos} p
 			LEFT JOIN {clients} c ON c.id=p.idclient
+			{$where}
 			ORDER BY views DESC 
-			LIMIT 0,10"
+			LIMIT 0,10",
+			$values
 		);
 		if(!$this->_db->count()) return false;
 		return $this->_db->results();
 	}
+
+	public function get_top_promos_questions($idclient=null){
+		
+		$where = "WHERE q.type=?";
+		$values = array('promos');
+		if(!is_null($idclient)){
+			$where .= "AND c.id=?";
+			$values[] = $idclient;
+		}
+		$this->_db->query("
+			SELECT p.id, p.title, c.name, c.permalink, COUNT(*) total
+			FROM {questions} q 
+			LEFT JOIN {promos} p ON p.id=q.rowid
+			LEFT JOIN {clients} c ON c.id=p.idclient
+			{$where}
+			GROUP BY p.id
+			ORDER BY total DESC 
+			LIMIT 0,10",
+			$values
+		);
+		if(!$this->_db->count()) return false;
+		return $this->_db->results();
+	}
+	public function get_top_clients_questions($idclient=null){
+		
+		$where = "WHERE q.type=?";
+		$values = array('clients');
+		if(!is_null($idclient)){
+			$where .= "AND c.id=?";
+			$values[] = $idclient;
+		}
+		$this->_db->query("
+			SELECT c.name, c.permalink, COUNT(*) total
+			FROM {questions} q 
+			LEFT JOIN {clients} c ON c.id=q.rowid
+			{$where}
+			GROUP BY c.id
+			ORDER BY total DESC 
+			LIMIT 0,10",
+			$values
+		);
+		if(!$this->_db->count()) return false;
+		return $this->_db->results();
+	}
+
+
 	public function get_top_clients(){
 		$this->_db->query("
 			SELECT id, name, views, permalink

@@ -12,29 +12,68 @@ if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 
 switch($_action){
 
-	case 'getbypromo':
 
-		$Questions->filters = [['promo'=>Input::get('rowid')]];
+	case 'getbyid':
+		$Questions->filters = [[Input::get('type')=>Input::get('rowid')]];
 		$Questions->limit = intval(Input::get('limit'));
 		$Questions->page = intval(Input::get('page'));
 		$results = $Questions->get();
-		$total = $Questions->get_total('promo',Input::get('rowid'));
+		$total = $Questions->get_total(Input::get('type'),Input::get('rowid'));
 		echo Responses::response('ok','',array('results'=>$results,'total'=>$total));
-
 		break;
+		
 
 	case 'add':
 
-		if(!$User->logged()) die(Responses::response('require_login'));
-		if(!Input::check(Input::get('required'))) die(Responses::response('restricted'));
+		if(!$User->logged()){
+			if(!$User->find(Input::get('email'))){
+				
+				if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
+
+				$hash = hash('sha256', uniqid());
+				$password = rand(11111,99999);
+
+				if(!$idu = $User->create(
+					array(
+						'name'=>Input::get('name'),
+						'mail'=>strtolower(Input::get('email')),
+						'pass'=>password_hash($password,PASSWORD_DEFAULT),
+						'created'=>date('Y-m-d H:i:s'),
+						'hash'=>$hash,
+						'active'=>0,
+						'idtype'=>2
+					)
+				)) die(Responses::response('fail'));
+
+				$userdata = new stdClass();
+				$userdata->id = $idu;
+				$userdata->name = Input::get('name');
+				$userdata->mail = Input::get('email');
+				$userdata->hash = $hash;				
+				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email'));
+
+				//$User->login(Input::get('email'),$password);
+
+			}else{
+				$idu = $User->data()->id;
+			}
+		}else{
+			$idu = $User->data()->id;
+		}
+
+		$User->update($idu,array(
+			'name'=>Input::get('name')
+		));
+
 		$questionid = $Questions->add('questions',array(
-			'table'=>Input::get('table'),
+			'type'=>Input::get('type'),
 			'rowid'=>Input::get('rowid'),
 			'message'=>Input::get('message'),
-			'userid'=>$User->data()->id,
+			'userid'=>$idu,
 			'added'=>date('Y-m-d H:i:s')
 		));
-		if(!$Mailing->question_promo($questionid)) die(Responses::response('fail'));
+
+		if(!$Mailing->question($questionid)) die(Responses::response('fail'));
 		echo Responses::response('ok');
 		break;
 
@@ -48,8 +87,12 @@ switch($_action){
 			'message'=>Input::get('message'),
 			'added'=>date('Y-m-d H:i:s')
 		));
-		if(!$Mailing->response_promo($questionid)) die(Responses::response('fail'));
+		if(!$Mailing->response($questionid)) die(Responses::response('fail'));
 		echo Responses::response('ok');
+		break;
+
+	default:
+		echo Responses::response('fail');
 		break;
 
 }

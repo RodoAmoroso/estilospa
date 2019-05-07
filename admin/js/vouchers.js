@@ -15,33 +15,34 @@ var Promos = {
 	get:function(CONT,IDC,Status){
 		$('#promos').html('');
 		$('#fd_filter_promo').html('<option value="0">-- Todas --</option>');
-		AjaxConnection('jxPromos.php',{Mode:'get',IDClient:IDC,Status:Status},function(DATA){
-			$.each(DATA.Results,function(k,v){
-				if(CONT=='block'){
-					var mod = Templates.list_group_btn();
-					mod.find('span').html('<b>'+v.title+'</b> - '+v.name);
-					mod.attr('data-id',v.id);
-					mod.append('<br />',StatusLabel(v.statusstart,v.statusfinish));
-					var price = v.price-(v.discount*v.price/100);
-					var small = Templates.small.clone();
-					var i = Templates.i.clone().addClass('fa fa-shopping-bag fa-fw');
-					small.append(i,' &bullet; $ '+price.FormatMoney(0,'.',','));
-					//mod.append(span);
-					if(v.sale==1){
-						mod.append('<hr />',small);
+		ajax('admin/promos/get',{idclient:IDC,status:Status})
+			.then(function(DATA){
+				$.each(DATA.results,function(k,v){
+					if(CONT=='block'){
+						var mod = Templates.list_group_btn();
+						mod.find('span').html('<b>'+v.title+'</b> - '+v.name);
+						mod.attr('data-id',v.id);
+						mod.append('<br />',StatusLabel(v.statusstart,v.statusfinish));
+						var price = v.price-(v.discount*v.price/100);
+						var small = Templates.small.clone();
+						var i = Templates.i.clone().addClass('fa fa-shopping-bag fa-fw');
+						small.append(i,' &bullet; $ '+price.numberFormat(0,'.',','));
+						//mod.append(span);
+						if(v.sale==1){
+							mod.append('<hr />',small);
+						}
+						$('#promos').append(mod);
 					}
-					$('#promos').append(mod);
-				}
-				if(CONT=='select'){
-					$('#fd_filter_promo').append('<option value="'+v.id+'">'+v.title+'</option>');
+					if(CONT=='select'){
+						$('#fd_filter_promo').append('<option value="'+v.id+'">'+v.title+'</option>');
+					}
+				});
+				if(CONT=='block'){
+					$('#promos .list-group-item').unbind('click').click(function(){
+						Promos.assocpromos($(this).attr('data-id'));
+					});
 				}
 			});
-			if(CONT=='block'){
-				$('#promos .list-group-item').unbind('click').click(function(){
-					Promos.assocpromos($(this).attr('data-id'));
-				});
-			}
-		});
 	},
 	assocpromos:function(ID){
 		if(Promos.checkassoc(ID,'#promos_selected')){
@@ -105,75 +106,79 @@ var Vouchers = {
 	ArrCodes:[],
 	get:function(){
 		$('#vouchers').empty();
-		console.log($('#fd_filter_status').val());
-		AjaxConnection('jxVouchers.php',{Mode:'get',Status:$('#fd_filter_status').val(),IDP:$('#fd_filter_promo').val(),Keywords:$('#fd_search').val()},function(DATA){
-			if(DATA.Results == null){return false;}
-			$.each(DATA.Results,function(k,v){
-				var mod = Templates.mod_list();
-				mod.find('h4').addClass('title-med').text(v.name+' - '+(v.isunique==1 ? v.code : 'Múltiples códigos'));
-				var discount = (v.ispercent==1 ? '' : '$')+v.value+(v.ispercent==0 ? '' : '%');
-				mod.find('p').append('Disponible en '+v.totpromos+' promos &bullet; Creado: ',v.creado,' &bullet; Descuento: ',discount,' &bullet; ',StatusLabel(v.statusstart,v.statusfinish));
-				mod.find('.edit,.delete').attr('data-id',v.id);
-				var btn = Templates.a.clone().attr({href:ROOT+'vouchers/'+Permalink(v.name)+'/'+v.id,target:'_blank'}).addClass('btn btn-xs btn-primary link').append(Templates.i.clone().addClass('fa fa-link fa-fw'));
-				mod.find('.buttons').prepend(btn,' ');
-				$('#vouchers').append(mod);				
-			});
-			$('#vouchers .edit').click(function(){
-				Vouchers.ID = $(this).attr('data-id');
-				$('#btn_new').trigger('click');
-				Vouchers.find();
-			});
-			$('#vouchers .delete').click(function(){
-				var id = $(this).attr('data-id');
-				Messages(true,'¿Seguro deseas borrar este voucher?',function(){
-					Vouchers.ID = id;
-					Vouchers.delete();
+
+		ajax('admin/vouchers/get',{
+			status:$('#fd_filter_status').val(),
+			idpromo:$('#fd_filter_promo').val(),
+			keywords:$('#fd_search').val()
+		})
+			.then(function(DATA){
+				if(DATA.results == null){return false;}
+				$.each(DATA.results,function(k,v){
+					var mod = Templates.mod_list();
+					mod.find('h4').addClass('title-med').text(v.name+' - '+(v.isunique==1 ? v.code : 'Múltiples códigos'));
+					var discount = (v.ispercent==1 ? '' : '$')+v.value+(v.ispercent==0 ? '' : '%');
+					mod.find('p').append('Disponible en '+v.totpromos+' promos &bullet; Creado: ',v.creado,' &bullet; Descuento: ',discount,' &bullet; ',StatusLabel(v.statusstart,v.statusfinish));
+					mod.find('.edit,.delete').attr('data-id',v.id);
+					var btn = Templates.a.clone().attr({href:ROOT+'vouchers/'+v.name.permalink()+'/'+v.id,target:'_blank'}).addClass('btn btn-xs btn-primary link').append(Templates.i.clone().addClass('fa fa-link fa-fw'));
+					mod.find('.buttons').prepend(btn,' ');
+					$('#vouchers').append(mod);				
 				});
+				
 			});
-		});
 	},
 	find:function(){
-		AjaxConnection('jxVouchers.php',{Mode:'find',ID:Vouchers.ID},function(DATA){
-			if(DATA.Result==null){return false;}
-			var v = DATA.Result;
-			$('#fd_name').val(v.name);			
-			$('#fd_start').val(v.start);			
-			$('#fd_finish').val(v.finish);
-			$('#fd_value').val(v.value);
-			$('#fd_type option[value="'+(v.ispercent==1 ? 'percent' : 'amount')+'"]').prop('selected',true).trigger('change');
-			$('#fd_code_quantity,#btn_generate,#fd_code').prop('disabled',true);
-			$('input[type="radio"][name="group_code_type"]').parent().removeClass('active');
-			if(v.isunique==1){
-				$('#fd_code').val(DATA.Codes[0].code);
-				$('input[type="radio"][value="unique"]').trigger('change').parent().addClass('active');
-			}else{
-				$('input[type="radio"][value="multiple"]').trigger('change').parent().addClass('active');
-				$('#fd_code_quantity').val(DATA.Codes.length);
-				Vouchers.ArrCodes = [];
-				$.each(DATA.Codes,function(k,v){
-					Vouchers.generatecodes(v.code);
+		ajax('admin/vouchers/find',{ID:Vouchers.ID})
+			.then(function(DATA){
+				if(DATA.result==null){return false;}
+				var v = DATA.result;
+				$('#fd_name').val(v.name);
+				$('#fd_start').val(v.start);
+				$('#fd_finish').val(v.finish);
+				$('#fd_value').val(v.value);
+				$('#fd_type option[value="'+(v.ispercent==1 ? 'percent' : 'amount')+'"]').prop('selected',true).trigger('change');
+				$('#fd_code_quantity,#btn_generate,#fd_code').prop('disabled',true);
+				$('input[type="radio"][name="group_code_type"]').parent().removeClass('active');
+				if(v.isunique==1){
+					$('#fd_code').val(DATA.codes[0].code);
+					$('input[type="radio"][value="unique"]').trigger('change').parent().addClass('active');
+				}else{
+					$('input[type="radio"][value="multiple"]').trigger('change').parent().addClass('active');
+					$('#fd_code_quantity').val(DATA.codes.length);
+					Vouchers.ArrCodes = [];
+					$.each(DATA.codes,function(k,v){
+						Vouchers.generatecodes(v.code);
+					});
+				}
+				$.each(DATA.promos,function(k,v){
+					$('#promos .list-group-item[data-id="'+v.idpromo+'"]').trigger('click');
 				});
-			}
-			$.each(DATA.Promos,function(k,v){
-				$('#promos .list-group-item[data-id="'+v.idpromo+'"]').trigger('click');
 			});
-		});
 	},
 	save:function(){
 		if($('#fd_start').datepicker('getDate') > $('#fd_finish').datepicker('getDate')){
-			Messages(true,'La fecha inicial debe ser menor a la fecha final');
+			Swal.fire({
+				type:'warning',
+				text:'La fecha inicial debe ser menor a la fecha final'
+			});
 			return false;
 		}
 		var codes = [];
 		if($('input[value="unique"]').parent().hasClass('active')){
 			if($('#fd_code').val().length<4){
-				Messages(true,'Debes ingresar un código');
+				Swal.fire({
+					type:'warning',
+					text:'Debes ingresar un código'
+				});
 				return false;
 			}
 			codes.push($('#fd_code').val());
 		}else{
 			if($('#code_list .list-group-item').length==0){				
-				Messages(true,'Debes ingresar un código');
+				Swal.fire({
+					type:'warning',
+					text:'Debes ingresar un código'
+				});
 				return false;
 			}
 			$.each($('#code_list .list-group-item'),function(k,v){
@@ -182,14 +187,16 @@ var Vouchers = {
 		}
 		var promos = [];
 		if($('#promos_selected .list-group-item').length == 0 ){
-			Messages(true,'Debes seleccionar al menos una promo');
+			Swal.fire({
+				type:'warning',
+				text:'Debes seleccionar al menos una promo'
+			});
 			return false;
 		}
 		$.each($('#promos_selected .list-group-item'),function(k,v){
 			promos.push($(this).attr('data-id'));
 		});
-		AjaxConnection('jxVouchers.php',{
-			Mode:'save',
+		ajax('admin/vouchers/save',{
 			Name:$('#fd_name').val(),
 			IsUnique:$('input[value="unique"]').parent().hasClass('active') ? 1 : 0,
 			IsPercent:$('#fd_type').val() == 'percent' ? 1 : 0,
@@ -199,28 +206,18 @@ var Vouchers = {
 			Start:FormatDate($('#fd_start').datepicker('getDate')),
 			Finish:FormatDate($('#fd_finish').datepicker('getDate')),
 			ID:Vouchers.ID
-		},function(DATA){
-			if(DATA.Status == 'code'){
-				Messages(true,'El código ingresado ya está en uso. Elige otro.');
-				return false;
-			}
-			if(DATA.Status == 'fail'){
-				Messages(true,'Hubo problemas al procesar la solicitud. Intenta más tarde.');
-				return false;
-			}
-			$('#btn_cancel').trigger('click');
-			Vouchers.get();
-		});
+		})
+			.then(function(){
+				$('#btn_cancel').trigger('click');
+				Vouchers.get();
+			});
 	},
 	delete:function(){
-		AjaxConnection('jxVouchers.php',{Mode:'delete',ID:Vouchers.ID},function(DATA){
-			if(DATA.Status == 'fail'){
-				Messages(true,'Hubo problemas al procesar la solicitud. Intenta más tarde');
-				return false;
-			}
-			$('#btn_cancel').trigger('click');
-			Vouchers.get();
-		});
+		ajax('admin/vouchers/delete',{ID:Vouchers.ID})
+			.then(function(DATA){
+				$('#btn_cancel').trigger('click');
+				Vouchers.get();
+			});
 	},
 	reset:function(){
 		Vouchers.ID = 0;
@@ -273,7 +270,10 @@ var Vouchers = {
 				}
 				//$('[name="codes"]').attr('value',arr);
 			}else{
-				Messages(true,'Debes seleccionar un número mayor a 0');
+				Swal.fire({
+					type:'warning',
+					text:'Debes seleccionar un número mayor a 0'
+				});
 			}
 		});
 		$('#btn_new').click(function(){
@@ -308,6 +308,30 @@ var Vouchers = {
 			e.preventDefault();
 			Vouchers.get();
 		});
+
+		$('#vouchers').on('click','.edit',function(){
+			Vouchers.ID = $(this).attr('data-id');
+			$('#btn_new').trigger('click');
+			Vouchers.find();
+		});
+		$('#vouchers').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				type:'warning',
+				text:'¿Seguro deseas borrar este voucher?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Vouchers.ID = id;
+						Vouchers.delete();
+					}
+				});
+
+		});
+
+
 		Vouchers.get();
 	}
 }

@@ -1,22 +1,3 @@
-var SendRequest = function(){
-	$('#modal_glossary_request button').button('loading');
-	AjaxConnection('jxForms.php',{
-		Mode:'requestglossary',
-		Name:$('#fd_name').val(),
-		Mail:$('#fd_mail').val(),
-		Phone:$('#fd_phone').val(),
-		Message:$('#fd_message').val(),
-		IDG:IDGlossary
-	},function(DATA){
-		$('#modal_glossary_request button').button('reset');
-		if(DATA.Status != 'ok'){
-			Messages(true,'Hubo problemas al enviar la solicitud. Intenta más tarde');
-			return false;
-		}
-		$('#modal_glossary_request').find('input,textarea').val('');
-		$('#modal_glossary_request .status').html('<p class="alert alert-success">La solicitud ha sido enviada con éxito! En Breve nos comunicaremos con vos.</p>');
-	});
-}
 $(function(){
 	var owlClients = $('#clients_carousel');	
 	owlClients.owlCarousel({
@@ -33,10 +14,10 @@ $(function(){
 		margin:16
 	});
 	//////////////////////////////////////
-	$('#form_glossary_request').submit(function(e){
+	/*$('#form_glossary_request').submit(function(e){
 		e.preventDefault();
 		SendRequest();
-	});
+	});*/
 
 	var glossary = $('.glossary-page .page-content');
 	var glossaryHeight = $('.glossary-page .page-content').height();
@@ -60,5 +41,13 @@ $(function(){
 		$('.glossary-page .page-content').css({'height':'auto'});
 		$('.glossary-page .page-content .view-more #view_more').remove();
 	}
+
+
+	var questions = new Questions({
+		container:'#questions',
+		form:'#form_question',
+		mode:'getbyid'
+	});
+	questions.get();
 
 });

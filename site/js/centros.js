@@ -1,23 +1,3 @@
-var SendRequest = function(){
-	$('#form_client_request button').button('loading');
-	AjaxConnection('jxForms.php',{
-		Mode:'requestclient',
-		Name:$('#fd_name').val(),
-		Mail:$('#fd_mail').val(),
-		Phone:$('#fd_phone').val(),
-		Message:$('#fd_message').val(),
-		IDC:IDClient
-	},function(DATA){
-		$('#form_client_request button').button('reset');
-		if(DATA.Status == 'fail'){
-			Messages(true,'Hubo problemas al enviar la solicitud. Intenta más tarde');
-			return false;
-		}
-		$('#form_client_request').find('input,textarea').val('');
-		$('#form_client_request .status').html('<p class="alert alert-success">La solicitud ha sido enviada con éxito! En Breve nos comunicaremos con vos.</p>');
-	});
-}
-
 var RenderMap = function(addresses) {
 	var map;
 	var elevator;
@@ -69,6 +49,7 @@ var geocodeResult = function(results, status) {
 		console.log(status);
 	}
 }
+
 $(function(){
 	var slider = new Slider({
 		container:'.overview-header .gallery'
@@ -79,7 +60,7 @@ $(function(){
 	
 	$('.gallery .play').click(function(){
 		var video = $(this).attr('data-video');
-		$('.gallery').append('<div class="video"><iframe src="https://www.youtube.com/embed/'+video+'?rel=0&amp;showinfo=0&autoplay=true" frameborder="0" width="100%" height="100%" allowfullscreen></iframe><i class="fa fa-times"></i></div>');
+		$('.gallery').append('<div class="video"><iframe src="https://www.youtube.com/embed/'+video+'?rel=0&amp;showinfo=0&autoplay=1" frameborder="0" width="100%" height="100%" allowfullscreen></iframe><i class="fa fa-times"></i></div>');
 		$('.gallery i.fa-times').unbind('click').click(function(){
 			$(this).parent().remove();
 		});
@@ -90,24 +71,25 @@ $(function(){
 		$('#stores .list-group-item').removeClass('active');
 		$(this).addClass('active');
 		
-		/*AjaxConnection('jxClients.php',{Mode:'findstore',IDS:$(this).attr('data-id')},function(DATA){
-			$('#map,.stores-highlight').addClass('active');
-			$('.stores-highlight .city').text(DATA.Result.city);
-			$('.stores-highlight .today span').html(DATA.Today);
-			$('.stores-highlight .schedules-block').html('');
-			if(DATA.Schedules != ''){
-				$.each(DATA.Schedules,function(k,v){
-					$('.stores-highlight .schedules-block').append('<p class="dropdown-item">'+v+'</p>');
-				});
-			}
-			$('.stores-highlight .address').text(DATA.Result.address);
-			var phones = DATA.Result.phones == '' ? '' : '<i class="fa fa-phone"></i> '+DATA.Result.phones;
-			var whatsapp = DATA.Result.whatsapp == '' ? '' : '<i class="fa fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone=549'+(DATA.Result.whatsapp.replace(/\s/g,''))+'">'+DATA.Result.whatsapp+'</a>';
-			$('.stores-highlight .phones').html(phones);
-			$('.stores-highlight .whatsapp').html(whatsapp);
-			var geocoder = new google.maps.Geocoder();
-			geocoder.geocode({ 'address': DATA.Result.address+', '+DATA.Result.city+', AR'}, geocodeResult);
-		});*/
+		ajax('site/clients/findstore',{idstore:$(this).attr('data-id')})
+			.then(function(data){
+				$('#map,.stores-highlight').addClass('active');
+				$('.stores-highlight .city').text(data.result.city);
+				$('.stores-highlight .today span').html(data.today);
+				$('.stores-highlight .schedules-block').html('');
+				if(data.schedules != ''){
+					$.each(data.schedules,function(k,v){
+						$('.stores-highlight .schedules-block').append('<p class="dropdown-item">'+v+'</p>');
+					});
+				}
+				$('.stores-highlight .address').text(data.result.address);
+				var phones = data.result.phones == '' ? '' : '<i class="fa fa-phone"></i> '+data.result.phones;
+				var whatsapp = data.result.whatsapp == '' ? '' : '<i class="fa fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone=549'+(data.result.whatsapp.replace(/\s/g,''))+'">'+data.result.whatsapp+'</a>';
+				$('.stores-highlight .phones').html(phones);
+				$('.stores-highlight .whatsapp').html(whatsapp);
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode({ 'address': data.result.address+', '+data.result.city+', AR'}, geocodeResult);
+			});
 
 	})
 	if($('#stores .list-group-item').length==1){
@@ -119,19 +101,13 @@ $(function(){
 		e.preventDefault();
 		$(this).find('.schedules-block').toggleClass('active');
 	});	
-	$('#form_client_request').submit(function(e){
-		e.preventDefault();
-		SendRequest();
+
+
+	var questions = new Questions({
+		container:'#questions',
+		form:'#form_question',
+		mode:'getbyid'
 	});
-	$('#btn_fav').click(function(e){
-		e.preventDefault();
-		AjaxConnection('jxUsers.php',{Mode:'favs',IDC:IDClient},function(DATA){
-			$('#btn_fav i').removeClass();
-			if(DATA.IsFav==1){
-				$('#btn_fav i').addClass('fa fa-heart');
-			}else{
-				$('#btn_fav i').addClass('fa fa-heart-o');
-			}
-		});
-	});
+	questions.get();
+	
 });

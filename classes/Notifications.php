@@ -14,15 +14,19 @@ class Notifications {
 		$this->_db = DB::getInstance();
 	}
 
-	public function getunrated(){
+	public function get_unrated(){
 		$this->_db->query(
-			"SELECT s.id idsale, s.iduser, s.idpromo, c.id idcomment, u.mail, u.name, s.added, p.title promotitle, cl.permalink
-			FROM {$this->_dbpx}sales s
-			LEFT JOIN {$this->_dbpx}comments c ON c.idsale=s.id 
-			LEFT JOIN {$this->_dbpx}users u ON u.id=s.iduser
-			LEFT JOIN {$this->_dbpx}promos p ON p.id=s.idpromo
-			LEFT JOIN {$this->_dbpx}clients cl ON cl.id=p.idclient
-			WHERE c.id IS NULL AND p.title IS NOT NULL AND u.mail IS NOT NULL AND s.collection_status='approved' AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
+			"SELECT s.id idsale, s.iduser, s.idpromo, c.id idcomment, u.mail, CONCAT(u.name,' ',u.lastname) name, s.added, p.title promotitle, cl.permalink, s.collection_id
+			FROM {sales} s
+			LEFT JOIN {comments} c ON c.idsale=s.id 
+			LEFT JOIN {users} u ON u.id=s.iduser
+			LEFT JOIN {promos} p ON p.id=s.idpromo
+			LEFT JOIN {clients} cl ON cl.id=p.idclient
+			WHERE c.id IS NULL 
+				AND p.id IS NOT NULL 
+				AND u.mail IS NOT NULL 
+				AND s.collection_status='approved' 
+				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range));
 
 		if(!$this->_db->count()) return false;
@@ -33,25 +37,28 @@ class Notifications {
 				'name_to'=>$unrated->name,
 				'email_to'=>strtolower($unrated->mail),
 				'subject'=>"¡No te olvides de calificar tu experiencia!",
-				'body'=>"<h4>Hola {$unrated->name}</h4><p>Si ya has vivido la experiencia de la promo <b><a href='".ROOT."promo/{$unrated->permalink}/{$unrated->idpromo}-".Permalink($unrated->promotitle)."'>{$unrated->promotitle}</a></b>, por favor cuéntanos cómo fue. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOT."calificar/{$unrated->idpromo}' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Calificar</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
+				'body'=>Templates::template('promos/unrated',$unrated),
+				'log'=>'Notificacion enviada a '.$unrated->name.' ('.$unrated->mail.') para calificar la promo <a href="'.ROOT.'promo/'.$unrated->permalink.'/'.$unrated->idpromo.'-'.Permalink($unrated->promotitle).'" target="_blank">'.$unrated->promotitle.'</a> - Nro. de comprobante. '.$unrated->collection_id,
 				'added'=>date('Y-m-d H:i:s'),
 			));
-
-			///// Contanos como fue y sumá beneficios para tus próximas compras en EstiloSPA
 		}
 		return true;
 
 	}
 
-	public function getunstated(){
+	public function get_unstated(){
 		$this->_db->query(
-			"SELECT s.id, s.iduser, s.idpromo, s.status, s.collection_id, s.added, s.price, s.quantity, p.title promotitle, u.name username, u.mail usermail, c.name clientname, c.mail clientmail, c.permalink
-			FROM {$this->_dbpx}sales s
-			LEFT JOIN {$this->_dbpx}promos p ON p.id=s.idpromo 
-			LEFT JOIN {$this->_dbpx}clients c ON c.id=p.idclient
-			LEFT JOIN {$this->_dbpx}users u ON u.id=s.iduser
-			LEFT JOIN {$this->_dbpx}vouchers_usage vu ON vu.idsale=s.id
-			WHERE s.status = 1 AND p.title IS NOT NULL AND c.mail IS NOT NULL AND s.collection_status='approved' AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
+			"SELECT s.id, s.iduser, s.idpromo, s.status, s.collection_id, s.added, s.price, s.quantity, p.title promotitle, CONCAT(u.name,' ',u.lastname) username, u.mail usermail, c.name clientname, c.mail clientmail, c.permalink
+			FROM {sales} s
+			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {users} u ON u.id=s.iduser
+			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
+			WHERE s.status = 1 
+				AND p.id IS NOT NULL 
+				AND c.mail IS NOT NULL 
+				AND s.collection_status='approved' 
+				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range)
 		);
 		if(!$this->_db->count()) return false;
@@ -62,7 +69,8 @@ class Notifications {
 				'name_to'=>$unstated->clientname,
 				'email_to'=>strtolower($unstated->clientmail),
 				'subject'=>"¡No te olvides de actualizar el estado de tu venta!",
-				'body'=>"<h4>Hola {$unstated->clientname}</h4><p>¿{$unstated->username} ({$unstated->usermail}) ya tomó el servicio de la promo <b><a href='".ROOT."promo/{$unstated->permalink}/{$unstated->idpromo}-".Permalink($unstated->promotitle)."'>{$unstated->promotitle}</a> - Nro de Comprobante: {$unstated->collection_id}?</b>.<br /> Si es así, por favor ingresa al sitio de EstiloSPA y actualiza el estado del servicio como <b>Brindado</b>, (o <b>Cancelado</b> en caso de haberse cancelado el servicio). Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p><p>&nbsp;</p><p><a href='".ROOT."cuenta/mi-cuenta' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Establecer Estado</a></p><hr><p>Gracias.<br />El equipo de EstiloSPA.com</p>",
+				'body'=>Templates::template('promos/unstated',$unstated),
+				'log'=>'Notificacion enviada a <a href="'.ROOT.'centros/'.$unstated->permalink.'" target="_blank">'.$unstated->clientname.'</a> para actualizar el estado de la promo <a href="'.ROOT.'promo/'.$unstated->permalink.'/'.$unstated->idpromo.'-'.Permalink($unstated->promotitle).'" target="_blank">'.$unstated->promotitle.'</a> comprada por '.$unstated->username.' ('.$unstated->usermail.') - Nro. de comprobante '.$unstated->collection_id,
 				'added'=>date('Y-m-d H:i:s'),
 			));
 		}
@@ -74,26 +82,49 @@ class Notifications {
 		return true;
 	}
 
-	public function delete($id=0){
-		if(!$this->_db->delete('notifications_queue',array('id','=',$id))) return false;
+	public function delete($obj=null){
+		if(is_null($obj)) return false;
+		///$this->_db->insert('notifications_log',array('log'=>));
+		$this->add_log($obj->log,'');
+		$this->_db->delete('notifications_queue',array('id','=',$obj->id));
 		return true;
 	}
 
-	public function get(){
+	public function get($limit=15){
 		$this->_db->query(
-			"SELECT n.id, n.name_from, n.email_from, n.name_to, n.email_to, n.subject, n.body, n.added
-			FROM {$this->_dbpx}notifications_queue n
+			"SELECT n.*
+			FROM {notifications_queue} n
 			ORDER BY n.added ASC
-			LIMIT {$this->limit}"
+			LIMIT 0,{$limit}"
 		);
-		if(!$this->_db->count()) return false;
+		if(!$this->_db->count()) return false;		
 
 		$this->_data = $this->_db->results();
-		return true;
+		return $this->_data;
 	}
 
 	public function data(){
 		return $this->_data;
+	}
+
+	public function add_log($text='',$type=''){
+		$this->_db->insert('notifications_log',array(
+			'log'=>$text,
+			'type'=>$type
+		));
+		return true;
+	}
+
+	public function get_log(){
+		$this->_db->query(
+			"SELECT nl.*
+			FROM {notifications_log} nl
+			ORDER BY nl.added DESC 
+			LIMIT {$this->limit}"
+		);
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->results();
 	}
 
 

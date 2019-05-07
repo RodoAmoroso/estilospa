@@ -4,7 +4,7 @@
 
 	<div class="container">
 		<ul class="left-menu">
-			<li><a href="<?= ROOT.'publica-tu-centro' ?>">PUBLICA TU CENTRO <i class="fa fa-angle-double-right"></i></a></li>
+			<li><a href="<?= ROOT.'publica-tu-centro' ?>">PUBLICÁ TU CENTRO <i class="fa fa-angle-double-right"></i></a></li>
 		</ul>
 		<ul class="right-menu">
 			<li><a href="http://www.facebook.com/estilospa" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
@@ -33,14 +33,14 @@
 			</div>	
 			<?php 
 			else: 
-			$img = empty($User->data()->image) ? '' : json_decode($User->data()->image);
+			$img = empty($_userdata->image) ? '' : json_decode($_userdata->image);
 			$_AVATAR = empty($img) ? 'user-default.png' : $img->photoname.'-o.'.$img->extension;
 			?>
 
 			<div class="user user-logged text-center">
 				<div class="avatar thumb-cover" style="background-image:url(<?= View::img('users',$_AVATAR) ?>)"></div>
 				<div class="user-title">	
-					<a data-toggle="slide" href="#menu_user">Hola <?= $User->data()->name ?>! <i class="fa fa-caret-down"></i></a>					
+					<a data-toggle="slide" href="#menu_user">Hola <?= $_userdata->name ?>! <i class="fa fa-caret-down"></i></a>					
 				</div>
 				<div id="menu_user" class="menu-user-container" >
 					<div class="arrow"></div>
@@ -48,12 +48,17 @@
 						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
 						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
 						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>
-						<?php if($User->data()->idtype == 1): ?>
+
+						<?php if($_userdata->idtype == 2): ?>
+						<li><a href="<?= View::url('mi-agenda') ?>"><i class="fa fa-calendar"></i> <span>Agenda</span></a></li>
+						<?php endif; ?>
+
+						<?php if($_userdata->idtype == 1): ?>
 						<li><a href="<?= View::url('admin') ?>"><i class="fa fa-wrench"></i> <span>Panel de Control</span></a></li>
 						<?php endif; ?>
 
-						<?php if($User->data()->idtype == 3): ?>
-						<li><a href="<?= View::url('cuenta') ?>"><i class="fa fa-wrench"></i> <span>Panel de Control</span></a></li>
+						<?php if($_userdata->idtype == 3): ?>
+						<li><a href="<?= View::url('panel') ?>"><i class="fa fa-wrench"></i> <span>Panel de Control</span></a></li>
 						<?php endif; ?>
 
 						<li><a href="javascript:logout();"><i class="fa fa-times"></i> <span>Cerrar Sesión</span></a></li>

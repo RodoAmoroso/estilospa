@@ -85,8 +85,8 @@ class Vouchers {
 		//$this->_db->get('vouchers_codes',array($field,'=',$code));
 		$this->_db->query(
 			"SELECT c.id, c.code, c.idvoucher, v.isunique, v.name, v.ispercent, v.value
-			FROM {$this->_dbprefix}vouchers_codes c
-			LEFT JOIN {$this->_dbprefix}vouchers v ON v.id=c.idvoucher
+			FROM {vouchers_codes} c
+			LEFT JOIN {vouchers} v ON v.id=c.idvoucher
 			{$where}"
 		);
 		if($this->_db->count()){
@@ -104,11 +104,12 @@ class Vouchers {
 			if($arrstatus[1]){$finish = "v.finish>=NOW()";}else{$finish = "v.finish <= NOW()";}
 			$where .= " AND ({$start} AND {$finish})";
 		}
-		$this->_db->query("SELECT v.id, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish, v.name, v.ispercent, v.isunique, v.value, v.start, v.finish
-			FROM {$this->_dbprefix}vouchers_assoc a
-			LEFT JOIN {$this->_dbprefix}vouchers v ON v.id=a.idvoucher
+		$this->_db->query(
+			"SELECT v.*, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish
+			FROM {vouchers_assoc} a
+			LEFT JOIN {vouchers} v ON v.id=a.idvoucher
 			{$where}
-			ORDER BY finish ASC 
+			ORDER BY v.finish ASC 
 			LIMIT 0,1",
 			array($idpromo)
 		);
@@ -149,9 +150,9 @@ class Vouchers {
 				$arrvalues[] = $iduser;
 			}
 			$this->_db->query("SELECT u.id
-				FROM {$this->_dbprefix}vouchers_usage u 
-				LEFT JOIN {$this->_dbprefix}vouchers_codes c ON c.id=u.idcode
-				LEFT JOIN {$this->_dbprefix}vouchers v ON v.id=u.idvoucher
+				FROM {vouchers_usage} u 
+				LEFT JOIN {vouchers_codes} c ON c.id=u.idcode
+				LEFT JOIN {vouchers} v ON v.id=u.idvoucher
 				{$where}",
 				$arrvalues
 			);
@@ -162,10 +163,10 @@ class Vouchers {
 			#Finally get voucher info
 			$this->_db->query(
 				"SELECT c.id, v.ispercent, v.value, v.isunique, p.price, p.discount
-				FROM {$this->_dbprefix}vouchers_codes c
-				LEFT JOIN {$this->_dbprefix}vouchers v ON v.id=c.idvoucher
-				LEFT JOIN {$this->_dbprefix}vouchers_assoc a ON a.idvoucher=v.id
-				LEFT JOIN {$this->_dbprefix}promos p ON p.id=a.idpromo
+				FROM {vouchers_codes} c
+				LEFT JOIN {vouchers} v ON v.id=c.idvoucher
+				LEFT JOIN {vouchers_assoc} a ON a.idvoucher=v.id
+				LEFT JOIN {promos} p ON p.id=a.idpromo
 				WHERE c.code=? AND a.idpromo=?",
 				array($code,$idpromo)
 			);

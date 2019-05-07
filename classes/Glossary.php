@@ -129,5 +129,29 @@ class Glossary {
 		$this->_db->query("UPDATE {glossary} SET views=views+1 WHERE id=?",array($id));
 	}
 
+	public function get_clients($glossaryid=0){
+		$this->_db->query(
+			"SELECT c.id, c.name, c.mail, c.permalink
+			FROM {clients_glossary_assignments} cga
+			LEFT JOIN {clients} c ON c.id=cga.clientid
+			WHERE cga.glossaryid=?",
+			array($glossaryid)
+		);
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->results();
+	}
+
+	public function check_assoc($clientid=0,$glossaryid=0){
+		$this->_db->query(
+			"SELECT * 
+			FROM {clients_glossary_assignments} 
+			WHERE clientid=? AND glossaryid=?",
+			array($clientid,$glossaryid)
+		);
+		if(!$this->_db->count()) return false;
+		return true;
+	}
+
 
 }

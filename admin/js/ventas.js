@@ -69,83 +69,103 @@ Actions = {
 	get:function(){
 		$('#sales').html('');
 		$('[data-tag="totalmods"]').text(0);
-		AjaxConnection('jxClients.php',{Mode:'getsales',OrderNumber:$('#fd_ordernumber').val(),From:$('#fd_from').val(),To:$('#fd_to').val(),IDClient:$('#fd_clients').val()},function(DATA){
-			if(DATA.Results == null){return false;}
-			$('[data-tag="totalmods"]').text(DATA.Results.length);
-			$.each(DATA.Results,function(k,v){
-				if(v.title == null){console.log(v.id)}
-				var mod = $('#mod_sale').clone();
-				mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
-				mod.find('[data-tag="ordernumber"]').text('Orden Nro.: '+v.merchant_order_id);
-				if(v.title == null){
-					mod.find('[data-tag="title"]').html('La promo fue borrada');
-				}else{
-					mod.find('[data-tag="title"]').html('<a href="'+ROOT+'promo/'+v.permalink+'/'+v.idpromo+'-'+Permalink(v.title)+'" target="_blank">'+v.title+'</a> - <a href="'+ROOT+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
-				}
-				var discountvoucher = 0;
-				var vouchertext = '';
-				if(v.idvoucher!= null){
-					vouchertext = ' - Usó Código: '+v.code;
-					if(v.ispercent==1){
-						discountvoucher = v.value*v.price/100;
+		
+		ajax('admin/sales/get',{
+			OrderNumber:$('#fd_ordernumber').val(),
+			From:$('#fd_from').val(),
+			To:$('#fd_to').val(),
+			IDClient:$('#fd_clients').val()
+		})
+			.then(function(DATA){
+				if(DATA.results == null){return false;}
+				
+				$('[data-tag="totalmods"]').text(DATA.results.length);
+				
+				$.each(DATA.results,function(k,v){
+					if(v.title == null){console.log(v.id)}
+					var mod = $('#mod_sale').clone();
+					mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
+					mod.find('[data-tag="ordernumber"]').text('Orden Nro.: '+v.merchant_order_id);
+					if(v.title == null){
+						mod.find('[data-tag="title"]').html('La promo fue borrada');
 					}else{
-						discountvoucher = v.value;
+						mod.find('[data-tag="title"]').html('<a href="'+ROOT+'promo/'+v.permalink+'/'+v.idpromo+'-'+v.title.permalink()+'" target="_blank">'+v.title+'</a> - <a href="'+ROOT+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
 					}
-				}
-				mod.find('[data-tag="collectionid"]').html('Nro. de comprobante: #'+v.collection_id);
-				mod.find('[data-tag="price"]').html('Precio Unit.: $ '+(v.price-discountvoucher).FormatMoney(2,',','.')+' | Cant.: '+v.quantity+' | <span class="fw-400">Total: $ '+((v.price-discountvoucher)*v.quantity).FormatMoney(2,',','.')+'</span>');
-				mod.find('[data-tag="date"]').text('Fecha de compra: '+v.fecha+' hs.'+vouchertext).after('<hr /><div class="sz-8 pad-4 alert-'+Actions.status_payment(v.collection_status).label+'">'+Actions.status_payment(v.collection_status).text+'</div>');
-				mod.find('[data-button="toggle"],[data-group="status"]').attr('data-id',v.id);
-				//Actions.status(v.id,v.status);
-				if(v.gallery != null){
-					var img = $.parseJSON(v.gallery);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
-				}
-				mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
-				///////////// USER ////////////////////////////////
-				if(v.image != '' && v.image != null){
-					var imgu = $.parseJSON(v.image);
-					var thumbimage = imgu.photoname+'-t.'+imgu.extension;
-				}else{
-					var thumbimage = 'user-default.png';
-				}
-				mod.find('.user-thumb').css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
-				mod.find('[data-tag="username"]').text(v.username);
-				mod.find('[data-tag="mail"]').text(v.mail);
-				if(v.text != null){
-					mod.find('[data-tag="comment"]').html(v.text);
-					for(var i=1; i<=v.rate; i++){
-						mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star');
+					var discountvoucher = 0;
+					var vouchertext = '';
+					if(v.idvoucher!= null){
+						vouchertext = ' - Usó Código: '+v.code;
+						if(v.ispercent==1){
+							discountvoucher = v.value*v.price/100;
+						}else{
+							discountvoucher = v.value;
+						}
 					}
-					for(var i=5; i>v.rate; i--){
-						mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star-o');
+					mod.find('[data-tag="collectionid"]').html('Nro. de comprobante: #'+v.collection_id);
+					mod.find('[data-tag="price"]').html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity+' | <span class="fw-400">Total: $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.')+'</span>');
+					mod.find('[data-tag="date"]').text('Fecha de compra: '+v.fecha+' hs.'+vouchertext).after('<hr /><div class="sz-8 pad-4 alert-'+Actions.status_payment(v.collection_status).label+'">'+Actions.status_payment(v.collection_status).text+'</div>');
+					mod.find('[data-button="toggle"],[data-group="status"]').attr('data-id',v.id);
+					//Actions.status(v.id,v.status);
+					if(v.gallery != null){
+						var img = $.parseJSON(v.gallery);
+						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 					}
-				}
-				///////////////////////////////////////////////////
-				$('#sales').append(mod);
+					mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
+					///////////// USER ////////////////////////////////
+					if(v.image != '' && v.image != null){
+						var imgu = $.parseJSON(v.image);
+						var thumbimage = imgu.photoname+'-t.'+imgu.extension;
+					}else{
+						var thumbimage = 'user-default.png';
+					}
+					mod.find('.user-thumb').css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
+					mod.find('[data-tag="username"]').text(v.username);
+					mod.find('[data-tag="mail"]').text(v.mail);
+					if(v.text != null){
+						mod.find('[data-tag="comment"]').html(v.text);
+						for(var i=1; i<=v.rate; i++){
+							mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star');
+						}
+						for(var i=5; i>v.rate; i--){
+							mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star-o');
+						}
+					}
+					///////////////////////////////////////////////////
+					$('#sales').append(mod);
+				});
+				
 			});
-			$('#sales [data-button="toggle"]').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				$('#sales .mod-sales[data-id="'+id+'"] .sale-footer').slideToggle();
-			});
-			$('#sales [data-group="status"]').find('a').unbind('click').click(function(e){
-				e.preventDefault();
-				var st = $(this).attr('data-value');
-				var id = $(this).parent().parent().parent().attr('data-id');
-				$('#sales [data-id="'+id+'"] [data-group="status"]').find('button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(st).btn).find('span[data-tag="status"]').text(Actions.switchstatus(st).label);
-				AjaxConnection('jxClients.php',{Mode:'setsalestatus',ID:id,Status:st},function(DATA){});
-			});
-		});
 	},
+
 	init:function(){
+		
 		$('#fd_search').submit(function(e){
 			e.preventDefault();
 			if(!DateFunctions.checkrange($('#fd_from').val(),$('#fd_to').val())){
-				Messages(true,'La fecha inicial debe ser anterior a la final!');
+				Swal.fire({
+					type:'warning',
+					text:'La fecha inicial debe ser anterior a la final!'
+				})
 				return false;
 			}
 			Actions.get();
-		});		
+		});
+
+		$('#sales').on('click','[data-button="toggle"]',function(){
+			var id = $(this).attr('data-id');
+			$('#sales .mod-sales[data-id="'+id+'"] .sale-footer').slideToggle();
+		});
+		$('#sales').on('click','[data-group="status"] a',function(e){
+			e.preventDefault();
+			var st = $(this).attr('data-value');
+			var id = $(this).parent().parent().parent().attr('data-id');
+			$('#sales [data-id="'+id+'"] [data-group="status"]').find('button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(st).btn).find('span[data-tag="status"]').text(Actions.switchstatus(st).label);
+			
+			ajax('admin/sales/setstatus',{ID:id,Status:st})
+				.then(function(){});
+
+		});
+
 		$('#fd_clients').change(function(){
 			Actions.get();
 		});

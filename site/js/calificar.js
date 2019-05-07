@@ -1,15 +1,3 @@
-var Qualify = function(){
-	AjaxConnection('jxUsers.php',{
-		Mode:'qualify',
-		Comment:$('#fd_comment').val(),
-		Rate:$('.stars-wrapper input:checked').val(),
-		IDSale:idsale
-	},function(DATA){
-		console.log(DATA);
-		$('#qualify_wrapper').html('<div class="col-xs-12 sz-14"><p>Gracias por compartir tu experiencia con EstiloSPA.com!!!</p><p>Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p></div>');
-		$('body,html').animate({scrollTop:0});
-	});
-}
 $(function(){
 	$('.qualify .stars-wrapper > label').hover(
 		function(){

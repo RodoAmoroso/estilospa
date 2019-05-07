@@ -8,15 +8,6 @@ class Redirect {
 
 		if(is_null($location)) $location = '';
 
-		/*if(is_numeric($location)){
-			switch ($location) {
-				case 404:
-					header('HTTP/1.0 404 Not Found'.$location);
-					//include '404.php';
-					exit();
-					break;
-			}
-		}*/
 		$path = $external ? $location : self::$root.$location;
 		header('Location:'.$path);
 		exit();

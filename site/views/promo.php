@@ -1,5 +1,8 @@
-
-<script>var IDPromo = <?= $Promos->data()->id ?>; var islogged = <?= $User->logged() ? 1 : 0 ?>;</script>
+<script>
+	var IDPromo = <?= $Promos->data()->id ?>; 
+	var IDClient = <?= $Promos->data()->idclient ?>; 
+	var islogged = <?= $User->logged() ? 1 : 0 ?>;
+</script>
 
 <section class="promo">
 
@@ -149,24 +152,6 @@
 
 			</div>
 		</div>
-		
-
-		<!-- OVERVIEW -->
-		<div class="overview-header">
-			<div class="info">
-			<!-- STORES -->
-				<!--<p>Disponible en:</p>
-				<ul class="simple-list">
-					<?php 
-					if($Stores->get($Clients->data()->id,$Promos->data()->stores)):
-						foreach($Stores->data() as $store):
-							$Stores->find($store->id);
-					?>
-					<li><i class="fa fa-map-marker"></i> <?= $Stores->data()->address.' - '.$Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince] ?></li>
-					<?php endforeach; endif; ?>
-				</ul><hr>--->
-			</div>
-		</div>
 
 
 		<!-- INFO -->
@@ -225,24 +210,38 @@
 			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
 			<form id="form_question" class="question-form">
+
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  <?=$User->logged() ? 'readonly' : ''?>>
+							</div> 
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>" <?=$User->logged() ? 'readonly' : ''?> >
+							</div>
+
+						</div>
+					</div>
+
+					
+					 
+
 				<div class="form-group">
 					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
 					<input type="hidden" name="rowid" value="<?=$Promos->data()->id?>">
-					<input type="hidden" name="table" value="promo">
+					<input type="hidden" name="type" value="promos">
 				</div>
 				<div class="form-group">
-					<button class="btn btn-default" data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>">Preguntar</button>
+					<button class="btn btn-default" >Preguntar</button>
 				</div>
 			</form>
-
-
 			<hr>
 			<h5>Últimas preguntas:</h5>
 			<div id="questions">
 				<p>Cargando...</p>
 			</div>
-
-
 		</div>
 
 		
@@ -252,82 +251,93 @@
 
 <!-- MESSAGES -->
 <div class="modal fade" id="modal_promo_request" tabindex="-1" role="dialog" >
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h3><?= $Promos->data()->title ?></h3>
-				<p><?= $Clients->data()->name ?></p>
-				
-				<!-- Schedules -->
-				<?php
-				$_stores = new Stores();
-				$_stores->get($Clients->data()->id);
-				if(!empty($_stores->data()[0]->schedules)):
-				?>
-				<div class="sz-10 schedules">
-					<span><i class="fa fa-calendar fa-fw icon"></i> <?= $_stores->scheduleToday($_stores->data()[0]->schedules) ?> <i class="fa fa-caret-down fa-fw"></i></span>
-					<div id="schedules_block" class="schedules-block">
-						<?php foreach($_stores->schedulesList($_stores->data()[0]->schedules) as $day): ?>
-							<p class="dropdown-item"><?php print_r($day) ?></p>
-						<?php endforeach; ?>
-					</div>
-				</div>
-				<?php endif ?>
+				<h3>Reservar un turno en <?= $Promos->data()->title ?></h3>
+				<p><?= $Clients->data()->name ?></p>			
 
 
 			</div>
 			<div class="modal-body ff-futuralight" >
-				<h4 class="modal-title">Consultar acerca de esta promo</h4>
-				<br />
+	
 				<form id="form_promo_request">
-					<div class="form-group">
-						<label for="fd_name">Nombre y Apellido</label>
-						<input id="fd_name" type="text" name="name" class="form-control" required>
-					</div>
 					<div class="row">
-						<div class="col-xs-12 col-sm-6">
+						<div class="col-md-6">
+						
+							<div class="form-group">
+								<label for="fd_name">Nombre</label>
+								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
+							</div>
+							<div class="form-group">
+								<label for="fd_name">Apellido</label>
+								<input id="fd_name" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
+							</div>
 							<div class="form-group">
 								<label for="fd_phone">Teléfono</label>
-								<input id="fd_phone" type="text" name="phone" class="form-control" required>
+								<input id="fd_phone" type="text" name="phone" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->phone : '' ?>">
 							</div>
-						</div>
-						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
 								<label for="fd_mail">E-mail</label>
-								<input id="fd_mail" type="email" name="mail" class="form-control" required>
+								<input id="fd_mail" type="email" name="email" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->mail : '' ?>">
 							</div>
+							
+							<div class="form-group">
+								<label for="fd_message">Mensaje <i>(opcional)</i></label>
+								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" ></textarea>
+							</div>
+
 						</div>
-					</div>
-					<div id="schedules_input">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="fd_preference_day">Día de Preferencia</label>
-									<input id="fd_preference_day" type="text" class="form-control">
+						
+						<div class="col-md-6">
+							<label>Elegir día y horario</label>
+
+							<div class="calendar-promo">
+								
+								<div class="month">
+									<div class="prev" data-action="prev"><i class="fa fa-angle-left"></i></div>
+									<div class="name" ><span data-month="<?=date('m')?>"><?=Dates::translateMonths(date('M'))?></span> <span data-year="<?=date('Y')?>"><?=date('Y')?></span></div>
+									<div class="next" data-action="next"><i class="fa fa-angle-right"></i></div>
 								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="fd_preference_schedule">Horario de Preferencia</label>
-									<select id="fd_preference_schedule" type="text" class="form-control">
-										<option value="mañana">Por la Mañana</option>
-										<option value="tarde">Por la Tarde</option>
-										<option value="noche">Por la Noche</option>
-									</select>
+
+								<div class="week">
+									<ul class="days">
+										<li class="day prev" data-action="prev"><i class="fa fa-angle-left"></i></li>
+										
+										<?php foreach($_arrdays as $k=>$day): ?>
+										<li class="day <?=!$k ? 'active' : ''?>" data-day="<?=$day['day']?>" data-dayname="<?=$day['dayname']?>" ><?=$day['name'].' '.$day['day']?></li>
+										<?php endforeach; ?>
+
+										<li class="day next" data-action="next"><i class="fa fa-angle-right"></i></li>
+									</ul>
 								</div>
+								
+								<div class="schedule">
+									<ul class="hours"></ul>
+								</div>
+
+								<div id="selected_schedule" class="pad-10 text-center">Seleccioná un día y horario</div>
 							</div>
+							
+							<input type="hidden" name="date" >
+							<input type="hidden" name="promoid" value="<?=$Promos->data()->id?>" >
+							<input type="hidden" name="clientid" value="<?=$Promos->data()->idclient?>" >
+
 						</div>
-					</div>					
-					<div class="form-group">
-						<label for="fd_message">Consulta</label>
-						<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" required></textarea>
+
 					</div>
+
+					<hr>					
+
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary" >ENVIAR</button>
 					</div>
-					<div class="status"></div>
+
 				</form>
+
+
+				
 			</div>
 		</div>
 	</div>
@@ -377,7 +387,7 @@
 						</div>
 						<div class="form-group">
 							<label for="fd_gift_from">De:</label>
-							<input name="from" id="fd_gift_from" type="text" class="form-control" value="<?php if($User->logged()) echo $User->data()->name ?>" placeholder="Ingresá tu nombre" required>
+							<input name="from" id="fd_gift_from" type="text" class="form-control" value="<?php if($User->logged()) echo $User->data()->name.' '.$User->data()->lastname ?>" placeholder="Ingresá tu nombre" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
@@ -492,10 +502,6 @@ if($Vouchers->getpromo($Promos->data()->id)):
 	</div>
 
 </section>
-
-
-
-
 
 
 <?php include 'mods/mod-socials.php' ?>

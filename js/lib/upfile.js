@@ -15,7 +15,7 @@ var UpFile = function () {
 	_createClass(UpFile, [{
 		key: 'upload',
 		value: function upload() {
-			var _this2 = this;
+			var _this = this;
 
 			var dataForm = new FormData();
 			dataForm.append('file', this.files[this.node]);
@@ -31,7 +31,7 @@ var UpFile = function () {
 
 				$.ajax({
 					type: 'POST',
-					url: ROOT + 'ajax/' + _this2.controller,
+					url: ROOT + 'ajax/' + _this.controller,
 					data: dataForm,
 					cache: false,
 					processData: false,
@@ -43,35 +43,34 @@ var UpFile = function () {
 						reject(data);
 					}
 
-					$('#loading .label').text(_this2.node + 1 + ' / ' + _this2.files.length);
-					_this2.arrfiles.push({ 'filename': data.filename, 'extension': data.extension });
+					$('#loading .label').text(_this.node + 1 + ' / ' + _this.files.length);
+					_this.arrfiles.push({ 'filename': data.filename, 'extension': data.extension });
 					///////////////////////////////////////////
-					if (_this2.node < _this2.files.length - 1) {
-						_this2.node = _this2.node + 1;
+					if (_this.node < _this.files.length - 1) {
+						_this.node = _this.node + 1;
 						_this.upload();
 					} else {
-						var sufix = 'sufix' in _this2 ? _this2.sufix : '';
-						if ('thumbnail' in _this2) {
-							$(_this2.thumbnail).attr({
-								'data-filename': _this2.arrfiles[0].filename,
-								'data-extension': _this2.arrfiles[0].extension
+						var sufix = 'sufix' in _this ? _this.sufix : '';
+						if ('thumbnail' in _this) {
+							$(_this.thumbnail).attr({
+								'data-filename': _this.arrfiles[0].filename,
+								'data-extension': _this.arrfiles[0].extension
 							}).css({
-								'backgroundImage': 'url(' + ROOT + _this2.folder + '/' + _this2.arrfiles[0].filename + sufix + '.' + _this2.arrfiles[0].extension + ')'
+								'backgroundImage': 'url(' + ROOT + _this.folder + '/' + _this.arrfiles[0].filename + sufix + '.' + _this.arrfiles[0].extension + ')'
 							});
 						}
-						if (_this2.callback) {
+						if ('callback' in _this) {
 							var idi = 'idi' in data ? data.idi : 0;
-							_this2.callback(_this2.arrfiles, sufix, idi);
+							_this.callback(_this.arrfiles, sufix, idi);
 						}
 						$('#loading .loading-text').text('');
+						$(_this.container).find('input').val('');
+						if ('gallery' in _this) {
+							_this.build_gallery();
+						}
 						loading({ show: false });
-						$(_this2.container).find('input').val('');
-						_this2.arrfiles = [];
+						resolve(_this.arrfiles);
 					}
-
-					resolve(data);
-				}).always(function (data) {
-					loading({ show: false });
 				}).fail(function (data) {
 					Swal.fire({ text: 'Hubo problemas al subir el archivo. Intenta nuevamente.', type: 'error' });
 					reject(data);
@@ -82,40 +81,34 @@ var UpFile = function () {
 		}
 	}, {
 		key: 'build_gallery',
-		value: function build_gallery(el, arr, folder) {
-			var _this3 = this;
+		value: function build_gallery() {
+			var _this2 = this;
 
-			var app = new App({});
-			var _this = this;
-			app.loadtemplate('propiedades/thumbnail').then(function (template) {
-				$.each(arr, function (k, v) {
+			get_template('site/gallery-thumbnail').then(function (template) {
+				$.each(_this2.arrfiles, function (k, v) {
 					var $module = $($(template));
 					$module.attr({ 'data-filename': v.filename, 'data-extension': v.extension });
-					$module.css({ backgroundImage: 'url(' + IMG + _this3.folder + '/' + v.filename + '-n.' + v.extension + ')' });
-					$(el).append($module);
+					$module.css({ backgroundImage: 'url(' + ROOT + _this2.folder + '/' + v.filename + '-t.' + v.extension + ')' });
+					$(_this2.gallery).append($module);
 				});
-
-				if ('sortable' in _this3) {
-					$(el).sortable();
-				}
 			});
 		}
 	}, {
 		key: 'init',
 		value: function init() {
-			var _this4 = this;
+			var _this3 = this;
 
 			this.scope = 'scope' in this ? this.scope : 'admin';
 			this.controller = 'controller' in this ? this.controller : 'upload';
 
 			$(this.container).on('click', 'button', function () {
-				$(_this4.container).find('input').trigger('click');
+				$(_this3.container).find('input').trigger('click');
 			});
 
 			$(this.container).on('change', 'input', function (event) {
 				event.preventDefault();
-				_this4.node = 0;
-				_this4.arrfiles = [];
+				_this3.node = 0;
+				_this3.arrfiles = [];
 				if (event.target.files.length > 0) {
 					if (event.target.files.length > MAXFILES) {
 						Swal.fire({
@@ -124,18 +117,25 @@ var UpFile = function () {
 						});
 						return false;
 					}
-					_this4.files = event.target.files;
-					if (_this4.files[0].type.indexOf('image') != -1) {
+					_this3.files = event.target.files;
+					if (_this3.files[0].type.indexOf('image') != -1) {
 						var img = new Image();
 						img.onload = function () {
-							_this4.upload();
+							_this3.upload();
 						};
-						img.src = window.URL.createObjectURL(_this4.files[0]);
+						img.src = window.URL.createObjectURL(_this3.files[0]);
 					} else {
-						_this4.upload();
+						_this3.upload();
 					}
 				}
 			});
+
+			if ('gallery' in this) {
+				$(this.gallery).on('click', '.delete', function (btn) {
+					$(btn.currentTarget).parent().parent().remove();
+				});
+				$(this.gallery).sortable();
+			}
 		}
 	}]);
 

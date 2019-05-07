@@ -2,29 +2,50 @@ var Subscribers = {
 	ID:0,
 	get:function(){
 		$('#subscribers').html('');
-		AjaxConnection('jxSubscribers.php',{mode:'get',keywords:$('#form_search input[type="text"]').val()},function(data){
-			if(data.results == null){return false;}
-			$.each(data.results,function(k,v){
-				var mod = Templates.mod_list();
-				mod.find('h4').html(v.email);
-				mod.find('.edit').remove();
-				mod.find('.delete').attr('data-id',v.id);
-				$('#subscribers').append(mod);
+		Promise.all([
+			ajax('admin/subscribers/get',{keywords:$('#form_search input[type="text"]').val()}),
+			get_template('modules/list')
+		])
+		.then(function(response){
+			var results = response[0].results;
+			if(results==false) return false;
+
+			$.each(results,function(k,v){
+				var $module = $(response[1]);
+				$module.find('[data-content=title]').html(v.email);
+				$module.find('.edit').remove();
+				$module.find('.delete').attr('data-id',v.id);
+				$('#subscribers').append($module);
 			});
-			$('#subscribers .delete').click(function(){
-				var id = $(this).attr('data-id');
-				Messages(true,'¿Seguro deseas borrar este usuario?',function(){
-					AjaxConnection('jxSubscribers.php',{mode:'delete',id:id},function(data){
-						Subscribers.get();
-					});
-				});
-			});
+
 		});
+
+	},
+	delete:function(id){
+		ajax('admin/subscribers/delete',{id:id})
+			.then(function(data){
+				Subscribers.get();
+			});
 	},
 	init:function(){
 		$('#form_search').submit(function(e){
 			e.preventDefault();
 			Subscribers.get();
+		});
+		$('#subscribers').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				type:'warning',
+				text:'¿Seguro deseas borrar este usuario de la lista de subscriptores?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Subscribers.delete(id);
+					}
+				});
+			
 		});
 		Subscribers.get();
 	}

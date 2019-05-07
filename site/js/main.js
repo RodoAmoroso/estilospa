@@ -32,7 +32,7 @@ $(function(){
 	$.scrollUp({scrollText:'<i class="fa fa-angle-up"></i>'});
 
 
-	///SearchSuggestions('#form_main_search','jxSearch.php','locations',function(INPUT,ths){});
+	SearchSuggestions('#form_main_search','site/search','',function(INPUT,ths){});
 
 	$('#form_main_search').submit(function(e){
 		e.preventDefault();
@@ -78,7 +78,7 @@ $(function(){
 	$('[data-toggle=scrollto]').click(function(e){
 		e.preventDefault();
 		var target = $(this).attr('data-target');
-		$('body,html').animate({scrollTop:$(target).offset().top});
+		$('body,html').animate({scrollTop:$(target).offset().top-100});
 	})
 
 

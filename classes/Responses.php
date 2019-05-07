@@ -67,6 +67,10 @@ class Responses {
 				$custommessage = 'Necesitás registrarte para realizar esta operación.';
 				break;
 
+			case 'url':
+				$custommessage = 'La url ingresada es incorrecta.';
+				break;
+
 		}
 		self::$_arrout['message'] = empty($message) ? $custommessage : $message;
 		if(!empty($array)){

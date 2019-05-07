@@ -78,6 +78,11 @@ class Sales {
 		return false;
 	}
 
+	public function createtemp($array=array()){
+		$this->_db->insert('salestemp',$array);
+		return true;
+	}
+
 	public function deletetemp($hash=''){
 		if($this->_db->delete('salestemp',array('hash','=',$hash))){
 			return true;
@@ -136,21 +141,20 @@ class Sales {
 		}
 		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, ss.name statusname, p.title, p.gallery, c.name clientname, c.permalink, CONCAT(u.name,' ',u.lastname) username, u.mail, u.image, m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, vu.ispercent, vu.value, vu.idvoucher, vc.code, vu.idvoucher
 			FROM {$this->_dbprefix}sales s 
-			LEFT JOIN {$this->_dbprefix}salesstatus ss ON ss.id=s.status 
-			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient 
-			LEFT JOIN {$this->_dbprefix}users u ON u.id=s.iduser
-			LEFT JOIN {$this->_dbprefix}comments m ON m.idsale=s.id AND m.iduser=s.iduser
-			LEFT JOIN {$this->_dbprefix}vouchers_usage vu ON vu.idsale=s.id
-			LEFT JOIN {$this->_dbprefix}vouchers_codes vc ON vc.id=vu.idcode
+			LEFT JOIN {salesstatus} ss ON ss.id=s.status 
+			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			LEFT JOIN {clients} c ON c.id=p.idclient 
+			LEFT JOIN {users} u ON u.id=s.iduser
+			LEFT JOIN {comments} m ON m.idsale=s.id AND m.iduser=s.iduser
+			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
+			LEFT JOIN {vouchers_codes} vc ON vc.id=vu.idcode
 			{$where} 
 			ORDER BY s.added DESC 
 			{$limitby}");
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
-		}
-		return false;
+
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->results();
+		return true;
 	}
 
 	public function find($id=0){
@@ -164,13 +168,14 @@ class Sales {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "s.iduser=".$this->iduser;
 		}
-		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, s.quantity, ss.name statusname, p.title, p.description, p.subtitle, p.gallery, p.includes, c.name clientname, c.permalink, c.id clientid, c.mail clientemail, u.mail useremail, u.name username, u.phone userphone, m.text, m.rate
+		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, ss.name statusname, p.title, p.description, p.subtitle, p.gallery, p.includes, c.name clientname, c.permalink, c.id clientid, c.mail clientemail, u.mail useremail, CONCAT(u.name,' ',u.lastname) username, u.phone userphone, m.text, m.rate, v.idvoucher voucher_id, v.ispercent voucher_percent, v.value voucher_value
 			FROM spa_sales s 
-			LEFT JOIN {$this->_dbprefix}salesstatus ss ON ss.id=s.status 
-			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient 
-			LEFT JOIN {$this->_dbprefix}users u ON u.id=s.iduser
-			LEFT JOIN {$this->_dbprefix}comments m ON m.idsale=s.id AND m.iduser=s.iduser
+			LEFT JOIN {salesstatus} ss ON ss.id=s.status 
+			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			LEFT JOIN {clients} c ON c.id=p.idclient 
+			LEFT JOIN {users} u ON u.id=s.iduser
+			LEFT JOIN {comments} m ON m.idsale=s.id AND m.iduser=s.iduser
+			LEFT JOIN {vouchers_usage} v ON v.idsale=s.id
 			{$where}");
 		if($this->_db->count()){
 			$this->_data = $this->_db->first();
@@ -200,10 +205,10 @@ class Sales {
 
 		$this->_db->query("SELECT SUM((s.price)*s.quantity) - IF(vu.id != '', IF(vu.ispercent=1, SUM(vu.value*s.price/100), SUM(vu.value)), 0) overall, SUM(s.quantity) quantity, SUM(cp.fee* ((s.price*s.quantity)- IF(vu.id != '', IF(vu.ispercent=1, (vu.value*s.price/100), (vu.value)), 0)) /100) neto
 			FROM {$this->_dbprefix}sales s 
-			LEFT JOIN {$this->_dbprefix}promos p ON p.id=s.idpromo 
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient
-			LEFT JOIN {$this->_dbprefix}clientplans cp ON cp.id=c.idplan 
-			LEFT JOIN {$this->_dbprefix}vouchers_usage vu ON vu.idsale=s.id
+			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {clientplans} cp ON cp.id=c.idplan 
+			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
 			{$where}");
 		if($this->_db->count()){
 			$this->_overall = $this->_db->first();

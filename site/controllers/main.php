@@ -9,8 +9,10 @@ if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config:
 		$User->login();
 	}
 }
+$_userdata = null;
 if($User->logged()){
 	$User->update($User->data()->id,array('logged'=>date('Y-m-d H:i:s')));
+	$_userdata = $User->data();
 }
 
 $dbprovinces = DB::getInstance()->get('provinces',array('id','!=',0));

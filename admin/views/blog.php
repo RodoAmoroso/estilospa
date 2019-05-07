@@ -12,6 +12,7 @@
 <!-- LIST -->
 <section id="list_panel" class="admin-box">
 	<div class="container">
+
 		<div class="row">
 			<div class="col-xs-12 col-sm-6">
 				<label for="fd_search">Buscar</label>
@@ -42,7 +43,6 @@
 			</div>
 			<div class="col-xs-2">
 				<button data-group="views" data-toggle="large" class="btn btn-sm btn-default active"><i class="fa fa-th-large"></i></button>
-				<button data-group="views" data-toggle="thumb" class="btn btn-sm btn-default"><i class="fa fa-th"></i></button>
 				<button data-group="views" data-toggle="list" class="btn btn-sm btn-default"><i class="fa fa-th-list"></i></button>
 			</div>
 			
@@ -115,10 +115,12 @@
 					<label for="fd_content">Contenido</label>
 					<textarea id="fd_content" rows="6" class="form-control"></textarea>
 				</div>
-				<button id="btn_insertimage" class="btn btn-primary btn-xs">Insertar Imagen <i class="fa fa-caret-up fa-fw"></i></button>
-				<form id="form_insertimage" action="#" method="POST" class="dp-none">
-					<input type="file" accept="image/*">
-				</form>
+
+
+				<div data-input="image">
+					<button class="btn btn-xs btn-fucsia">Insertar Imagen <i class="fa fa-caret-up fa-fw"></i></button>
+					<input type="file" accept="image/*" class="d-none" >
+				</div>
 
 			</div>
 
@@ -144,12 +146,14 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="fd_video">Agregar Imagen</label><br />
-							<button id="btn_gallery" class="btn btn-primary btn-sm">Examinar...</button>
-							<form id="form_gallery" class="dp-none">
-								<input type="file" multiple accept="image/*">
-							</form>
+
+							<div data-input="gallery">
+								<button class="btn btn-xs btn-fucsia">Examinar...</button>
+								<input type="file" accept="image/*" class="d-none" multiple >
+							</div>
+
 						</div>
-						<p class="sz-9">Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal de la nota.</p>
+						<small>Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal de la nota.</small>
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">

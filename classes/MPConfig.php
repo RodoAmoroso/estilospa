@@ -11,7 +11,17 @@ class MPConfig {
 					$_error;
 
 	public 	$arrfields=array(),
-					$idclient=0;
+					$idclient=0,
+					
+					//$app_id='7300466898804487',					
+					//$redirect_uri='https://www.estilospa.com/mp.php',
+					//$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
+					//$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
+
+					$redirect_uri='http://localhost/estilospa/mp',
+					$app_id='7030611358224519',
+					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
 
 	public function __construct(){
 		$this->_dbprefix = Config::get('mysql/prefix');
@@ -29,9 +39,9 @@ class MPConfig {
 
 	public function get(){
 		$this->_db->query(
-			"SELECT m.id, m.idclient, m.userid, m.access_token, m.public_key, m.refresh_token, DATE_FORMAT(m.added,'%d/%m/%Y %H:%i') creado, FROM_UNIXTIME(UNIX_TIMESTAMP(m.added)+m.expires_in,'%d/%m/%Y %H:%i') expira, c.name, c.permalink
-			FROM {$this->_dbprefix}mp m
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=m.idclient
+			"SELECT m.*, DATE_FORMAT(m.added,'%d/%m/%Y %H:%i') creado, FROM_UNIXTIME(UNIX_TIMESTAMP(m.added)+m.expires_in,'%d/%m/%Y %H:%i') expira, c.name, c.permalink
+			FROM {mp} m
+			LEFT JOIN {clients} c ON c.id=m.idclient
 			ORDER BY m.added ASC"
 		);
 		if(!$this->_db->count()) return false;
@@ -39,8 +49,10 @@ class MPConfig {
 		return $this->_db->results();
 	}
 
-	public function save(){
-		if(count($this->arrfields)){
+	public function save($arrfields=array()){
+		if(!is_array($arrfields)) return false;
+
+		/*if(count($this->arrfields)){
 			$sql = array(
 			'idclient'=>$this->idclient,
 			'userid'=>$this->arrfields['user_id'],
@@ -50,10 +62,11 @@ class MPConfig {
 			'expires_in'=>$this->arrfields['expires_in'],
 			'added'=>date('Y-m-d H:i:s')
 			);
-			$this->_db->insert('mp',$sql);
 			return true;
 		}
-		return false;
+		return false;*/
+		$this->_db->insert('mp',$arrfields);
+		return true;
 	}
 
 	public function getmplink($PROMO='',$USER='',$CLIENTS='',$quantity=1,$idcode=0){
@@ -78,22 +91,27 @@ class MPConfig {
 				}
 			}
 		}
-		require PATH.'/mercadopago/mercadopago.php';
-		$mp = new MP($this->_data->access_token); // seller access_token
+		require PATH.'/vendor/autoload.php';
+		
+		//$mp = new MP($this->_data->access_token); // seller access_token
+		
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
+
+		MercadoPago\SDK::setClientId($this->app_id);
+		MercadoPago\SDK::setClientSecret($this->secret_key);
 
 		$promo_url = ROOT.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
 		
-		$preference_data = array(
+		/*$preference_data = array(
 			"items" => array(
 				array(
-					"title" => $PROMO->title,
-					"description" => $PROMO->description,
+					"title" => $PROMO->title.' - '.$CLIENTS->name,
+					"description"=>$PROMO->subtitle,
 					"quantity" => $quantity,
 					"unit_price" => ($promoprice-$discountvoucher),
 					"currency_id" => "ARS",
-					"picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-					//"picture_url" => ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension,
+					//"picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
+					"picture_url" => ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension,
 					"category_id" => "services"
 				)
 			),
@@ -104,9 +122,9 @@ class MPConfig {
 				"surname"=>$USER->lastname
 			),
 			"back_urls"=>array(
-				"success"=>ROOT.'pago-status.php?status=success&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"failure"=>ROOT.'pago-status.php?status=failure&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"pending"=>ROOT.'pago-status.php?status=pending&hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
+				"success"=>ROOT.'pago-status/success?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"failure"=>ROOT.'pago-status/failure?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+				"pending"=>ROOT.'pago-status/pending?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
 			),
 			"payment_methods"=>array(
 				"excluded_payment_methods"=>array(),
@@ -114,17 +132,67 @@ class MPConfig {
 				//"excluded_payment_types"=>array(array("id"=>"atm")),
 				"installments"=>null
 			),
-			"notification_url"=> ROOT."ipn.php",
+			//"notification_url"=> ROOT."ipn.php",
+			"notification_url"=> "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient,
 			"external_reference"=> $this->_hash,
+		);*/
+
+		$preference = new MercadoPago\Preference();
+
+		$item = new MercadoPago\Item();
+		$item->title = $PROMO->title.' - '.$CLIENTS->name;
+		$item->description = $PROMO->subtitle;
+		$item->quantity = $quantity;
+		$item->currency_id = "ARS";
+		$item->unit_price = $promoprice-$discountvoucher;
+		$item->picture_url = ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension;
+		$item->category_id = 'services';
+
+		$payer = new MercadoPago\Payer();
+		$payer->email = $USER->mail;
+		$payer->name = $USER->name;
+		$payer->surname = $USER->lastname;
+
+
+		$preference->items = array($item);
+		$preference->payer = $payer;
+		$preference->marketplace_fee = floatval( $CLIENTS->fee*(($promoprice-$discountvoucher)*$quantity)/100 );
+		$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
+		$preference->external_reference = $this->_hash;
+
+		$preference->back_urls = array(
+			'success'=>ROOT.'pago-status/success?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+			'failure'=>ROOT.'pago-status/failure?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
+			'pending'=>ROOT.'pago-status/pending?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
 		);
-		try{
+
+		$preference->payment_methods = array(
+			'excluded_payment_methods'=>array(),
+			'excluded_payment_types'=>array(
+				array("id"=>"ticket"),
+				array("id"=>"atm")
+			),
+			'installments'=>null
+		);
+
+		$preference->save();
+
+		///show_array($preference);
+		$this->_mplink = $preference;
+		return $preference;
+
+
+		/*try{
 			$this->_mplink = $mp->create_preference($preference_data);
 		}catch(MercadoPagoException $e){
 			$this->_error = $e->getMessage();
 			return false;
-		}
-		$this->_db->insert('salestemp',array(
+		}*/
+
+		$Sales = new Sales();
+		$Sales->createtemp(array(
 			'iduser'=>$USER->id,
+			'idclient'=>$PROMO->idclient,
 			'idpromo'=>$PROMO->id,
 			'idcode'=>$idcode,
 			'quantity'=>$quantity,
@@ -164,20 +232,44 @@ class MPConfig {
 		if($idclient) $where = "WHERE m.idclient={$idclient}";
 
 		$this->_db->query(
-			"SELECT m.id, m.idclient, m.userid, m.access_token, m.public_key, m.refresh_token, m.added, c.name
-			FROM {$this->_dbprefix}mp m
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=m.idclient
+			"SELECT m.*, c.name
+			FROM {mp} m
+			LEFT JOIN {clients} c ON c.id=m.idclient
 			{$where}
 			");
 		if(!$this->_db->count()) return false;
 
-		require PATH.'/mercadopago/mercadopago.php';
+
+		foreach($this->_db->results() as $client){
+			$request = array(
+				"client_secret" => $this->secret_key,
+				"client_id" => $this->app_id,
+				"grant_type" => "refresh_token",
+				"refresh_token" => $client->refresh_token
+			);
+
+			$response = curl_post('https://api.mercadopago.com/oauth/token',$request);
+			$json = json_decode($response->response);
+			if($response->status == 400) return false;
+
+			$this->_db->update('mp',$client->id,array(
+				'access_token'=>$json->access_token,
+				'public_key'=>$json->public_key,
+				'refresh_token'=>$json->refresh_token,
+				'expires_in'=>$json->expires_in,
+				'added'=>date('Y-m-d H:i:s')
+			));
+
+		}
+
+		/*require PATH.'/mercadopago/mercadopago.php';
 		foreach($this->_db->results() as $client){
 			$mp = new MP($client->access_token);
 			$request = array(
 				"uri" => "/oauth/token",
 				"data" => array(
-					"client_secret" => $mp->get_access_token(),
+					"client_secret" => $this->secret_key,
+					"client_id" => $this->app_id,
 					"grant_type" => "refresh_token",
 					"refresh_token" => $client->refresh_token
 				),
@@ -200,10 +292,18 @@ class MPConfig {
 			} catch (Exception $e) {
 				$this->_db->delete('mp',array('id','=',$client->id));
 			}
-		}
+		}*/
 
 		return true;
 
+	}
+
+
+
+	public function get_access_token($idclient=0){
+		$this->_db->get('mp',array('idclient','=',$idclient));
+		if(!$this->_db->count()) return false;
+		return $this->_db->first()->access_token;
 	}
 
 

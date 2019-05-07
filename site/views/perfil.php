@@ -5,7 +5,7 @@
 			<div class="avatar-container">
 				<div id="avatar" class="avatar thumb-cover" style="background-image:url(<?= ROOT.'img/users/'.$_AVATAR ?>)"></div>
 
-				<div data-input="image">					
+				<div data-input="image">
 					<button id="btn_image" class="btn btn-xs btn-fucsia">CAMBIAR IMAGEN</button>
 					<input type="file" accept="image/*" class="d-none" >
 				</div>

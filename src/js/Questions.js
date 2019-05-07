@@ -17,6 +17,7 @@ class Questions {
 		
 		ajax('site/questions/'+this.mode,{
 			rowid:$(this.form).find('[name=rowid]').val(),
+			type:$(this.form).find('[name=type]').val(),
 			page:this.page,
 			limit:this.limit
 		})
@@ -32,7 +33,7 @@ class Questions {
 						$(this.container).html('<p>Aún no se han hecho preguntas</p>'); 
 						return false;
 					}
-					//console.log(page_maker(this.limit,data.total));
+					//console.log(data.results);
 					this.total_loaded += data.results.length;
 					this.results = data.results;
 					$.each(data.results,(k,v)=>{
@@ -40,8 +41,13 @@ class Questions {
 						$module.find('[data-content=message]').text(v.message);
 						$module.find('[data-content=added]').text('Enviada: '+v.creado+' hs.');
 						if(v.responses!=false){
+							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>')
 							$.each(v.responses,(kr,vr)=>{
 								let $mod_response = $(templates[1]);
+								//console.log(vr);
+								$mod_response.find('[data-content=client]').text(vr.client.name);
+								$mod_response.find('[data-content=client]').attr({href:ROOT+'centros/'+vr.client.permalink});
+								$mod_response.find('[data-content=thumb]').css({backgroundImage:'url('+vr.client.imagery.logo+')'});
 								$mod_response.find('[data-content=response]').text(vr.message);
 								$mod_response.find('[data-content=added]').text('Enviada: '+vr.creado+' hs.');
 								$module.append($mod_response);
@@ -67,8 +73,11 @@ class Questions {
 		var post = get_form($(this.form));
 		ajax('site/questions/add',post)
 			.then(data=>{
-				$(this.form).find('textarea').val('');
+				$(this.form).find('textarea,input').val('');
 				this.get('getbypromo');
+			})
+			.catch(data=>{
+				console.log(data);
 			});
 
 	}

@@ -8,7 +8,7 @@ $User = new User();
 $Sales = new Sales();
 $Mailing = new Mailing();
 
-if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
+if(!Input::check(Input::get('required'))) die(Responses::response('required'));
 
 switch($_action){
 
@@ -30,17 +30,17 @@ switch($_action){
 
 
 		$mplink = '#';
-		if(!$MPConfig->getmplink($Promos->data(),$User->data(),$Clients->data(),$amount,$idcode)) die(Responses::response('fail'));
+		if(!$preference = $MPConfig->getmplink($Promos->data(),$User->data(),$Clients->data(),$amount,$idcode)) die(Responses::response('fail'));
 
-		$mplink = $MPConfig->mplink()['response']['init_point'];
-		echo Responses::response('ok','',array('link'=>$mplink,'hash'=>$MPConfig->hash()));
+		///$preference = $MPConfig->mplink()['response']['init_point'];
+		///show_array($MPConfig->mplink()['response']);
+		echo Responses::response('ok','',array('link'=>$preference->init_point,'hash'=>$MPConfig->hash()));
 		break;
 
 	case 'gift':
 
 		if(!$User->logged()) die(Responses::response('require_login'));
 		if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
-		if(!Input::check(Input::get('required'))) die(Responses::response('required'));
 
 		$arrfields = array(
 			'iduser'=>$User->data()->id,

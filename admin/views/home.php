@@ -30,6 +30,8 @@
 		<div id="main" class="well mod-container-lg"></div>
 	</div>
 </section>
+
+
 <!-- EDIT MAIN -->
 <section id="edit_main" class="admin-box bg-gray-5 dp-none">
 	<div class="container">
@@ -68,14 +70,16 @@
 			<hr>
 			
 			<div class="form-group">
-				<label for="btn_image_main">Imagen</label><br />
-				<button id="btn_image_main" class="btn btn-sm btn-primary">Examinar...</button>
-				<form id="form_image_main" class="dp-none">
-					<input type="file" accept="image/*">
-				</form>
+				<label for="btn_image_main">Imagen</label>
+
+				<div data-input="main">
+					<button class="btn btn-sm btn-primary">Examinar...</button>
+					<input type="file" class="d-none" accept="image/*">
+				</div>
+
 			</div>
 			<p class="sz-9">Preferentemente imágenes de 960x960 píxeles.</p>
-			<div id="th_image_main" class="thumbnail thumb-cover thumb-400x400 bg-black">
+			<div id="th_image_main" class="thumbnail thumb-cover thumb-400x400 bg-gray-5">
 				<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
 				<img alt="" class="th" >
 			</div>
@@ -105,6 +109,8 @@
 
 <hr>
 
+
+
 <!-- LIST SIDE -->
 <section id="list_side" class="admin-box">
 	<div class="container">
@@ -120,7 +126,7 @@
 		</div>		
 		<p class="sz-9">Debes subir al menos 2 banners para que se visualice bien en el sitio. Si subes más de dos, sólo se verán dos por vez de manera aleatoria.</p>
 		<hr>
-		<div id="side" class="well mod-container-md"></div>
+		<div id="side" class="well mod-container-lg"></div>
 	</div>
 </section>
 <!-- EDIT MAIN -->
@@ -148,15 +154,16 @@
 			<hr>
 			
 			<div class="form-group">
-				<label for="btn_image_side">Imagen</label><br />
-				<button id="btn_image_side" class="btn btn-sm btn-primary">Examinar...</button>
-				<form id="form_image_side" class="dp-none">
-					<input type="file" accept="image/*">
-				</form>
+				<label for="btn_image_side">Imagen</label>
+				<div data-input="side">
+					<button class="btn btn-sm btn-primary">Examinar...</button>
+					<input type="file" class="d-none" accept="image/*">
+				</div>
+				
 			</div>
 			<p class="sz-9">Preferentemente imágenes de 768x328 píxeles.</p>
 			<div id="th_image_side" class="thumbnail thumb-cover bg-black" style="max-width:634px">
-				<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
+				<img src="<?= View::assets('blank-wide.gif') ?>" alt="" class="wd-100">
 			</div>
 			<div class="row" style="max-width:634px">
 				<div class="col-sm-12 col-md-6">

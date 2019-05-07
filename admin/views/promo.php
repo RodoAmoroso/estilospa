@@ -32,7 +32,7 @@
 			</div>
 
 			<div class="form-group">
-				<label for="fd_subtitle">Subtítulo <span>(opcional)</span></label>
+				<label for="fd_subtitle">Subtítulo</label>
 				<input id="fd_subtitle" type="text" class="form-control">
 			</div>
 
@@ -137,16 +137,16 @@
 			</div>
 			<hr>
 
-
-			<label for="">Galería de Imágenes</label>
 			<div class="form-group">
-				<button id="btn_image" class="btn btn-primary btn-sm">Examinar...</button>
+				<label for="">Galería de Imágenes</label>
+				<div data-input="gallery">
+					<button id="btn_image" class="btn btn-primary btn-sm">Examinar...</button>
+					<input type="file" accept="image/*" multiple class="d-none">
+				</div>
 			</div>
-			<form id="form_image" class="dp-none">
-				<input type="file" accept="image/*" multiple>
-			</form>
+			
 			<div id="gallery" class="well admin-gallery mod-container-sm"></div>
-			<p class="sz-9">&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la promo.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
+			<small>&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la promo.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
 
 
 
@@ -160,7 +160,7 @@
 		<div class="block-white">
 			<button id="btn_save" class="btn btn-success pull-right">Guardar Promo</button>
 			<button id="btn_cancel" class="btn btn-warning btn-sm">Cancelar</button>
-			<?php if($promodata): ?>
+			<?php if($_promodata): ?>
 			<button id="btn_delete" class="btn btn-danger btn-sm">Borrar</button>
 			<?php endif; ?>
 		</div>
@@ -202,3 +202,4 @@
 <?php include 'templates.php' ?>
 
 <script>var $_id = '<?=intval($_subsection)?>';</script>
+

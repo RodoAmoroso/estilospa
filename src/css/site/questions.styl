@@ -10,18 +10,39 @@
 			color gray(10)
 			font-size 2rem
 		.message
+			width 100%
 			.caption 
+				color black
 				font-size 1.5rem
 				font-weight 300
 				margin-bottom 0
 			small
-				font-size 1rem
+				font-size 1.2rem
 				color gray(40)
+			.actions 
+				margin-top 16px
+	.response-title
+		margin-left 36px
+		border-bottom 1px solid gray(5)
+		padding 8px 0
 	.response 
-		border-bottom none
-		margin-left 26px
-		.icon 
-			transform scale3d(-1,1,1)
+		margin 16px 0 0 36px
+		/*.icon 
+			transform scale3d(-1,1,1)*/
+		.thumb 
+			$size = 60px
+			background-color gray(10)
+			border-radius 6px
+			border 1px solid gray(10)
+			height $size
+			margin 0 16px 16px 0
+			min-width $size
+			width $size
+		.client
+			color $cyan_3
+			display block
+			margin 0 0 6px 0
+			font-size 1.3rem
 .questions-wrapper:not(:last-of-type)
 	border-bottom 1px solid gray(10)
 	

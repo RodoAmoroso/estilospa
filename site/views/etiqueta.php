@@ -28,15 +28,37 @@
 						<button id="view_more" class="btn btn-default"><span>leer más</span> <i class="fa fa-caret-down"></i></button>
 					</div>
 					<div class="col-sm-6 text-right">
-						<button class="btn btn-primary" data-toggle="modal" data-target="#modal_glossary_request"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $Glossary->data()->name ?></button>
+						<button class="btn btn-primary" data-toggle="scrollto" data-target="#form_question"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $Glossary->data()->name ?></button>
 					</div>
 				</div>				
 			</div>
 		</div>
 
 
+		<div class="block-white">
+			<h4 class="title-bar">Preguntas y Respuestas</h4>
+
+			<form id="form_question" class="question-form">
+				<div class="form-group">
+					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
+					<input type="hidden" name="rowid" value="<?=$Glossary->data()->id?>">
+					<input type="hidden" name="type" value="glossary">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>">Preguntar</button>
+				</div>
+			</form>
+			<hr>
+			<h5 class="text-gray-50">Últimas preguntas:</h5>
+			<div id="questions">
+				<p>Cargando...</p>
+			</div>
+		</div>
+
+
 	</div>
 </section>
+
 
 
 <?php if($Promos->get()): ?>
@@ -73,48 +95,27 @@
 <?php endif; ?>
 
 
-<!-- MESSAGES -->
-<div class="modal fade" id="modal_glossary_request" tabindex="-1" role="dialog" >
+
+
+
+<!-- LOGIN OR REGISTER -->
+<div class="modal fade" id="modal_not_logged" tabindex="-1" role="dialog" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Consultar a los Centros Acerca de <?= $Glossary->data()->name ?></h4>
+				<h4 class="modal-title">Usuario no registrado</h4>
 			</div>
 			<div class="modal-body ff-futuralight" >
-				<form id="form_glossary_request">
-					<div class="form-group">
-						<label for="fd_name">Nombre y Apellido</label>
-						<input id="fd_name" type="text" name="name" class="form-control" required value="<?php if($User->logged()) echo $User->data()->name ?>">
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-xs-6">
-							<div class="form-group">
-								<label for="fd_phone">Teléfono</label>
-								<input id="fd_phone" type="text" name="phone" class="form-control" required>
-							</div>
-						</div>
-						<div class="col-xs-12 col-xs-6">
-							<div class="form-group">
-								<label for="fd_mail">E-mail</label>
-								<input id="fd_mail" type="email" name="mail" class="form-control" required value="<?php if($User->logged()) echo $User->data()->mail ?>">
-							</div>
-						</div>
-					</div>					
-					<div class="form-group">
-						<label for="fd_message">Consulta</label>
-						<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" required></textarea>
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary" >ENVIAR</button>
-					</div>
-					<div class="status"></div>
-				</form>
+				<p>Para poder usar esta función tenés que ingresar como usuario Registrado.</p>
+				<a class="btn btn-primary" href="<?= ROOT.'login#'.View::url($_section,$_subsection) ?>">Login</a>
+				<hr>
+				<p>Todavía no te registraste???</p>
+				<a class="btn btn-primary" href="<?= ROOT.'registro' ?>">Registro</a>
 			</div>
 		</div>
 	</div>
 </div>
-
 
 
 <!-- CENTROS CON LA ETIQUETA -->

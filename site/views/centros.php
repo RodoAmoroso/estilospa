@@ -50,7 +50,7 @@
 					<?php endif; ?>
 
 					<!-- Schedules -->
-					<?php if(!empty($StoresClient->data()[0]->schedules)): ?>						
+					<?php if(!empty($StoresClient->data()[0]->schedules)): ?>
 					<div class="sz-10 schedules">
 						<span><i class="fa fa-calendar fa-fw icon"></i> <?= $StoresClient->scheduleToday($StoresClient->data()[0]->schedules) ?> <i class="fa fa-caret-down fa-fw"></i></span>
 						<div id="schedules_block" class="schedules-block">
@@ -108,7 +108,7 @@
 				</div>
 
 				<div class="button-request">
-					<button data-mail="<?= $Clients->data()->mail ?>" data-toggle="modal" data-target="#modal_client_request" class="btn btn-default btn-block"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
+					<button data-toggle="scrollto" data-target="#form_question" class="btn btn-default btn-block"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
 				</div>
 
 			</div>	
@@ -140,16 +140,16 @@
 		<?php
 		$Promos->idclient = $Clients->data()->id;
 		if($Promos->get()):
-		?>
-		<h4 class="title-bar overview-title">Promos Vigentes</h4>
-		<div class="overview-info">
-			
+		?>		
+		<div class="block-white">
+			<h4 class="title-bar">Promos Vigentes</h4>			
 			<div class="promos-highlight">
 				<?php
 					foreach($Promos->data() as $kp=>$promo): 
 						$imgpromo = json_decode($promo->gallery);
 						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$Stores = new Stores();
+						//show_array($promo->stores);
 						$Stores->get($Clients->data()->id,$promo->stores);
 						echo '<div class="mod-promo mod-promo-4">';
 						include 'mods/mod-promo.php';
@@ -162,8 +162,8 @@
 
 
 		<!-- FEATURES -->	
-		<div class="overview-info">			
-
+		<div class="block-white">	
+			<h4 class="title-bar">Servicios</h4>
 			<ul class="nav nav-tabs" role="tablist">
 				<?php if(count($Features->data())): foreach($Features->data() as $kf=>$vf): ?>
 				<li role="presentation" class="<?= $kf ? '' : 'active' ?> text-uppercase"><a href="#tab_<?= $kf ?>" aria-controls="tab_<?= $kf ?>" role="tab" data-toggle="tab"><?= $vf->title ?></a></li>
@@ -171,7 +171,7 @@
 			</ul>
 			<div class="tab-content">
 				<?php if(count($Features->data())): foreach($Features->data() as $kf=>$vf): ?>
-				<div role="tabpanel" class="tab-pane fade in <?= $kf ? '' : 'active' ?>" id="tab_<?= $kf ?>"><?= $vf->description ?></div>
+				<div role="tabpanel" class="tab-pane fade in <?= $kf ? '' : 'active' ?>" id="tab_<?= $kf ?>"><div class="pad-16"><?= $vf->description ?></div></div>
 				<?php endforeach; endif; ?>
 			</div>
 
@@ -179,11 +179,11 @@
 
 
 
-		<!-- MAP -->
-		<h4 id="sucursales" class="title-bar title" >Locales / Mapa</h4>
-		<div class="overview-info">
+		<!-- MAP -->		
+		<div class="block-white">
+			<h4 id="sucursales" class="title-bar" >Locales / Mapa</h4>
 			<div class="row">
-				<div class="col-xs-12 <?= count($StoresClient->data())>1 ? 'col-sm-8' : '' ?>">
+				<div class="<?= count($StoresClient->data())>1 ? 'col-md-8' : 'col-md-12' ?>">
 
 					<div class="stores-highlight">
 						<h3 class="city fw-400"></h3>
@@ -206,7 +206,7 @@
 					</div>					
 					
 				</div>
-				<div class="col-xs-12 col-sm-4 <?= count($StoresClient->data())>1 ? '' : 'dp-none' ?>">
+				<div class="col-md-4 <?= count($StoresClient->data())>1 ? '' : 'dp-none' ?>">
 					
 					<div id="stores">
 						<div class="list-group">
@@ -235,109 +235,55 @@
 		
 		</div>
 
-		<?php 
-			$arrtags = explode(',',$Clients->data()->glossary);
-			if(count($arrtags)):
-			?>	
-			<h4 class="title-bar title" >Etiquetas</h4>
-			<div class="overview-info">
-				<ul class="button-menu">
-					<?php 
-					foreach($arrtags as $kt=>$vt):
-						if($Glossary->find($vt)):
-					?>
-					<li><a href="<?= ROOT.'busqueda/'.Permalink($Glossary->data()->name).'/' ?>"><?= $Glossary->data()->name ?></a></li>
-					<?php endif; endforeach; 
-					?>
-				</ul>
+
+		<!-- QUESTIONS -->
+		<div class="block-white">
+			<h4 class="title-bar">Preguntas y Respuestas</h4>
+
+			<form id="form_question" class="question-form">
+				<div class="form-group">
+					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
+					<input type="hidden" name="rowid" value="<?=$Clients->data()->id?>">
+					<input type="hidden" name="type" value="clients">
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>">Preguntar</button>
+				</div>
+			</form>
+
+
+			<hr>
+			<h5>Últimas preguntas:</h5>
+			<div id="questions">
+				<p>Cargando...</p>
 			</div>
-			<?php endif; ?>
 
-
-		<!-- COMMENTS -->
-		<h4 class="title-bar title dp-none">Opiniones</h4>
-		<div class="comments dp-none">
-			<div class="comments-container">
-
-				<div class="mod-comment">
-						<div class="box-user">
-							<div class="thumbnail">
-								<img src="<?= ROOT.'assets/blank-square.gif' ?>" class="wd-100" alt="">
-							</div>					
-						</div>
-						<div class="box-comment bg-white">
-							<div class="sz-12">USERNAME</div>
-							<div class="sz-9">Miembro desde 00/00/0000</div>
-							<hr>
-							<p class="sz-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea accusantium earum voluptates qui corrupti magni consequuntur, est accusamus commodi eius molestias vero dolorum minima molestiae nesciunt. Inventore sunt, eos illum!</p>
-							<p class="sz-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea accusantium earum voluptates qui corrupti magni consequuntur, est accusamus commodi eius molestias vero dolorum minima molestiae nesciunt. Inventore sunt, eos illum!</p>
-						</div>
-				</div>
-
-				<div class="mod-comment">
-						<div class="box-user">
-							<div class="thumbnail">
-								<img src="<?= ROOT.'assets/blank-square.gif' ?>" class="wd-100" alt="">
-							</div>					
-						</div>
-						<div class="box-comment bg-white">
-							<div class="sz-12">USERNAME</div>
-							<div class="sz-9">Miembro desde 00/00/0000</div>
-							<hr>
-							<p class="sz-9">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea accusantium earum voluptates qui corrupti magni consequuntur, est accusamus commodi eius molestias vero dolorum minima molestiae nesciunt. Inventore sunt, eos illum!</p>
-						</div>
-				</div>
-
-				</div>
 		</div>
-
 
 	</div>
 </section>
 
 
-<!-- MESSAGES -->
-<div class="modal fade" id="modal_client_request" tabindex="-1" role="dialog" >
+
+
+<!-- LOGIN OR REGISTER -->
+<div class="modal fade" id="modal_not_logged" tabindex="-1" role="dialog" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Consultar a <?= $Clients->data()->name ?></h4>
+				<h4 class="modal-title">Usuario no registrado</h4>
 			</div>
 			<div class="modal-body ff-futuralight" >
-				<form id="form_client_request">
-					<div class="form-group">
-						<label for="fd_name">Nombre y Apellido</label>
-						<input id="fd_name" type="text" name="name" class="form-control" required>
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-xs-6">
-							<div class="form-group">
-								<label for="fd_phone">Teléfono</label>
-								<input id="fd_phone" type="text" name="phone" class="form-control" required>
-							</div>
-						</div>
-						<div class="col-xs-12 col-xs-6">
-							<div class="form-group">
-								<label for="fd_mail">E-mail</label>
-								<input id="fd_mail" type="email" name="mail" class="form-control" required>
-							</div>
-						</div>
-					</div>					
-					<div class="form-group">
-						<label for="fd_message">Consulta</label>
-						<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" required></textarea>
-					</div>
-					<div class="form-group">
-						<button type="submit" class="btn btn-primary" >ENVIAR</button>
-					</div>
-					<div class="status"></div>
-				</form>
+				<p>Para poder usar esta función tenés que ingresar como usuario Registrado.</p>
+				<a class="btn btn-primary" href="<?= ROOT.'login#'.ROOT.'centros/'.$Clients->data()->permalink ?>">Login</a>
+				<hr>
+				<p>Todavía no te registraste???</p>
+				<a class="btn btn-primary" href="<?= ROOT.'registro' ?>">Registro</a>
 			</div>
 		</div>
 	</div>
 </div>
-
 
 
 <!-- CENTROS -->
@@ -356,7 +302,7 @@
 				$logo = json_decode($client->logo);
 				$clientlink = ROOT.'centros/'.$client->permalink;
 				$Stores->get($client->id);
-				include 'mods/mod-client.php';
+				//include 'mods/mod-client.php';
 			endforeach;
 		?>
 		</div>
@@ -366,7 +312,3 @@
 </section>
 
 <?php include 'mods/mod-socials.php' ?>
-
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2m93XcFMuCAPZSjBUNsZO24UJOSPSF1M" sync defer></script>

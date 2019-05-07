@@ -19,10 +19,8 @@ class GlossaryGroups {
 	public function find($id=0){
 		$this->_db->get('glossarygroups',array('id','=',$id));
 		
-		if($this->_db->count()) return false;
-		$data = $this->_db->first();
-		$data->image = $this->get_image($data->image);
-		$this->_data = $data;
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
 		return true;		
 	}
 
@@ -60,7 +58,7 @@ class GlossaryGroups {
 		
 		$img = json_decode($image);
 		$data = new stdCLass();
-		$data->big = View::img('glossary',$img->f.'.'.$img->e);
+		$data->big = View::img('glossary',$img->photoname.'.'.$img->extension);
 		$data->f = $img->f;
 		$data->e = $img->e;
 		return $data;

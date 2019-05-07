@@ -38,7 +38,7 @@ class UpFile {
 				///////////////////////////////////////////
 				if(this.node < this.files.length-1){
 					this.node = this.node+1;
-					_this.upload();
+					this.upload();
 				}else{
 					var sufix = 'sufix' in this ? this.sufix : '';
 					if('thumbnail' in this){
@@ -51,20 +51,18 @@ class UpFile {
 							'backgroundImage':'url('+ROOT+this.folder+'/'+this.arrfiles[0].filename+sufix+'.'+this.arrfiles[0].extension+')'
 						});
 					}
-					if(this.callback){
+					if('callback' in this){
 						var idi = 'idi' in data ? data.idi : 0;
 						this.callback(this.arrfiles,sufix,idi);
 					}
 					$('#loading .loading-text').text('');
-					loading({show:false});
 					$(this.container).find('input').val('');
-					this.arrfiles = [];
+					if('gallery' in this){
+						this.build_gallery();
+					}
+					loading({show:false});
+					resolve(this.arrfiles);
 				}
-
-				resolve(data);
-			})
-			.always(data=>{
-				loading({show:false});
 			})
 			.fail(data=>{
 				Swal.fire({text:'Hubo problemas al subir el archivo. Intenta nuevamente.',type:'error'});
@@ -77,22 +75,16 @@ class UpFile {
 	}
 
 
-	build_gallery(el,arr,folder){
-		var app = new App({});
-		var _this = this;
-		app.loadtemplate('propiedades/thumbnail')
-		.then(template=>{
-			$.each(arr,(k,v)=>{
-				var $module = $($(template));
-				$module.attr({'data-filename':v.filename,'data-extension':v.extension});
-				$module.css({backgroundImage:'url('+IMG+this.folder+'/'+v.filename+'-n.'+v.extension+')'})
-				$(el).append($module);
+	build_gallery(){
+		get_template('site/gallery-thumbnail')
+			.then(template=>{
+				$.each(this.arrfiles,(k,v)=>{
+					var $module = $($(template));
+					$module.attr({'data-filename':v.filename,'data-extension':v.extension});
+					$module.css({backgroundImage:'url('+ROOT+this.folder+'/'+v.filename+'-t.'+v.extension+')'})
+					$(this.gallery).append($module);
+				});
 			});
-
-			if('sortable' in this){
-				$(el).sortable();
-			}
-		});
 	}
 
 
@@ -128,6 +120,14 @@ class UpFile {
 				}
 			}
 		});
+
+		if('gallery' in this){
+			$(this.gallery).on('click','.delete',btn=>{
+				$(btn.currentTarget).parent().parent().remove();
+			});
+			$(this.gallery).sortable();
+		}
 	}
+
 
 }

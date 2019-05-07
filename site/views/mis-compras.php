@@ -7,7 +7,7 @@
 		<div id="sales" class="well">
 			<?php 
 			$Sales->get();
-			if(count($Sales->data())):
+			if($Sales->data()):
 				foreach($Sales->data() as $key=>$sale):
 					if(!is_null($sale->title)){
 						$img = json_decode($sale->gallery);

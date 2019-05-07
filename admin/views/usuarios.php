@@ -87,10 +87,8 @@
 					<div class="form-group">
 						<label for="fd_birth">Fecha de Nacimiento</label><br />
 
-							<?php 
-							$arrDate = explode('-',$_USER->data()->birth);
-							?>
-							<div class="row">
+			
+						<div class="row">
 						
 							<div class="col-xs-4" >
 								<input type="text" id="fd_day" class="form-control" placeholder="dd" >
@@ -179,18 +177,18 @@
 			<hr>
 
 			<div class="row">
+				
 				<div class="col-xs-12 col-sm-6">
 					<label for="">Imagen</label>
 					<div class="form-group">
-						<button id="btn_image" class="btn btn-sm btn-primary">Examinar...</button>
-						<form id="form_image" class="dp-none">
-							<input type="file" accept="image/*">
-						</form>
-
-						
+						<div data-input="image">
+							<button id="btn_image" class="btn btn-sm btn-primary">Examinar...</button>
+							<input type="file" accept="image/*" class="d-none">
+						</div>				
 					</div>
-					<div id="avatar" class="thumbnail bg-black thumb-cover thumb-200x200"></div>
+					<div id="avatar" class="thumbnail bg-gray-10 thumb-cover thumb-200x200"></div>
 				</div>
+
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_types">Permitir editar centro:</label>

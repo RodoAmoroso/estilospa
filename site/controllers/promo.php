@@ -2,6 +2,7 @@
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
 $_arrjs[] = ['folder'=>'site/','script'=>'questions'];
+$_arrjs[] = ['folder'=>'site/','script'=>'reservations'];
 
 
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
@@ -50,3 +51,14 @@ if($Promos->data()->amount && $Promos->data()->sale && $mp){
 
 $Vouchers = new Vouchers();
 
+$_today = new DateTime();
+
+$_arrdays = array();
+for($i=1; $i<=4; $i++){
+	$_arrdays[] = array(
+		'day'=>$_today->format('d'),
+		'dayname'=>$_today->format('D'),
+		'name'=>Dates::translateDays($_today->format('l'))
+	);	
+	$_today->modify('+1 day');
+}

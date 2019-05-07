@@ -29,8 +29,8 @@ class Clients {
 		$field = is_numeric($client) ? 'c.id' : 'c.permalink';
 		//$this->_db->get('clients',array($field,'=',$client));
 		$this->_db->query("SELECT c.*, p.fee, p.promos 
-			FROM {$this->_dbprefix}clients c 
-			LEFT JOIN {$this->_dbprefix}clientplans p ON p.id=c.idplan 
+			FROM {clients} c 
+			LEFT JOIN {clientplans} p ON p.id=c.idplan 
 			WHERE {$field}=?",
 			array($client)
 		);
@@ -38,9 +38,36 @@ class Clients {
 		$this->_data = $this->_db->first();
 		$this->_data->glossary = $this->get_glossary($client);
 		$this->_data->types = $this->get_types($client);
+		$this->_data->imagery = $this->get_imagery($this->_data->logo,$this->_data->images);
 		return true;
-				
 	}
+	public function get_imagery($logo='',$images=''){
+		if(empty($logo) || empty($images)) return false;
+		$img = json_decode($logo);
+		$data = new stdClass();
+		$data->f = $img->photoname;
+		$data->e = $img->extension;
+		$data->logo = View::img('clients',$img->photoname.'.'.$img->extension);
+
+		$gallery = json_decode($images);
+		$data->gallery = array();
+		foreach($gallery as $image){
+			$img = new stdClass();
+			if(isset($image->photoname)){
+				$img->f = $image->photoname;
+				$img->e = $image->extension;
+				$img->big = View::img('clients',$image->photoname.'-o.'.$image->extension);
+				$img->small = View::img('clients',$image->photoname.'-t.'.$image->extension);
+			}
+			if(isset($image->video)){
+				$img->video = $image->video;
+			}
+			$data->gallery[] = $img;
+		}
+
+		return $data;
+	}
+
 	public function get_glossary($clientid){		
 		$this->_db->get('clients_glossary_assignments',array('clientid','=',$clientid));
 		if(!$this->_db->count()) return false;
@@ -143,7 +170,7 @@ class Clients {
 		return 0;
 	}
 
-	public function save(){
+	public function save($clientid=0){
 		$sql = array(
 			'name'=>Input::get('Name'),
 			'subtitle'=>Input::get('Subtitle'),
@@ -161,9 +188,9 @@ class Clients {
 			$sql['visible'] = Input::get('Visible');			
 		}
 		$_FEATURES = new Features();
-		if(!Input::get('ID')){
+		if(!$clientid){
 			///////// CHECK PERMALINK //////////
-			if($this->find(Input::get('Permalink'))) die(json_encode(array('Status'=>'permalink')));
+			if($this->find(Input::get('Permalink'))) die(Responses::response('fail','El enlace permanente está en uso por otro centro. Deberás cambiarlo incluyendo alguna otra palabra.') );
 			////////////////////////////////////
 			$sql['added'] = date('Y-m-d H:i:s');
 			if(!$this->_db->insert('clients',$sql)) return false;
@@ -174,8 +201,8 @@ class Clients {
 			//return true;
 		}else{
 			$sql['modified'] = date('Y-m-d H:i:s');
-			if(!$this->_db->update('clients',Input::get('ID'),$sql)) return false;
-			$this->_lastid = Input::get('ID');
+			if(!$this->_db->update('clients',$clientid,$sql)) return false;
+			$this->_lastid = $clientid;
 			if(!$_FEATURES->save($this->_lastid,Input::get('Features'))) return false;
 		}
 		if($this->isadmin){
@@ -215,24 +242,31 @@ class Clients {
 	}
 
 	public function delete(){
-		if($this->find(Input::get('ID'))){
-			$gallery = json_decode($this->_data->images);
-			$logo = json_decode($this->_data->logo);			
-			if($this->_db->delete('clients',array('id','=',Input::get('ID')))){
-				foreach($gallery as $kp=>$vp):
-					if(isset($vg->photoname)){
-						$th = PATH.'\img\clients\\'.$vg->photoname.'-t.'.$vg->extension;
-						$bg = PATH.'\img\clients\\'.$vg->photoname.'-o.'.$vg->extension;
-						if(file_exists($th)) unlink($th);
-						if(file_exists($bg)) unlink($bg);
-					}
-					$lg = PATH.'\img\clients\\'.$logo->photoname.'.'.$logo->extension;
-					if(file_exists($lg)) unlink($lg);
-				endforeach;
-				return true;
+
+		$idclient = Input::get('ID');
+		
+		if(!$this->find($idclient)) return false;
+
+		$gallery = json_decode($this->_data->images);
+		$logo = json_decode($this->_data->logo);			
+		if(!$this->_db->delete('clients',array('id','=',$idclient))) return false;
+
+		foreach($gallery as $kp=>$vp):
+			if(isset($vg->photoname)){
+				$th = IMG.'clients'.DS.$vg->photoname.'-t.'.$vg->extension;
+				$bg = IMG.'clients'.DS.$vg->photoname.'-o.'.$vg->extension;
+				if(file_exists($th)) unlink($th);
+				if(file_exists($bg)) unlink($bg);
 			}
-		}
-		return false;
+			$lg = IMG.'clients'.DS.$logo->photoname.'.'.$logo->extension;
+			if(file_exists($lg)) unlink($lg);
+		endforeach;
+		
+		if(!$this->_db->delete('comments',array('idclient','=',$idclient))) return false;
+		if(!$this->_db->delete('favs',array('idclient','=',$idclient))) return false;
+		if(!$this->_db->delete('mp',array('idclient','=',$idclient))) return false;
+
+		return true;
 	}
 
 	public function getfee($idclient){
@@ -272,5 +306,6 @@ class Clients {
 	public function getLastId(){
 		return $this->_lastid;
 	}
+
 
 }

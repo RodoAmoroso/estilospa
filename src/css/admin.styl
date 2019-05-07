@@ -1,3 +1,8 @@
+@import 'common/colours'
+@import 'common/fonts'
+@import 'common/functions'
+@import 'common/variables'
+
 .header-admin
 	.logo 
 		padding 36px 10px
@@ -25,15 +30,8 @@
 		font-weight 700
 	p 
 		font-size 11pt
-.mod-menu-container
-	min-height 100px
-	max-height 696px
-	overflow auto
-	.mod-menu
-		Transition(opacity,300ms,ease-out)
-		margin-bottom 2px
-		&:hover 
-			opacity 0.6
+
+
 .admin-gallery
 	max-height 280px
 	overflow auto
@@ -55,10 +53,28 @@
 			.delete
 				position absolute
 				right 8px
+				color white
 				top 8px
 		&:hover
 			.redbg 
 				display block	
+
+.admin-box
+	padding 0 0 10px 0
+	.container
+		padding-top 16px
+		padding-bottom 16px
+		//Shadow(1px 1px 2px 1px rgba(0,0,0,0.10))
+			
+.mod-menu-container
+	min-height 100px
+	max-height 696px
+	overflow auto
+	.mod-menu
+		Transition(opacity,300ms,ease-out)
+		margin-bottom 2px
+		&:hover 
+			opacity 0.6
 .mod-container
 	max-height 580px
 	overflow auto
@@ -93,12 +109,7 @@
 				bottom 10px
 				position absolute
 				right 10px
-.admin-box
-	padding 0 0 10px 0
-	.container
-		padding-top 16px
-		padding-bottom 16px
-		//Shadow(1px 1px 2px 1px rgba(0,0,0,0.10))
+
 .mod-card	
 	Transition(width 300ms ease-out)
 	margin 0 0 4px 0
@@ -244,6 +255,7 @@
 		right 10px		
 	p 
 		font-size 9pt
+		color gray(50)
 	small 
 		color gray(60)
 		font-family 'Open Sans', sans-serif
@@ -264,33 +276,10 @@
 		width 10px		
 	&:hover 
 		box-shadow none
+
 .form-group
 	position relative
-.input-search-suggestions
-	background-color white
-	border 1px solid gray(20)
-	border-bottom-right-radius 6px
-	border-bottom-left-radius 6px
-	//display none
-	max-height 220px
-	///top 34px
-	left 0
-	overflow auto
-	padding 0
-	top 34px
-	position absolute
-	box-shadow 0 2px 4px rgba(0,0,0,0.2)
-	width 100%
-	z-index 11
-	li 
-		display block
-		cursor pointer
-		margin 2px 0
-		padding 6px 10px
-		&:hover 
-			background-color gray(10)
-	li.active 
-		background-color gray(10)
+
 .panel-admin-mod
 	.panel-heading 
 		background-color gray(10)

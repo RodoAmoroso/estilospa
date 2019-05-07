@@ -20,7 +20,7 @@ class Assoc {
 		switch ($mode) {
 			case 'save':
 				if($this->iduser){
-					$this->_db->query("SELECT id FROM {$this->_dbprefix}assoc_client_user WHERE iduser=?",array('iduser'=>$this->iduser));
+					$this->_db->query("SELECT id FROM {assoc_client_user} WHERE iduser=?",array('iduser'=>$this->iduser));
 					if($this->_db->count()){
 						if($this->idclient){
 							$this->_db->update('assoc_client_user',$this->_db->first()->id,array('idclient'=>$this->idclient,'iduser'=>$this->iduser));
@@ -56,7 +56,13 @@ class Assoc {
 				if($this->idclient){
 					$where = "WHERE a.idclient=".$this->idclient;
 				}
-				if($this->_db->query("SELECT u.name, u.lastname, u.mail, a.iduser, a.idclient, c.name clientname FROM {$this->_dbprefix}assoc_client_user a LEFT JOIN {$this->_dbprefix}users u ON u.id=a.iduser LEFT JOIN {$this->_dbprefix}clients c ON c.id=a.idclient {$where}")){					
+				if($this->_db->query(
+					"SELECT u.name, u.lastname, u.mail, a.iduser, a.idclient, c.name clientname 
+					FROM {assoc_client_user} a 
+					LEFT JOIN {users} u ON u.id=a.iduser 
+					LEFT JOIN {clients} c ON c.id=a.idclient 
+					{$where}")
+				){					
 					$this->_data = $this->_db->results();					
 					return true;
 				}

@@ -5,6 +5,7 @@
 <script type="text/javascript" src="<?= JS.'lib/bluebird.min.js' ?>" ></script>
 <script type="text/javascript" src="<?= JS.'lib/wow.min.js' ?>" ></script>
 <script type="text/javascript" src="<?= JS.'lib/jquery.scrollUp.min.js' ?>"></script>
+<script type="text/javascript" src="<?= JS.'lib/toastr.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'lib/sweetalert2.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'functions.js?id='.rand(1111,9999) ?>" ></script>
 

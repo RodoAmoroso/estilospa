@@ -13,10 +13,11 @@ switch($status):
 ?>
 <section class="gral-section">
 	<div class="container">
-		<h1>Gracias!!!</h1>
+		<h1>Pago en Proceso...</h1>
 		<hr>
-		<p>Estamos procesando tu compra.</p>
-		<p>Recuerda comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
+		<h4>Estamos procesando tu compra.</h4>
+		<p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
+		<hr>
 		<a href="<?=ROOT?>" class="btn btn-primary">Volver</a>
 	</div>
 </section>
@@ -37,7 +38,7 @@ switch($status):
 		<h1>Gracias!!!</h1>
 		<hr>
 		<p>Hemos procesado la solicitud de pago exitosamente!</p>		
-		<p>Recuerda comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
+		<p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
 		<a href="<?=ROOT?>" class="btn btn-primary">Volver</a>
 	</div>
 </section>

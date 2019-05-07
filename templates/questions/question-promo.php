@@ -2,7 +2,7 @@
 
 <div style="background-color:rgb(240,240,240);padding:16px;color:rgb(90,90,90)">
 	<p><?=$obj->question?></p>
-	<small>Enviada por <?=$obj->user_name?> el <?=$obj->question_date?> hs.</small>
+	<small  style="color:rgb(140,140,140)">Enviada por <?=$obj->user_name?> el <?=$obj->question_date?> hs.</small>
 </div>
 
 <p><a href="<?=View::url('responder-pregunta',$obj->questionid)?>" style="background-color:#68bbce;padding:4px 10px;color:white;text-decoration:none" >Responder</a></p>

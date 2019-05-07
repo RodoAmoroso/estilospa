@@ -1,17 +1,25 @@
 <?php 
 
-$_promos = new Promos();
-$_clients = new Clients();
-$_messages = new Messages();
+$Promos = new Promos();
+$Clients = new Clients();
+$Notifications = new Notifications();
 
-$_clients->sort = 'date';
-$_clients->limit = '0,10';
-$_clients->get();
+$Clients->sort = 'date';
+$Clients->limit = '0,10';
+$Clients->get();
 
-$_promos->limit = '0,10';
+$Promos->limit = '0,10';
 
-$_messages->limit = '0,10';
-$_messages->get();
+$Notifications->limit = '0,25';
+$_notifications = $Notifications->get_log();
+
+
+$Questions = new Questions();
+$Questions->limit = 15;
+//$Questions->filters = [['clients'=>$_userdata->idclient]];
+$questions = $Questions->get_unanswered();
+
+//show_array($questions);
 
 function dif_labels($dif=''){
 	switch ($dif) {

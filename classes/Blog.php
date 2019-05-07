@@ -49,8 +49,8 @@ class Blog {
 			$gallery = json_decode($this->_db->first()->gallery);
 			foreach($gallery as $kg=>$vg){
 				if(isset($vg->photoname)){
-					$th = PATH.'\img\blog\\'.$vg->photoname.'-t.'.$vg->extension;
-					$bg = PATH.'\img\blog\\'.$vg->photoname.'-o.'.$vg->extension;
+					$th = IMG.'blog'.DS.$vg->photoname.'-t.'.$vg->extension;
+					$bg = IMG.'blog'.DS.$vg->photoname.'-o.'.$vg->extension;
 					if(file_exists($th)) unlink($th);
 					if(file_exists($bg)) unlink($bg);
 				}
@@ -64,14 +64,14 @@ class Blog {
 	}
 	
 	public function get(){
-		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('title','subtitle','shortdescription','content'));
-		$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('glossary'));
+		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('b.title','b.subtitle','shortdescription','content'));
+		$search_glossary = BuildSearch($this->arrglossary,$this->searchmixed,array('b.glossary'));
 		$search = empty($search_main) ? "" : "WHERE".$search_main;
 		$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE".$search_glossary : "OR".$search_glossary);
 
 		if($this->idcategory){
 			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " idcategory={$this->idcategory}";
+			$search .= " b.idcategory={$this->idcategory}";
 		}
 		$limitby = '';
 		if(!empty($this->limit)){
@@ -79,9 +79,16 @@ class Blog {
 		}
 		if($this->exclude){
 			if(!empty($search)){$search .= " AND";}else{$search = "WHERE";}
-			$search .= " id != {$this->exclude}";
+			$search .= " b.id != {$this->exclude}";
 		}
-		$this->_db->query("SELECT id, title, subtitle, shortdescription, gallery, views, DATE_FORMAT(date,'%d/%m/%Y') as fecha FROM {$this->_dbprefix}blog {$search} ORDER BY date DESC {$limitby}");
+		$this->_db->query(
+			"SELECT b.*, DATE_FORMAT(b.date,'%d/%m/%Y') as fecha 
+			FROM {blog} b
+			{$search} 
+			ORDER BY b.date DESC 
+			{$limitby}"
+		);
+
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;
@@ -90,7 +97,12 @@ class Blog {
 	}
 	
 	public function find($id=0){
-		$this->_db->query("SELECT id, idcategory, title, subtitle, content, gallery, glossary, shortdescription, DATE_FORMAT(date, '%d/%m/%Y') as fecha FROM spa_blog WHERE id=?",array($id));
+		$this->_db->query(
+			"SELECT b.*, DATE_FORMAT(b.date, '%d/%m/%Y') as fecha 
+			FROM {blog} b
+			WHERE b.id=?",
+			array($id)
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->first();
 			return true;
@@ -99,7 +111,7 @@ class Blog {
 	}
 
 	public function addvisit(){
-		$this->_db->query("UPDATE {$this->_dbprefix}blog SET views=views+1 WHERE id=?",array($this->_data->id));
+		$this->_db->query("UPDATE {blog} SET views=views+1 WHERE id=?",array($this->_data->id));
 	}
 	
 	public function data(){

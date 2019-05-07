@@ -70,12 +70,20 @@ class Stores{
 			endforeach;
 			$where .= ")";
 		}
-		$this->_db->query("SELECT s.id, s.address, s.additional, s.city, s.phones, s.whatsapp, s.schedules, s.idprovince, p.name FROM {$this->_dbprefix}stores s LEFT JOIN {$this->_dbprefix}provinces p ON p.id=s.idprovince WHERE s.idclient={$idclient} {$where} ORDER BY position ASC");
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
-		}
-		return false;
+		$this->_db->query(
+			"SELECT s.*, p.name 
+			FROM {stores} s 
+			LEFT JOIN {provinces} p ON p.id=s.idprovince 
+			WHERE s.idclient=?
+			{$where} 
+			ORDER BY s.position ASC",
+			array($idclient)
+		);
+		///show_array( $this->_db->getquery() );
+		if(!$this->_db->count()) return true;
+		
+		$this->_data = $this->_db->results();
+		return true;
 	}
 
 	public function find($id=0){
@@ -96,10 +104,10 @@ class Stores{
 		return false;
 	}
 
-	public function save(){
+	public function save($idclient=0){
 		//$this->delete($idclient);
 		$sql = array(
-			'idclient'=>Input::get('IDClient'),
+			'idclient'=>$idclient,
 			'address'=>Input::get('Address'),
 			'additional'=>Input::get('Additional'),
 			'city'=>Input::get('City'),
@@ -112,7 +120,12 @@ class Stores{
 			$this->_db->update('stores',Input::get('ID'),$sql);
 			return true;
 		}else{
-			$this->_db->query("UPDATE {$this->_dbprefix}stores SET position=position+1 WHERE idclient=?",array(Input::get('IDClient')));
+			$this->_db->query(
+				"UPDATE {stores} 
+				SET position=position+1 
+				WHERE idclient=?",
+				array($idclient)
+			);
 			$sql['position'] = 1;
 			$this->_db->insert('stores',$sql);
 			$this->_lastid = $this->_db->getLastId();

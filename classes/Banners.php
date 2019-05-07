@@ -27,7 +27,12 @@ class Banners {
 			'type'=>Input::get('Type')
 		);
 		if(!Input::get('ID')){
-			$this->_db->query("UPDATE {$this->_dbprefix}banners SET position=position+1 WHERE type=?",array(Input::get('Type')));
+			$this->_db->query(
+				"UPDATE {banners} 
+				SET position=position+1 
+				WHERE type=?",
+				array(Input::get('Type')
+			));
 			$sql['position'] = 1;
 			$sql['added'] = date('Y-m-d H:s:i');
 			$this->_db->insert('banners',$sql);
@@ -62,34 +67,40 @@ class Banners {
 
 	public function get(){
 		$search = '';
-		if($this->visible) $search = "WHERE visible=1";
+		if($this->visible) $search = "WHERE b.visible=1";
 		if(!empty($this->type)){
 			if(!empty($search)){
 				$search .= " AND";
 			}else{
 				$search = "WHERE";
 			}
-			$search .= " type='{$this->type}'";
+			$search .= " b.type='{$this->type}'";
 		}		
 		switch($this->sort){
 			case 'name':
-				$sort = "ORDER BY name ASC";
+				$sort = "ORDER BY b.name ASC";
 				break;
 			case 'position':
-				$sort = "ORDER BY name ASC";
+				$sort = "ORDER BY b.position ASC";
 				break;
 			case 'rand':
 				$sort = "ORDER BY RAND()";
 				break;
 			default:
-				$sort = "ORDER BY added DESC";
+				$sort = "ORDER BY b.position ASC";
 				break;
 		}
 		$limitby = '';
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
-		$this->_db->query("SELECT id, name, title, caption, visible, DATE_FORMAT(added,'%d/%m/%Y') added, image, link, type FROM {$this->_dbprefix}banners {$search} {$sort} {$limitby}");
+		$this->_db->query("
+			SELECT b.*, DATE_FORMAT(b.added,'%d/%m/%Y') added
+			FROM {banners}  b
+			{$search} 
+			{$sort} 
+			{$limitby}"
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

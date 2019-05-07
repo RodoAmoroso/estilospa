@@ -1,6 +1,8 @@
 <?php 
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
+$_arrjs[] = ['folder'=>'site/','script'=>'questions'];
+$_arrjs[] = ['script'=>'https://maps.googleapis.com/maps/api/js?key=AIzaSyC2m93XcFMuCAPZSjBUNsZO24UJOSPSF1M'];
 
 
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
@@ -42,3 +44,5 @@ $_IMGFACEBOOK = 'img/clients/'.$logoclient->photoname.'.'.$logoclient->extension
 $_arrjs[] = ['folder'=>'lib/','script'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.theme.default.min'];
+
+

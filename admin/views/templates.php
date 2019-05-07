@@ -48,6 +48,16 @@
 	</div>
 </div>
 
+<div id="mod_list_caption" class="mod-list dp-none" >
+	<h4 class="title"></h4>
+	<p class="caption"></p>
+	<div class="buttons">
+		<button class="btn btn-xs btn-danger delete"><i class="fa fa-trash"></i></button>
+		<button class="btn btn-xs btn-primary edit"><i class="fa fa-pencil"></i></button>
+		<button class="btn btn-xs btn-success add"><i class="fa fa-plus"></i></button>
+	</div>
+</div>
+
 <!-- MOD THUMB -->
 <div id="mod_thumb" class="thumbnail bg-black thumb-150x150 thumb-cover dp-none">
 	<div class="redbg">
@@ -75,6 +85,7 @@
 	<div class="buttons">
 		<button class="btn btn-xs btn-primary edit"><i class="fa fa-pencil"></i></button>
 		<button class="btn btn-xs btn-danger delete"><i class="fa fa-trash"></i></button>
+		<button class="btn btn-xs btn-white view"><i class="fa fa-eye"></i></button>
 	</div>
 </div>
 

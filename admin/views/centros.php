@@ -161,14 +161,16 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="btn_logo">Logo</label>
-							<div id="logo_client" class="thumb-contain thumb-300x300 bd-full-gray-10"></div>
+							<div id="logo_client" class="thumb-contain thumb-200x200 border-gray-10"></div>
 						</div>
+						
 						<div class="form-group">
-							<button id="btn_logo" class="btn btn-primary btn-sm">Subir Imagen</button>
-							<form id="form_logo" action="#" method="POST" class="dp-none">
-								<input type="file" accept="image/*">
-							</form>
+							<div data-input="logo">
+								<button class="btn btn-xs btn-primary">Examinar...</button>
+								<input type="file" accept="image/*" class="d-none" >
+							</div>
 						</div>
+
 					</div>
 
 				</div>				
@@ -327,11 +329,11 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
-							<label for="fd_video">Agregar Imagen</label><br />
-							<button id="btn_images" class="btn btn-primary btn-sm">Examinar...</button>
-							<form id="form_images" class="dp-none">
-								<input type="file" multiple accept="image/*">
-							</form>
+							<label for="fd_video">Agregar Imagen</label>
+							<div data-input="gallery">
+								<button class="btn btn-xs btn-primary">Examinar...</button>
+								<input type="file" accept="image/*" class="d-none" multiple>
+							</div>
 						</div>
 						<p class="sz-9">Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal del centro.</p>
 					</div>

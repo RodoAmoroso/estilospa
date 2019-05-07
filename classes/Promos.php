@@ -42,8 +42,15 @@ class Promos {
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
 		$this->_data->glossary = $this->get_glossary($id);
+		$this->_data->image = $this->get_image($this->_data->gallery);
 		return true;
 		
+	}
+
+	public function get_image($gallery=''){
+		if(empty($gallery)) return false;
+		$img = json_decode($gallery);
+		return ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension;
 	}
 
 	public function get(){
@@ -150,7 +157,7 @@ class Promos {
 
 		//echo $search;
 
-		$query = "SELECT p.id, p.title, p.idclient, p.sale, p.stores, p.subtitle, p.gallery, p.price, p.discount, p.amount, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
+		$query = "SELECT p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
 			FROM {promos} p 
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
@@ -181,18 +188,24 @@ class Promos {
 	}
 
 	public function rating($id=0){		
-		$this->_db->query("SELECT AVG(cm.rate) rating FROM spa_comments cm LEFT JOIN spa_sales s ON s.id=cm.idsale WHERE s.idpromo={$id}");
+		$this->_db->query(
+			"SELECT AVG(cm.rate) rating 
+			FROM {comments} cm 
+			LEFT JOIN {sales} s ON s.id=cm.idsale 
+			WHERE s.idpromo=?",
+			array($id)
+		);
 		if($this->_db->count()){
 			return $this->_db->first()->rating;
 		}
 		return 0;
 	}
 
-	public function save(){
+	public function save($idclient=0){
 		$start = explode('/',Input::get('Start'));
 		$finish = explode('/',Input::get('Finish'));
 		$sql = array(
-		'idclient'=>Input::get('IDClient'),
+		'idclient'=>$idclient,
 		'idpromotype'=>Input::get('IDPromotype'),
 		'sale'=>Input::get('Sale'),
 		'stores'=>implode(',',Input::get('Stores')),
@@ -243,8 +256,8 @@ class Promos {
 			if($this->_db->count()):
 				$img = json_decode($this->_db->first()->gallery);
 				foreach($img as $kp=>$vp):
-					$th = PATH.'\img\promos\\'.$vp->photoname.'-t.'.$vp->extension;
-					$bg = PATH.'\img\promos\\'.$vp->photoname.'-o.'.$vp->extension;
+					$bg = IMG.'promos'.DS.$vp->photoname.'-o.'.$vp->extension;
+					$th = IMG.'promos'.DS.$vp->photoname.'-t.'.$vp->extension;
 					if(file_exists($th)) unlink($th);
 					if(file_exists($bg)) unlink($bg);
 				endforeach;
@@ -268,11 +281,11 @@ class Promos {
 	}
 
 	public function addvisit(){
-		$this->_db->query("UPDATE {$this->_dbprefix}promos SET views=views+1 WHERE id=?",array($this->_data->id));
+		$this->_db->query("UPDATE {promos} SET views=views+1 WHERE id=?",array($this->_data->id));
 	}
 
-	public function discountAmount($id,$q){
-		if($this->_db->query("UPDATE {$this->_dbprefix}promos SET amount=amount-{$q} WHERE id=?",array($id))){
+	public function take_amount($id,$q){
+		if($this->_db->query("UPDATE {promos} SET amount=amount-{$q} WHERE id=?",array($id))){
 			return true;
 		}
 		return false;
@@ -311,7 +324,7 @@ class Promos {
 
 			$this->_db->query(
 				"SET @rownumber = {$reordertotal};
-				UPDATE {$this->_dbprefix}promos SET position = (@rownumber:=@rownumber+1)
+				UPDATE {promos} SET position = (@rownumber:=@rownumber+1)
 				{$where_exclude}
 				ORDER BY position ASC;"
 			);

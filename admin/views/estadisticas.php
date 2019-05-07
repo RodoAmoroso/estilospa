@@ -82,7 +82,7 @@
 							<thead>
 								<tr>
 									<th>Promo</th>
-									<th>Total</th>
+									<th>Visitas</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -108,13 +108,13 @@
 							<thead>
 								<tr>
 									<th>Centro</th>
-									<th>Total</th>
+									<th>Visitas</th>
 								</tr>
 							</thead>
 							<?php foreach($top_clients as $client): ?>
 								<tr>
 									<td><a href="<?=ROOT.'centros/'.$client->permalink?>" target="_blank"><?=$client->name?></a></td>
-									<td><?=number_format($promo->views,0,'','.')?></td>
+									<td><?=number_format($client->views,0,'','.')?></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -142,7 +142,7 @@
 							<thead>
 								<tr>
 									<th>Entrada</th>
-									<th>Total</th>
+									<th>Visitas</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -168,13 +168,74 @@
 							<thead>
 								<tr>
 									<th>Etiqueta</th>
-									<th>Total</th>
+									<th>Visitas</th>
 								</tr>
 							</thead>
 							<?php foreach($top_glossary as $glossary): ?>
 								<tr>
 									<td><a href="<?=ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name)?>" target="_blank"><?=$glossary->name?></a></td>
 									<td><?=number_format($glossary->views,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+			</div>
+
+
+
+
+			<hr>
+
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<h4>Promos más consultadas</h4>
+					<?php if($top_promos_questions): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Promo</th>
+									<th>Consultas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($top_promos_questions as $promo): ?>
+								<tr>
+									<td><a href="<?=ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title)?>" target="_blank"><?=$promo->title?></a></td>
+									<td><?=number_format($promo->total,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+				<div class="col-md-6">
+					<h4>Centros más consultados</h4>
+					<?php if($top_clients_questions): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Centro</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<?php foreach($top_clients_questions as $client): ?>
+								<tr>
+									<td><a href="<?=ROOT.'centros/'.$client->permalink?>" target="_blank"><?=$client->name?></a></td>
+									<td><?=number_format($client->total,0,'','.')?></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

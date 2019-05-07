@@ -6,13 +6,21 @@ if(!$User->logged()) Redirect::to('login');
 $questionid = $_subsection;
 
 $Questions = new Questions();
-if(!$Questions->check_privilege($questionid,$User->data()->id)) $_section = 'restricted';
+if(!$Questions->check_privilege($questionid,$_userdata)) $_section = 'restricted';
 
 if(!$_question = $Questions->get($questionid)) Redirect::to('404');
 $Questions->take_question($questionid);
 
-if(!$Promos->find($_question->rowid)) return false;
-$_promo = $Promos->data();
+$_promo = null;
+$_glossary = null;
+if($_question->type=='promos'){	
+	$Promos->find($_question->rowid);
+	$_promo = $Promos->data();
+}
+if($_question->type=='glossary'){	
+	$Glossary->find($_question->rowid);
+	$_glossary = $Glossary->data();
+}
 
-if(!$User->find($_question->userid)) return false;
+$User->find($_question->userid);
 $_user = $User->data();

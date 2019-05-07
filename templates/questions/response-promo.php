@@ -1,14 +1,17 @@
 <p>Hola <?=$obj->user_name?>, respondieron tu pregunta para la siguiente promo: <a href="<?=$obj->promo_link?>"><?=$obj->promo_title?></a></p>
 
 <div style="background-color:rgb(240,240,240);padding:16px;color:rgb(90,90,90)">
-	<h5>Pregunta:</h5>
-	<p><?=$obj->question?></p>
+	<div style="padding:10px">
+		<h5 style="margin:2px 0">Pregunta:</h5>
+		<p><?=$obj->question?></p>
+		<small style="color:rgb(140,140,140)">Enviada el <?=$obj->question_date?> hs.</small>
+	</div>
 
-	<p>&nbsp;</p>
-	<div style="padding-left:16px">
-		<h5>Respuesta:</h5>
+	<hr style="border-top:1px solid white">
+	<div style="padding:10px 10px 10px 20px">
+		<h5 style="margin:2px 0">Respuesta:</h5>
 		<p><?=$obj->response?></p>
-		<small>Enviada el <?=$obj->response_date?> hs.</small>
+		<small style="color:rgb(140,140,140)">Enviada el <?=$obj->response_date?> hs.</small>
 	</div>
 
 </div>

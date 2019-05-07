@@ -52,11 +52,11 @@ class User {
 		if($user){
 			$field = is_numeric($user) ? 'u.id' : 'u.mail';
 			//$this->_db->get('users',array($field,'=',$user));
-			$this->_db->query("SELECT u.*, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos
-				FROM {$this->_dbprefix}users u 
-				LEFT JOIN {$this->_dbprefix}assoc_client_user a ON a.iduser=u.id 
-				LEFT JOIN {$this->_dbprefix}clients c ON c.id=a.idclient 
-				LEFT JOIN {$this->_dbprefix}clientplans p ON p.id=c.idplan 
+			$this->_db->query("SELECT u.*, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
+				FROM {users} u 
+				LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
+				LEFT JOIN {clients} c ON c.id=a.idclient 
+				LEFT JOIN {clientplans} p ON p.id=c.idplan 
 				WHERE {$field} = ?",
 				array($user)
 			);

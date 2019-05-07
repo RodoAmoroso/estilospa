@@ -57,27 +57,29 @@ class UserAdmin {
 
 	public function delete($iduser=0){
 		if($this->find($iduser)){
-			if($this->_data->blocked){
-				die(json_encode(array('Status'=>'blocked')));
-			}
+			
+			if($this->_data->blocked) die(Responses::response('fail','No puedes borrar este usuario'));
+
 			if(!empty($this->_data->image)){
 				$img = json_decode($this->_data->image);
-				$th = PATH.'\img\users\\'.$img->photoname.'-t.'.$img->extension;
-				$bg = PATH.'\img\users\\'.$img->photoname.'-o.'.$img->extension;
+				$th = IMG.'users'.DS.$img->photoname.'-t.'.$img->extension;
+				$bg = IMG.'users'.DS.$img->photoname.'-o.'.$img->extension;
 				if(file_exists($th)) unlink($th);
 				if(file_exists($bg)) unlink($bg);
 			}
-			$assoc = new Assoc();
-			$assoc->iduser = $iduser;
-			$assoc->client_user('delete');
+			$Assoc = new Assoc();
+			$Assoc->iduser = $iduser;
+			$Assoc->client_user('delete');
 
-			$favs = new Favs();
-			$favs->iduser = $iduser;
-			$favs->deleteall($iduser);
+			$Favs = new Favs();
+			$Favs->iduser = $iduser;
+			$Favs->deleteall($iduser);
 
-			$comments = new Comments();
-			$comments->iduser = $iduser;
-			$comments->deleteall();
+			$Comments = new Comments();
+			$Comments->iduser = $iduser;
+			$Comments->deleteall();
+			
+			$this->_db->delete('reservations',array('userid','=',$iduser));
 			
 			if($this->_db->delete('users',array('id','=',$iduser))){
 				return true;
@@ -114,10 +116,11 @@ class UserAdmin {
 			$search .= empty($search) ? "WHERE " : " AND ";
 			$search .= "u.idtype={$this->type}";
 		}
+
 		$this->_db->query(
-			"SELECT u.id, u.name, u.lastname, u.mail, a.idclient 
-			FROM {$this->_dbprefix}users u 
-			LEFT JOIN {$this->_dbprefix}assoc_client_user a ON a.iduser=u.id 
+			"SELECT u.id, u.name, u.lastname, u.mail, a.idclient, DATE_FORMAT(u.created,'%d/%m/%Y') creado, DATE_FORMAT(u.logged,'%d/%m/%Y %H:%i') last_access
+			FROM {users} u 
+			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
 			{$search} 
 			{$limit}"
 		);

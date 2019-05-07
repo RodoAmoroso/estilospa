@@ -2,64 +2,50 @@ var Types = {
 	ID:0,
 	get:function(){
 		$('#list_types_edit,#list_types').html('');
-		AjaxConnection('jxClientTypes.php',{Mode:'get'},function(DATA){
-			$.each(DATA.Result,function(k,v){
-				var mod = $('#mod_list').clone();
-				mod.removeClass('dp-none').removeAttr('id').attr('data-id',v.id);
-				mod.find('.add').remove();
-				mod.find('h4').text(v.name);
-				mod.find('.edit,.delete').attr('data-id',v.id);
-				$('#list_types_edit').append(mod);
-				////////////////////////////////////////
-				$('#list_types').append('<button data-id="'+v.id+'" class="list-group-item"><i class="fa fa-square"></i> '+v.name+'</button>');
-			});
-			$('#list_types button').unbind('click').click(function(){
-				$(this).find('i').toggleClass('fa-square fa-check-square');
-			});
-			$('#list_types_edit .edit').unbind('click').click(function(){
-				$('#list_types_edit .mod-list').removeClass('active');
-				$(this).parent().parent().addClass('active');
-				var id = $(this).attr('data-id');
-				$(this).parent().parent().effect('transfer',{to:$('#fd_type_name')});
-				Types.ID = id;				
-				Types.find();
-			});
-			$('#list_types_edit .delete').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				Messages(true,'¿Seguro deseas borrar este item?',function(){
-					Types.ID = id;
-					Types.delete();
+		ajax('admin/clients-types/get')
+			.then(function(DATA){
+				$.each(DATA.results,function(k,v){
+					var mod = $('#mod_list').clone();
+					mod.removeClass('dp-none').removeAttr('id').attr('data-id',v.id);
+					mod.find('.add').remove();
+					mod.find('h4').text(v.name);
+					mod.find('.edit,.delete').attr('data-id',v.id);
+					$('#list_types_edit').append(mod);
+					////////////////////////////////////////
+					$('#list_types').append('<button data-id="'+v.id+'" class="list-group-item"><i class="fa fa-square"></i> '+v.name+'</button>');
 				});
+				
+				$('#list_types_edit').sortable({
+					update:function(){
+						var arrid = [];
+						$.each($('#list_types_edit .mod-list'),function(k,v){
+							arrid.push($(this).attr('data-id'));
+						});
+						ajax('admin/clients-types/reorder',{ArrID:arrid})
+							.then(function(){
+								Types.get();
+							});
+					}
+				});
+
 			});
-			$('#list_types_edit').sortable({
-				update:function(){
-					var arrid = [];
-					$.each($('#list_types_edit .mod-list'),function(k,v){
-						arrid.push($(this).attr('data-id'));
-					});
-					AjaxConnection('jxClientTypes.php',{Mode:'reorder',ArrID:arrid},function(DATA){
-						Types.get();
-					});
-				}
-			})
-		});
 	},
 	save:function(){
-		AjaxConnection('jxClientTypes.php',{
-			Mode:'save',
+		ajax('admin/clients-types/save',{
 			Name:$('#fd_type_name').val(),			
 			ID:Types.ID
-		},function(data){
-			Types.reset();
-			Types.get();
-		});
+		})
+			.then(function(data){
+				Types.reset();
+				Types.get();
+			});
 	},
 	delete:function(){
-		AjaxConnection('jxClientTypes.php',{Mode:'delete',ID:Types.ID},function(DATA){
-			if(DATA.Status=='fail'){Messages(true,'Hubo problemas al procesar la solicitud. Intenta nuevamente más tarde.');return;};
-			Types.reset();
-			Types.get();
-		});
+		ajax('admin/clients-types/delete',{ID:Types.ID})
+			.then(function(DATA){
+				Types.reset();
+				Types.get();
+			});
 	},
 	reset:function(){
 		$('#fd_type_name').val('');
@@ -67,9 +53,10 @@ var Types = {
 		Types.ID = 0;
 	},
 	find:function(){
-		AjaxConnection('jxClientTypes.php',{Mode:'find',ID:Types.ID},function(DATA){
-			$('#fd_type_name').val(DATA.Result.name);
-		});
+		ajax('admin/clients-types/find',{ID:Types.ID})
+			.then(function(DATA){
+				$('#fd_type_name').val(DATA.result.name);
+			});
 	},
 	init:function(){
 		$('#btn_type').click(function(){
@@ -84,6 +71,36 @@ var Types = {
 		$('#btn_save_type').click(function(){
 			CheckFields(['#fd_type_name'],Types.save);
 		});
+
+		$('#list_types').on('click','button',function(){
+			$(this).find('i').toggleClass('fa-square fa-check-square');
+		});
+		$('#list_types_edit').on('click','.edit',function(){
+			$('#list_types_edit .mod-list').removeClass('active');
+			$(this).parent().parent().addClass('active');
+			var id = $(this).attr('data-id');
+			$(this).parent().parent().effect('transfer',{to:$('#fd_type_name')});
+			Types.ID = id;
+			Types.find();
+		});
+		$('#list_types_edit').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				type:'warning',
+				text:'¿Seguro deseas borrar este item?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+			.then(function(response){
+				if(response.value){
+					Types.ID = id;
+					Types.delete();					
+				}
+			});
+
+		});
+
+
 		Types.get();
 	}
 }
@@ -93,7 +110,7 @@ var Clients = {
 		var mod = $('#mod_thumb').clone();
 		mod.removeClass('dp-none').addClass('dp-ib').removeAttr('id');
 		mod.css({backgroundImage:'url('+ROOT+'img/clients/'+PHTNM+'-t.'+EXT+')'});
-		mod.attr({'data-photoname':PHTNM,'data-extension':EXT});
+		mod.attr({'data-filename':PHTNM,'data-extension':EXT});
 		mod.find('.dp-table').remove();
 		$('#gallery').append(mod);
 		$('#gallery .delete').unbind('click').click(function(){
@@ -114,44 +131,37 @@ var Clients = {
 	get:function(){
 		$('#clients').html('');
 		$('#search_suggest_clients').hide();
-		AjaxConnection('jxClients.php',{Mode:'get',Keywords:$('#fd_search').val(),Sort:$('#select_order').val()},function(DATA){
-			$.each(DATA.Results,function(k,v){
-				var mod = $('#mod_card').clone();
-				mod.removeClass('dp-none').removeAttr('id');
-				mod.attr('data-id',v.id);
-				mod.find('h1').text(v.name);
-				mod.find('.edit,.delete,.preview').attr({'data-id':v.id});
-				mod.find('.preview').attr('data-permalink',v.permalink);
-				var visible = v.visible == 1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>';
-				mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);	
-				if(v.logo != ''){
-					var logo = $.parseJSON(v.logo);
-					mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
-				}
-				$('#clients').append(mod);
+		ajax('admin/clients/get',{keywords:$('#fd_search').val(),sort:$('#select_order').val()})
+			.then(function(DATA){
+				$.each(DATA.results,function(k,v){
+					var mod = $('#mod_card').clone();
+					mod.removeClass('dp-none').removeAttr('id');
+					mod.attr('data-id',v.id);
+					mod.find('h1').text(v.name);
+					mod.find('.edit,.delete,.preview').attr({'data-id':v.id});
+					mod.find('.foot').remove();
+					mod.find('.preview').attr('data-permalink',v.permalink);
+					var visible = v.visible == 1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>';
+					mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);	
+					if(v.logo != ''){
+						var logo = $.parseJSON(v.logo);
+						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
+					}
+					$('#clients').append(mod);
+				});
+				
 			});
-			$('#clients .delete').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				Clients.delete(id);
-			});
-			$('#clients .edit').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				$('#btn_new').trigger('click');
-				Clients.ID = id;
-				Clients.find();
-			});
-			$('#clients .preview').unbind('click').click(function(){
-				window.open(ROOT+'centros/'+$(this).attr('data-permalink'));
-			});
-		});
 	},
 	save:function(action){
 		var logo = {};
-		if($('#logo_client').attr('data-photoname') == undefined){
-			Messages(true,'Debes subir un logo para este cliente.');
+		if($('#logo_client').attr('data-filename') == undefined){
+			Swal.fire({
+				type:'warning',
+				text:'Debes subir un logo para este cliente.'
+			});
 			return false;
 		}else{
-			logo.photoname = $('#logo_client').attr('data-photoname');
+			logo.photoname = $('#logo_client').attr('data-filename');
 			logo.extension = $('#logo_client').attr('data-extension');
 		}
 		var users = [];
@@ -166,7 +176,10 @@ var Clients = {
 			}
 		});
 		if(types.length==0){
-			Messages(true,'Debes elegir al menos un tipo de centro.');
+			Swal.fire({
+				type:'warning',
+				text:'Debes elegir al menos un tipo de centro.'
+			});
 			$('a[href="#tab_categories"]').trigger('click');
 			return false;
 		}
@@ -177,7 +190,10 @@ var Clients = {
 			}
 		});
 		if(glossary.length==0){
-			Messages(true,'Debes elegir al menos una etiqueta.');
+			Swal.fire({
+				type:'warning',
+				text:'Debes elegir al menos una etiqueta.'
+			});
 			$('a[href="#tab_categories"]').trigger('click');
 			return false;
 		}
@@ -186,15 +202,14 @@ var Clients = {
 			if($(this).attr('data-video') != undefined){
 				gallery.push({video:$(this).attr('data-video')});
 			}else{
-				gallery.push({photoname:$(this).attr('data-photoname'),extension:$(this).attr('data-extension')})
+				gallery.push({photoname:$(this).attr('data-filename'),extension:$(this).attr('data-extension')})
 			}
 		});
 		var idstores = [];
 		$.each($('#stores .mod-list'),function(k,v){
 			idstores.push($(this).attr('data-id'));
 		});
-		AjaxConnection('jxClients.php',{
-			Mode:'save',
+		ajax('admin/clients/save',{
 			ID:Clients.ID,
 			Name:$('#fd_name').val(),
 			Subtitle:$('#fd_subtitle').val(),
@@ -211,108 +226,109 @@ var Clients = {
 			Logo:logo,
 			Features:Features.OBJ,
 			Socials:Socials.OBJ
-		},function(DATA){
-			if(DATA.Status == 'permalink'){
-				Messages(true,'El enlace permanente está en uso por otro centro. Deberás cambiarlo incluyendo alguna otra palabra.');
-				return;
-			}
-			if(action=='save'){
-				Clients.reset();
-				Clients.get();
-			}else{
-				window.open(ROOT+'centros/'+$('#fd_permalink').val());
-			}
-		});
+		})
+			.then(function(DATA){
+
+				if(action=='save'){
+					Clients.reset();
+					Clients.get();
+				}else{
+					window.open(ROOT+'centros/'+$('#fd_permalink').val());
+				}
+			});
 	},
 	delete:function(ID){
-		Messages(true,'¿Realmente deseas borrar este centro?',function(){
-			AjaxConnection('jxClients.php',{Mode:'delete',ID:ID},function(DATA){
+		
+		ajax('admin/clients/delete',{ID:ID})
+			.then(function(){
 				Clients.reset();
 				Clients.get();
 			});
-		});		
+		
 	},
 	find:function(){
-		AjaxConnection('jxClients.php',{Mode:'find',ID:Clients.ID},function(DATA){
-			$('#fd_name').val(DATA.Client.name);
-			$('#fd_subtitle').val(DATA.Client.subtitle);
-			$('#fd_web').val(DATA.Client.web);
-			$('#fd_mail').val(DATA.Client.mail);
-			$('#fd_permalink').val(DATA.Client.permalink);
-			if(DATA.Client.visible == 1){
-				$('#fd_visible').removeClass('fa-toggle-off').addClass('fa-toggle-on');
-			}else{
-				$('#fd_visible').removeClass('fa-toggle-on').addClass('fa-toggle-off');
-			}
-			$('#fd_plans option[value="'+DATA.Client.idplan+'"]').prop('selected',true);
-			if(DATA.Client.logo != ''){
-				var logo = $.parseJSON(DATA.Client.logo);
-				$('#logo_client').attr({'data-photoname':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
-			}
-			//////////// USERS /////////////////////////////////
-			$.each(DATA.Users,function(k,v){
-				Users.build(v.iduser,v.name+' '+v.lastname+' ('+v.mail+')');
-			});
-			//////////// STORES /////////////////////////////////
-			Stores.get();
-			//////////// SOCIALS /////////////////////////////////
-			if(DATA.Client.socials != ''){
-				var socials = $.parseJSON(DATA.Client.socials);
-				$.each(socials,function(k,v){
-					Socials.OBJ.push({social:v.social,link:v.link});
-				});				
-				Socials.build();
-			}
-			//////////// TYPES /////////////////////////////////
-			///var arrTypes = DATA.Client.types.split(',');
-			var passtype = false;
-			$.each($('#list_types button'),function(kb,vb){
-				$.each(DATA.Client.types,function(kt,vt){
-					if($(vb).attr('data-id')==vt){
-						passtype = true;
-					}
-				});
-				if(passtype){
-					$(vb).find('i').removeClass('fa-square').addClass('fa-check-square');
+		ajax('admin/clients/find',{id:Clients.ID})
+			.then(function(DATA){
+	
+				$('#fd_name').val(DATA.client.name);
+				$('#fd_subtitle').val(DATA.client.subtitle);
+				$('#fd_web').val(DATA.client.web);
+				$('#fd_mail').val(DATA.client.mail);
+				$('#fd_permalink').val(DATA.client.permalink);
+				if(DATA.client.visible == 1){
+					$('#fd_visible').removeClass('fa-toggle-off').addClass('fa-toggle-on');
 				}else{
-					$(vb).find('i').addClass('fa-square').removeClass('fa-check-square');
+					$('#fd_visible').removeClass('fa-toggle-on').addClass('fa-toggle-off');
 				}
-				passtype = false;
-			});
-			//////////// GLOSSARY /////////////////////////////////
-			///var glossary = DATA.Client.glossary.split(',');
-			var passglossary = false;
-			$.each($('#glossary .list-group-item'),function(kb,vb){
-				$.each(DATA.Client.glossary,function(kt,vt){
-					if($(vb).attr('data-id')==vt){
-						passglossary = true;
-					}
+				$('#fd_plans option[value="'+DATA.client.idplan+'"]').prop('selected',true);
+				if(DATA.client.logo != ''){
+					var logo = $.parseJSON(DATA.client.logo);
+					$('#logo_client').attr({'data-filename':logo.photoname,'data-extension':logo.extension}).css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
+				}
+				//////////// USERS /////////////////////////////////
+				$.each(DATA.users,function(k,v){
+					Users.build(v.iduser,v.name+' '+v.lastname+' ('+v.mail+')');
 				});
-				if(passglossary){
-					$(vb).find('i').removeClass('fa-square').addClass('fa-check-square');
-				}else{
-					$(vb).find('i').addClass('fa-square').removeClass('fa-check-square');
+				//////////// STORES /////////////////////////////////
+				Stores.get();
+				//////////// SOCIALS /////////////////////////////////
+				if(DATA.client.socials != ''){
+					var socials = $.parseJSON(DATA.client.socials);
+					$.each(socials,function(k,v){
+						Socials.OBJ.push({social:v.social,link:v.link});
+					});				
+					Socials.build();
 				}
-				passglossary = false;
-			});
-			///////////// GALLERY //////////////////////
-			var gallery = $.parseJSON(DATA.Client.images);
-			$.each(gallery,function(k,v){
-				if(v.video != undefined){
-					var video = v.video;
-					GetYoutubeApi(video,function(data){
-						Clients.buildvideos(data.items[0].snippet.thumbnails.medium.url,video);
+				//////////// TYPES /////////////////////////////////
+				///var arrTypes = DATA.Client.types.split(',');
+				var passtype = false;
+				$.each($('#list_types button'),function(kb,vb){
+					$.each(DATA.client.types,function(kt,vt){
+						if($(vb).attr('data-id')==vt){
+							passtype = true;
+						}
 					});
-				}else{
-					Clients.buildthumbs(v.photoname,v.extension);
-				}
+					if(passtype){
+						$(vb).find('i').removeClass('fa-square').addClass('fa-check-square');
+					}else{
+						$(vb).find('i').addClass('fa-square').removeClass('fa-check-square');
+					}
+					passtype = false;
+				});
+				//////////// GLOSSARY /////////////////////////////////
+				///var glossary = DATA.Client.glossary.split(',');
+				var passglossary = false;
+				$.each($('#glossary .list-group-item'),function(kb,vb){
+					$.each(DATA.client.glossary,function(kt,vt){
+						if($(vb).attr('data-id')==vt){
+							passglossary = true;
+						}
+					});
+					if(passglossary){
+						$(vb).find('i').removeClass('fa-square').addClass('fa-check-square');
+					}else{
+						$(vb).find('i').addClass('fa-square').removeClass('fa-check-square');
+					}
+					passglossary = false;
+				});
+				///////////// GALLERY //////////////////////
+				var gallery = $.parseJSON(DATA.client.images);
+				$.each(gallery,function(k,v){
+					if(v.video != undefined){
+						var video = v.video;
+						GetYoutubeApi(video,function(data){
+							Clients.buildvideos(data.items[0].snippet.thumbnails.medium.url,video);
+						});
+					}else{
+						Clients.buildthumbs(v.photoname,v.extension);
+					}
+				});
+				///////////// FEATURES //////////////////////
+				$.each(DATA.features,function(k,v){
+					Features.OBJ.push({title:v.title,description:v.description});
+				});
+				Features.build();
 			});
-			///////////// FEATURES //////////////////////
-			$.each(DATA.Features,function(k,v){
-				Features.OBJ.push({title:v.title,description:v.description});
-			});
-			Features.build();
-		});
 	},
 	reset:function(){
 		Clients.ID = 0;
@@ -329,23 +345,16 @@ var Clients = {
 		$.each($('#glossary .list-group-item'),function(kb,vb){
 			$(this).find('i').removeClass('fa-check-square').addClass('fa-square');
 		});
-		$('#logo_client').removeAttr('data-photoname').removeAttr('data-extension').css({backgroundImage:'none'});
+		$('#logo_client').removeAttr('data-filename').removeAttr('data-extension').css({backgroundImage:'none'});
 	},
 	init:function(){
-		UpFile.Init({MODE:'upgallery',PHP:'jxClients.php',FOLDER:'img/clients/',FORM:'#form_images',BTN:'#btn_images',Callback:function(ArrFiles){
-				$.each(ArrFiles,function(k,v){
-					Clients.buildthumbs(v.photoname,v.extension);
-				});
-			}
-		});
-		$('#gallery').sortable({});
-		UpFile.Init({MODE:'uplogo',PHP:'jxClients.php',FOLDER:'img/clients/',FORM:'#form_logo',BTN:'#btn_logo',TH:'#logo_client'});
-		//////////////////////////////////////////////////////
+
+
 		$('#btn_new').click(function(){
 			$('#list_panel').slideUp({duration:900,easing:'easeInOutCubic'});
 			$('#edit_panel').slideDown({duration:900,easing:'easeInOutCubic'});
 		});
-		/////////// NAV //////////////////////////////////////
+
 		$('.nav-tabs a').click(function(e){
 			e.preventDefault();
 			var href = $(this).attr('href');
@@ -356,6 +365,46 @@ var Clients = {
 			$('#main_content .tab-panel').not(href).slideUp({easing:'easeInOutCubic',duration:900});		
 			$(href).slideDown({easing:'easeInOutCubic',duration:900});
 		});
+
+		var logo = new UpFile({
+			container:'[data-input="logo"]',
+			controller:'admin/clients/logo',
+			folder:'img/clients',
+			thumbnail:'#logo_client'
+		});
+		var gallery = new UpFile({
+			container:'[data-input="gallery"]',
+			controller:'admin/clients/gallery',
+			folder:'img/clients',
+			gallery:'#gallery',
+			sortable:true
+		});
+		
+		$('#clients').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				type:'warning',
+				text:'¿Realmente deseas borrar este centro?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Clients.delete(id);
+					}
+				});
+		});
+		$('#clients').on('click','.edit',function(){
+			var id = $(this).attr('data-id');
+			$('#btn_new').trigger('click');
+			Clients.ID = id;
+			Clients.find();
+		});
+		$('#clients').on('click','.preview',function(){
+			window.open(ROOT+'centros/'+$(this).attr('data-permalink'));
+		});
+
+		
 		///$('.nav-tabs a[href="#tab_stores"]').trigger('click');
 		$('#type_plans .flex-item').click(function(){		
 			$('#type_plans i').removeClass('fa-check-circle').addClass('fa-circle');
@@ -365,13 +414,16 @@ var Clients = {
 			$('#fd_visible').toggleClass('fa-toggle-off fa-toggle-on');
 		});	
 		////////////////////////////////////////////////////////////////////
-		SearchSuggestions('#form_search_users','jxUsers.php','getusersclient',function(INPUT,ths,DATA){
+		SearchSuggestions('#form_search_users','admin/users/getbytype','',function(INPUT,ths,DATA){
 			var id = $(ths).attr('data-id');
 			var indx = $(ths).index();
 			var text = $(ths).text();
 			var pass = false;
-			if(DATA.Results[indx].idclient != null){
-				Messages(true,'El usuario ya ha sido asignado a un centro.');
+			if(DATA.results[indx].idclient != null){
+				Swal.fire({
+					type:'warning',
+					text:'El usuario ya ha sido asignado a un centro.'
+				});
 				return false;
 			}
 			$.each($('#users .mod-list'),function(kk,vv){
@@ -384,6 +436,7 @@ var Clients = {
 			}
 			$(INPUT).val('');
 		});
+
 		$('#form_search_users').submit(function(e){
 			e.preventDefault();
 		});
@@ -396,6 +449,7 @@ var Clients = {
 		$('#btn_delete').click(function(){
 			Clients.delete(Clients.ID);
 		});
+
 		$('#btn_save,#btn_preview').click(function(){
 			CheckFields(['#fd_name','#fd_subtitle','#fd_permalink','#fd_mail']);
 			if($('#fd_name').val() == '' || $('#fd_subtitle').val() == '' || $('#fd_permalink').val() == '' || $('#fd_mail').val() == ''){
@@ -406,18 +460,18 @@ var Clients = {
 			$('#fd_name,#fd_subtitle,#fd_permalink,#fd_mail').removeClass('required');
 			if($('#stores .mod-list').length==0){
 				$('a[href="#tab_stores"]').trigger('click');
-				Messages(true,'Debes agregar al menos una dirección');
-				return;
+				Swal.fire({type:'warning',text:'Debes agregar al menos una dirección.'});
+				return false;
 			}
 			if($('#gallery .thumbnail').length==0){
 				$('a[href="#tab_gallery"]').trigger('click');
-				Messages(true,'Debes agregar al menos una imagen');
-				return;
+				Swal.fire({type:'warning',text:'Debes agregar al menos una imagen.'});
+				return false;
 			}
 			if($('#features .mod-list').length==0){
 				$('a[href="#tab_features"]').trigger('click');
-				Messages(true,'Debes agregar al menos una descripción o característica.');
-				return;
+				Swal.fire({type:'warning',text:'Debes agregar al menos una descripción o característica.'});
+				return false;
 			}
 			var action = $(this).attr('id') == 'btn_save' ? 'save' : 'preview';
 			Clients.save(action);
@@ -441,7 +495,7 @@ var Clients = {
 						$('#fd_video').val('');
 					});
 				}else{
-					Messages(true,'La URL ingresada es errónea. Asegúrate de que esté bien escrita.');
+					Swal.fire({type:'warning',text:'La URL ingresada es errónea. Asegúrate de que esté bien escrita.'});
 				}			
 			});
 		});
@@ -449,7 +503,8 @@ var Clients = {
 			$('#plans_panel').slideDown({duration:900,easing:'easeInOutCubic'});
 			$('#edit_panel').slideUp({duration:900,easing:'easeInOutCubic'});
 		});
-		SearchSuggestions('#form_search','jxClients.php','get',Clients.get);
+		SearchSuggestions('#form_search','admin/clients/get','',Clients.get);
+
 		Clients.get();
 	}
 }
@@ -460,65 +515,44 @@ var Stores = {
 	EditMode:false,
 	get:function(){
 		$('#stores').html('');
-		AjaxConnection('jxClients.php',{Mode:'getstores',IDC:Clients.ID},function(DATA){
-			$.each(DATA.Results,function(k,v){
-				var mod = $('#mod_list').clone();
-				mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
-				mod.find('h4').text(v.address);
-				mod.find('.edit,.delete').attr('data-id',v.id);
-				mod.find('.add').remove();
-				mod.append('<p>'+v.city+', '+v.name+'</p>')
-				$('#stores').append(mod);
-			});
-			///Stores.reset();
-			$('#stores .edit').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				Stores.ID = id;
-				///Stores.EditMode = true;
-				$('#stores .mod-list').removeClass('active');
-				$(this).parent().parent().addClass('active');
-				$(this).parent().parent().effect('transfer',{to:$('#fd_store_address')});
-				Stores.find();
-				$('.block-buttons .inactive-block').addClass('active');
-			});
-			$('#stores .delete').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				Messages(true,'¿Realmente desease borrar esta dirección?',function(){
-					Stores.ID = id;
-					AjaxConnection('jxClients.php',{Mode:'deletestore',IDS:Stores.ID},function(DATA){
-						Stores.reset();
-						Stores.get();
-					});
-				});			
+		ajax('admin/stores/get',{IDC:Clients.ID})
+			.then(function(DATA){
+				$.each(DATA.results,function(k,v){
+					var mod = $('#mod_list').clone();
+					mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
+					mod.find('h4').text(v.address);
+					mod.find('.edit,.delete').attr('data-id',v.id);
+					mod.find('.add').remove();
+					mod.append('<p>'+v.city+', '+v.name+'</p>')
+					$('#stores').append(mod);
+				});
+					
 			});	
-		});	
 	},
 	reset:function(){
 		$('#fd_store_address,#fd_store_additional,#fd_store_city,#fd_store_phones,#fd_store_whatsapp,#fd_store_schedules').val('');
 		Stores.ID = 0;
-		///Stores.EditMode = false;
 		Schedules.reset();
 		$('#stores .mod-list,.block-buttons .inactive-block').removeClass('active');
 	},
 	find:function(){
-		AjaxConnection('jxClients.php',{Mode:'findstore',IDS:Stores.ID},function(DATA){
-			var obj = DATA.Result;
-			//console.log(obj);
-			$('#fd_store_address').val(obj.address);
-			$('#fd_store_additional').val(obj.additional);
-			$('#fd_store_city').val(obj.city);
-			$('#fd_store_phones').val(obj.phones);
-			$('#fd_store_whatsapp').val(obj.whatsapp);
-			$('#fd_store_province option[value="'+obj.idprovince+'"]').prop('selected',true);
-			if(obj.schedules != ''){
-				Schedules.OBJ = $.parseJSON(obj.schedules);
-				Schedules.buildlist();
-			}
-		});		
+		ajax('admin/stores/find',{IDS:Stores.ID})
+			.then(function(DATA){
+				var obj = DATA.result;
+				$('#fd_store_address').val(obj.address);
+				$('#fd_store_additional').val(obj.additional);
+				$('#fd_store_city').val(obj.city);
+				$('#fd_store_phones').val(obj.phones);
+				$('#fd_store_whatsapp').val(obj.whatsapp);
+				$('#fd_store_province option[value="'+obj.idprovince+'"]').prop('selected',true);
+				if(obj.schedules != ''){
+					Schedules.OBJ = $.parseJSON(obj.schedules);
+					Schedules.buildlist();
+				}
+			});
 	},
 	save:function(){
-		AjaxConnection('jxClients.php',{
-			Mode:'savestore',
+		ajax('admin/stores/save',{
 			ID:Stores.ID,
 			Address:$('#fd_store_address').val(),
 			IDClient:Clients.ID,
@@ -529,10 +563,18 @@ var Stores = {
 			Phones:$('#fd_store_phones').val(),
 			Whatsapp:$('#fd_store_whatsapp').val(),
 			Schedules:JSON.stringify(Schedules.OBJ)
-		},function(DATA){
+		})
+			.then(function(DATA){
 				Stores.get();
 				Stores.reset();
-		});
+			});
+	},
+	delete:function(id){
+		ajax('admin/stores/delete',{IDS:id})
+			.then(function(DATA){
+				Stores.reset();
+				Stores.get();
+			});
 	},
 	init:function(){
 		$('#btn_save_store').click(function(){
@@ -541,24 +583,41 @@ var Stores = {
 		$('#btn_cancel_store').click(function(){
 			Stores.reset();
 		});
-		var from;
-		var to;
 		$('#stores').sortable({
-			/*start:function(e,ui){
-				from = $(ui.item).index();
-			},
-			stop:function(e,ui){
-				to = $(ui.item).index();
-				Stores.OBJ.SwitchPosition(from,to);
-			},*/
 			update:function(){
 				var arr = [];
 				$.each($(this).parent().find('.mod-list'),function(k,v){
 					arr.push($(this).attr('data-id'));
 				});
-				AjaxConnection('jxClients.php',{Mode:'reorderstores',ArrID:arr},function(DATA){});
+				ajax('admin/stores/reorder',{ArrID:arr}).then(function(){});
 			}
 		});
+
+		$('#stores').on('click','.edit',function(){
+			var id = $(this).attr('data-id');
+			Stores.ID = id;
+			$('#stores .mod-list').removeClass('active');
+			$(this).parent().parent().addClass('active');
+			$(this).parent().parent().effect('transfer',{to:$('#fd_store_address')});
+			Stores.find();
+			$('.block-buttons .inactive-block').addClass('active');
+		});
+		$('#stores').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			Swal.fire({
+				type:'warning',
+				text:'¿Realmente desease borrar esta dirección?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Stores.delete(id);						
+					}
+				});
+
+		});
+
 	}
 }
 var Features = {
@@ -567,6 +626,7 @@ var Features = {
 	EditMode:false,
 	build:function(){
 		$('#features').html('');
+		
 		$.each(Features.OBJ,function(k,v){
 			var mod = $('#mod_list').clone();
 			mod.removeAttr('id').removeClass('dp-none');
@@ -577,23 +637,7 @@ var Features = {
 			mod.append(v.description.substr(0,255)+'...');
 			$('#features').append(mod);
 		});
-		$('#features .edit').unbind('click').click(function(){
-			var node = $(this).attr('data-node');
-			Features.NODE = node;
-			Features.EditMode = true;
-			$('#features .mod-list').removeClass('active');
-			$(this).parent().parent().addClass('active');
-			$(this).parent().parent().effect('transfer',{to:$('#fd_feature_name')});
-			Features.find();
-			$('.block-buttons .inactive-block').addClass('active');
-		});
-		$('#features .delete').unbind('click').click(function(){
-			var node = $(this).attr('data-node');
-			Messages(true,'¿Realmente desease borrar este item?',function(){
-				Features.OBJ.splice(node,1);
-				Features.build();
-			});
-		});		
+
 		Features.reset();
 	},
 	reset:function(){
@@ -612,8 +656,11 @@ var Features = {
 		$('#btn_save_feature').click(function(){
 			CheckFields(['#fd_feature_name'],function(){
 				if(CKEDITOR.instances.fd_feature_description.getData() == ''){
-					Messages(true,'Debes incluir una descripción');
-					return;
+					Swal.fire({
+						type:'warning',
+						text:'Debes incluir una descripción'
+					})
+					return false;
 				}
 				var obj = {
 					title:$('#fd_feature_name').val(),
@@ -627,6 +674,36 @@ var Features = {
 				Features.build();
 			});
 		});
+
+		$('#features').on('click','.edit',function(){
+			var node = $(this).attr('data-node');
+			Features.NODE = node;
+			Features.EditMode = true;
+			$('#features .mod-list').removeClass('active');
+			$(this).parent().parent().addClass('active');
+			$(this).parent().parent().effect('transfer',{to:$('#fd_feature_name')});
+			Features.find();
+			$('.block-buttons .inactive-block').addClass('active');
+		});
+		$('#features').on('click','.delete',function(){
+			var node = $(this).attr('data-node');
+
+			Swal.fire({
+				type:'warning',
+				text:'¿Realmente desease borrar este item?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Features.OBJ.splice(node,1);
+						Features.build();
+					}
+				});
+			
+		});
+
+
 		$('#btn_cancel_feature').click(function(){
 			Features.reset();
 		});
@@ -655,23 +732,7 @@ var Socials = {
 			mod.find('.add').remove();
 			$('#socials').append(mod);
 		});		
-		$('#socials .edit').unbind('click').click(function(){
-			var node = $(this).attr('data-node');
-			Socials.NODE = node;
-			Socials.EditMode = true;
-			$('#socials .mod-list').removeClass('active');
-			$(this).parent().parent().addClass('active');
-			$(this).parent().parent().effect('transfer',{to:$('#fd_social_link')});
-			$('.block-buttons .inactive-block').addClass('active');
-			Socials.find();
-		});
-		$('#socials .delete').unbind('click').click(function(){
-			var node = $(this).attr('data-node');
-			Messages(true,'¿Realmente desease borrar este item?',function(){
-				Socials.OBJ.splice(node,1);
-				Socials.build();
-			});
-		});
+		
 		Socials.reset();		
 	},
 	reset:function(){
@@ -702,8 +763,11 @@ var Socials = {
 					if(pass){
 						Socials.OBJ.push(obj);
 					}else{
-						Messages(true,'Ya has agregado esa red social');
-						return;
+						Swal.fire({
+							type:'warning',
+							text:'Ya has agregado esa red social'
+						});
+						return false;
 					}
 				}else{
 					Socials.OBJ[Socials.NODE] = obj;
@@ -711,6 +775,34 @@ var Socials = {
 				Socials.build();
 			});
 		});
+
+		$('#socials').on('click','.edit',function(){
+			var node = $(this).attr('data-node');
+			Socials.NODE = node;
+			Socials.EditMode = true;
+			$('#socials .mod-list').removeClass('active');
+			$(this).parent().parent().addClass('active');
+			$(this).parent().parent().effect('transfer',{to:$('#fd_social_link')});
+			$('.block-buttons .inactive-block').addClass('active');
+			Socials.find();
+		});
+		$('#socials').on('click','.delete',function(){
+			var node = $(this).attr('data-node');
+			Swal.fire({
+				type:'warning',
+				text:'¿Realmente desease borrar este item?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Socials.OBJ.splice(node,1);
+						Socials.build();
+					}
+				});
+			
+		});
+
 		$('#btn_social_cancel').click(function(){
 			Socials.reset();
 		});
@@ -733,33 +825,26 @@ var Users = {
 var Glossary = {
 	get:function(){
 		$('#glossary').html('');
-		AjaxConnection('jxGlossary.php',{Mode:'getgroups',IDG:$('#fd_groups_search').val()},function(DATA){
-			$.each(DATA.Results,function(k,v){				
-				var mod = $('#mod_panel').clone();
-				mod.removeClass('dp-none').removeAttr('id');
-				mod.find('.panel-heading').html(v.name+' <i class="fa fa-caret-down fa-fw clickable" data-target="#group_body_'+v.id+'" data-toggle="collapse" title="Plegar/Desplegar Todos"></i> | <i data-toogle="check" class="fa fa-square fa-fw clickable" title="Marcar/Desmarcar Todos"></i>');
-				mod.find('.panel-body').addClass('collapse in').attr('id','group_body_'+v.id);
-				$.each(DATA.Glossary[k],function(kg,vg){
-					var item = $('#mod_panel_group_item').clone();
-					item.removeAttr('id').removeClass('dp-none').addClass('clickable').attr('data-id',vg.id);
-					item.find('span').text(vg.name);
-					item.find('.edit,.delete').remove();
-					mod.find('.list-group').append(item);
+		ajax('admin/glossary-groups/get')
+			.then(function(DATA){
+				$.each(DATA.results,function(k,v){
+					var mod = $('#mod_panel').clone();
+					mod.removeClass('dp-none').removeAttr('id');
+					mod.find('.panel-heading').html(v.name+' <i class="fa fa-caret-down fa-fw clickable" data-target="#group_body_'+v.id+'" data-toggle="collapse" title="Plegar/Desplegar Todos"></i> | <i data-toogle="check" class="fa fa-square fa-fw clickable" title="Marcar/Desmarcar Todos"></i>');
+					mod.find('.panel-body').addClass('collapse in').attr('id','group_body_'+v.id);
+					
+					$.each(DATA.glossary[k],function(kg,vg){
+						var item = $('#mod_panel_group_item').clone();
+						item.removeAttr('id').removeClass('dp-none').addClass('clickable').attr('data-id',vg.id);
+						item.find('span').text(vg.name);
+						item.find('.edit,.delete,.view').remove();
+						mod.find('.list-group').append(item);
+					});
+
+					$('#glossary').append(mod);
 				});
-				$('#glossary').append(mod);				
+				
 			});
-			$('#glossary .item').unbind('click').click(function(){
-				$(this).find('i').toggleClass('fa-square fa-check-square');
-			});
-			$('#glossary [data-toogle="check"]').unbind('click').click(function(){
-				$(this).toggleClass('fa-square fa-check-square');
-				if($(this).hasClass('fa-check-square')){
-					$(this).parent().parent().find('.panel-body .fa').removeClass('fa-square').addClass('fa-check-square');
-				}else{
-					$(this).parent().parent().find('.panel-body .fa').addClass('fa-square').removeClass('fa-check-square');
-				}
-			});
-		});
 	},
 	init:function(){
 		$('#btn_refresh_glossary').click(function(){
@@ -786,6 +871,20 @@ var Glossary = {
 		$('#glossary button').click(function(){
 			$(this).find('i').toggleClass('fa-square fa-check-square');
 		});	
+
+		$('#glossary').on('click','.item',function(){
+			$(this).find('i').toggleClass('fa-square fa-check-square');
+		});
+		$('#glossary').on('click','[data-toogle="check"]',function(){
+			$(this).toggleClass('fa-square fa-check-square');
+			if($(this).hasClass('fa-check-square')){
+				$(this).parent().parent().find('.panel-body .fa').removeClass('fa-square').addClass('fa-check-square');
+			}else{
+				$(this).parent().parent().find('.panel-body .fa').addClass('fa-square').removeClass('fa-check-square');
+			}
+		});
+
+
 		Glossary.get();
 	}
 }
@@ -920,39 +1019,29 @@ var Plans = {
 	ID:0,
 	get:function(){
 		$('#fd_plans,#list_plans_edit').html('');
-		AjaxConnection('jxPlans.php',{Mode:'get'},function(DATA){
-			$.each(DATA.Results,function(k,v){
-				var mod = $('#mod_list').clone();
-				mod.removeClass('dp-none').removeAttr('id').attr('data-id',v.id);
-				mod.find('.add').remove();
-				mod.find('h4').text(v.name+' (Comisión '+v.fee+'%)');
-				mod.find('.edit,.delete').attr('data-id',v.id);
-				$('#list_plans_edit').append(mod);
-				$('#fd_plans').append('<option value="'+v.id+'" >'+v.name+' (Comisión '+v.fee+'%)</option>');
-			});
-			$('#list_plans_edit .edit').unbind('click').click(function(){
-				$('#list_plans_edit .mod-list').removeClass('active');
-				$(this).parent().parent().addClass('active');
-				var id = $(this).attr('data-id');				
-				$(this).parent().parent().effect('transfer',{to:$('#fd_plan_name')});
-				Plans.ID = id;				
-				Plans.find();
-			});
-			$('#list_plans_edit .delete').unbind('click').click(function(){
-				var id = $(this).attr('data-id');
-				Messages(true,'¿Seguro deseas borrar este item?',function(){
-					Plans.ID = id;
-					Plans.delete();
+		ajax('admin/plans/get')
+			.then(function(data){
+				
+				$.each(data.results,function(k,v){
+					var mod = $('#mod_list').clone();
+					mod.removeClass('dp-none').removeAttr('id').attr('data-id',v.id);
+					mod.find('.add').remove();
+					mod.find('h4').text(v.name+' (Comisión '+v.fee+'%)');
+					mod.find('.edit,.delete').attr('data-id',v.id);
+					$('#list_plans_edit').append(mod);
+					$('#fd_plans').append('<option value="'+v.id+'" >'+v.name+' (Comisión '+v.fee+'%)</option>');
 				});
+
+				
 			});
-		});
 	},
 	find:function(){
-		AjaxConnection('jxPlans.php',{Mode:'find',ID:Plans.ID},function(DATA){
-			$('#fd_plan_name').val(DATA.Result.name);
-			$('#fd_plan_fee').val(DATA.Result.fee);
-			$('#fd_plan_promos').val(DATA.Result.promos);
-		});
+		ajax('admin/plans/find',{ID:Plans.ID})
+			.then(function(data){
+				$('#fd_plan_name').val(data.result.name);
+				$('#fd_plan_fee').val(data.result.fee);
+				$('#fd_plan_promos').val(data.result.promos);
+			});
 	},
 	reset:function(){
 		$('#fd_plan_name').val('');
@@ -960,22 +1049,23 @@ var Plans = {
 		Plans.ID = 0;
 	},
 	save:function(){
-		AjaxConnection('jxPlans.php',{
-			Mode:'save',
+		ajax('admin/plans/save',{
 			ID:Plans.ID,
 			Name:$('#fd_plan_name').val(),
 			Fee:$('#fd_plan_fee').val(),
 			Promos:$('#fd_plan_promos').val()
-		},function(DATA){
-			Plans.reset();
-			Plans.get();
-		});
+		})
+			.then(function(){
+				Plans.reset();
+				Plans.get();
+			});
 	},
 	delete:function(){
-		AjaxConnection('jxPlans.php',{Mode:'delete',ID:Plans.ID},function(){
-			Plans.reset();
-			Plans.get();
-		});
+		ajax('admin/plans/delete',{ID:Plans.ID})
+			.then(function(){
+				Plans.reset();
+				Plans.get();
+			});
 	},
 	init:function(){
 		$('#btn_close_plans').click(function(){
@@ -986,17 +1076,47 @@ var Plans = {
 		$('#btn_save_plan').click(function(){
 			CheckFields(['#fd_plan_name','#fd_plan_fee','#fd_plan_promos'],Plans.save);
 		});
+
+		$('#list_plans_edit').on('click','.edit',function(){
+			$('#list_plans_edit .mod-list').removeClass('active');
+			$(this).parent().parent().addClass('active');
+			var id = $(this).attr('data-id');
+			$(this).parent().parent().effect('transfer',{to:$('#fd_plan_name')});
+			Plans.ID = id;
+			Plans.find();
+		});
+		$('#list_plans_edit').on('click','.delete',function(){
+			var id = $(this).attr('data-id');
+			
+			Swal.fire({
+				type:'warning',
+				text:'¿Seguro deseas borrar este item?',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(response){
+					if(response.value){
+						Plans.ID = id;
+						Plans.delete();						
+					}
+				});
+		});
+
 		Plans.get();
 	}
 }
 $(function(){	
 	ModViews();	
-	Types.init();
+	
 	Stores.init();
 	Features.init();
-	Clients.init();
-	Glossary.init();
 	Socials.init();
-	Plans.init();
 	Schedules.init();
+
+	Types.init();
+	Plans.init();
+	Glossary.init();
+	Clients.init();
+
+
 });

@@ -21,14 +21,22 @@ $GLOBALS['config'] = array(
 		'root'=>'estilospa',
 		'admin'=>'admin',
 		'site'=>'site',
-		'panel'=>'cuenta',
+		'panel'=>'panel',
 		'styles'=>'css',
 		'scripts'=>'js',
 	)
 );
 
+
+define('DS',DIRECTORY_SEPARATOR);
+define('PATH',__DIR__.DS);
+define('IMG',PATH.'img'.DS);
+
+
 spl_autoload_register(function($class){
-	require_once 'classes/'.$class.'.php';
+	if(file_exists(PATH.'classes'.DS.$class.'.php')){
+		require_once PATH.'classes'.DS.$class.'.php';
+	}
 });
 
 require_once 'functions.php';
@@ -40,12 +48,11 @@ $slash = (!empty(Config::get('paths/root')) ? '/' : '');
 define('ROOT',$HTTP.'://'.$_SERVER['HTTP_HOST'].'/'.Config::get('paths/root').$slash );
 define('ADMIN',ROOT.Config::get('paths/admin').'/');
 define('SITE',ROOT.Config::get('paths/site').'/');
+define('PANEL',ROOT.Config::get('paths/panel').'/');
 define('CSS',ROOT.Config::get('paths/styles').'/');
 define('JS',ROOT.Config::get('paths/scripts').'/');
 
-define('DS',DIRECTORY_SEPARATOR);
-define('PATH',__DIR__.DS);
-define('IMG',PATH.'img'.DS);
+
 
 
 define('IPUSER',$_SERVER['REMOTE_ADDR']);

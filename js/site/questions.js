@@ -27,6 +27,7 @@ var Questions = function () {
 
 			ajax('site/questions/' + this.mode, {
 				rowid: $(this.form).find('[name=rowid]').val(),
+				type: $(this.form).find('[name=type]').val(),
 				page: this.page,
 				limit: this.limit
 			}).then(function (response) {
@@ -39,7 +40,7 @@ var Questions = function () {
 						$(_this.container).html('<p>Aún no se han hecho preguntas</p>');
 						return false;
 					}
-					//console.log(page_maker(this.limit,data.total));
+					//console.log(data.results);
 					_this.total_loaded += data.results.length;
 					_this.results = data.results;
 					$.each(data.results, function (k, v) {
@@ -47,8 +48,13 @@ var Questions = function () {
 						$module.find('[data-content=message]').text(v.message);
 						$module.find('[data-content=added]').text('Enviada: ' + v.creado + ' hs.');
 						if (v.responses != false) {
+							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>');
 							$.each(v.responses, function (kr, vr) {
 								var $mod_response = $(templates[1]);
+								//console.log(vr);
+								$mod_response.find('[data-content=client]').text(vr.client.name);
+								$mod_response.find('[data-content=client]').attr({ href: ROOT + 'centros/' + vr.client.permalink });
+								$mod_response.find('[data-content=thumb]').css({ backgroundImage: 'url(' + vr.client.imagery.logo + ')' });
 								$mod_response.find('[data-content=response]').text(vr.message);
 								$mod_response.find('[data-content=added]').text('Enviada: ' + vr.creado + ' hs.');
 								$module.append($mod_response);
@@ -71,8 +77,10 @@ var Questions = function () {
 
 			var post = get_form($(this.form));
 			ajax('site/questions/add', post).then(function (data) {
-				$(_this2.form).find('textarea').val('');
+				$(_this2.form).find('textarea,input').val('');
 				_this2.get('getbypromo');
+			}).catch(function (data) {
+				console.log(data);
 			});
 		}
 	}, {

@@ -29,6 +29,7 @@ switch($_action):
 		if(!$idu = $User->create(
 			array(
 				'name'=>Input::get('name'),
+				'lastname'=>Input::get('lastname'),
 				'mail'=>strtolower(Input::get('email')),
 				'pass'=>password_hash(Input::get('password'),PASSWORD_DEFAULT),
 				'created'=>date('Y-m-d H:i:s'),
@@ -71,7 +72,7 @@ switch($_action):
 		if(!$User->isActive($email)) die(Responses::response('user_inactive'));
 		if(!$newhash = $User->update_hash($User->data()->id)) die(Responses::response('fail'));
 		$User->data()->hash = $newhash;
-		if(!$Mailing->reset_password($User->data())) die(Responses::response('fail'));
+		if(!$Mailing->reset_password($User->data())) die(Responses::response('fail','ss'));
 
 		echo Responses::response('ok','En minutos llegará un mensaje con instrucciones para poder generar una contraseña nueva.');
 		break;
@@ -170,92 +171,6 @@ switch($_action):
 		echo Responses::response('ok','Los datos fueron guardados correctamente!');
 		break;
 
-
-	/////////// [ADMIN] ///////////////////////////////
-	
-	case 'save':
-		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('status'=>'fail')));
-		if(!filter_var(Input::get('Mail'),FILTER_VALIDATE_EMAIL)) die(json_encode(array('status'=>'wrongmail')));
-		if(!Input::get('ID')){
-			if(empty(Input::get('Pass'))) die(json_encode(array('status'=>'pass')));
-			if($UserAdmin->find(Input::get('Mail'))) die(json_encode(array('status'=>'exists')));
-		}		
-
-		$UserAdmin->save();
-		$ID = $UserAdmin->getLastId();
-		if(Input::get('IDType')==3){
-			$assoc = new Assoc();
-			$assoc->idclient = Input::get('IDClient');
-			$assoc->iduser = $ID;
-			$assoc->client_user('save');
-			////////////////////// MAIL ///////////////////////////
-			if(!Input::get('ID') && Input::get('Notify')):
-			$MailBody  = '<h2>¡Hola '.Input::get('Name').'!</h2>
-			<p>Te damos la bienvenida al nuevo sitio de <a href="'.ROOT.'">EstiloSPA.com!!!</a></p>
-			<p>Te enviamos el nombre de usuario y contraseña para poder ingresar al portal. Para ello deberás ingresar a <a href="'.ROOT.'login">'.ROOT.'login</a></p>
-			<p>
-				<b>Nombre de usuario</b>: '.Input::get('Mail').'<br />
-				<b>Contraseña</b>: '.Input::get('Pass').'
-			</p>
-			<br />
-			<p>Una vez dentro de la plataforma podrás editar la información de tu comercio dirigiéndote a la sección de configuración de tu cuenta que se encuentra en el menú de tu usuario en la parte superior derecha del sitio.</p>
-			<p>Desde ahí también podrás crear promociones de los servicios que brinda tu comercio para poder venderlas dentro de nuestro portal.</p>
-			<p>Te recordamos que para poder habilitar la venta online de las promociones deberás contar con una cuenta de MercadoPago  para poder vincularla con nuestra plataforma.</p>
-			<br /><br />
-			<p>
-				Gracias.<br />
-				El equipo de EstiloSPA.com
-			</p>';
-			$mailer->addAddress(Input::get('Mail'), Input::get('Name'));
-			$mailer->Subject = 'Registro nuevo usuario en EstiloSPA.com';
-			$mailer->Body = $MailHead.$MailBody.$MailFoot;
-			if(!$mailer->send()) {
-				die(json_encode(array('status'=>'fail','Error'=>$mailer->ErrorInfo)));
-			}else{
-				die( json_encode(array('status'=>'oksend')) );
-			}
-			endif;
-			///////////////////////////////////////////////////////
-		}
-		echo json_encode(array('status'=>'ok'));
-		break;
-	case 'get':
-		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('status'=>'fail')));		
-		$UserAdmin->keywords = Input::get('Keywords');
-		$UserAdmin->type = Input::get('Type');
-		$UserAdmin->get();
-		echo json_encode(array('status'=>'ok','Results'=>$UserAdmin->data()));
-		break;
-	case 'getusersclient':
-		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('status'=>'fail')));		
-		$UserAdmin->keywords = Input::get('Keywords');
-		$UserAdmin->idtype = 3;
-		$UserAdmin->get();
-		echo json_encode(array('status'=>'ok','Results'=>$UserAdmin->data()));
-		break;
-	case 'delete':
-		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('status'=>'fail')));
-		//$user = new User();
-		$UserAdmin->delete(Input::get('ID'));
-		echo json_encode(array('status'=>'ok'));
-		break;
-	case 'find':
-		$UserAdmin->find(Input::get('ID'));
-		$_ASSOC = new Assoc();
-		$_ASSOC->iduser = Input::get('ID');
-		$_ASSOC->client_user('get');
-		echo json_encode(array('status'=>'ok','Result'=>$UserAdmin->data(),'Assoc'=>$_ASSOC->data()));
-		break;
-	case 'upimageadmin':
-		if(!$User->logged() && $User->data()->idtype != 1) die(json_encode(array('status'=>'fail')));
-		$Folder = '../'.Input::get('Folder');	
-		$upfile = new File($_FILES[0],$Folder);
-		$upfile->MoveFile();
-		$file = $upfile->Resize(array(array(600,600,'-o'),array(260,260,'-t')), '', false);
-		echo json_encode($file);
-		break;
-
-	////////////////////////////////////////////////
 	default:
 		///echo json_encode(array('status'=>'fail'));
 		echo Responses::response('fail');

@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="<?= CSS ?>lib/font-awesome.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/animate.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/sweetalert2.min.css" >
+	<link rel="stylesheet" href="<?= CSS ?>lib/toastr.min.css" >
 
 	<?php if(isset($_arrcss)): foreach ($_arrcss as $css): ?>
 	<link rel="<?= isset($css['rel']) ? $css['rel'] : 'stylesheet' ?>" href="<?= CSS.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> > 

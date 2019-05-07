@@ -479,3 +479,16 @@ function show_array($arr=array()){
 	print_r($arr);
 	echo '</pre>';
 }
+function curl_post($url,$data){
+	$ch = curl_init(); 
+	curl_setopt($ch, CURLOPT_URL, $url); 
+	curl_setopt($ch, CURLOPT_POST, 1); 
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); 
+	curl_setopt($ch, CURLOPT_HTTPHEADER,  array("Accept: application/json",));
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	$output = new stdClass();
+	$output->response = curl_exec($ch); 
+	$output->status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
+	curl_close($ch);
+	return $output;
+}

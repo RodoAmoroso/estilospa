@@ -1,0 +1,107 @@
+<?php 
+
+////$hash = $payment_info["response"]['external_reference'];
+if($Sales->findtemp($hash)){
+	
+	$idpromo = $Sales->data()->idpromo;
+	$idclient = $Sales->data()->idclient;
+	$iduser = $Sales->data()->iduser;
+	$quantity = $Sales->data()->quantity;
+	$price = $Sales->data()->price;
+	$idcode = $Sales->data()->idcode;
+
+	$arrfields = array(
+		'iduser'=>$iduser,
+		'idclient'=>$idclient,
+		'idpromo'=>$idpromo,
+		'collection_id'=>$collection_id,
+		'collection_status'=>$collection_status,
+		'preference_id'=>'',
+		'external_reference'=>$hash,
+		'payment_type'=>$payment_type,
+		'merchant_order_id'=>$merchant_order_id,	
+		'price'=>$price,
+		'added'=>date('Y-m-d H:i:s'),
+		'quantity'=>$quantity,
+		'hash'=>$hash
+	);
+	$Sales->save($arrfields);
+	$saleid = $Sales->getLastId();	
+	///////// VOUCHER ////////////
+	if($idcode){
+		if($Vouchers->findcode($idcode)){
+			$idvoucher = $Vouchers->data()->idvoucher;
+			if($Vouchers->find($idvoucher)){
+				$sqlvoucher = array(
+					'idvoucher'=>$idvoucher,
+					'idcode'=>$idcode,
+					'iduser'=>$iduser,
+					'idsale'=>$saleid,
+					'ispercent'=>$Vouchers->data()->ispercent,
+					'value'=>$Vouchers->data()->value,
+					'added'=>date('Y-m-d H:i:s')
+				);
+				$Vouchers->usage($sqlvoucher);
+			}
+		}
+	}
+	$Sales->deletetemp($hash); //CRON: limpiar temp
+	$Promos->take_amount($idpromo,$quantity);
+
+}else{
+	if(!$Sales->check($collection_id)) die(http_response_code(400));
+	$saleid = $Sales->data()->id;
+	$Sales->update($saleid,array(
+		'collection_id'=>$collection_id,
+		'collection_status'=>$collection_status,
+		'payment_type'=>$payment_type,
+		'modified'=>date('Y-m-d H:i:s')
+	));
+}
+
+
+if(!$saleid) die(http_response_code(400));
+
+if(!$Sales->find($saleid)) die(http_response_code(400));
+$_salesdata = $Sales->data();
+
+$Stores->get($_salesdata->clientid);
+$_salesdata->stores = '<ul style="padding:0 16px">';
+if($Stores->data()){
+	foreach($Stores->data() as $store){
+		$_salesdata->stores .= '<li>'.$store->address.', '.$store->city.' - '.$store->name.' '.(!empty($store->phones) ? ' - Tel: '.$store->phones : '' ).(!empty($store->whatsapp) ? ' - Celular: '.$store->whatsapp : '' ).'</li>';
+	}
+}
+$_salesdata->stores .= '</ul>';
+
+$_salesdata->gift = null;
+$_salesdata->image = $Promos->get_image($_salesdata->gallery);
+
+if($Sales->findgift($hash)) $_salesdata->gift = $Sales->data();
+
+if(!is_null($_salesdata->voucher_id)){
+	if($_salesdata->voucher_percent){
+		$_salesdata->price = $_salesdata->price-($_salesdata->voucher_value*$_salesdata->price/100);
+	}else{
+		$_salesdata->price = $_salesdata->price-$_salesdata->voucher_value;
+		
+	}
+}
+
+
+//show_array($_salesdata);
+//die();
+
+if($collection_status == 'approved'){				
+	$Mailing->sales_success_user($_salesdata);
+	$Mailing->sales_success_client($_salesdata);
+	if(!is_null($_salesdata->gift)){
+		$Mailing->sales_success_gift($_salesdata);
+	}				
+}
+if($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation'){
+	$Mailing->sales_pending($_salesdata);
+}
+if($collection_status == 'rejected'){
+	$Mailing->sales_rejected($_salesdata);
+}

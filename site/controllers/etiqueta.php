@@ -1,5 +1,6 @@
 <?php 
 
+
 $arrsection = explode('-',$_subsection);
 $idglossary = $arrsection[0];
 if(!$Glossary->find($idglossary)) Redirect::javascript('404');
@@ -22,6 +23,8 @@ $Promos->visible = true;
 $Promos->keywords = $Glossary->data()->name;
 $Promos->arrglossary = [$idglossary];
 $Promos->limit = '0,12';
+
+$_arrjs[] = ['folder'=>'site/','script'=>'questions'];
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.carousel.min'];

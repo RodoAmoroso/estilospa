@@ -12,7 +12,8 @@
 		</div>
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=strlen($promo->title)>50 ? substr($promo->title,0,50).'...' : $promo->title ?></a>
-			<div class="subtitle dp-none"><?=strlen($promo->subtitle)>80 ? substr($promo->subtitle,0,80).'...' : $promo->subtitle?></div>		
+			<div class="subtitle dp-none"><?=strlen($promo->subtitle)>80 ? substr($promo->subtitle,0,80).'...' : $promo->subtitle?></div>	
+			
 			<a href="<?=ROOT.'busqueda/-/'.Permalink($Stores->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker"></i> <?= count($Stores->data())>1 ? 'Varias Sucursales' : (is_array($Stores->data()) ? $Stores->data()[0]->city.', '.$Provinces[$Stores->data()[0]->idprovince] : $Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince]) ?></a>
 			
 			

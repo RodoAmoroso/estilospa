@@ -26,7 +26,7 @@
 
 				<div class="form-group">
 					<label for="fd_web">Web</label>
-					<input name="web" id="fd_web" type="text" class="form-control" ></input>
+					<input name="web" id="fd_web" type="text" class="form-control" placeholder="https://..." ></input>
 				</div>
 			
 				<div class="form-group">
@@ -57,7 +57,7 @@
 
 				<div class="form-group">
 					<label for="fd_message">Mensaje</label>
-					<textarea name="message" id="fd_message" class="form-control" rows="5" ></textarea>
+					<textarea name="message" id="fd_message" class="form-control" rows="5" required ></textarea>
 				</div>
 
 				<div class="form-group">

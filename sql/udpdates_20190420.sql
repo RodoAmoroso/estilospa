@@ -93,7 +93,7 @@ COMMIT;
 CREATE TABLE `spa_stats_events` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `clientid` int(10) UNSIGNED NOT NULL,
-  `event` varchar(80) NOT NULL,
+  `eventid` int(80) NOT NULL,
   `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `spa_stats_events`
@@ -102,6 +102,18 @@ ALTER TABLE `spa_stats_events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
+
+CREATE TABLE `spa_stats_events_reference` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `reference` varchar(80) NOT NULL,
+  `caption` varchar(500) NOT NULL,
+  `icon` varchar(80) NOT NULL,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_stats_events_reference`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_stats_events_reference`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
 
 
 CREATE TABLE `spa_promo_views` (

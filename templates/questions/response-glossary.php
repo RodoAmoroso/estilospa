@@ -9,14 +9,14 @@
 
 	<hr style="border-top:1px solid white">
 	<div style="padding:10px 10px 10px 20px">
-		<h5 style="margin:2px 0">Respuesta:</h5>
+		<h5 style="margin:2px 0">Respuesta de <a href="<?=$obj->client_link?>"><?=$obj->client->name?></a>:</h5>
 		<p><?=$obj->response?></p>
 		<small style="color:rgb(140,140,140)">Enviada el <?=$obj->response_date?> hs.</small>
 	</div>
 
 </div>
 
-<p><a href="<?=$obj->glossary_link.'#form_question'?>" style="background-color:#68bbce;padding:4px 10px;color:white;text-decoration:none;" >Hacer otra pregunta</a></p>
+<p><a href="<?=$obj->glossary_link.'#form_question'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Hacer otra pregunta</a></p>
 <p>&nbsp;</p>
 
 

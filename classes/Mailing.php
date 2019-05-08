@@ -130,7 +130,9 @@ class Mailing {
 				$client = $Clients->data();
 
 				$obj->promo_link = ROOT.'promo/'.$client->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
-				$obj->promo_title = $promo->title;				
+				$obj->promo_title = $promo->title;
+
+				$obj->client = $client;				
 				$body = Templates::template('questions/question-promo',$obj);
 
 				$arrMails = str_replace(',', ';', $client->mail);
@@ -139,8 +141,8 @@ class Mailing {
 					$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
 				}*/
 				$this->_mailer->addAddress($this->_email, $this->_fullname);
-				$this->_mailer->clearReplyTos();
-				$this->_mailer->addReplyTo($this->_email, $this->_fullname);
+				//$this->_mailer->clearReplyTos();
+				//$this->_mailer->addReplyTo($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';		
 				if(!$this->send($body)) return false;
 
@@ -152,7 +154,8 @@ class Mailing {
 			case 'clients':
 
 				if(!$Clients->find($question->rowid)) return false;
-				$client = $Clients->data();
+				$client = $Clients->data();+
+				$obj->client = $client;
 
 				$body = Templates::template('questions/question-client',$obj);
 
@@ -161,9 +164,9 @@ class Mailing {
 				/*foreach($arrMails as $mail){
 					$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
 				}*/
-				$this->_mailer->addAddress('rodosoft@hotmail.com', 'Rodo');
-				$this->_mailer->clearReplyTos();
-				$this->_mailer->addReplyTo($this->_email, $this->_fullname);
+				$this->_mailer->addAddress($this->_email, $this->_fullname);
+				///$this->_mailer->clearReplyTos();
+				///$this->_mailer->addReplyTo($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';
 				if(!$this->send($body)) return false;
 
@@ -183,6 +186,7 @@ class Mailing {
 				foreach($clients as $client){
 					$arrMails = str_replace(',', ';', $client->mail);
 					$arrMails = explode(';',$arrMails);
+					$obj->client = $client;
 					foreach($arrMails as $mail){
 						//$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
 						$Notifications->add(array(
@@ -264,6 +268,7 @@ class Mailing {
 		$Clients = new Clients();
 		$Glossary = new Glossary();
 		$Notifications = new Notifications();
+		$Assoc = new Assoc();
 
 		if(!$response = $Questions->get_response($responseid)) return false;
 		if(!$question = $Questions->get($response->messageid)) return false;
@@ -285,7 +290,10 @@ class Mailing {
 				if(!$Clients->find($promo->idclient)) return false;
 				$client = $Clients->data();
 
+				$obj->client = $client;
+				$obj->promo = $promo;
 
+				$obj->client_link = ROOT.'centros/'.$client->permalink;
 				$obj->promo_link = ROOT.'promo/'.$client->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 				$obj->promo_title = $promo->title;				
 				$body = Templates::template('questions/response-promo',$obj);
@@ -303,6 +311,8 @@ class Mailing {
 				$client = $Clients->data();
 				
 				$obj->client_link = ROOT.'centros/'.$client->permalink;
+				$obj->client = $client;
+
 				$body = Templates::template('questions/response-client',$obj);
 
 				//$this->_mailer->addAddress($user->mail, $user->name);
@@ -319,6 +329,15 @@ class Mailing {
 				
 				$obj->glossary_link = ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name);
 				$obj->glossary_name = $glossary->name;
+
+				$Assoc->iduser = $response->userid;
+				$Assoc->client_user('get');
+				if(!$assoc = $Assoc->data()) return false;
+				if(!$Clients->find($assoc[0]->idclient)) return false;
+				$obj->client = $Clients->data();
+
+				$obj->client_link = ROOT.'centros/'.$obj->client->permalink;
+
 				$body = Templates::template('questions/response-glossary',$obj);
 
 				//$this->_mailer->addAddress($user->mail, $user->name);

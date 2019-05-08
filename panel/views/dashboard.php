@@ -4,6 +4,8 @@
 		<h1>Inicio</h1>
 		<hr>
 		<p>Pantalla principal del panel de control. Aquí se podrán ver a modo de resumen la info más destacada de tu centro como ser visitas totales, visitas del mes actual, mensajes recibidos, etc.</p>
+
+		<a href="<?=ROOT.'centros/'.$_userdata->client_permalink ?>" class="text-aqua-0" target="_blank">Ir a mi página <i class="fa fa-angle-double-right"></i></a>
 	</div>
 </section>
 
@@ -11,6 +13,127 @@
 
 <section class="gral-section bg-gray-5">
 	<div class="container">
+
+
+		<div class="stats-highlights">
+			
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-eye"></i>
+				</div>
+				<div class="number"><?=$total_views?></div>
+				<div class="caption">
+					Visitas totales de tu página y las promos
+				</div>
+			</div>
+
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-star"></i>
+				</div>
+				<div class="number"><?=round($rating,1)?>/5</div>
+				<small><?= Stars($rating); ?></small>
+				<div class="caption">
+					Promedio de calificaciones recibidas en tus promos
+				</div>
+			</div>
+
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-heart"></i>
+				</div>
+				<div class="number"><?=$total_favs?></div>
+				<div class="caption">
+					Favoritos totales de tu página y promos
+				</div>
+			</div>
+
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-comment"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Consultas recibidas en tu página, promos y etiquetas
+				</div>
+			</div>
+
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-shopping-bag"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Compras efectuadas en tus promos
+				</div>
+			</div>
+
+
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-calendar"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Turnos solicitados en tus promos
+				</div>
+			</div>
+
+
+			<?php if($total_events): foreach($total_events as $event): ?>
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-<?=$event->event?>"></i>
+				</div>
+				<div class="number"><?=$event->total?></div>
+				<div class="caption">
+					Llamadas realizadas desde tu página
+				</div>
+			</div>
+			<?php endforeach; endif; ?>
+
+
+			<!-- <div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-whatsapp"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Mensajes realizados desde tu página
+				</div>
+			</div>
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-facebook-f"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Clicks a Facebook desde tu página
+				</div>
+			</div>
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-twitter"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Clicks a Twitter desde tu página
+				</div>
+			</div>
+			<div class="stats-block">
+				<div class="icon">
+					<i class="fa fa-instagram"></i>
+				</div>
+				<div class="number">78</div>
+				<div class="caption">
+					Clicks a Instagram desde tu página
+				</div>
+			</div>-->
+
+		</div>
+
+
+		<hr>
 
 		<div class="block-white">
 

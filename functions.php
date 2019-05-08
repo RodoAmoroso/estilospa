@@ -453,14 +453,8 @@ function Fav($promoid=0,$clientid=0){
 	$favprop = 'data-btn-action="fav"';
 	if($User->logged()){
 		//echo $_CLIENTS->data()->id;
-		if($promoid){
-			$Favs->idpromo = $promoid;
-			$Favs->idclient = 0;
-		}
-		if($clientid){
-			$Favs->idpromo = 0;
-			$Favs->idclient = $clientid;
-		}
+		$Favs->idpromo = $promoid;
+		$Favs->idclient = $clientid;
 
 		$Favs->iduser = $User->data()->id;
 		if($Favs->find()):

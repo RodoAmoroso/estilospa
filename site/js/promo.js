@@ -150,7 +150,7 @@ $(function(){
 				$('#modal_promo_request').modal('hide');
 				Swal.fire({
 					type:'success',
-					text:data.message
+					html:data.message
 				});
 			});
 		

@@ -54,6 +54,10 @@ switch($_action){
 
 				//$User->login(Input::get('email'),$password);
 
+				/*$User->update($idu,array(
+					'name'=>Input::get('name')
+				));*/
+
 			}else{
 				$idu = $User->data()->id;
 			}
@@ -61,9 +65,7 @@ switch($_action){
 			$idu = $User->data()->id;
 		}
 
-		$User->update($idu,array(
-			'name'=>Input::get('name')
-		));
+		
 
 		$questionid = $Questions->add('questions',array(
 			'type'=>Input::get('type'),

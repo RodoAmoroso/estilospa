@@ -116,9 +116,10 @@ switch($_action):
 		break;
 
 	case 'qualify':
-		if(!$User->logged()) die(Responses::response('fail'));
+		if(!$User->logged()) die(Responses::response('require_login'));
+
 		$Sales->iduser = $User->data()->id;
-		if(!$Sales->find(Input::get('id'))) die(Responses::response('fail'));
+		if(!$Sales->find(Input::get('idsale'))) die(Responses::response('fail'));
 		if(!is_null($Sales->data()->text)) die(Responses::response('fail'));
 		
 		if(!$Sales->qualify()) die(Responses::response('fail'));
@@ -126,7 +127,7 @@ switch($_action):
 		echo Responses::response('ok','Gracias por compartir tu experiencia con EstiloSPA.com!!!<br>Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.');
 		break;
 	case 'favs':
-		if(!$User->logged()) die(json_encode(array('status'=>'fail')));
+		if(!$User->logged()) die(Responses::response('fail'));
 		$Favs->iduser = $User->data()->id;
 		$Favs->idpromo = intval(Input::get('promoid'));
 		$Favs->idclient = intval(Input::get('clientid'));

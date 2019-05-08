@@ -24,3 +24,10 @@ if($_question->type=='glossary'){
 
 $User->find($_question->userid);
 $_user = $User->data();
+
+//$Assoc = new Assoc();
+//$Assoc->iduser = $_userdata->id;
+//$Assoc->client_user('get');
+///$assoc = $_userdata->id;
+
+///show_array($Assoc->data());

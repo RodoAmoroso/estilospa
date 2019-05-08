@@ -19,13 +19,15 @@ class Favs {
 
 	public function addremove(){
 		$where = '';
-		if($this->idpromo){
-			$where = "AND idpromo=".$this->idpromo;
-		}
-		if($this->idclient){
-			$where = "AND idclient=".$this->idclient;
-		}
-		if($this->_db->query("SELECT * FROM {$this->_dbprefix}favs WHERE iduser={$this->iduser} {$where}")){			
+		$where = "AND idpromo=".$this->idpromo.' AND idclient='.$this->idclient;
+		
+		if($this->_db->query(
+			"SELECT * 
+			FROM {favs} 
+			WHERE iduser=? 
+			{$where}",
+			array($this->iduser)
+		)){			
 			if(!$this->_db->count()){
 				$this->_db->insert('favs',array(
 					'iduser'=>$this->iduser,
@@ -50,12 +52,15 @@ class Favs {
 	public function find(){
 		$where = '';
 		if($this->idpromo){
-			$where = "AND idpromo=".$this->idpromo;
+			$where = "AND idpromo=".$this->idpromo." AND idclient=".$this->idclient;
 		}
-		if($this->idclient){
-			$where = "AND idclient=".$this->idclient;
-		}
-		$this->_db->query("SELECT * FROM {$this->_dbprefix}favs WHERE iduser={$this->iduser} {$where}");
+		$this->_db->query(
+			"SELECT * 
+			FROM {favs} 
+			WHERE iduser=?
+			{$where}",
+			array($this->iduser)
+		);
 		if($this->_db->count()){
 			return true;
 		}
@@ -63,12 +68,15 @@ class Favs {
 	}
 
 	public function getpromos($iduser=0){
-		$this->_db->query("SELECT f.id, f.idpromo, f.idclient, p.title, p.gallery, p.price, p.discount, p.sale, p.amount, c.name, c.permalink, c.logo, c.subtitle
-			FROM {$this->_dbprefix}favs f
-			LEFT JOIN {$this->_dbprefix}promos p ON p.id=f.idpromo AND p.start<=NOW() AND p.finish>=NOW()
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient AND c.visible=1
-			WHERE f.iduser={$iduser} AND f.idclient=0
-			ORDER BY f.added DESC");
+		$this->_db->query(
+			"SELECT f.id, f.idpromo, f.idclient, p.title, p.gallery, p.price, p.discount, p.sale, p.amount, c.name, c.permalink, c.logo, c.subtitle
+			FROM {favs} f
+			LEFT JOIN {promos} p ON p.id=f.idpromo AND p.start<=NOW() AND p.finish>=NOW()
+			LEFT JOIN {clients} c ON c.id=p.idclient AND c.visible=1
+			WHERE f.iduser=? AND f.idpromo!=0
+			ORDER BY f.added DESC",
+			array($iduser)
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;
@@ -77,11 +85,14 @@ class Favs {
 	}
 
 	public function getclients($iduser=0){
-		$this->_db->query("SELECT f.id, f.idpromo, f.idclient, c.name, c.permalink, c.logo, c.subtitle, c.permalink
-			FROM {$this->_dbprefix}favs f
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=f.idclient AND c.visible=1
-			WHERE f.iduser={$iduser} AND f.idpromo=0
-			ORDER BY f.added DESC");
+		$this->_db->query(
+			"SELECT f.id, f.idpromo, f.idclient, c.name, c.permalink, c.logo, c.subtitle, c.permalink
+			FROM {favs} f
+			LEFT JOIN {clients} c ON c.id=f.idclient AND c.visible=1
+			WHERE f.iduser=? AND f.idpromo=0
+			ORDER BY f.added DESC",
+			array($iduser)
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

@@ -46,3 +46,5 @@ $_arrcss[] = ['folder'=>'lib/','style'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.theme.default.min'];
 
 
+
+///echo var_dump(preg_match('((http|https)\:\/\/)',$Clients->data()->web));

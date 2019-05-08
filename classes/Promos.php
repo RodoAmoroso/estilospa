@@ -32,7 +32,7 @@ class Promos {
 
 	public function find($id=0){
 		$this->_db->query(
-			"SELECT p.id, p.idclient, p.sale, p.stores, p.title, p.subtitle, p.description, p.includes, p.duration, p.recomendations, p.reservation, p.cancellation, p.gallery, p.price, p.idpromotype, p.discount, p.amount, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, p.views, c.permalink, c.name clientname
+			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname
 			FROM {$this->_dbprefix}promos p 
 			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient 
 			WHERE p.id=?",

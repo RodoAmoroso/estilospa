@@ -86,3 +86,32 @@ ALTER TABLE `spa_reservations`
 ALTER TABLE `spa_reservations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+
+
+
+CREATE TABLE `spa_stats_events` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `clientid` int(10) UNSIGNED NOT NULL,
+  `event` varchar(80) NOT NULL,
+  `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_stats_events`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_stats_events`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+
+
+CREATE TABLE `spa_promo_views` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `promoid` int(10) UNSIGNED NOT NULL,
+  `userid` int(10) UNSIGNED NOT NULL,
+  `added` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_promo_views`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_promo_views`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+COMMIT;

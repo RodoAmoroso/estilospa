@@ -13,7 +13,7 @@ if(!$Promos->find(intval($arrsection[0]))) Redirect::javascript('home');
 if(!$Promos->data()->statusstart || !$Promos->data()->statusfinish) Redirect::javascript('home');
 
 $Promos->addvisit();
-if($User->logged()) $Stats->promo_view($User->data()->id,$Promos->data()->id);
+if($User->logged()) $Stats->add_promo_view($User->data()->id,$Promos->data()->id);
 
 
 $jsonlogo = json_decode($Clients->data()->logo);

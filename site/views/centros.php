@@ -36,17 +36,17 @@
 					<?php endif; ?>
 
 					<!-- Phones -->
-					<?php if(!empty($StoresClient->data()[0]->phones)): ?><div class="phones sz-12"><i class="fa fa-phone fa-fw icon"></i> <a href="tel:<?=str_replace(' ', '', $StoresClient->data()[0]->phones)?>"><?= $StoresClient->data()[0]->phones ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->phones)): ?><div class="phones sz-12"><i class="fa fa-phone fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$Clients->data()->id.'-phone/?redirect=tel:'.str_replace(' ', '', $StoresClient->data()[0]->phones)?>" target="_blank"><?= $StoresClient->data()[0]->phones ?></a></div> <?php endif; ?>
 
 					<!-- WhatsApp -->
-					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?><div class="whatsapp sz-12"><i class="fa fa-whatsapp fa-fw icon"></i> <a href="https://api.whatsapp.com/send?phone=549<?= str_replace(' ', '', $StoresClient->data()[0]->whatsapp) ?>&text=Mensaje Enviado%20desde%20EstiloSPA%20"><?= $StoresClient->data()[0]->whatsapp ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?><div class="whatsapp sz-12"><i class="fa fa-whatsapp fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$Clients->data()->id.'-whatsapp/?redirect='.urlencode('https://api.whatsapp.com/send?phone=549'.str_replace(' ', '', $StoresClient->data()[0]->whatsapp).'&text=Mensaje Enviado desde EstiloSPA') ?>" target="_blank"><?= $StoresClient->data()[0]->whatsapp ?></a></div> <?php endif; ?>
 
 					<!-- Web -->
 					<?php 
 					if(!empty($Clients->data()->web)):
-						$linkweb = preg_match('/(https)(http)/',$Clients->data()->web) ? $Clients->data()->web : 'http://'.$Clients->data()->web;
+						$linkweb = preg_match('((http|https)\:\/\/)',$Clients->data()->web) ? $Clients->data()->web : 'http://'.$Clients->data()->web;
 					?>
-					<div class="web sz-11"><i class="fa fa-link fa-fw icon"></i> <a href="<?= $linkweb ?>" target="_blank" ><?= $Clients->data()->web ?></a></div> 
+					<div class="web sz-11"><i class="fa fa-link fa-fw icon"></i> <a href="<?= ROOT.'tracker/'.$Clients->data()->id.'-web/?redirect='.$linkweb ?>" target="_blank" ><?= $Clients->data()->web ?></a></div> 
 					<?php endif; ?>
 
 					<!-- Schedules -->
@@ -55,7 +55,7 @@
 						<span><i class="fa fa-calendar fa-fw icon"></i> <?= $StoresClient->scheduleToday($StoresClient->data()[0]->schedules) ?> <i class="fa fa-caret-down fa-fw"></i></span>
 						<div id="schedules_block" class="schedules-block">
 							<?php foreach($StoresClient->schedulesList($StoresClient->data()[0]->schedules) as $day): ?>
-								<p class="dropdown-item"><?php print_r($day) ?></p>
+								<p class="dropdown-item"><?= $day ?></p>
 							<?php endforeach; ?>
 						</div>
 					</div>
@@ -98,7 +98,7 @@
 						if(count($socials)):
 							foreach($socials as	$social):
 						?>
-						<a href="<?= $social->link ?>" target="_blank" class="fa-stack">
+						<a href="<?= ROOT.'tracker/'.$Clients->data()->id.'-'.$social->social.'/?redirect='.$social->link ?>" target="_blank" class="fa-stack">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-<?= $social->social ?> fa-stack-1x fa-inverse"></i>
 						</a>
@@ -241,6 +241,25 @@
 			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
 			<form id="form_question" class="question-form">
+
+				<?php if(!$User->logged()): ?>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  >
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>"  >
+						</div>
+
+					</div>
+				</div>
+				<?php endif; ?>
+
+
 				<div class="form-group">
 					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
 					<input type="hidden" name="rowid" value="<?=$Clients->data()->id?>">

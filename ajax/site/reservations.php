@@ -144,7 +144,7 @@ switch($_action){
 
 		$Mailing->new_reservation($reservationid);
 
-		echo Responses::response('ok','Se ha enviado la notificación al centro con la solicitud de tu reserva. Cuando el centro confirme la reserva, te enviaremos un email de aviso.');
+		echo Responses::response('ok','Atención!<br>Tu solicitud de turno ha sido enviada<br>IMPORTANTE: Deberás aguardar la confirmación de tu turno vía email, para concurrir');
 		break;
 
 

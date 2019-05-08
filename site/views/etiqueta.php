@@ -39,6 +39,22 @@
 			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
 			<form id="form_question" class="question-form">
+				<?php if(!$User->logged()): ?>
+
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  >
+						</div> 
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>"  >
+						</div>
+
+					</div>
+				</div>
+				<?php endif; ?>
 				<div class="form-group">
 					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
 					<input type="hidden" name="rowid" value="<?=$Glossary->data()->id?>">

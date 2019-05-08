@@ -30,7 +30,7 @@ class Stats {
 		return true;
 	}
 
-	public function promo_view($userid=0,$promoid=0){
+	public function add_promo_view($userid=0,$promoid=0){
 		if(!$userid && !$promoid) return false;
 		$this->_db->insert('promo_views',array(
 			'promoid'=>$promoid,
@@ -156,6 +156,57 @@ class Stats {
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
+		return $this->_db->results();
+	}
+
+	//// CLIENT STATS ///
+
+
+	public function add_tracker($clientid=0,$event=''){
+		$this->_db->insert('stats_events',array(
+			'clientid'=>$clientid,
+			'event'=>$event
+		));
+		return true;
+	}
+
+	public function get_total_client_views($idclient=0){
+
+		$total = 0;
+
+		$this->_db->query("
+			SELECT c.views+(SELECT SUM(p.views) FROM {promos} p WHERE p.idclient=?) total
+			FROM {clients} c
+			WHERE c.id=?",
+			array($idclient,$idclient)
+		);
+		if(!$this->_db->count()) return 0;
+
+		return $this->_db->first()->total;
+
+	}
+	public function get_total_client_favs($idclient=0){
+		$total = 0;
+		$this->_db->query("
+			SELECT COUNT(*) total
+			FROM {favs} f
+			WHERE f.idclient=?",
+			array($idclient)
+		);
+		if(!$this->_db->count()) return 0;
+		return $this->_db->first()->total;
+	}
+
+	public function get_total_client_events($clientid=0){
+		$this->_db->query(
+			"SELECT e.event, COUNT(*) total
+			FROM {stats_events} e
+			WHERE e.clientid=?
+			GROUP BY e.event",
+			array($clientid)
+		);
+		if(!$this->_db->count()) return 0;
+
 		return $this->_db->results();
 	}
 

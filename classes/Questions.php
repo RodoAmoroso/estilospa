@@ -117,7 +117,7 @@ class Questions {
 		$values = array();
 		$where = '';
 		if(!is_null($clientid)){
-			$where = "AND (p.idclient=? OR c.id=? OR g.clientid=?)";
+			$where = "AND (p.idclient=? OR c.id=? OR ga.clientid=?)";
 			$values[] = $clientid;
 			$values[] = $clientid;
 			$values[] = $clientid;

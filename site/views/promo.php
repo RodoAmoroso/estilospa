@@ -211,19 +211,22 @@
 
 			<form id="form_question" class="question-form">
 
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  <?=$User->logged() ? 'readonly' : ''?>>
-							</div> 
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>" <?=$User->logged() ? 'readonly' : ''?> >
-							</div>
+				<?php if(!$User->logged()): ?>
 
-						</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  >
+						</div> 
 					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>"  >
+						</div>
+
+					</div>
+				</div>
+				<?php endif; ?>
 
 					
 					 

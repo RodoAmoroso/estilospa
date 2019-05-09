@@ -17,6 +17,8 @@ var Reservations = function () {
 		value: function get_hours() {
 			var _this = this;
 
+			$(this.container).find('.schedule .hours').html('');
+
 			var activeday = $(this.container).find('.week .day[data-dayname].active').attr('data-dayname');
 			var day = $(this.container).find('.week .day[data-day].active').attr('data-day');
 			var month = $(this.container).find('[data-month]').attr('data-month');
@@ -27,7 +29,7 @@ var Reservations = function () {
 				activeday: activeday,
 				date: year + '-' + month + '-' + day
 			}), get_template('reservations/module-hour')]).then(function (promises) {
-				$(_this.container).find('.schedule .hours').html('');
+
 				var data = promises[0];
 
 				if (data.hours.length == 0) return false;
@@ -75,6 +77,7 @@ var Reservations = function () {
 				$.each(data.days, function (k, v) {
 					$(_this2.container).find('.week .day[data-day]:eq(' + k + ')').attr({ 'data-day': v.day, 'data-dayname': v.dayname }).text(v.name + ' ' + v.day);
 				});
+				_this2.get_hours();
 			});
 		}
 	}, {

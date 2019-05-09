@@ -79,8 +79,12 @@ class UserAdmin {
 			$Comments->iduser = $iduser;
 			$Comments->deleteall();
 
+			$Reservations = new Reservations();
+			$Reservations->deleteall($iduser);
+			
+			$Questions = new Questions();
+			$Questions->deleteall($iduser);
 
-			///TO DO Delete all questions & Reservations
 			
 			$this->_db->delete('reservations',array('userid','=',$iduser));
 			

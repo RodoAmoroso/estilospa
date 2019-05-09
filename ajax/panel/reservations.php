@@ -57,6 +57,12 @@ switch($_action){
 
 		break;
 
+
+	case 'exclude':
+		$Reservations->exclude($User->data()->idclient,Input::get('date'));
+		echo Responses::response('ok');
+		break;
+
 	default:
 		echo Responses::response('fail');
 		break;

@@ -10,7 +10,9 @@ class Reservations {
 	public 	$keywords='',
 					$idcategory=0,
 					$limit='',
+					$sort='',
 					$exclude=0,
+					$status=0,
 					$from='',
 					$to='';
 
@@ -24,7 +26,7 @@ class Reservations {
 		$where = "";
 		$values = array();
 		if(!is_null($idclient)){
-			$where = "WHERE c.id=?";
+			$where = "WHERE r.clientid=?";
 			$values[] = $idclient;
 		}
 
@@ -34,11 +36,27 @@ class Reservations {
 			$values[] = $iduser;
 		}
 
+		if($this->status){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= "r.status=?";
+			$values[] = $this->status;
+		}
+
 		if(!empty($this->from) && !empty($this->to)){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "(r.book_date BETWEEN ? AND ?)";
 			$values[] = $this->from;
 			$values[] = $this->to;
+		}
+
+		$limit = "";
+		if(!empty($this->limit)){
+			$limit = "LIMIT 0,".$this->limit;
+		}
+
+		$sort = "";
+		if(!empty($this->sort)){
+			$sort = "ORDER BY ".$this->sort;
 		}
 
 		$this->_db->query("
@@ -47,7 +65,9 @@ class Reservations {
 			LEFT JOIN {promos} p ON p.id=r.promoid
 			LEFT JOIN {users} u ON u.id=r.userid
 			LEFT JOIN {clients} c ON c.id=p.idclient
-			{$where}",
+			{$where}
+			{$sort}
+			{$limit}",
 			$values
 		);
 
@@ -93,6 +113,14 @@ class Reservations {
 		));
 		return true;
 	}
+	public function exclude($clientid=0,$date=''){
+		$this->_db->insert('reservations',array(
+			'status'=>3,
+			'clientid'=>$clientid,
+			'book_date'=>$date
+		));
+		return true;
+	}
 
 	public function add($array=array()){
 		if(empty($array)) return false;
@@ -104,14 +132,18 @@ class Reservations {
 		$this->_db->query("
 			SELECT r.*, MINUTE(r.book_date) minutos, HOUR(r.book_date) hora
 			FROM {reservations} r 
-			LEFT JOIN {promos} p ON p.id=r.promoid
-			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {clients} c ON c.id=r.clientid
 			WHERE c.id=? AND DATE(r.book_date)=?",
 			array($clientid,$date)
 		);
 
 		if(!$this->_db->count()) return false;		
 		return $this->_db->results();
+	}
+
+	public function delete_all($userid=0){
+		$this->_db->delete('reservations',array('userid','=',$userid));
+		return true;
 	}
 
 

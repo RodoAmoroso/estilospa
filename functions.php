@@ -486,3 +486,30 @@ function curl_post($url,$data){
 	curl_close($ch);
 	return $output;
 }
+function reservation_labels($status){
+	$output = new stdClass();
+	switch ($status):
+		case 0:
+			$output->color = 'yellow-3';
+			$output->text = 'A confirmar';
+			break;
+
+		case 1:
+			$output->color = 'green-3';
+			$output->text = 'Confirmado';
+			break;
+
+		case 2:
+			$output->color = 'aqua-3';
+			$output->text = 'A confirmar por el usuario';
+			break;
+
+		default:
+			$output->color = 'pink-3';
+			$output->text = 'No disponible';
+			break;
+		
+	endswitch;
+
+	return $output;
+}

@@ -7,6 +7,8 @@ class Reservations {
 
 
 	get_hours(){
+
+		$(this.container).find('.schedule .hours').html('');
 		
 		let activeday = $(this.container).find('.week .day[data-dayname].active').attr('data-dayname');
 		let day = $(this.container).find('.week .day[data-day].active').attr('data-day');
@@ -22,7 +24,7 @@ class Reservations {
 			get_template('reservations/module-hour')
 		])
 			.then(promises=>{
-				$(this.container).find('.schedule .hours').html('');
+				
 				let data = promises[0];
 
 				if(data.hours.length == 0) return false;
@@ -50,10 +52,8 @@ class Reservations {
 					if(i<parseInt(hourminmax[0])){
 						$template = $(promises[1]);
 						$template.attr('data-hour',i+':30').find('.number').text(i+':30 hs.');
-						$(this.container).find('.schedule .hours').append($template);
-						
+						$(this.container).find('.schedule .hours').append($template);						
 					}
-
 					
 				}
 
@@ -74,6 +74,7 @@ class Reservations {
 				$.each(data.days,(k,v)=>{
 					$(this.container).find('.week .day[data-day]:eq('+k+')').attr({'data-day':v.day,'data-dayname':v.dayname}).text(v.name+' '+v.day);
 				});
+				this.get_hours();
 			});
 	}
 
@@ -131,6 +132,7 @@ class Reservations {
 			}			
 
 		});
+
 
 		this.get_hours();
 

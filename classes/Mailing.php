@@ -154,7 +154,7 @@ class Mailing {
 			case 'clients':
 
 				if(!$Clients->find($question->rowid)) return false;
-				$client = $Clients->data();+
+				$client = $Clients->data();
 				$obj->client = $client;
 
 				$body = Templates::template('questions/question-client',$obj);

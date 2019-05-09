@@ -52,7 +52,7 @@
 				<div class="icon">
 					<i class="fa fa-comment"></i>
 				</div>
-				<div class="number">78</div>
+				<div class="number"><?=$total_questions?></div>
 				<div class="caption">
 					Consultas recibidas en tu página, promos y etiquetas
 				</div>
@@ -62,7 +62,7 @@
 				<div class="icon">
 					<i class="fa fa-shopping-bag"></i>
 				</div>
-				<div class="number">78</div>
+				<div class="number"><?=$total_sales?></div>
 				<div class="caption">
 					Compras efectuadas en tus promos
 				</div>
@@ -73,9 +73,9 @@
 				<div class="icon">
 					<i class="fa fa-calendar"></i>
 				</div>
-				<div class="number">78</div>
+				<div class="number"><?=$total_reservations?></div>
 				<div class="caption">
-					Turnos solicitados en tus promos
+					Total turnos acumulados solicitados en tus promos
 				</div>
 			</div>
 
@@ -83,57 +83,15 @@
 			<?php if($total_events): foreach($total_events as $event): ?>
 			<div class="stats-block">
 				<div class="icon">
-					<i class="fa fa-<?=$event->event?>"></i>
+					<i class="fa fa-<?=$event->icon?>"></i>
 				</div>
 				<div class="number"><?=$event->total?></div>
-				<div class="caption">
-					Llamadas realizadas desde tu página
-				</div>
+				<div class="caption"><?=$event->caption?></div>
 			</div>
 			<?php endforeach; endif; ?>
 
-
-			<!-- <div class="stats-block">
-				<div class="icon">
-					<i class="fa fa-whatsapp"></i>
-				</div>
-				<div class="number">78</div>
-				<div class="caption">
-					Mensajes realizados desde tu página
-				</div>
-			</div>
-			<div class="stats-block">
-				<div class="icon">
-					<i class="fa fa-facebook-f"></i>
-				</div>
-				<div class="number">78</div>
-				<div class="caption">
-					Clicks a Facebook desde tu página
-				</div>
-			</div>
-			<div class="stats-block">
-				<div class="icon">
-					<i class="fa fa-twitter"></i>
-				</div>
-				<div class="number">78</div>
-				<div class="caption">
-					Clicks a Twitter desde tu página
-				</div>
-			</div>
-			<div class="stats-block">
-				<div class="icon">
-					<i class="fa fa-instagram"></i>
-				</div>
-				<div class="number">78</div>
-				<div class="caption">
-					Clicks a Instagram desde tu página
-				</div>
-			</div>-->
-
 		</div>
 
-
-		<hr>
 
 		<div class="block-white">
 
@@ -214,7 +172,7 @@
 					</div>
 
 					<?php else: ?>
-					<p class="alert alert-info">No se ecnontraron promos vencidas.</p>
+					<p class="alert alert-info">No se encontraron promos vencidas.</p>
 					<?php endif; ?>
 					
 				</div>
@@ -279,40 +237,98 @@
 
 			</div>
 
+		</div>
+		
+			
+		<div class="row">
 
-			<hr>
+			<div class="col-md-6">
+				<div class="block-white">
+					<h4>Próximos turnos confirmados agendados</h4>
+					<hr>	
 
-			<h4>Preguntas recibidas sin responder</h4>
+					<?php if($_reservations): ?>
 
-			<?php if($questions): foreach($questions as $question): ?>
+					<div class="activity-wrapper">
 
-			<div class="questions-wrapper">
-				<div class="question-box">
-					<div class="icon">
-						<i class="fa fa-user"></i>
-					</div>
-					<div class="message">
-						<p data-content="message" class="caption"><?=$question->message?></p>
-						<small data-content="added">Enviada: <?=$question->creado?> hs.</small>
-						<div class="actions">
-							<a href="<?=ROOT.'responder-pregunta/'.$question->id?>" class="btn btn-primary btn-xs" target="_blank">Responder <i class="fa fa-comments"></i></a>
+						<?php foreach($_reservations as $reservation): ?>
+
+						<div class="mod-activity">
+							<div class="content">
+								<div class="date-wrapper">
+									<span class="dayname"><?=Dates::translateDays(date('l',strtotime($reservation->book_date)))?></span> 
+									<div class="date"><?= date('d/m/Y',strtotime($reservation->book_date)) ?></div>
+									<small><i class="fa fa-clock-o"></i> <?= date('H:i',strtotime($reservation->book_date)) ?> hs.</small>
+
+								</div>
+								<div class="log-wrapper">
+									<div class="log">
+										<div class="promo-reservation">
+											<div class="title"><a href="<?= PANEL.'reserva/'.$reservation->id ?>"><?=$reservation->title?></a></div>
+											<div class="subtitle"><?=$reservation->subtitle?></div>
+											<div class="price">$ <?=$reservation->price?></div>
+
+											<div class="user"><i class="fa fa-user fa-fw"></i> <?=$reservation->user_name?></div>
+											<div class="user"><i class="fa fa-envelope fa-fw"></i> <?=$reservation->user_email?></div>
+											<div class="user"><i class="fa fa-phone fa-fw"></i> <?=$reservation->user_phone?></div>
+										</div>
+											
+									</div>
+								</div>
+							</div>
 						</div>
+						<?php endforeach; ?>
+
 					</div>
+
+					<?php else: ?>
+					<p class="alert alert-info">No se econtraron turnos agendados.</p>
+					<?php endif; ?>
+
 				</div>
 			</div>
-			<?php endforeach; else: ?>
-
-			<p class="alert alert-info">Aún no recibiste preguntas</p>
-			<?php endif; ?>
 
 
+			<div class="col-md-6">
+
+				<div class="block-white">
+				
+					<h4>Preguntas recibidas sin responder</h4>
+					<hr>
+
+					<?php if($questions): foreach($questions as $question): ?>
+
+					<div class="questions-wrapper">
+						<div class="question-box">
+							<div class="icon">
+								<i class="fa fa-user"></i>
+							</div>
+							<div class="message">
+								<p data-content="message" class="caption"><?=$question->message?></p>
+								<small data-content="added">Enviada por <?=$question->user_name.' '.$question->user_lastname ?> el <?=$question->creado?> hs.</small>
+								<div class="actions">
+									<a href="<?=ROOT.'responder-pregunta/'.$question->id?>" class="btn btn-primary btn-xs" target="_blank">Responder <i class="fa fa-comments"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<?php endforeach; else: ?>
+
+					<p class="alert alert-info">Aún no recibiste preguntas</p>
+					<?php endif; ?>
+
+				</div>
+
+
+
+			</div>
 
 			
-
 
 		</div>
 
 
+		
 
 	</div>
 </section>

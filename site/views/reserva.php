@@ -21,26 +21,7 @@
 							
 							<div class="date"><i class="fa fa-calendar fa-fw"></i> <span><?=date('d/m/Y H:i',strtotime($_reservation->book_date))?></span> hs.</div>
 
-							<?php switch ($_reservation->status):
-								case 0:
-									$labelcolor = 'label bg-yellow-3';
-									$labeltext = 'A confirmar';
-									break;
-
-								case 1:
-									$labelcolor = 'label bg-green-2';
-									$labeltext = 'Turno Confirmado';
-									break;
-
-								case 2:
-									$labelcolor = 'label bg-aqua-3';
-									$labeltext = 'A confirmar por el usuario';
-									break;
-								
-							?>
-							<?php endswitch; ?>
-
-							<p><div data-status="" class="label <?=$labelcolor?>"><?=$labeltext?></div></p>
+							<p><div data-status="" class="label bg-<?=reservation_labels($_reservation->status)->color?>"><?=reservation_labels($_reservation->status)->text?></div></p>
 
 						</div>
 					</div>

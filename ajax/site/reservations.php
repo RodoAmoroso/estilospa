@@ -116,7 +116,7 @@ switch($_action){
 				$userdata->mail = Input::get('email');
 				$userdata->hash = $hash;
 				
-				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email'));
+				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email.'));
 				//$User->login(Input::get('email'),$password);
 
 			}else{
@@ -134,6 +134,7 @@ switch($_action){
 
 		$reservationid = $Reservations->add(array(
 			'promoid'=>Input::get('promoid'),
+			'clientid'=>Input::get('clientid'),
 			'userid'=>$idu,
 			'book_date'=>Input::get('date'),
 			'status'=>0,
@@ -144,7 +145,7 @@ switch($_action){
 
 		$Mailing->new_reservation($reservationid);
 
-		echo Responses::response('ok','Atención!<br>Tu solicitud de turno ha sido enviada<br>IMPORTANTE: Deberás aguardar la confirmación de tu turno vía email, para concurrir');
+		echo Responses::response('ok','Atención!<br>Tu solicitud de turno ha sido enviada<br>IMPORTANTE: Deberás aguardar la confirmación de tu turno vía email, para concurrir.');
 		break;
 
 

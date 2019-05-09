@@ -34,8 +34,8 @@
 
 		<div class="event-footer text-right">
 			
-			<button data-btn="cancel" class="btn btn-danger">Cancelar <i class="fa fa-times"></i></button>
-			<button data-btn="confirm" class="btn btn-primary">Confirmar <i class="fa fa-check"></i></button>
+			<button data-btn="cancel" class="btn btn-sm btn-danger">Cancelar <i class="fa fa-times"></i></button>
+			<button data-btn="confirm" class="btn btn-sm btn-primary">Confirmar <i class="fa fa-check"></i></button>
 					
 			
 		</div>

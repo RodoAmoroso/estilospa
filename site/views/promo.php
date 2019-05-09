@@ -137,7 +137,7 @@
 
 					<!-- FAV -->
 					<div class="item cl-gray-10">|</div>
-					<div class="item"><?= Fav($Promos->data()->id); ?></div>
+					<div class="item"><?= Fav($Promos->data()->id,$Promos->data()->idclient); ?></div>
 					<div class="item cl-gray-10">|</div>
 
 					<!-- VIEWS -->

@@ -2,7 +2,7 @@
 <!-- PAGE HEADER -->
 <section class="page-header">
 	<div class="container">
-		<h1>Editar Reserva de Turnos</h1>
+		<h1>Reserva</h1>
 		<p>Confirmá, cancelá o modificá una reserva creada.</p>
 	</div>
 </section>
@@ -30,26 +30,7 @@
 									
 									<div class="date"><i class="fa fa-calendar fa-fw"></i> <span><?=date('d/m/Y H:i',strtotime($_reservation->book_date))?></span> hs.</div>
 
-									<?php switch ($_reservation->status):
-										case 0:
-											$labelcolor = 'label bg-yellow-3';
-											$labeltext = 'A confirmar';
-											break;
-
-										case 1:
-											$labelcolor = 'label bg-green-3';
-											$labeltext = 'Confirmado';
-											break;
-
-										case 2:
-											$labelcolor = 'label bg-aqua-3';
-											$labeltext = 'A confirmar por el usuario';
-											break;
-										
-									?>
-									<?php endswitch; ?>
-
-									<p><span data-status="" class="label <?=$labelcolor?>"><?=$labeltext?></span></p>
+									<p><span data-status="" class="label bg-<?=reservation_labels($_reservation->status)->color?>"><?=reservation_labels($_reservation->status)->text?></span></p>
 
 								</div>
 							</div>

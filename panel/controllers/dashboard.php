@@ -21,6 +21,11 @@ $rating = $Clients->rating($_userdata->idclient);
 
 $total_favs = $Stats->get_total_client_favs($_userdata->idclient);
 $total_events = $Stats->get_total_client_events($_userdata->idclient);
+$total_sales = $Stats->get_total_client_sales($_userdata->idclient);
+$total_reservations = $Stats->get_total_client_reservations($_userdata->idclient);
+$total_questions = $Stats->get_total_client_questions($_userdata->idclient);
+//show_array($total_events);
+
 
 /// QUESTIONS ///
 $Questions = new Questions();
@@ -28,7 +33,20 @@ $Questions->limit = 10;
 $questions = $Questions->get_unanswered($_userdata->idclient);
 
 
-///show_array($_userdata);
+/// RESERVATIONS ///
+$Reservations = new Reservations();
+$Reservations->limit = 10;
+$Reservations->sort = 'r.book_date ASC';
+$Reservations->status = 1;
+
+$Reservations->from = date('Y-m-d 00:00:00');
+$today = new DateTime();
+$today->modify('+6 month');
+$Reservations->to = $today->format('Y-m-d 00:00:00');
+
+$_reservations = $Reservations->get($_userdata->idclient);
+
+//show_array();
 
 function dif_labels($dif=''){
 	switch ($dif) {

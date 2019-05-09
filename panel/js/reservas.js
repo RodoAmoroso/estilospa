@@ -1,9 +1,6 @@
 var calendar = {
 	from:'',
 	to:'',
-	calendar:function(events){
-		
-	},
 	get:function(){
 		
 		ajax('panel/reservations/get',{from:calendar.from,to:calendar.to})
@@ -30,10 +27,14 @@ var calendar = {
 						case '2':
 							classcell = 'bg-aqua-3 border-aqua-3';
 							break;
+
+						default:
+							classcell = 'bg-pink-2 border-pink-2';
+							break;
 					}
 
 					events.push({
-						title:v.title,
+						title:v.title==null?'No disponible':v.title,
 						subtitle:v.subtitle,
 						start:start,
 						fecha:v.fecha,
@@ -43,7 +44,7 @@ var calendar = {
 						permalink:v.permalink,
 						promoid:v.promoid,
 						status:v.status,
-						image:img[0].photoname+'-t.'+img[0].extension,
+						image:v.promoid==0 ? '' : img[0].photoname+'-t.'+img[0].extension,
 						user_name:v.user_name,
 						user_email:v.user_email,
 						user_phone:v.user_phone,
@@ -91,9 +92,10 @@ var calendar = {
 			editable:true,
 			eventDurationEditable:false,
 			droppable:true,
-			defaultView: 'month',
+			defaultView: 'agendaWeek',
 			themeSystem:'bootstrap4',
 			eventClick:function(e, jsEvent, view){
+				if(e.promoid==0) return false;
 
 				get_template('reservations/modal-calendar')
 					.then(function(template){
@@ -173,6 +175,22 @@ $(function(){
 		var id = $(this).attr('data-id');
 		var promoid = $(this).attr('data-promoid');
 		calendar.confirm(id,promoid);
+	});
+
+	$('#modal_blocked').on('hidden.bs.modal',function(){
+		calendar.get();
+	});
+
+
+	var reservations = new Reservations({
+		idclient:$('[name=clientid]').val(),
+		container:'#blocked_dates',
+		callback:function(data){
+			ajax('panel/reservations/exclude',{date:data.date})
+				.then(function(response){
+					reservations.get_hours();					
+				});
+		}
 	});
 
 	calendar.init();

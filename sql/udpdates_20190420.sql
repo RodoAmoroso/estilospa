@@ -73,9 +73,10 @@ ALTER TABLE `spa_notifications_log`
 
 
   CREATE TABLE `spa_reservations` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `promoid` int(10) UNSIGNED NOT NULL,
-  `userid` int(10) UNSIGNED NOT NULL,
+  `clientid` int(10) UNSIGNED NOT NULL,
+  `userid` int(10) UNSIGNED DEFAULT NULL,
   `status` tinyint(1) UNSIGNED NOT NULL,
   `book_date` datetime NOT NULL,
   `comments` varchar(1000) DEFAULT NULL,
@@ -84,7 +85,7 @@ ALTER TABLE `spa_notifications_log`
 ALTER TABLE `spa_reservations`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_reservations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 
@@ -107,7 +108,7 @@ CREATE TABLE `spa_stats_events_reference` (
   `id` int(10) UNSIGNED NOT NULL,
   `reference` varchar(80) NOT NULL,
   `caption` varchar(500) NOT NULL,
-  `icon` varchar(80) NOT NULL,
+  `icon` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `spa_stats_events_reference`
   ADD PRIMARY KEY (`id`);
@@ -127,3 +128,6 @@ ALTER TABLE `spa_promo_views`
 ALTER TABLE `spa_promo_views`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+
+TRUNCATE TABLE `spa_favs`;

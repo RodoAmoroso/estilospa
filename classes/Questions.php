@@ -66,7 +66,7 @@ class Questions {
 		}
 
 		$this->_db->query(
-			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, u.name user_name, u.mail user_email
+			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, u.name user_name, u.lastname user_lastname, u.mail user_email
 			FROM {questions} q
 			LEFT JOIN {users} u ON u.id=q.userid
 			{$where}
@@ -126,7 +126,7 @@ class Questions {
 		$limit = "LIMIT ".(($this->page*$this->limit)-$this->limit).",".$this->limit;
 
 		$this->_db->query(
-			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, c.permalink, c.name client_name, cp.permalink permalink_promo, p.title promo_title, g.name glossary_name, u.name user_name, u.mail user_email
+			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, c.permalink, c.name client_name, cp.permalink permalink_promo, p.title promo_title, g.name glossary_name, u.name user_name, u.lastname user_lastname, u.mail user_email
 			FROM {questions} q
 			LEFT JOIN {users} u ON u.id=q.userid
 			LEFT JOIN {promos} p ON p.id=q.rowid AND q.type='promos'
@@ -252,6 +252,16 @@ class Questions {
 		return true;
 	}
 
-
+	public function delete_all($userid=0){
+		$this->_db->query(
+			"DELETE q,qr,qq 
+			FROM {questions} q
+			LEFT JOIN {questions_responses} qr ON q.id=qr.messageid
+			LEFT JOIN {questions_queue} qq ON q.id=qq.messageid
+			WHERE q.userid=?",
+			array($userid)
+		);
+		return true;
+	}
 
 }

@@ -163,9 +163,13 @@ class Stats {
 
 
 	public function add_tracker($clientid=0,$event=''){
+		$this->_db->get('stats_events_reference',array('reference','=',$event));
+		if(!$this->_db->count()) return false;
+		$referenceid = $this->_db->first()->id;
+		
 		$this->_db->insert('stats_events',array(
 			'clientid'=>$clientid,
-			'event'=>$event
+			'referenceid'=>$referenceid
 		));
 		return true;
 	}
@@ -197,15 +201,60 @@ class Stats {
 		return $this->_db->first()->total;
 	}
 
-	public function get_total_client_events($clientid=0){
+	public function get_total_client_questions($clientid=null){
+
 		$this->_db->query(
-			"SELECT e.event, COUNT(*) total
-			FROM {stats_events} e
-			WHERE e.clientid=?
-			GROUP BY e.event",
-			array($clientid)
+			"SELECT COUNT(*) total
+			FROM {questions} q
+			LEFT JOIN {users} u ON u.id=q.userid
+			LEFT JOIN {promos} p ON p.id=q.rowid AND q.type='promos'
+			LEFT JOIN {clients} c ON c.id=q.rowid AND q.type='clients'
+			LEFT JOIN {clients_glossary_assignments} ga ON ga.glossaryid=q.rowid AND q.type='glossary'
+			WHERE (p.idclient=? OR c.id=? OR ga.clientid=?)
+			ORDER BY q.added DESC",
+			array($clientid,$clientid,$clientid)
+		);
+		//show_array($this->_db->getquery()->queryString);
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->first()->total;
+	}
+
+	public function get_total_client_sales($idclient=0){
+		$total = 0;
+		$this->_db->query("
+			SELECT COUNT(*) total
+			FROM {sales} s
+			WHERE s.idclient=?",
+			array($idclient)
 		);
 		if(!$this->_db->count()) return 0;
+		return $this->_db->first()->total;
+	}
+	public function get_total_client_reservations($idclient=0){
+		$total = 0;
+		$this->_db->query("
+			SELECT COUNT(*) total
+			FROM {reservations} r
+			LEFT JOIN {promos} p ON p.id=r.promoid
+			WHERE p.idclient=?",
+			array($idclient)
+		);
+		if(!$this->_db->count()) return 0;
+		return $this->_db->first()->total;
+	}
+
+	public function get_total_client_events($clientid=0){
+		$this->_db->query(
+			"SELECT COUNT(*) total, r.caption, r.icon
+			FROM {stats_events} e
+			LEFT JOIN {stats_events_reference} r ON r.id=e.referenceid
+			WHERE e.clientid=?
+			GROUP BY e.referenceid",
+			array($clientid)
+		);
+		if(!$this->_db->count()) return false;
+		if(!$this->_db->first()->total) return false;
 
 		return $this->_db->results();
 	}

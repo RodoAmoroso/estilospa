@@ -96,10 +96,9 @@
 			<div class="thumb thumb-cover"></div>
 		</div>
 		<div class="caption">
-			<h1 data-tag="ordernumber" class="sz-16 fw-400">Orden Nro.: xxxxxxxxxx</h1>
+			<h1 data-tag="ordernumber" class="sz-16 fw-400">Orden Nro.: </h1>
 			<h2 data-tag="price" class="sz-14">$0000 - Cant. 11</h2>
 			<h2 data-tag="title" class="sz-11">Cliente / Title Promo</h2>
-			<small data-tag="collectionid" class="cl-gray-40">Nro. de comprobante: xxxxxxxxxx</small><br />
 			<small data-tag="date" class="cl-gray-40">Fecha de compra: 00/00/0000 10:00:00 hs.</small>
 		
 			<div class="sale-actions">

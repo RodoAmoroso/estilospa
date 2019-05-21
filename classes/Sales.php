@@ -79,7 +79,7 @@ class Sales {
 	}
 
 	public function createtemp($array=array()){
-		$this->_db->insert('salestemp',$array);
+		if(!$this->_db->insert('salestemp',$array)) return false;
 		return true;
 	}
 
@@ -88,6 +88,14 @@ class Sales {
 			return true;
 		}
 		return false;
+	}
+	public function clean_temp(){
+		$this->_db->query(
+			"DELETE FROM {salestemp}
+			WHERE DATEDIFF(NOW(),added) > 10"
+		);
+
+		return true;
 	}
 
 	public function qualify(){
@@ -140,7 +148,7 @@ class Sales {
 			$limitby = "LIMIT {$this->limit}";
 		}
 		$this->_db->query("SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, ss.name statusname, p.title, p.gallery, c.name clientname, c.permalink, CONCAT(u.name,' ',u.lastname) username, u.mail, u.image, m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, vu.ispercent, vu.value, vu.idvoucher, vc.code, vu.idvoucher
-			FROM {$this->_dbprefix}sales s 
+			FROM {sales} s 
 			LEFT JOIN {salesstatus} ss ON ss.id=s.status 
 			LEFT JOIN {promos} p ON p.id=s.idpromo 
 			LEFT JOIN {clients} c ON c.id=p.idclient 
@@ -224,4 +232,31 @@ class Sales {
 	public function overall(){
 		return $this->_overall;
 	}
+
+
+	public function get_latest(){
+
+		$this->_db->query(
+			"SELECT s1.* 
+			FROM {sales} s1
+			INNER JOIN {promos} p ON p.id=s1.idpromo
+			INNER JOIN 
+				(
+					SELECT MAX(added) recent, iduser
+					FROM {sales} 
+					WHERE DATEDIFF(NOW(),added) = 16
+					GROUP BY iduser
+				) s2 
+				ON s2.iduser=s1.iduser AND s2.recent=s1.added
+			WHERE s1.idpromo != 0
+				AND p.start<=NOW() 
+				AND p.finish>=NOW()
+			LIMIT 0,100"
+		);
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->results();
+	}
+
+
 }

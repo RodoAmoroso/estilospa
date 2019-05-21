@@ -119,7 +119,8 @@
 		$Promos->sort = 'rand';
 		$Promos->limit = '0,12';
 		$Promos->issale = 1;
-		if($Promos->get()):
+		$Promos->get();
+		if($Promos->data()):
 			$nm = 0;
 			foreach($Promos->data() as $kp=>$promo):
 				if($Clients->find($promo->idclient)):

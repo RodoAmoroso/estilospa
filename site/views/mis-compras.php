@@ -64,7 +64,7 @@
 								<?php endfor; ?>
 								<?php for($i=5; $i>$sale->rate; $i--): ?>
 								<i class="fa fa-star-o"></i>
-								<?php endfor; ?>						
+								<?php endfor; ?>
 							</div>
 							<?php endif; ?>
 						</div>

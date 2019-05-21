@@ -39,6 +39,7 @@ class Notifications {
 				'subject'=>"¡No te olvides de calificar tu experiencia!",
 				'body'=>Templates::template('promos/unrated',$unrated),
 				'log'=>'Notificacion enviada a '.$unrated->name.' ('.$unrated->mail.') para calificar la promo <a href="'.ROOT.'promo/'.$unrated->permalink.'/'.$unrated->idpromo.'-'.Permalink($unrated->promotitle).'" target="_blank">'.$unrated->promotitle.'</a> - Nro. de comprobante. '.$unrated->collection_id,
+				'type'=>'promo_rate',
 				'added'=>date('Y-m-d H:i:s'),
 			));
 		}
@@ -48,7 +49,7 @@ class Notifications {
 
 	public function get_unstated(){
 		$this->_db->query(
-			"SELECT s.id, s.iduser, s.idpromo, s.status, s.collection_id, s.added, s.price, s.quantity, p.title promotitle, CONCAT(u.name,' ',u.lastname) username, u.mail usermail, c.name clientname, c.mail clientmail, c.permalink
+			"SELECT s.*, p.title promotitle, CONCAT(u.name,' ',u.lastname) username, u.mail usermail, c.name clientname, c.mail clientmail, c.permalink
 			FROM {sales} s
 			LEFT JOIN {promos} p ON p.id=s.idpromo 
 			LEFT JOIN {clients} c ON c.id=p.idclient
@@ -71,6 +72,7 @@ class Notifications {
 				'subject'=>"¡No te olvides de actualizar el estado de tu venta!",
 				'body'=>Templates::template('promos/unstated',$unstated),
 				'log'=>'Notificacion enviada a <a href="'.ROOT.'centros/'.$unstated->permalink.'" target="_blank">'.$unstated->clientname.'</a> para actualizar el estado de la promo <a href="'.ROOT.'promo/'.$unstated->permalink.'/'.$unstated->idpromo.'-'.Permalink($unstated->promotitle).'" target="_blank">'.$unstated->promotitle.'</a> comprada por '.$unstated->username.' ('.$unstated->usermail.') - Nro. de comprobante '.$unstated->collection_id,
+				'type'=>'promo_status',
 				'added'=>date('Y-m-d H:i:s'),
 			));
 		}
@@ -85,7 +87,7 @@ class Notifications {
 	public function delete($obj=null){
 		if(is_null($obj)) return false;
 		///$this->_db->insert('notifications_log',array('log'=>));
-		$this->add_log($obj->log,'');
+		$this->add_log($obj->log,$obj->type);
 		$this->_db->delete('notifications_queue',array('id','=',$obj->id));
 		return true;
 	}
@@ -128,4 +130,5 @@ class Notifications {
 	}
 
 
+	
 }

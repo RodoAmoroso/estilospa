@@ -6,7 +6,8 @@
 
 
 <?php if($obj->promo->sale): ?>
-<p>Podés pagar online la promo mediante Mercado Pago, hasta en 12 cuotas, con todos los bancos, haciendo <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title).'#comprar'?>">click aquí</a></p>
+<p>Podés pagar online la promo mediante Mercado Pago, hasta en 12 cuotas, con todos los bancos:</p>
+<p><a href="<?=$obj->promo->promolink.'#comprar'?>" style="background-color:#e7127c;padding:8px 16px;color:white;text-decoration:none;" >Comprar</a></p>
 <?php endif; ?>
 
 

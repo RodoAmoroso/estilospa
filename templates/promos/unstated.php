@@ -6,10 +6,10 @@
 
 <p>Si es así, por favor ingresá al sitio de EstiloSPA y actualiza el estado del servicio como <b>Brindado</b>, (o <b>Cancelado</b> en caso de haberse cancelado el servicio). Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p>
 
+
+<p><a href='<?=ROOT.'panel/venta/'.$obj->id?>' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-decoration:none;'>Establecer Estado</a></p>
+
 <p>&nbsp;</p>
-
-<p><a href='<?=ROOT.'panel/venta/'.$obj->id?>' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Establecer Estado</a></p>
-
 <hr>
 
 <p>

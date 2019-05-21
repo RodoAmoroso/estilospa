@@ -1,4 +1,4 @@
-<h3>¡Hola <?=$obj->client->name?>, tenés una solicitud de reserva de turno para la promo: <a href="<?=ROOT.'promo'.$obj->client->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a></h3>
+<h3>¡Hola <?=$obj->client->name?>, tenés una solicitud de reserva de turno para la promo: <a href="<?=$obj->promo->promolink ?>"><?=$obj->promo->title?></a></h3>
 
 <div style="background-color:rgb(246,246,246);padding:16px;margin:16px 0;line-height: 1.5rem;">
 	<div>Nombre de Usuario: <?=$obj->user->name.' '.$obj->user->lastname?></div>

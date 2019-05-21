@@ -77,7 +77,7 @@
 
 
 
-<?php if($Promos->get()): ?>
+<?php $Promos->get(); if($Promos->data()): ?>
 <section>
 	<div class="title-bar">
 		<div class="container">
@@ -140,7 +140,8 @@ $Clients->visible = 1;
 $Clients->sort = 'rand';
 $Clients->limit = '0,12';
 $Clients->arrglossary = array($Glossary->data()->id);
-if($Clients->get()): 
+$Clients->get();
+if($Clients->data()): 
 ?>
 <section class="bg-gray-5">
 	<div class="title-bar">

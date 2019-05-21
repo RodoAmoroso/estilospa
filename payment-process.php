@@ -45,7 +45,7 @@ if($Sales->findtemp($hash)){
 			}
 		}
 	}
-	$Sales->deletetemp($hash); //CRON: limpiar temp
+	//$Sales->deletetemp($hash); 
 	$Promos->take_amount($idpromo,$quantity);
 
 }else{
@@ -64,6 +64,8 @@ if(!$saleid) die(http_response_code(400));
 
 if(!$Sales->find($saleid)) die(http_response_code(400));
 $_salesdata = $Sales->data();
+$_salesdata->promolink = ROOT.'promo/'.$_salesdata->permalink.'/'.$_salesdata->idpromo.'-'.Permalink($_salesdata->title);
+
 
 $Stores->get($_salesdata->clientid);
 $_salesdata->stores = '<ul style="padding:0 16px">';
@@ -92,7 +94,7 @@ if(!is_null($_salesdata->voucher_id)){
 //show_array($_salesdata);
 //die();
 
-if($collection_status == 'approved'){				
+if($collection_status == 'approved'){
 	$Mailing->sales_success_user($_salesdata);
 	$Mailing->sales_success_client($_salesdata);
 	if(!is_null($_salesdata->gift)){

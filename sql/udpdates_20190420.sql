@@ -16,7 +16,7 @@ ALTER TABLE `spa_questions`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_questions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 
@@ -33,7 +33,7 @@ ALTER TABLE `spa_questions_responses`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_questions_responses`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 
@@ -46,7 +46,7 @@ ALTER TABLE `spa_questions_queue`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_questions_queue`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 ALTER TABLE `spa_sales` ADD `idclient` INT UNSIGNED NOT NULL AFTER `iduser`;
@@ -54,10 +54,13 @@ UPDATE spa_sales s
   LEFT JOIN spa_promos p ON p.id=s.idpromo
 SET s.idclient=p.idclient
 
-ALTER TABLE `spa_salestemp` ADD `idclient` INT UNSIGNED NOT NULL AFTER `iduser`;
+ALTER TABLE `spa_salestemp` 
+  ADD `idclient` INT UNSIGNED NOT NULL AFTER `iduser`;
 
 
-ALTER TABLE `spa_notifications_queue` ADD `log` VARCHAR(1000) NOT NULL AFTER `body`;
+ALTER TABLE `spa_notifications_queue` 
+  ADD `log` VARCHAR(1000) NOT NULL AFTER `body`,
+  ADD `type` VARCHAR(127) NOT NULL AFTER `body`;
 
 
 CREATE TABLE `spa_notifications_log` (
@@ -86,7 +89,7 @@ ALTER TABLE `spa_reservations`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_reservations`
   MODIFY `id` bigint(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 
@@ -101,7 +104,7 @@ ALTER TABLE `spa_stats_events`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_stats_events`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 CREATE TABLE `spa_stats_events_reference` (
@@ -114,7 +117,7 @@ ALTER TABLE `spa_stats_events_reference`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_stats_events_reference`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
 
 
 CREATE TABLE `spa_promo_views` (
@@ -127,7 +130,38 @@ ALTER TABLE `spa_promo_views`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_promo_views`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-COMMIT;
+
+
+
+
+
+CREATE TABLE `spa_newsletters_queue` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `userid` int(10) UNSIGNED NOT NULL,
+  `subject` varchar(500) NOT NULL,
+  `body` text NOT NULL,
+  `type` varchar(127) NOT NULL,
+  `contextid` int(10) UNSIGNED NOT NULL,
+  `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `spa_newsletters_queue`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_newsletters_queue`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+CREATE TABLE `spa_newsletters_log` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `userid` int(10) UNSIGNED NOT NULL,
+  `type` varchar(127) NOT NULL,
+  `contextid` int(10) UNSIGNED NOT NULL,
+  `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_newsletters_log`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_newsletters_log`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 
 TRUNCATE TABLE `spa_favs`;

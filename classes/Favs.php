@@ -71,7 +71,7 @@ class Favs {
 		$this->_db->query(
 			"SELECT f.id, f.idpromo, f.idclient, p.title, p.gallery, p.price, p.discount, p.sale, p.amount, c.name, c.permalink, c.logo, c.subtitle
 			FROM {favs} f
-			LEFT JOIN {promos} p ON p.id=f.idpromo AND p.start<=NOW() AND p.finish>=NOW()
+			INNER JOIN {promos} p ON p.id=f.idpromo AND p.start<=NOW() AND p.finish>=NOW()
 			LEFT JOIN {clients} c ON c.id=p.idclient AND c.visible=1
 			WHERE f.iduser=? AND f.idpromo!=0
 			ORDER BY f.added DESC",
@@ -88,7 +88,7 @@ class Favs {
 		$this->_db->query(
 			"SELECT f.id, f.idpromo, f.idclient, c.name, c.permalink, c.logo, c.subtitle, c.permalink
 			FROM {favs} f
-			LEFT JOIN {clients} c ON c.id=f.idclient AND c.visible=1
+			INNER JOIN {clients} c ON c.id=f.idclient AND c.visible=1
 			WHERE f.iduser=? AND f.idpromo=0
 			ORDER BY f.added DESC",
 			array($iduser)
@@ -120,6 +120,31 @@ class Favs {
 			return true;
 		}
 		return false;
+	}
+
+
+	public function get_latest(){
+
+		$this->_db->query(
+			"SELECT f1.* 
+			FROM {favs} f1
+			INNER JOIN {promos} p ON p.id=f1.idpromo
+			INNER JOIN 
+				(
+					SELECT MAX(added) recent, iduser
+					FROM {favs} 
+					WHERE DATEDIFF(NOW(),added) = 1
+					GROUP BY iduser
+				) f2 
+				ON f2.iduser=f1.iduser AND f2.recent=f1.added
+			WHERE f1.idpromo != 0
+				AND p.start<=NOW() 
+				AND p.finish>=NOW()
+			LIMIT 0,100"
+		);
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->results();
 	}
 
 

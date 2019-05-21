@@ -28,7 +28,7 @@
 									<div class="subtitle"><?=$_reservation->promo->subtitle?></div>
 									<div class="price">$ <?=number_format($_reservation->promo->price-($_reservation->promo->price*$_reservation->promo->discount/100),2,',','.')?></div>
 									
-									<div class="date"><i class="fa fa-calendar fa-fw"></i> <span><?=date('d/m/Y H:i',strtotime($_reservation->book_date))?></span> hs.</div>
+									<div class="date"><i class="fa fa-calendar fa-fw"></i> <span><?=Dates::translateDays(date('l',$reservation_bookdate)).' '.date('d/m/Y H:i',$reservation_bookdate)?></span> hs.</div>
 
 									<p><span data-status="" class="label bg-<?=reservation_labels($_reservation->status)->color?>"><?=reservation_labels($_reservation->status)->text?></span></p>
 

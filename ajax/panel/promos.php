@@ -7,6 +7,7 @@ $User = new User();
 $Clients = new Clients();
 $Promos = new Promos();
 $PromoTypes = new PromoTypes();
+$Notifications = new Notifications();
 
 
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
@@ -52,14 +53,19 @@ switch($_action){
 			$Promos->issale = 1;
 			$Promos->idclient = $User->data()->idclient;
 			$Promos->get();
-			$cantpromos = count($Promos->data());
+			
+			$cantpromos = !$Promos->data() ? 0 : count($Promos->data());
 			if($cantpromos == $User->data()->cantpromos){
 				///die(json_encode(array('Status'=>'cantpromos')));
 				die(Responses::response('fail','Tu plan contratado no te permite agregar más promociones.'));
 			}
 		}
 		if(!$Promos->save($User->data()->idclient)) die(Responses::response('fail'));
-		echo Responses::response('ok','La promo se guardó correctamente!',array('ID'=>$Promos->getLastId()));
+
+		$promoid = $Promos->getLastId();
+		$Notifications->add_log('Promo nueva agregada por <a href="'.ROOT.'centros/'.$User->data()->client_permalink.'" target="_blank">'.$User->data()->client_name.'</a>:<br><a href="'.ROOT.'promo/'.$User->data()->client_permalink.'/'.$promoid.'-'.Permalink(Input::get('Title')).'"  target="_blank">'.Input::get('Title').'</a> ','promo');
+
+		echo Responses::response('ok','La promo se guardó correctamente!',array('ID'=>$promoid));
 		break;
 
 	case 'gallery':

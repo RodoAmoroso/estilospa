@@ -4,7 +4,7 @@
 
 <p>&nbsp;</p>
 
-<p><a href='<?=ROOT.'calificar/'.$obj->idpromo?>' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-align:center;'>Calificar</a></p>
+<p><a href='<?=ROOT.'calificar/'.$obj->idpromo?>' style='background-color:#e7127c;border-color:#e7127c;color:#fff;padding:6px 12px;text-decoration:none;'>Calificar</a></p>
 
 <hr>
 

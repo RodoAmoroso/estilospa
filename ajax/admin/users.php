@@ -40,10 +40,10 @@ switch($_action){
 			$Assoc->client_user('save');
 
 			if(!Input::get('ID') && Input::get('Notify')){
-				$UserAdmin = $UserAdmin->find($ID);
+				$UserAdmin->find($ID);
 				$userdata = $UserAdmin->data();
 				$userdata->password = Input::get('Pass');
-				if(!$Mailing->new_user($newuser->data())) die(Responses::response('fail','No se pudo enviar el email de notificación al usuario'));
+				if(!$Mailing->new_user($userdata)) die(Responses::response('fail','No se pudo enviar el email de notificación al usuario'));
 			}
 		}
 

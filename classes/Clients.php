@@ -5,7 +5,8 @@ class Clients {
 	private $_db,
 					$_data,
 					$_dbprefix,
-					$_lastid;
+					$_lastid,
+					$_error='';
 
 	public 	$keywords='',
 					$sort='',
@@ -149,11 +150,14 @@ class Clients {
 		//show_array( $this->_db->getquery()->queryString);
 
 
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
+		if(!$this->_db->count()) {
+			$this->_data = null; 
+			return false;
 		}
-		return false;
+		$this->_data = $this->_db->results();
+		
+		return true;
+
 	}
 
 	public function rating($id=0){
@@ -241,15 +245,21 @@ class Clients {
 		return true;
 	}
 
-	public function delete(){
+	public function delete($idclient=0){
 
-		$idclient = Input::get('ID');
-		
-		if(!$this->find($idclient)) return false;
+		if(!$this->find($idclient)){
+			$this->_error = 'No se encontró el centro';
+			return false;			
+		}
+
+		$Promos = new Promos();
+		if(!$Promos->deleteAll($idclient)){			
+			$this->_error = 'No se pudieron borrar las promos';
+			return false;
+		}
 
 		$gallery = json_decode($this->_data->images);
 		$logo = json_decode($this->_data->logo);			
-		if(!$this->_db->delete('clients',array('id','=',$idclient))) return false;
 
 		foreach($gallery as $kp=>$vp):
 			if(isset($vg->photoname)){
@@ -262,9 +272,78 @@ class Clients {
 			if(file_exists($lg)) unlink($lg);
 		endforeach;
 		
-		if(!$this->_db->delete('comments',array('idclient','=',$idclient))) return false;
-		if(!$this->_db->delete('favs',array('idclient','=',$idclient))) return false;
-		if(!$this->_db->delete('mp',array('idclient','=',$idclient))) return false;
+		if(!$this->_db->delete('assoc_client_user',array('idclient','=',$idclient))){
+			$this->_error = 'No se pudo borrar la asignación al usuario';
+			return false;			
+		}
+
+		if(!$this->_db->delete('clients_glossary_assignments',array('clientid','=',$idclient))){			
+			$this->_error = 'No se pudo la asignación a etiquetas';
+			return false;
+		}
+
+		if(!$this->_db->delete('clients_types_assignments',array('clientid','=',$idclient))){
+			$this->_error = 'No se pudo borrar la asignación del tipo de centro'; 
+			return false;			
+		}
+		
+		if(!$this->_db->delete('favs',array('idclient','=',$idclient))){
+			$this->_error = 'No se pudieron borrar los favoritos';
+			return false;			
+		}
+
+		if(!$this->_db->delete('mp',array('idclient','=',$idclient))){
+			$this->_error = 'No se pudo borrar la integración con MercadoPago';
+			return false;			
+		}
+
+		if(!$this->_db->query(
+			"DELETE FROM {newsletters_queue} 
+			WHERE type=? AND contextid=?",
+			array('clients',$idclient)
+		)){
+			$this->_error = 'No se pudo borrar la cola de envío del Newsletter';
+			return false;			
+		}
+
+		if(!$this->_db->delete('questions_queue',array('clientid','=',$idclient))){
+			$this->_error = 'No se pudo borrar la cola de envío de las preguntas asociadas al centro';
+			return false;			
+		}
+
+		if(!$this->_db->query(
+			"DELETE FROM {questions}
+			WHERE type=? AND rowid=?",
+			array('promos',$promoid)
+		)){
+			$this->_error = 'No se pudieron borrar las preguntas asociadas al centro';
+			return false;
+		}
+
+		if(!$this->_db->delete('reservations',array('clientid','=',$idclient))){
+			$this->_error = 'No se pudieron borrar las reservas asociadas al centro';
+			return false;
+		}
+
+		if(!$this->_db->delete('stats_events',array('clientid','=',$idclient))){
+			$this->_error = 'No se pudieron borrar los eventos asociados al centro';
+			return false;			
+		}
+
+		if(!$this->_db->delete('features',array('idclient','=',$idclient))){
+			$this->_error = 'No se pudieron borrar las características del centro';
+			return false;			
+		}
+
+		if(!$this->_db->delete('stores',array('idclient','=',$idclient))){
+			$this->_error = 'No se pudieron borrar las sucursales';
+			return false;			
+		}
+
+		if(!$this->_db->delete('clients',array('id','=',$idclient))){
+			$this->_error = 'No se pudo borrar el centro';
+			return false;			
+		}
 
 		return true;
 	}
@@ -299,12 +378,16 @@ class Clients {
 		return $this->_data;
 	}
 
-	public function addvisit(){
-		$this->_db->query("UPDATE {$this->_dbprefix}clients SET views=views+1 WHERE id=?",array($this->_data->id));
+	public function addvisit($clientid=0){
+		$this->_db->query("UPDATE {clients} SET views=views+1 WHERE id=?",array($clientid));
 	}
 
 	public function getLastId(){
 		return $this->_lastid;
+	}
+
+	public function error(){
+		return $this->_error;
 	}
 
 

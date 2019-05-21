@@ -28,8 +28,8 @@ class Subscribers {
 		}
 
 		$this->_db->query(
-			"SELECT s.id, s.email, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i') creado, s.hash
-			FROM {$this->_dbpx}subscribers s
+			"SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i') creado
+			FROM {subscribers} s
 			{$where}
 			ORDER BY s.added DESC
 			{$limit}"

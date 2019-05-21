@@ -469,6 +469,14 @@ if($Vouchers->getpromo($Promos->data()->id)):
 
 
 <!-- OFERTAS -->
+<?php 
+$Promos->status = '1:1';
+$Promos->sort = 'rand';
+$Promos->exclude = $Promos->data()->id;
+$Promos->limit = '0,8';
+$Promos->get();
+if($Promos->data()):
+?>
 <section>
 	<div class="title-bar">
 		<div class="container">
@@ -479,11 +487,7 @@ if($Vouchers->getpromo($Promos->data()->id)):
 	<div class="container">
 		<div class="promos-highlight">
 		<?php
-		$Promos->status = '1:1';
-		$Promos->sort = 'rand';
-		$Promos->exclude = $Promos->data()->id;
-		$Promos->limit = '0,8';
-		if($Promos->get()):
+		
 			$nm = 0;
 			foreach($Promos->data() as $kp=>$promo):
 				if($Clients->find($promo->idclient)):
@@ -498,14 +502,13 @@ if($Vouchers->getpromo($Promos->data()->id)):
 					echo '<p>No se encontraron promociones vigentes</p>';
 				endif;
 			endforeach;
-		endif;
 		?>
 		</div>
 
 	</div>
 
 </section>
-
+<?php endif; ?>
 
 <?php include 'mods/mod-socials.php' ?>
 

@@ -21,18 +21,14 @@ $Mailing = new Mailing();
 $MPConfig = new MPConfig();
 
 if(!$access_token = $MPConfig->get_access_token($_GET["idclient"])){
+
 	http_response_code(400);
 	return false;
 }
-
 MercadoPago\SDK::setClientId($MPConfig->app_id);
 MercadoPago\SDK::setClientSecret($MPConfig->secret_key);
 //MercadoPago\SDK::setAccessToken($access_token);
-
-
 //$mp = new MP($access_token); ///token del seller
-
-
 //$mp = new MP("APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583");
 
 // Get the payment and the corresponding merchant_order reported by the IPN.
@@ -73,6 +69,7 @@ switch($_GET["topic"]) {
 
 
 $hash = $payment_info->external_reference;
+
 $collection_id = $payment_info->id;
 $payment_type = $payment_info->payment_type_id;
 $merchant_order_id = !empty($payment_info->order) ? $payment_info->order->id : '';

@@ -468,9 +468,17 @@ function Fav($promoid=0,$clientid=0){
 	}
 	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos" data-placement="bottom" >'.$fav.'</a>';
 }
-function show_array($arr=array()){
-	echo '<pre>';
-	print_r($arr);
+function show_array($obj){
+	echo '<pre>';	
+	if(is_array($obj)):
+		print_r($obj);
+	elseif(is_object($obj)):
+		print_r($obj);
+	elseif(is_bool($obj)):
+		var_dump($obj);
+	else:
+		echo $obj;
+	endif;
 	echo '</pre>';
 }
 function curl_post($url,$data){

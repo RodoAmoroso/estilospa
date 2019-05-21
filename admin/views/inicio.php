@@ -187,62 +187,6 @@
 </section>
 
 
-<section class="gral-section dp-none">
-	<div class="container">
-		<div class="row">
-			<div class="col-xs-12 col-sm-3">
-				<div class="mod-highlight-panels alert alert-success">
-					<div class="item">
-						<i class="fa fa-users fa-4x"></i>
-					</div>
-					<div class="item">
-						<h1>100.200</h1>
-						<h4>Visitas Totales</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="mod-highlight-panels alert alert-warning">
-					<div class="item">
-						<i class="fa fa-users fa-4x"></i>
-					</div>
-					<div class="item">
-						<h1>320.124</h1>
-						<h4>Visitas Totales</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="mod-highlight-panels alert alert-info">
-					<div class="item">
-						<i class="fa fa-users fa-4x"></i>
-					</div>
-					<div class="item">
-						<h1>100.200</h1>
-						<h4>Visitas Totales</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-3">
-				<div class="mod-highlight-panels alert alert-danger">
-					<div class="item">
-						<i class="fa fa-users fa-4x"></i>
-					</div>
-					<div class="item">
-						<h1>100.200</h1>
-						<h4>Visitas Totales</h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-
 
 <!-- QUESTIONS -->
 <section class="admin-box bg-gray-5">
@@ -252,9 +196,10 @@
 		<div class="row">
 			<div class="col-md-6">
 
-				<div class="block-white">
+				<div class="block-white" >
 				
-					<h4>Preguntas sin responder</h4>
+					<h3>Preguntas sin responder</h3>
+					<hr>
 
 					<?php if($questions): foreach($questions as $question): ?>
 
@@ -284,6 +229,9 @@
 								</div>
 
 							</div>
+							<div class="buttons">
+								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash"></i></button>
+							</div>
 						</div>
 					</div>
 					<?php endforeach; else: ?>
@@ -296,39 +244,102 @@
 			</div>
 			<div class="col-md-6">
 
-				<div class="block-white">
+				<div class="block-white" >
 				
-					<h3>Actividad reciente</h3>
+					<h3>Últimas respuestas</h3>
+					<hr>
 
-					<?php if($_notifications): ?>
+					<?php if($questions_responses): foreach($questions_responses as $question): ?>
 
-					<div class="activity-wrapper">
+					<div class="questions-wrapper">
+						<div class="question-box">
+							<div class="icon">
+								<i class="fa fa-user"></i>
+							</div>
+							<div class="message">
+								<p data-content="message" class="caption"><?=$question->message?></p>
+								<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs.</small>
 
-						<?php foreach($_notifications as $not): ?>
+								<div class="actions">
+									
+									<?php if($question->type=='promos'): ?>
+									Enviada a la promo <a href="<?= ROOT.'promo/'.$question->permalink_promo.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo_title?></a>
+									<?php endif; ?>
 
-						<div class="mod-activity">
-							<div class="content">
-								<div class="date-wrapper">
-									<div class="date"><?= date('d/m/Y',strtotime($not->added)) ?></div>
-									<small><?= date('H:i:s',strtotime($not->added)) ?> hs.</small>
+									<?php if($question->type=='clients'): ?>
+									Enviada al centro <a href="<?= ROOT.'centros/'.$question->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client_name?></a>
+									<?php endif; ?>
+
+									<?php if($question->type=='glossary'): ?>
+									Enviada a la etiqueta <a href="<?= ROOT.'etiqueta/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->glossary_name?></a>
+									<?php endif; ?>
+
 								</div>
-								<div class="log-wrapper">
-									<p class="log"><?=$not->log?></p>
-								</div>
+
+							</div>
+							<div class="buttons">
+								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash"></i></button>
+							</div>
+						</div>
+
+						<!-- RESPONSES -->
+						<h5 class="response-title text-gray-50">Respuestas:</h5>
+						<?php foreach($question->responses as $response): ?>
+						<div class="question-box response">
+							<div class="thumb thumb-cover" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>
+							<div class="message">
+								<a href="<?=ROOT.'centros/'.$response->client->permalink ?>" target="_blank"><?=$response->client->name?></a>
+								<p><?=$response->message?></p>
+								<small>Envidada: <?=$response->creado?> hs.</small>
+							</div>
+							<div class="actions">
+								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-response" data-id="<?=$response->id?>" title="borrar respuesta"><i class="fa fa-trash"></i></button>
 							</div>
 						</div>
 						<?php endforeach; ?>
-
 					</div>
+					<?php endforeach; else: ?>
 
-					<?php else: ?>
-					<p class="alert alert-info">No se econtraron actividades recientes.</p>
+					<p class="alert alert-info">No se encontraron preguntas sin responder</p>
 					<?php endif; ?>
 
 				</div>
 
 
 			</div>
+		</div>
+
+
+		<div class="block-white">
+				
+			<h3>Actividad reciente</h3>
+			<hr>
+
+			<?php if($_notifications): ?>
+
+			<div class="activity-wrapper">
+
+				<?php foreach($_notifications as $not): ?>
+
+				<div class="mod-activity">
+					<div class="content">
+						<div class="date-wrapper">
+							<div class="date"><?= date('d/m/Y',strtotime($not->added)) ?></div>
+							<small><?= date('H:i:s',strtotime($not->added)) ?> hs.</small>
+						</div>
+						<div class="log-wrapper">
+							<p class="log"><?=$not->log?></p>
+						</div>
+					</div>
+				</div>
+				<?php endforeach; ?>
+
+			</div>
+
+			<?php else: ?>
+			<p class="alert alert-info">No se econtraron actividades recientes.</p>
+			<?php endif; ?>
+
 		</div>
 
 

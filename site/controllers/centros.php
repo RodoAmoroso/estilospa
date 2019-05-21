@@ -6,27 +6,29 @@ $_arrjs[] = ['script'=>'https://maps.googleapis.com/maps/api/js?key=AIzaSyC2m93X
 
 
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
-$Clients->addvisit();
-$logoclient = json_decode($Clients->data()->logo);
+$clientdata = $Clients->data();
+$Clients->addvisit($clientdata->id);
+
+$logoclient = json_decode($clientdata->logo);
 
 $StoresClient = new Stores();
-$StoresClient->get($Clients->data()->id);
+$StoresClient->get($clientdata->id);
 
 $Features = new Features();
-$Features->get($Clients->data()->id);
+$Features->get($clientdata->id);
 
 $Promos->status = '1:1';
-$Promos->find($Clients->data()->id);
+$Promos->find($clientdata->id);
 
 ////////////////////// SEO ////////////////////////////////////////
-$_TITLE = $Clients->data()->name.' - '.TITLE;
+$_TITLE = $clientdata->name.' - '.TITLE;
 
 $FirstAddress = $StoresClient->data()[0]->address.' &bullet; '.(!empty($StoresClient->data()[0]->additional) ? $StoresClient->data()[0]->additional.' &bullet; ' : '').$StoresClient->data()[0]->city.' &bullet; '.$Provinces[$StoresClient->data()[0]->idprovince];
 
 //$_ADDRESS = $StoresClient->data()[0]->address.', '.$StoresClient->data()[0]->city;
 
-$_DESCRIPTION = $FirstAddress.' - '.$Clients->data()->subtitle;
-$arrtags = explode(',',$Clients->data()->glossary);
+$_DESCRIPTION = $FirstAddress.' - '.$clientdata->subtitle;
+$arrtags = explode(',',$clientdata->glossary);
 $arrtagsnames = '';
 if(count($arrtags)):
 	foreach($arrtags as $kt=>$vt):
@@ -39,7 +41,7 @@ endif;
 $_KEYWORDS = $arrtagsnames;
 $_IMGFACEBOOK = 'img/clients/'.$logoclient->photoname.'.'.$logoclient->extension;
 
-//var_dump (number_format($Clients->data()->fee,2,'.',''));
+//var_dump (number_format($clientdata->fee,2,'.',''));
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.carousel.min'];
@@ -47,4 +49,4 @@ $_arrcss[] = ['folder'=>'lib/','style'=>'owl.theme.default.min'];
 
 
 
-///echo var_dump(preg_match('((http|https)\:\/\/)',$Clients->data()->web));
+///echo var_dump(preg_match('((http|https)\:\/\/)',$clientdata->web));

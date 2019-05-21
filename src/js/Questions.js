@@ -14,8 +14,8 @@ class Questions {
 	get(){
 
 		if(this.page==1) $(this.container).html('');
-		
-		ajax('site/questions/'+this.mode,{
+	
+		ajax('site/questions/get',{
 			rowid:$(this.form).find('[name=rowid]').val(),
 			type:$(this.form).find('[name=type]').val(),
 			page:this.page,
@@ -73,8 +73,9 @@ class Questions {
 		var post = get_form($(this.form));
 		ajax('site/questions/add',post)
 			.then(data=>{
-				$(this.form).find('textarea,input').val('');
-				this.get('getbypromo');
+				$(this.form).find('textarea').val('');
+				this.mode = 'getbypromo';
+				this.get();
 			})
 			.catch(data=>{
 				console.log(data);

@@ -18,7 +18,7 @@ class MPConfig {
 					//$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
 					//$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
 
-					$redirect_uri='http://localhost/estilospa/mp',
+					$redirect_uri=ROOT.'mp',
 					$app_id='7030611358224519',
 					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
 					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
@@ -157,7 +157,8 @@ class MPConfig {
 		$preference->items = array($item);
 		$preference->payer = $payer;
 		$preference->marketplace_fee = floatval( $CLIENTS->fee*(($promoprice-$discountvoucher)*$quantity)/100 );
-		$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
+		//$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
+		$preference->notification_url = ROOT.'ipn.php?idclient='.$PROMO->idclient;
 		$preference->external_reference = $this->_hash;
 
 		$preference->back_urls = array(
@@ -177,9 +178,8 @@ class MPConfig {
 
 		$preference->save();
 
-		///show_array($preference);
 		$this->_mplink = $preference;
-		return $preference;
+		
 
 
 		/*try{
@@ -190,7 +190,7 @@ class MPConfig {
 		}*/
 
 		$Sales = new Sales();
-		$Sales->createtemp(array(
+		if(!$Sales->createtemp(array(
 			'iduser'=>$USER->id,
 			'idclient'=>$PROMO->idclient,
 			'idpromo'=>$PROMO->id,
@@ -199,8 +199,9 @@ class MPConfig {
 			'price'=>$PROMO->price-($PROMO->price*$PROMO->discount/100),
 			'hash'=>$this->_hash,
 			'added'=>date('Y-m-d H:i:s')
-		));
-		return true;
+		))) return false;
+			
+		return $preference;
 	}
 
 	public function error(){
@@ -231,8 +232,10 @@ class MPConfig {
 		$where = "WHERE UNIX_TIMESTAMP(m.added)+m.expires_in-(60*60*24*7)<=UNIX_TIMESTAMP(NOW())";
 		if($idclient) $where = "WHERE m.idclient={$idclient}";
 
+		$Notifications = new Notifications();
+
 		$this->_db->query(
-			"SELECT m.*, c.name
+			"SELECT m.*, c.name, c.permalink
 			FROM {mp} m
 			LEFT JOIN {clients} c ON c.id=m.idclient
 			{$where}
@@ -259,6 +262,8 @@ class MPConfig {
 				'expires_in'=>$json->expires_in,
 				'added'=>date('Y-m-d H:i:s')
 			));
+
+			$Notifications->add_log('Token de integración de MercadoPago renovado para <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
 
 		}
 

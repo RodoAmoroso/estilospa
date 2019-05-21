@@ -1,5 +1,5 @@
 
-<script>var IDClient = <?= $Clients->data()->id ?>;</script>
+<script>var IDClient = <?= $clientdata->id ?>;</script>
 
 
 <!-- OVERVIEW -->
@@ -10,7 +10,7 @@
 		<ul class="breadcrumb sz-9 bg-white">
 			<li><a href="<?= ROOT ?>">Home</a></li>
 			<li><a href="<?= ROOT ?>busqueda/centros-de-estetica">Centros de Estética</a></li>
-			<li><?= $Clients->data()->name ?></li>
+			<li><?= $clientdata->name ?></li>
 		</ul>
 		
 
@@ -23,8 +23,8 @@
 				<div class="header-info">			
 					<div class="logo thumb-contain" style="background-image:url(<?= ROOT.'img/clients/'.$logoclient->photoname.'.'.$logoclient->extension ?>)"></div>
 					<div class="title">
-						<h1 class="fw-700"><?= $Clients->data()->name ?></h1>
-						<p><?= $Clients->data()->subtitle ?></p>
+						<h1 class="fw-700"><?= $clientdata->name ?></h1>
+						<p><?= $clientdata->subtitle ?></p>
 					</div>			
 				</div>
 				
@@ -36,17 +36,17 @@
 					<?php endif; ?>
 
 					<!-- Phones -->
-					<?php if(!empty($StoresClient->data()[0]->phones)): ?><div class="phones sz-12"><i class="fa fa-phone fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$Clients->data()->id.'-phone/?redirect=tel:'.str_replace(' ', '', $StoresClient->data()[0]->phones)?>" target="_blank"><?= $StoresClient->data()[0]->phones ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->phones)): ?><div class="phones sz-12"><i class="fa fa-phone fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$clientdata->id.'-phone/?redirect=tel:'.str_replace(' ', '', $StoresClient->data()[0]->phones)?>" target="_blank"><?= $StoresClient->data()[0]->phones ?></a></div> <?php endif; ?>
 
 					<!-- WhatsApp -->
-					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?><div class="whatsapp sz-12"><i class="fa fa-whatsapp fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$Clients->data()->id.'-whatsapp/?redirect='.urlencode('https://api.whatsapp.com/send?phone=549'.str_replace(' ', '', $StoresClient->data()[0]->whatsapp).'&text=Mensaje Enviado desde EstiloSPA') ?>" target="_blank"><?= $StoresClient->data()[0]->whatsapp ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?><div class="whatsapp sz-12"><i class="fa fa-whatsapp fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$clientdata->id.'-whatsapp/?redirect='.urlencode('https://api.whatsapp.com/send?phone=549'.str_replace(' ', '', $StoresClient->data()[0]->whatsapp).'&text=Mensaje Enviado desde EstiloSPA') ?>" target="_blank"><?= $StoresClient->data()[0]->whatsapp ?></a></div> <?php endif; ?>
 
 					<!-- Web -->
 					<?php 
-					if(!empty($Clients->data()->web)):
-						$linkweb = preg_match('((http|https)\:\/\/)',$Clients->data()->web) ? $Clients->data()->web : 'http://'.$Clients->data()->web;
+					if(!empty($clientdata->web)):
+						$linkweb = preg_match('((http|https)\:\/\/)',$clientdata->web) ? $clientdata->web : 'http://'.$clientdata->web;
 					?>
-					<div class="web sz-11"><i class="fa fa-link fa-fw icon"></i> <a href="<?= ROOT.'tracker/'.$Clients->data()->id.'-web/?redirect='.$linkweb ?>" target="_blank" ><?= $Clients->data()->web ?></a></div> 
+					<div class="web sz-11"><i class="fa fa-link fa-fw icon"></i> <a href="<?= ROOT.'tracker/'.$clientdata->id.'-web/?redirect='.$linkweb ?>" target="_blank" ><?= $clientdata->web ?></a></div> 
 					<?php endif; ?>
 
 					<!-- Schedules -->
@@ -70,7 +70,7 @@
 						<div class="outer">
 							<div class="inner">
 								<div class="rating">
-									<?php $promstars = $Clients->rating($Clients->data()->id); ?>
+									<?php $promstars = $Clients->rating($clientdata->id); ?>
 									<div class="stars">
 										<?= Stars($promstars,'fa-lg'); ?>
 									</div>
@@ -79,12 +79,12 @@
 							</div>
 							
 							<!-- FAVS -->
-							<div class="inner"><?= Fav(0,$Clients->data()->id); ?></div>
+							<div class="inner"><?= Fav(0,$clientdata->id); ?></div>
 
 							<!-- VIEWS -->
 							<div class="inner">
 								<div class="views text-right">
-									<i class="fa fa-eye fa-lg"></i><br /><span><?= number_format($Clients->data()->views,0,'','.') ?> visitas</span>
+									<i class="fa fa-eye fa-lg"></i><br /><span><?= number_format($clientdata->views,0,'','.') ?> visitas</span>
 								</div>
 							</div>
 						</div>
@@ -94,11 +94,11 @@
 					<div class="item">
 						<div class="outer"><div class="inner">
 						<?php
-						$socials = json_decode($Clients->data()->socials);
-						if(count($socials)):
+						$socials = json_decode($clientdata->socials);
+						if($socials):
 							foreach($socials as	$social):
 						?>
-						<a href="<?= ROOT.'tracker/'.$Clients->data()->id.'-'.$social->social.'/?redirect='.$social->link ?>" target="_blank" class="fa-stack">
+						<a href="<?= ROOT.'tracker/'.$clientdata->id.'-'.$social->social.'/?redirect='.$social->link ?>" target="_blank" class="fa-stack">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-<?= $social->social ?> fa-stack-1x fa-inverse"></i>
 						</a>
@@ -116,7 +116,7 @@
 			<!-- GALLERY -->
 			<div class="gallery gallery-section">
 				<?php 
-				$gallery = json_decode($Clients->data()->images);
+				$gallery = json_decode($clientdata->images);
 				if(count($gallery)):
 					foreach($gallery as $kg=>$vg):
 						$play = '';
@@ -138,8 +138,9 @@
 
 		<!-- PROMOS -->
 		<?php
-		$Promos->idclient = $Clients->data()->id;
-		if($Promos->get()):
+		$Promos->idclient = $clientdata->id;
+		$Promos->get();
+		if($Promos->data()):
 		?>		
 		<div class="block-white">
 			<h4 class="title-bar">Promos Vigentes</h4>			
@@ -150,7 +151,7 @@
 						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$Stores = new Stores();
 						//show_array($promo->stores);
-						$Stores->get($Clients->data()->id,$promo->stores);
+						$Stores->get($clientdata->id,$promo->stores);
 						echo '<div class="mod-promo mod-promo-4">';
 						include 'mods/mod-promo.php';
 						echo '</div>';
@@ -262,7 +263,7 @@
 
 				<div class="form-group">
 					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
-					<input type="hidden" name="rowid" value="<?=$Clients->data()->id?>">
+					<input type="hidden" name="rowid" value="<?=$clientdata->id?>">
 					<input type="hidden" name="type" value="clients">
 				</div>
 				<div class="form-group">
@@ -306,28 +307,33 @@
 
 
 <!-- CENTROS -->
+<?php 
+$Clients->sort = 'rand';
+$Clients->limit = '0,12';
+$Clients->visible = 1;
+$Clients->exclude = $clientdata->id;
+$Clients->get();
+$clients_related = $Clients->data();
+if($clients_related):
+?>
 <section class="gral-section">
 	<div class="container">
 	
 		<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Relacionados</h3>
 		<div id="clients_carousel" class="clients-carousel">
-		<?php 
-			$Clients->sort = 'rand';
-			$Clients->limit = '0,12';
-			$Clients->visible = 1;
-			$Clients->exclude = $Clients->data()->id;
-			$Clients->get();
-			foreach($Clients->data() as $client):
+		<?php			
+			foreach($clients_related as $client){
 				$logo = json_decode($client->logo);
 				$clientlink = ROOT.'centros/'.$client->permalink;
 				$Stores->get($client->id);
-				//include 'mods/mod-client.php';
-			endforeach;
+				include 'mods/mod-client.php';
+			}
 		?>
 		</div>
 
 	</div>	
 
 </section>
+<?php endif; ?>
 
 <?php include 'mods/mod-socials.php' ?>

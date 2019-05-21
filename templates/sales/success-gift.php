@@ -3,7 +3,7 @@
 
 <p>A continuación te detallamos en qué consiste:</p>
 
-<h4><?=$obj->title?></h4>
+<h4><a href="<?=$obj->promolink?>"><?=$obj->title?></a></h4>
 <img src="<?=$obj->image?>" alt="" style="max-width: 200px">
 <p><b>Incluye: </b><?=$obj->includes?></p>
 

@@ -168,6 +168,7 @@ var Clients = {
 		$.each($('#users .mod-list'),function(k,v){
 			users.push($(this).attr('data-id'));
 		});
+		
 		var visible = $('#fd_visible').hasClass('fa-toggle-on') ? 1 : 0;
 		var types = [];
 		$.each($('#list_types button'),function(k,v){
@@ -484,7 +485,7 @@ var Clients = {
 			Clients.get();
 		});
 		$('#fd_name').keyup(function(){
-			$('#fd_permalink').val(Permalink($(this).val()));
+			$('#fd_permalink').val($(this).val().permalink());
 		});		
 		$('#btn_add_video').click(function(){
 			CheckFields(['#fd_video'],function(){

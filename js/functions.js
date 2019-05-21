@@ -69,6 +69,7 @@ var ajax = function ajax(url, obj) {
 			cache: false
 		}).done(function (response) {
 			if (response.status != 'ok') {
+				console.log(response);
 				Swal.fire({ type: 'error', html: response.message });
 				reject(response);
 			}

@@ -164,7 +164,6 @@ $(function(){
 			$('#form_promo_request [name=date]').val(data.date);
 		}
 	});
-	
 
 
 	$('#btn_sale').click(function(e){

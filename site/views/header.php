@@ -54,11 +54,68 @@
 						<?php endif; ?>
 
 						<?php if($_userdata->idtype == 1): ?>
-						<li><a href="<?= View::url('admin') ?>"><i class="fa fa-wrench"></i> <span>Panel de Control</span></a></li>
+						<li>
+							<a href="<?= View::url('admin') ?>">
+								<i class="fa fa-wrench"></i> 
+								<span>Panel de Control</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','centros') ?>">
+								<i class="fa fa-building-o"></i> 
+								<span>Centros</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','promos') ?>">
+								<i class="fa fa-leaf"></i> 
+								<span>Promos</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','usuarios') ?>">
+								<i class="fa fa-users"></i> 
+								<span>Usuarios</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','ventas') ?>">
+								<i class="fa fa-shopping-bag"></i> 
+								<span>Ventas</span>
+							</a>
+						</li>
 						<?php endif; ?>
 
 						<?php if($_userdata->idtype == 3): ?>
-						<li><a href="<?= View::url('panel') ?>"><i class="fa fa-wrench"></i> <span>Panel de Control</span></a></li>
+						<li>
+							<a href="<?= View::url('panel') ?>">
+								<i class="fa fa-wrench"></i> 
+								<span>Panel de Control</span></a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','mi-centro') ?>">
+								<i class="fa fa-building-o"></i> 
+								<span>Mi Centro</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','promos') ?>">
+								<i class="fa fa-leaf"></i> 
+								<span>Promos</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','reservas') ?>">
+								<i class="fa fa-calendar"></i> 
+								<span>Reservas</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','mi-cuenta') ?>">
+								<i class="fa fa-shopping-bag"></i> 
+								<span>Ventas</span>
+							</a>
+						</li>
 						<?php endif; ?>
 
 						<li><a href="javascript:logout();"><i class="fa fa-times"></i> <span>Cerrar Sesión</span></a></li>

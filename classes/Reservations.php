@@ -80,6 +80,7 @@ class Reservations {
 		if(!$this->_db->count()) return false;
 
 		$output = $this->_db->first();
+		$output->fecha = date('d/m/Y H:i',strtotime($output->book_date));
 
 		$User = new User($output->userid);
 		if(is_null($User->data())) return false;
@@ -88,6 +89,8 @@ class Reservations {
 		$Promos = new Promos();
 		if(!$Promos->find($output->promoid)) return false;
 		$output->promo = $Promos->data();
+
+		$output->promo->promolink = ROOT.'promo/'.$output->promo->permalink.'/'.$output->promo->id.'-'.Permalink($output->promo->title);
 
 		$Clients = new Clients();
 		if(!$Clients->find($output->promo->idclient)) return false;

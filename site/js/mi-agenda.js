@@ -98,11 +98,11 @@ var calendar = {
 						$template.find('.subtitle').html(e.subtitle);
 						$template.find('.client').html('<a href="'+ROOT+'centros/'+e.permalink+'" target="_blank" >'+e.client_name+'</a>');
 						
-						$template.find('.user-name').html(e.user_name+' (<a href="mailto:'+e.user_email+'">'+e.user_email+'</a>)');
-						$template.find('.user-phone span').html(e.user_phone);
-						$template.find('.user-comments').html(e.comments==null ? 'No ha dejado comentarios' : e.comments);
+						//$template.find('.user-name').html(e.user_name+' (<a href="mailto:'+e.user_email+'">'+e.user_email+'</a>)');
+						//$template.find('.user-phone span').html(e.user_phone);
+						//$template.find('.user-comments').html(e.comments==null ? 'No ha dejado comentarios' : e.comments);
 
-						$template.find('[data-btn=change-date]').remove();
+						$template.find('[data-btn=change-date],.user').remove();
 
 						$template.find('.date span').html(e.fecha+' hs.');
 						$template.find('.price').html('$ '+(parseInt(e.price).numberFormat(2,',','.')));

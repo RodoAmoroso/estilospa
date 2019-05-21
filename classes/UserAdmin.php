@@ -56,44 +56,44 @@ class UserAdmin {
 	}
 
 	public function delete($iduser=0){
-		if($this->find($iduser)){
+		if(!$this->find($iduser)) return false;
 			
-			if($this->_data->blocked) die(Responses::response('fail','No puedes borrar este usuario'));
+		if($this->_data->blocked) die(Responses::response('fail','No puedes borrar este usuario'));
 
-			if(!empty($this->_data->image)){
-				$img = json_decode($this->_data->image);
-				$th = IMG.'users'.DS.$img->photoname.'-t.'.$img->extension;
-				$bg = IMG.'users'.DS.$img->photoname.'-o.'.$img->extension;
-				if(file_exists($th)) unlink($th);
-				if(file_exists($bg)) unlink($bg);
-			}
-			$Assoc = new Assoc();
-			$Assoc->iduser = $iduser;
-			$Assoc->client_user('delete');
-
-			$Favs = new Favs();
-			$Favs->iduser = $iduser;
-			$Favs->deleteall($iduser);
-
-			$Comments = new Comments();
-			$Comments->iduser = $iduser;
-			$Comments->deleteall();
-
-			$Reservations = new Reservations();
-			$Reservations->deleteall($iduser);
-			
-			$Questions = new Questions();
-			$Questions->deleteall($iduser);
-
-			
-			$this->_db->delete('reservations',array('userid','=',$iduser));
-			
-			if($this->_db->delete('users',array('id','=',$iduser))){
-				return true;
-			}
-			return false;
+		if(!empty($this->_data->image)){
+			$img = json_decode($this->_data->image);
+			$th = IMG.'users'.DS.$img->photoname.'-t.'.$img->extension;
+			$bg = IMG.'users'.DS.$img->photoname.'-o.'.$img->extension;
+			if(file_exists($th)) unlink($th);
+			if(file_exists($bg)) unlink($bg);
 		}
-		return false;
+		$Assoc = new Assoc();
+		$Assoc->iduser = $iduser;
+		$Assoc->client_user('delete');
+
+		$Favs = new Favs();
+		$Favs->iduser = $iduser;
+		$Favs->deleteall($iduser);
+
+		$Comments = new Comments();
+		$Comments->iduser = $iduser;
+		$Comments->deleteall();
+
+		$Reservations = new Reservations();
+		$Reservations->delete_all($iduser);
+		
+		$Questions = new Questions();
+		$Questions->delete_all($iduser);
+
+		
+		$this->_db->delete('reservations',array('userid','=',$iduser));
+		$this->_db->delete('sessions',array('iduser','=',$iduser));
+		//$this->_db->delete('gift',array('iduser','=',$iduser));
+		
+		if(!$this->_db->delete('users',array('id','=',$iduser))) return false;
+		
+
+		return true;
 	}
 
 	public function find($user=null){

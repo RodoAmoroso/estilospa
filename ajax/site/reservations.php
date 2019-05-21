@@ -145,7 +145,7 @@ switch($_action){
 
 		$Mailing->new_reservation($reservationid);
 
-		echo Responses::response('ok','Atención!<br>Tu solicitud de turno ha sido enviada<br>IMPORTANTE: Deberás aguardar la confirmación de tu turno vía email, para concurrir.');
+		echo Responses::response('ok','<h3>¡Tu solicitud de turno ha sido enviada!</h3><br>IMPORTANTE: Deberás aguardar la confirmación de tu turno vía email, para concurrir.');
 		break;
 
 

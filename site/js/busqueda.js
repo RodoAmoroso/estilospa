@@ -3,10 +3,10 @@ var RebuildSearch = function(){
 	var location = [];
 	$.each($('.left-column .button-menu li'),function(){
 		if($(this).attr('data-word') == 'main'){
-			main.push(Permalink($(this).find('span').text()));
+			main.push( $(this).find('span').text().permalink() );
 		}
 		if($(this).attr('data-word') == 'location'){
-			location.push(Permalink($(this).find('span').text()));
+			location.push( $(this).find('span').text().permalink() );
 		}
 	});
 	window.location.href=ROOT+'busqueda/'+(main.length == 0 ? '-' : main.join('-'))+'/'+location.join('-');

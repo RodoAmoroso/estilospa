@@ -7,8 +7,11 @@ class Mailing {
 
 	private $_mailer,
 					$_email='rodosoft@hotmail.com',
+					//$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
-					$_error;
+					$_error,
+					$_notifications,
+					$_newsletters;
 
 	public function __construct(){
 		require PATH.'vendor'.DS.'autoload.php';
@@ -24,7 +27,10 @@ class Mailing {
 		$this->_mailer->Port = 465;
 		$this->_mailer->setFrom('webmaster@estilospa.com',$this->_fullname);
 		$this->_mailer->addReplyTo('consultas@estilospa.com',$this->_fullname);
-		$this->_mailer->isHTML(true);	
+		$this->_mailer->isHTML(true);
+
+		$this->_notifications = new Notifications();
+		$this->_newsletters = new Newsletters();
 	}
 
 	public function send($body){
@@ -106,7 +112,6 @@ class Mailing {
 		$Promos = new Promos();
 		$Glossary = new Glossary();
 		$Clients = new Clients();
-		$Notifications = new Notifications();
 
 		if(!$question = $Questions->get($questionid)) return false;
 
@@ -137,16 +142,16 @@ class Mailing {
 
 				$arrMails = str_replace(',', ';', $client->mail);
 				$arrMails = explode(';',$arrMails);
-				/*foreach($arrMails as $mail){
+				foreach($arrMails as $mail){
 					$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-				}*/
-				$this->_mailer->addAddress($this->_email, $this->_fullname);
+				}
+				//$this->_mailer->addAddress($this->_email, $this->_fullname);
 				//$this->_mailer->clearReplyTos();
 				//$this->_mailer->addReplyTo($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';		
 				if(!$this->send($body)) return false;
 
-				$Notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.$obj->promo_link.'#questions" target="_blank">'.$promo->title.'</a>','question');
+				$this->_notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.$obj->promo_link.'#questions" target="_blank">'.$promo->title.'</a>','question');
 				
 
 				break;
@@ -161,16 +166,16 @@ class Mailing {
 
 				$arrMails = str_replace(',', ';', $client->mail);
 				$arrMails = explode(';',$arrMails);
-				/*foreach($arrMails as $mail){
+				foreach($arrMails as $mail){
 					$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-				}*/
-				$this->_mailer->addAddress($this->_email, $this->_fullname);
+				}
+				///$this->_mailer->addAddress($this->_email, $this->_fullname);
 				///$this->_mailer->clearReplyTos();
 				///$this->_mailer->addReplyTo($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';
 				if(!$this->send($body)) return false;
 
-				$Notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') en el centro <a href="'.ROOT.'centros/'.$client->permalink.'#questions" target="_blank">'.$client->name.'</a>','question');
+				$this->_notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') en el centro <a href="'.ROOT.'centros/'.$client->permalink.'#questions" target="_blank">'.$client->name.'</a>','question');
 
 				break;
 
@@ -186,10 +191,11 @@ class Mailing {
 				foreach($clients as $client){
 					$arrMails = str_replace(',', ';', $client->mail);
 					$arrMails = explode(';',$arrMails);
+
 					$obj->client = $client;
+					
 					foreach($arrMails as $mail){
-						//$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-						$Notifications->add(array(
+						$this->_notifications->add(array(
 							'name_from'=>$user->name.' '.$user->lastname,
 							'email_from'=>$user->mail,
 							'name_to'=>$client->name,
@@ -197,13 +203,14 @@ class Mailing {
 							'subject'=>"Te hicieron una pregunta en EstiloSPA.com",
 							'body'=>Templates::template('questions/question-glossary',$obj),
 							'log'=>'Notificación de nueva pregunta enviada a <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a> con la etiqueta <a href="'.$obj->glossary_link.'" target="_blank">'.$glossary->name.'</a>',
+							'type'=>'question',
 							'added'=>date('Y-m-d H:i:s'),
 						));
 					}
 					//$Questions->add($questionid,$client->id);
 				}
 
-				$Notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') a la etiqueta <a href="'.$obj->glossary_link.'#questions" target="_blank">'.$glossary->name.'</a>','question');
+				$this->_notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') a la etiqueta <a href="'.$obj->glossary_link.'#questions" target="_blank">'.$glossary->name.'</a>','question');
 
 				break;		
 			
@@ -211,51 +218,6 @@ class Mailing {
 
 		return true;
 	}
-
-	/*public function glossary($queueid=0,$questionid=0,$clientid=0){
-
-		$Questions = new Questions();
-		$User = new User();
-		$Glossary = new Glossary();
-		$Clients = new Clients();
-
-		if(!$question = $Questions->get($questionid)) return false;
-
-		if(!$User->find($question->userid)) return false;
-		$user = $User->data();
-
-		if(!$Clients->find($clientid)) return false;
-		$client = $Clients->data();
-
-		if(!$Glossary->find($question->rowid)) return false;
-		$glossary = $Glossary->data();
-
-		$obj = new stdClass();
-		$obj->user_name = $user->name;
-		$obj->question = $question->message;
-		$obj->questionid = $questionid;
-		$obj->question_date = $question->creado;
-
-		$obj->glossary_link = ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name);
-		$obj->glossary_name = $glossary->name;
-		$body = Templates::template('questions/question-glossary',$obj);
-
-		$arrMails = str_replace(',', ';', $client->mail);
-		$arrMails = explode(';',$arrMails);
-		foreach($arrMails as $mail){
-			//$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-		}
-		$this->_mailer->addAddress('rodosoft@hotmail.com', 'Rodo');
-		$this->_mailer->clearReplyTos();
-		$this->_mailer->addReplyTo($this->_email, $this->_fullname);
-		$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';
-
-		if(!$this->send($body)) return false;
-		$Questions->delete_queue($queueid);
-
-		return true;
-
-	}*/
 
 
 	public function response($responseid=0){
@@ -266,8 +228,7 @@ class Mailing {
 		$User = new User();
 		$Promos = new Promos();
 		$Clients = new Clients();
-		$Glossary = new Glossary();
-		$Notifications = new Notifications();
+		$Glossary = new Glossary();		
 		$Assoc = new Assoc();
 
 		if(!$response = $Questions->get_response($responseid)) return false;
@@ -298,11 +259,11 @@ class Mailing {
 				$obj->promo_title = $promo->title;				
 				$body = Templates::template('questions/response-promo',$obj);
 
-				//$this->_mailer->addAddress($user->mail, $user->name);
-				$this->_mailer->addAddress($this->_email, $this->_fullname);
+				$this->_mailer->addAddress($user->mail, $user->name);
+				//$this->_mailer->addAddress($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Respuesta de '.$promo->title;
 
-				$Notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title).'#questions" target="_blank">'.$promo->title.'</a>','question');
+				$this->_notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title).'#questions" target="_blank">'.$promo->title.'</a>','question');
 
 				break;
 			
@@ -315,11 +276,11 @@ class Mailing {
 
 				$body = Templates::template('questions/response-client',$obj);
 
-				//$this->_mailer->addAddress($user->mail, $user->name);
-				$this->_mailer->addAddress('rodosoft@hotmail.com', 'Rodo');
+				$this->_mailer->addAddress($user->mail, $user->name);
+				//$this->_mailer->addAddress('rodosoft@hotmail.com', 'Rodo');
 				$this->_mailer->Subject = 'Respondieron tu pregunta en EstiloSPA.com';
 
-				$Notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en el centro <a href="'.ROOT.'centros/'.$client->permalink.'#questions" target="_blank">'.$client->name.'</a>','question');
+				$this->_notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en el centro <a href="'.ROOT.'centros/'.$client->permalink.'#questions" target="_blank">'.$client->name.'</a>','question');
 
 				break;
 
@@ -340,18 +301,18 @@ class Mailing {
 
 				$body = Templates::template('questions/response-glossary',$obj);
 
-				//$this->_mailer->addAddress($user->mail, $user->name);
-				$this->_mailer->addAddress($this->_email, $this->_fullname);
+				$this->_mailer->addAddress($user->mail, $user->name);
+				//$this->_mailer->addAddress($this->_email, $this->_fullname);
 				$this->_mailer->Subject = 'Respondieron tu pregunta en EstiloSPA.com';
 
-				$Notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la etiqueta <a href="'.ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name).'" target="_blank">'.$glossary->name.'</a>','question');
+				$this->_notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la etiqueta <a href="'.ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name).'" target="_blank">'.$glossary->name.'</a>','question');
 
 				break;
 
 		}
 
-		$this->_mailer->clearReplyTos();		
-		$this->_mailer->addReplyTo($this->_email, $this->_fullname);		
+		//$this->_mailer->clearReplyTos();		
+		//$this->_mailer->addReplyTo($this->_email, $this->_fullname);		
 		if(!$this->send($body)) return false;
 
 		return true;
@@ -360,7 +321,7 @@ class Mailing {
 
 
 	public function new_user($user=null){
-		if(is_object($user)) return false;
+		if(!is_object($user)) return false;
 
 		$this->_mailer->addAddress($user->mail, $user->name);
 		$this->_mailer->Subject = 'Registro nuevo usuario en EstiloSPA.com';
@@ -373,7 +334,7 @@ class Mailing {
 
 
 	public function change_plan($user=null){
-		if(is_object($user)) return false;
+		if(!is_object($user)) return false;
 
 		$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Cambio de Plan';
@@ -388,20 +349,23 @@ class Mailing {
 	public function sales_success_user($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->useremail, $obj->username);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->useremail, $obj->username);
+		$this->_mailer->addBCC($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Detalles de compra de '.$obj->title;
 
 		$body = Templates::template('sales/success-user',$obj);
 		if(!$this->send($body)) return false;
+
+
+		$this->_notifications->add_log('Nueva compra de '.$obj->username.' ('.$obj->useremail.'). Promo: <a href="'.$obj->promolink.'" target="_blank">'.$obj->title.'</a>','sale');
 
 		return true;
 	}
 	public function sales_success_client($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Nueva venta en EstiloSPA.com - Nro: '.$obj->title;
 
 		$body = Templates::template('sales/success-client',$obj);
@@ -412,8 +376,8 @@ class Mailing {
 	public function sales_success_gift($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = $obj->gift->fromuser.' te ha regalado esta promo!';
 
 		$body = Templates::template('sales/success-gift',$obj);
@@ -426,8 +390,8 @@ class Mailing {
 	public function sales_pending($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->useremail, $obj->username);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->useremail, $obj->username);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Compra en EstiloSPA.com - '.$obj->title;
 
 		$body = Templates::template('sales/pending-user',$obj);
@@ -438,8 +402,8 @@ class Mailing {
 	public function sales_rejected($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->useremail, $obj->username);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->useremail, $obj->username);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Compra en EstiloSPA.com - '.$obj->title;
 
 		$body = Templates::template('sales/rejected-user',$obj);
@@ -452,8 +416,19 @@ class Mailing {
 	public function notifications($obj=null){
 		if(!is_object($obj)) return false;
 
-		//$this->_mailer->addAddress($obj->email_to, $obj->name_to);
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($obj->email_to, $obj->name_to);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->Subject = $obj->subject;
+		if(!$this->send($obj->body)) return false;
+
+		return true;
+	}
+
+	public function newsletters($obj=null){
+		if(!is_object($obj)) return false;
+
+		$this->_mailer->addAddress($obj->email_to, $obj->name_to);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = $obj->subject;
 		if(!$this->send($obj->body)) return false;
 
@@ -467,14 +442,16 @@ class Mailing {
 
 		$arrMails = str_replace(',', ';', $reservation->client->mail);
 		$arrMails = explode(';',$arrMails);
-		/*foreach($arrMails as $mail){
-			$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-		}*/
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		foreach($arrMails as $mail){
+			$this->_mailer->addAddress(strtolower(trim($mail)), $reservation->client->name);
+		}
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Solicitud de reserva nueva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/new-reservation',$reservation);
 		if(!$this->send($body)) return false;
+
+		$this->_notifications->add_log('Nueva reserva de '.$reservation->user->name.' ('.$reservation->user->mail.'). Promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha,'reservation');
 
 		return true;
 	}
@@ -483,12 +460,14 @@ class Mailing {
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
 
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
-		//$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
 		$this->_mailer->Subject = 'Cancelación de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/cancel-user-reservation',$reservation);
 		if(!$this->send($body)) return false;
+
+		$this->_notifications->add_log('Cancelación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
 
 		return true;
 	}
@@ -500,14 +479,16 @@ class Mailing {
 
 		$arrMails = str_replace(',', ';', $reservation->client->mail);
 		$arrMails = explode(';',$arrMails);
-		/*foreach($arrMails as $mail){
-			$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-		}*/
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		foreach($arrMails as $mail){
+			$this->_mailer->addAddress(strtolower(trim($mail)), $reservation->client->name);
+		}
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Confirmación de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/cancel-client-reservation',$reservation);
 		if(!$this->send($body)) return false;
+
+		$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
 
 		return true;
 	}
@@ -516,12 +497,14 @@ class Mailing {
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
 
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
-		//$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
 		$this->_mailer->Subject = 'Confirmación de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/confirm-user-reservation',$reservation);
 		if(!$this->send($body)) return false;
+
+		$this->_notifications->add_log('Confirmación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
 
 		return true;
 	}
@@ -532,14 +515,16 @@ class Mailing {
 
 		$arrMails = str_replace(',', ';', $reservation->client->mail);
 		$arrMails = explode(';',$arrMails);
-		/*foreach($arrMails as $mail){
-			$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
-		}*/
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
+		foreach($arrMails as $mail){
+			$this->_mailer->addAddress(strtolower(trim($mail)), $reservation->client->name);
+		}
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Confirmación de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/confirm-client-reservation',$reservation);
 		if(!$this->send($body)) return false;
+
+		$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
 
 		return true;
 	}
@@ -548,8 +533,8 @@ class Mailing {
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
 
-		$this->_mailer->addAddress($this->_email, $this->_fullname);
-		//$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
+		//$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
 		$this->_mailer->Subject = 'Cambio de día y horario de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/update-user-reservation',$reservation);

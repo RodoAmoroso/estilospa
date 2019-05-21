@@ -52,10 +52,7 @@ switch($_action){
 		break;
 
 	case 'delete':
-		$Promos->deleteAll(Input::get('ID'));
-		$Stores->deleteAll(Input::get('ID'));
-		$Features->delete(Input::get('ID'));		
-		$Clients->delete();
+		if(!$Clients->delete(Input::get('ID'))) die(Responses::response('fail',$Clients->error()));
 		echo Responses::response('ok');	
 		break;
 

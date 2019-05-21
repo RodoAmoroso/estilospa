@@ -13,7 +13,7 @@ if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 switch($_action){
 
 
-	case 'getbyid':
+	case 'get':
 		$Questions->filters = [[Input::get('type')=>Input::get('rowid')]];
 		$Questions->limit = intval(Input::get('limit'));
 		$Questions->page = intval(Input::get('page'));

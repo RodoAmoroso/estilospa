@@ -10,7 +10,7 @@ $Clients->get();
 
 $Promos->limit = '0,10';
 
-$Notifications->limit = '0,25';
+$Notifications->limit = '0,20';
 $_notifications = $Notifications->get_log();
 
 
@@ -19,7 +19,8 @@ $Questions->limit = 15;
 //$Questions->filters = [['clients'=>$_userdata->idclient]];
 $questions = $Questions->get_unanswered();
 
-//show_array($questions);
+$questions_responses = $Questions->get_unanswered(null,true);
+///show_array($questions_responses);
 
 function dif_labels($dif=''){
 	switch ($dif) {

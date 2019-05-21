@@ -112,12 +112,17 @@ class Questions {
 		return $this->_db->first();
 	}
 
-	public function get_unanswered($clientid=null){
+	public function get_unanswered($clientid=null,$answered=false){
 
 		$values = array();
-		$where = '';
+		$where = "";
+		if(!$answered){
+			$where = "WHERE r.id IS NULL";
+		}else{
+			$where = "WHERE r.id IS NOT NULL";			
+		}
 		if(!is_null($clientid)){
-			$where = "AND (p.idclient=? OR c.id=? OR ga.clientid=?)";
+			$where .= " AND (p.idclient=? OR c.id=? OR ga.clientid=?)";
 			$values[] = $clientid;
 			$values[] = $clientid;
 			$values[] = $clientid;
@@ -135,15 +140,22 @@ class Questions {
 			LEFT JOIN {clients_glossary_assignments} ga ON ga.glossaryid=q.rowid AND q.type='glossary'
 			LEFT JOIN {glossary} g ON g.id=ga.glossaryid
 			LEFT JOIN {questions_responses} r ON r.messageid=q.id
-			WHERE r.id IS NULL {$where}
+			{$where}
+			GROUP BY q.id
 			ORDER BY q.added DESC
 			{$limit}",
 			$values
 		);
+		
 		//show_array($this->_db->getquery()->queryString);
+
 		if(!$this->_db->count()) return false;
 
-		return $this->_db->results();
+		$output = $this->_db->results();
+		foreach($output as $k=>$question){
+			$output[$k]->responses = $this->get_responses($question->id);
+		}
+		return $output;
 	}
 
 	public function find_client($userid=0){
@@ -262,6 +274,39 @@ class Questions {
 			array($userid)
 		);
 		return true;
+	}
+
+	public function delete_question($messageid=0){
+		$this->_db->delete('questions',array('id','=',$messageid));
+		$this->_db->delete('questions_responses',array('messageid','=',$messageid));
+		$this->_db->delete('questions_queue',array('messageid','=',$messageid));
+		return true;
+	}
+	public function delete_response($responseid=0){
+		$this->_db->delete('questions_responses',array('id','=',$responseid));
+		return true;
+	}
+
+	public function get_latest(){
+
+		$this->_db->query(
+			"SELECT q1.* 
+			FROM spa_questions q1
+			INNER JOIN 
+				(
+					SELECT MAX(added) recent, userid
+					FROM spa_questions 
+					WHERE DATEDIFF(NOW(),added) = 1
+					GROUP BY userid
+				) q2 
+				ON q2.userid=q1.userid AND q2.recent=q1.added
+			LIMIT 0,100"
+		);
+
+		if(!$this->_db->count()) return false;
+
+		return $this->_db->results();
+
 	}
 
 }

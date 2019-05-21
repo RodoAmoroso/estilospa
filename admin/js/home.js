@@ -105,9 +105,9 @@ var Actions = {
 				var link = $.parseJSON(DATA.result.link);
 				$('#fd_url_'+type).val(link.url);
 				if(link.blank==0){
-					$('#btn_url_'+type+'_blank i').addClass('fa-check').removeClass('fa-check-square');
+					$('#btn_url_'+type+'_blank i').addClass('fa-check-square').removeClass('fa-square');
 				}else{
-					$('#btn_url_'+type+'_blank i').removeClass('fa-check').addClass('fa-check-square');
+					$('#btn_url_'+type+'_blank i').removeClass('fa-check-square').addClass('fa-square');
 				}
 				if(DATA.result.visible == 1){
 					$('#fd_visible_main i').removeClass('fa-toggle-off').addClass('fa-toggle-on');

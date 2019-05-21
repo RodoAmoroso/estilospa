@@ -11,16 +11,22 @@ require '../config.php';
 //$obj->hash = 'fde2fd2313fdefeffefdcc';
 /////$Mailing->register($obj);
 
+$Promos = new Promos();
+$Banners = new Banners();
+
 $obj = new stdClass();
-$obj->promo_link = 'https://www.estilospa.com';
-$obj->promo_title = 'Promo nueva';
-$obj->user_name = 'Rodo';
-$obj->question = 'Cuánto vale?';
-$obj->questionid = 2;
-$obj->question_date = '01/02/2019';
+$Promos->exclude = 0;
+$Promos->limit = '0,10';
+$Promos->get();
+$obj->promos = $Promos->data();
 
-$obj->response = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta aspernatur, magni, officiis laudantium quod similique voluptates impedit provident dolor dicta vero nobis nesciunt autem, facilis corporis optio at voluptate expedita.';
-$obj->response_date = '01/02/2019';
+$Banners->visible = 1;
+$Banners->type = 'main';
+$Banners->sort = 'position';
+$Banners->limit = '0,2';
+$Banners->get();
+$obj->banners = $Banners->data();
 
-$template = Templates::template('questions/response-promo',$obj);
+
+$template = Templates::template('newsletters/subscription',$obj);
 echo Templates::template('email',$template);

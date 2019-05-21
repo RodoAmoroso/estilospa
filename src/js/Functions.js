@@ -66,6 +66,7 @@ let ajax = (url,obj) => {
 		})
 		.done(response => {
 			if(response.status!='ok'){
+				console.log(response);
 				Swal.fire({type:'error',html:response.message});
 				reject(response);
 			} 

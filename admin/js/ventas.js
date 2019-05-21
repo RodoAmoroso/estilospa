@@ -85,7 +85,7 @@ Actions = {
 					if(v.title == null){console.log(v.id)}
 					var mod = $('#mod_sale').clone();
 					mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
-					mod.find('[data-tag="ordernumber"]').text('Orden Nro.: '+v.merchant_order_id);
+					mod.find('[data-tag="ordernumber"]').text('Orden Nro.: '+v.collection_id);
 					if(v.title == null){
 						mod.find('[data-tag="title"]').html('La promo fue borrada');
 					}else{
@@ -101,7 +101,7 @@ Actions = {
 							discountvoucher = v.value;
 						}
 					}
-					mod.find('[data-tag="collectionid"]').html('Nro. de comprobante: #'+v.collection_id);
+					///mod.find('[data-tag="collectionid"]').html('Nro. de comprobante: #'+v.);
 					mod.find('[data-tag="price"]').html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity+' | <span class="fw-400">Total: $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.')+'</span>');
 					mod.find('[data-tag="date"]').text('Fecha de compra: '+v.fecha+' hs.'+vouchertext).after('<hr /><div class="sz-8 pad-4 alert-'+Actions.status_payment(v.collection_status).label+'">'+Actions.status_payment(v.collection_status).text+'</div>');
 					mod.find('[data-button="toggle"],[data-group="status"]').attr('data-id',v.id);

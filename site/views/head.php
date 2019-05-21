@@ -30,7 +30,7 @@
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 
 	<?php 
-		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? ROOT.$_IMGFACEBOOK : ROOT.'assets/logo.jpg';
+		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : PATH.'assets'.DS.'logo.jpg';
 		$_IMGSIZE = getimagesize($_IMGFACEBOOK);
 		$_URLHEAD = isset($_URLHEAD) ? $_URLHEAD : ROOT;
 		$_DESCRIPTION = isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION;

@@ -52,7 +52,7 @@ class User {
 		if($user){
 			$field = is_numeric($user) ? 'u.id' : 'u.mail';
 			//$this->_db->get('users',array($field,'=',$user));
-			$this->_db->query("SELECT u.*, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
+			$this->_db->query("SELECT u.*, CONCAT(u.name,' ',u.lastname) fullname, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
 				FROM {users} u 
 				LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
 				LEFT JOIN {clients} c ON c.id=a.idclient 

@@ -33,8 +33,8 @@ class Promos {
 	public function find($id=0){
 		$this->_db->query(
 			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname
-			FROM {$this->_dbprefix}promos p 
-			LEFT JOIN {$this->_dbprefix}clients c ON c.id=p.idclient 
+			FROM {promos} p 
+			LEFT JOIN {clients} c ON c.id=p.idclient 
 			WHERE p.id=?",
 			array($id)
 		);
@@ -170,11 +170,14 @@ class Promos {
 		//echo $query;
 
 		$this->_db->query($query);
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
+		
+		if(!$this->_db->count()){
+			$this->_data = null;
 			return true;
 		}
-		return false;
+		
+		$this->_data = $this->_db->results();
+		return true;
 	}
 
 	public function get_glossary($promoid){		
@@ -251,29 +254,46 @@ class Promos {
 		return true;
 	}
 
-	public function delete(){
-		if($this->find(Input::get('ID'))){
-			if($this->_db->count()):
-				$img = json_decode($this->_db->first()->gallery);
-				foreach($img as $kp=>$vp):
-					$bg = IMG.'promos'.DS.$vp->photoname.'-o.'.$vp->extension;
-					$th = IMG.'promos'.DS.$vp->photoname.'-t.'.$vp->extension;
-					if(file_exists($th)) unlink($th);
-					if(file_exists($bg)) unlink($bg);
-				endforeach;
-			endif;
-			if($this->_db->delete('promos',array('id','=',Input::get('ID')))){
-				return true;
-			}
-		}		
-		return false;
+	public function delete($promoid=0){
+
+		if(!$this->find($promoid)) return false;
+
+		$img = json_decode($this->_data->gallery);
+
+		foreach($img as $kp=>$vp){
+			$bg = IMG.'promos'.DS.$vp->photoname.'-o.'.$vp->extension;
+			$th = IMG.'promos'.DS.$vp->photoname.'-t.'.$vp->extension;
+
+			if(file_exists($th)) unlink($th);
+			if(file_exists($bg)) unlink($bg);		
+		}
+	
+
+		if(!$this->_db->delete('promos_glossary_assignments',array('promoid','=',$promoid))) return false;
+		if(!$this->_db->delete('promo_views',array('promoid','=',$promoid))) return false;
+
+
+		if(!$this->_db->query(
+			"DELETE FROM {questions}
+			WHERE type=? AND rowid=?",
+			array('promos',$promoid)
+		)) return false;
+
+		if(!$this->_db->delete('promos',array('id','=',$promoid))) return false;
+		return true;		
+		
 	}
 
 	public function deleteAll($idclient=0){
-		if($this->_db->delete('promos',array('idclient','=',$idclient))){
-			return true;
+		/////if(!$this->_db->delete('promos',array('idclient','=',$idclient))) return false;
+		$this->idclient = $idclient;
+		$this->get();
+		if($this->_data){
+			foreach($this->_data as $promo){
+				$this->delete($promo->id);
+			}
 		}
-		return false;
+		return true;
 	}
 
 	public function getLastId(){

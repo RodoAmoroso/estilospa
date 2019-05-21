@@ -14,3 +14,4 @@ if(!$User->logged()) Redirect::to('login#panel');
 if($User->data()->idtype != 3) Redirect::to('restricted');
 
 $_userdata = $User->data();
+//show_array($_userdata);

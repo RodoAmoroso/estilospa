@@ -45,9 +45,9 @@ class Glossary {
 			$limitby = "LIMIT {$this->limit}";
 		}
 		$query = "
-			SELECT g.id, g.name name, g.description, g.image, g.idgroup, gg.name groupname, (SELECT COUNT(*) FROM {$this->_dbprefix}clients c WHERE (c.glossary LIKE CONCAT('%',g.id,'%') OR c.glossary LIKE CONCAT(g.id,'%') OR c.glossary LIKE CONCAT('%',g.id) OR c.glossary=g.id) AND c.visible=1) as countclients
-			FROM {$this->_dbprefix}glossary g 
-			LEFT JOIN {$this->_dbprefix}glossarygroups gg ON gg.id=g.idgroup 
+			SELECT g.*, gg.name groupname, (SELECT COUNT(*) FROM {$this->_dbprefix}clients c WHERE (c.glossary LIKE CONCAT('%',g.id,'%') OR c.glossary LIKE CONCAT(g.id,'%') OR c.glossary LIKE CONCAT('%',g.id) OR c.glossary=g.id) AND c.visible=1) as countclients
+			FROM {glossary} g 
+			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup 
 			{$search} 
 			{$sortby} 
 			{$limitby}";
@@ -63,7 +63,13 @@ class Glossary {
 	}
 
 	public function find($id=0){
-		$this->_db->query("SELECT g.id, g.name, g.description, g.position, g.image, g.idgroup, gg.name groupname FROM {$this->_dbprefix}glossary g LEFT JOIN {$this->_dbprefix}glossarygroups gg ON gg.id=g.idgroup WHERE g.id=?",array($id));
+		$this->_db->query(
+			"SELECT g.*, gg.name groupname 
+			FROM {glossary} g 
+			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup 
+			WHERE g.id=?",
+			array($id)
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->first();
 			return true;
@@ -77,7 +83,7 @@ class Glossary {
 			$this->_db->update('glossary',Input::get('ID'),$sql);
 			return true;
 		else:
-			$this->_db->query("UPDATE {$this->_dbprefix}glossary SET position=position+1 WHERE idgroup=?",array(Input::get('IDGroup')));
+			$this->_db->query("UPDATE {glossary} SET position=position+1 WHERE idgroup=?",array(Input::get('IDGroup')));
 			$sql['position'] = 1;
 			$this->_db->insert('glossary',$sql);
 			$this->_lastid = $this->_db->getLastId();
@@ -102,7 +108,7 @@ class Glossary {
 					unlink(PATH.'\img\glossary\\'.$img->photoname.'.'.$img->extension);
 				endif;
 				$this->_db->delete('glossary',array('id','=',$v));
-				$this->_db->query("UPDATE {$this->_dbprefix}glossary SET position=position-1 WHERE idgroup=? AND position>?",array($idgroup,$pos));
+				$this->_db->query("UPDATE {glossary} SET position=position-1 WHERE idgroup=? AND position>?",array($idgroup,$pos));
 			endforeach;
 			return true;
 		else:

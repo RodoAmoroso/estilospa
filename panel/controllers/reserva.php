@@ -18,6 +18,6 @@ for($i=1; $i<=4; $i++){
 	$_today->modify('+1 day');
 }
 
-
+$reservation_bookdate = strtotime($_reservation->book_date);
 
 //show_array($_reservation->promo);

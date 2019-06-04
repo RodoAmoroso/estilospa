@@ -179,10 +179,10 @@ class Stats {
 		$total = 0;
 
 		$this->_db->query("
-			SELECT c.views+(SELECT SUM(p.views) FROM {promos} p WHERE p.idclient=?) total
+			SELECT c.views+COALESCE((SELECT SUM(p.views) FROM {promos} p WHERE p.idclient=c.id),0) total
 			FROM {clients} c
 			WHERE c.id=?",
-			array($idclient,$idclient)
+			array($idclient)
 		);
 		if(!$this->_db->count()) return 0;
 

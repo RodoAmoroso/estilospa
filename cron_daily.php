@@ -20,15 +20,15 @@ $MPConfig = new MPConfig();
 /// SEND ALERTS - QUALIFY AND UPDATE STATUS ///
 $Notifications = new Notifications();
 
-$Notifications->range = 2;
+$Notifications->range = 1;
 $Notifications->get_unstated();
 $Notifications->get_unrated();
 
-$Notifications->range = 14;
+$Notifications->range = 3;
 $Notifications->get_unrated();
 $Notifications->get_unstated();
 
-$Notifications->range = 21;
+$Notifications->range = 5;
 $Notifications->get_unrated();
 $Notifications->get_unstated();
 

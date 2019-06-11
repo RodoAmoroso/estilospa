@@ -60,6 +60,7 @@
 
 	<script>
 		var ROOT = '<?= ROOT ?>';
+		var ADMIN = '<?= ADMIN ?>';
 		var PAGENAME = '<?= PAGENAME ?>';
 		var MAXFILES = '<?= MAXFILES ?>';
 		var _section = '<?= $_section ?>';

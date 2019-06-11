@@ -37,6 +37,21 @@ class Questions {
 							$values[] = $filter[key($filter)];
 						}
 						break;
+					case 'clientid':
+						$where .= empty($where) ? "WHERE " : " AND ";
+						$where .= "(p.idclient=? OR c.id=? OR ga.clientid=?)";
+						$values[] = $filter[key($filter)];
+						$values[] = $filter[key($filter)];
+						$values[] = $filter[key($filter)];
+						break;
+
+					case 'type':
+						if(!empty($filter[key($filter)])){
+							$where .= empty($where) ? "WHERE " : " AND ";
+							$where .= "q.type=?";
+							$values[] = $filter[key($filter)];
+						}
+						break;
 					case 'promos':
 						if(!empty($filter[key($filter)])){
 							$where .= empty($where) ? "WHERE " : " AND ";
@@ -61,6 +76,15 @@ class Questions {
 							$values[] = 'glossary';
 						}
 						break;
+					case 'status':
+						$where .= empty($where) ? "WHERE " : " AND ";
+						if($filter[key($filter)] == 'answered'){
+							$where .= "(SELECT COUNT(*) FROM {questions_responses} qr WHERE qr.messageid=q.id)>?";
+						}else{
+							$where .= "(SELECT COUNT(*) FROM {questions_responses} qr WHERE qr.messageid=q.id)=?";
+						}						
+						$values[] = 0;
+						break;
 				}
 			}
 		}
@@ -69,7 +93,12 @@ class Questions {
 			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, u.name user_name, u.lastname user_lastname, u.mail user_email
 			FROM {questions} q
 			LEFT JOIN {users} u ON u.id=q.userid
+			LEFT JOIN {promos} p ON p.id=q.rowid AND q.type='promos'
+			LEFT JOIN {clients} cp ON p.idclient=cp.id
+			LEFT JOIN {clients} c ON c.id=q.rowid AND q.type='clients'
+			LEFT JOIN {clients_glossary_assignments} ga ON ga.glossaryid=q.rowid AND q.type='glossary'
 			{$where}
+			GROUP BY q.id
 			ORDER BY q.added DESC
 			{$limit}",
 			$values
@@ -77,9 +106,25 @@ class Questions {
 
 		if(!$this->_db->count()) return false;
 
+		$Clients = new Clients();
+		$Glossary = new Glossary();
+		$Promos = new Promos();
+
 		$data = $this->_db->results();
 		foreach($data as $k=>$rs){
 			$data[$k]->responses = $this->get_responses($rs->id);
+			if($rs->type=='clients'){
+				$Clients->find($rs->rowid);
+				$data[$k]->client = $Clients->data();
+			}
+			if($rs->type=='promos'){
+				$Promos->find($rs->rowid);
+				$data[$k]->promo = $Promos->data();
+			}
+			if($rs->type=='glossary'){
+				$Glossary->find($rs->rowid);
+				$data[$k]->glossary = $Glossary->data();
+			}
 		}
 
 		if(!is_null($id)) $data = (object) $data[0];

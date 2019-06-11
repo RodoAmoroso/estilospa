@@ -20,6 +20,11 @@ switch($_action){
 		echo Responses::response('ok','',array('results'=>$reservations));
 		break;
 
+	case 'find':
+		$reservation = $Reservations->find(Input::get('reservationid'));		
+		echo Responses::response('ok','',array('result'=>$reservation));
+		break;
+
 	case 'delete':
 
 		$Promos->find(Input::get('promoid'));
@@ -60,6 +65,10 @@ switch($_action){
 
 	case 'exclude':
 		$Reservations->exclude($User->data()->idclient,Input::get('date'));
+		echo Responses::response('ok');
+		break;
+	case 'unexclude':
+		$Reservations->delete(Input::get('id'));
 		echo Responses::response('ok');
 		break;
 

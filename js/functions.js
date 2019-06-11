@@ -104,7 +104,7 @@ var get_form = function get_form(f) {
 };
 var logout = function logout() {
 	ajax('site/users/logout', {}).then(function (data) {
-		window.location.reload();
+		window.location.href = ROOT;
 	});
 };
 var toggle_button = function toggle_button(el, status) {

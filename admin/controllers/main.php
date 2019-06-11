@@ -1,7 +1,7 @@
 <?php 
 
 $User = new User();
-if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
+if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){	
 	$hash = Cookie::get(Config::get('cookie/cookie_name'));
 	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
 	if($hashCheck->count()){

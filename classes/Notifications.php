@@ -7,7 +7,8 @@ class Notifications {
 					$_dbpx;
 
 	public 	$range=5,
-					$limit='0,10';
+					$limit='0,10',
+					$filters=array();
 
 	public function __construct(){
 		$this->_dbpx = Config::get('mysql/prefix');
@@ -118,12 +119,32 @@ class Notifications {
 	}
 
 	public function get_log(){
+
+		$where = '';
+		$values = array();
+
+		if(!empty($this->filters)){
+			foreach($this->filters as $key=>$filter){
+				switch ($key) {
+					case 'type':
+						$where .= empty($where) ? "WHERE " : " AND ";
+						$where .= "nl.type=?";
+						$values[] = $filter;
+						break;					
+					
+				}
+			}
+		}
+
 		$this->_db->query(
 			"SELECT nl.*
 			FROM {notifications_log} nl
-			ORDER BY nl.added DESC 
-			LIMIT {$this->limit}"
+			{$where} 
+			ORDER BY nl.added DESC
+			LIMIT {$this->limit}",
+			$values
 		);
+
 		if(!$this->_db->count()) return false;
 
 		return $this->_db->results();

@@ -94,12 +94,6 @@
 			</div>
 
 		</div>
-	</div>
-</section>
-
-
-<section class="admin-box bg-gray-5">
-	<div class="container">
 
 		<div class="block-white">
 
@@ -183,168 +177,250 @@
 			</div>
 
 		</div>
-	</div>
-</section>
 
 
-
-<!-- QUESTIONS -->
-<section class="admin-box bg-gray-5">
-	<div class="container">
-		
-
-		<div class="row">
-			<div class="col-md-6">
-
-				<div class="block-white" >
-				
-					<h3>Preguntas sin responder</h3>
-					<hr>
-
-					<?php if($questions): foreach($questions as $question): ?>
-
-					<div class="questions-wrapper">
-						<div class="question-box">
-							<div class="icon">
-								<i class="fa fa-user"></i>
-							</div>
-							<div class="message">
-								<p data-content="message" class="caption"><?=$question->message?></p>
-								<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs.</small>
-
-								<div class="actions">
-									
-									<?php if($question->type=='promos'): ?>
-									Enviada a la promo <a href="<?= ROOT.'promo/'.$question->permalink_promo.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo_title?></a>
-									<?php endif; ?>
-
-									<?php if($question->type=='clients'): ?>
-									Enviada al centro <a href="<?= ROOT.'centros/'.$question->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client_name?></a>
-									<?php endif; ?>
-
-									<?php if($question->type=='glossary'): ?>
-									Enviada a la etiqueta <a href="<?= ROOT.'etiqueta/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->glossary_name?></a>
-									<?php endif; ?>
-
-								</div>
-
-							</div>
-							<div class="buttons">
-								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash"></i></button>
-							</div>
-						</div>
-					</div>
-					<?php endforeach; else: ?>
-
-					<p class="alert alert-info">No se encontraron preguntas sin responder</p>
-					<?php endif; ?>
-
-				</div>
-
-			</div>
-			<div class="col-md-6">
-
-				<div class="block-white" >
-				
-					<h3>Últimas respuestas</h3>
-					<hr>
-
-					<?php if($questions_responses): foreach($questions_responses as $question): ?>
-
-					<div class="questions-wrapper">
-						<div class="question-box">
-							<div class="icon">
-								<i class="fa fa-user"></i>
-							</div>
-							<div class="message">
-								<p data-content="message" class="caption"><?=$question->message?></p>
-								<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs.</small>
-
-								<div class="actions">
-									
-									<?php if($question->type=='promos'): ?>
-									Enviada a la promo <a href="<?= ROOT.'promo/'.$question->permalink_promo.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo_title?></a>
-									<?php endif; ?>
-
-									<?php if($question->type=='clients'): ?>
-									Enviada al centro <a href="<?= ROOT.'centros/'.$question->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client_name?></a>
-									<?php endif; ?>
-
-									<?php if($question->type=='glossary'): ?>
-									Enviada a la etiqueta <a href="<?= ROOT.'etiqueta/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->glossary_name?></a>
-									<?php endif; ?>
-
-								</div>
-
-							</div>
-							<div class="buttons">
-								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash"></i></button>
-							</div>
-						</div>
-
-						<!-- RESPONSES -->
-						<h5 class="response-title text-gray-50">Respuestas:</h5>
-						<?php foreach($question->responses as $response): ?>
-						<div class="question-box response">
-							<div class="thumb thumb-cover" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>
-							<div class="message">
-								<a href="<?=ROOT.'centros/'.$response->client->permalink ?>" target="_blank"><?=$response->client->name?></a>
-								<p><?=$response->message?></p>
-								<small>Envidada: <?=$response->creado?> hs.</small>
-							</div>
-							<div class="actions">
-								<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-response" data-id="<?=$response->id?>" title="borrar respuesta"><i class="fa fa-trash"></i></button>
-							</div>
-						</div>
-						<?php endforeach; ?>
-					</div>
-					<?php endforeach; else: ?>
-
-					<p class="alert alert-info">No se encontraron preguntas sin responder</p>
-					<?php endif; ?>
-
-				</div>
-
-
-			</div>
-		</div>
-
-
+		<!-- Stats -->
 		<div class="block-white">
-				
-			<h3>Actividad reciente</h3>
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<h4>Plabaras más buscadas</h4>
+					<?php if($top_words): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Palabra</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($top_words as $word): ?>
+								<tr>
+									<td><a href="<?=ROOT.'busqueda/'.Permalink($word->word)?>" target="_blank"><?=$word->word?></a></td>
+									<td><?=$word->total?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+				<div class="col-md-6">
+					<h4>Lugares más buscados</h4>
+					<?php if($top_locations): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Lugar</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<?php foreach($top_locations as $location): ?>
+								<tr>
+									<td><a href="<?=ROOT.'busqueda/-/'.Permalink($location->location)?>" target="_blank"><?=$location->location?></a></td>
+									<td><?=$location->total?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+			</div>
+
+
 			<hr>
 
-			<?php if($_notifications): ?>
 
-			<div class="activity-wrapper">
+			<div class="row">
 
-				<?php foreach($_notifications as $not): ?>
-
-				<div class="mod-activity">
-					<div class="content">
-						<div class="date-wrapper">
-							<div class="date"><?= date('d/m/Y',strtotime($not->added)) ?></div>
-							<small><?= date('H:i:s',strtotime($not->added)) ?> hs.</small>
-						</div>
-						<div class="log-wrapper">
-							<p class="log"><?=$not->log?></p>
-						</div>
+				<div class="col-md-6">
+					<h4>Promos más visitadas</h4>
+					<?php if($top_promos): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Promo</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($top_promos as $promo): ?>
+								<tr>
+									<td><a href="<?=ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title)?>" target="_blank"><?=$promo->title?></a></td>
+									<td><?=number_format($promo->views,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
 					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
 				</div>
-				<?php endforeach; ?>
+
+				<div class="col-md-6">
+					<h4>Centros más visitados</h4>
+					<?php if($top_clients): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Centro</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<?php foreach($top_clients as $client): ?>
+								<tr>
+									<td><a href="<?=ROOT.'centros/'.$client->permalink?>" target="_blank"><?=$client->name?></a></td>
+									<td><?=number_format($client->views,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
 
 			</div>
 
-			<?php else: ?>
-			<p class="alert alert-info">No se econtraron actividades recientes.</p>
-			<?php endif; ?>
+
+
+			<hr>
+
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<h4>Entradas del blog más visitadas</h4>
+					<?php if($top_blog): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Entrada</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($top_blog as $blog): ?>
+								<tr>
+									<td><a href="<?=ROOT.'blog-pagina/'.$blog->id.'-'.Permalink($blog->title)?>" target="_blank"><?=$blog->title?></a></td>
+									<td><?=number_format($blog->views,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+				<div class="col-md-6">
+					<h4>Etiqueta más visitada</h4>
+					<?php if($top_glossary): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Etiqueta</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<?php foreach($top_glossary as $glossary): ?>
+								<tr>
+									<td><a href="<?=ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name)?>" target="_blank"><?=$glossary->name?></a></td>
+									<td><?=number_format($glossary->views,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+			</div>
+
+
+
+
+			<hr>
+
+
+			<div class="row">
+
+				<div class="col-md-6">
+					<h4>Promos más consultadas</h4>
+					<?php if($top_promos_questions): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Promo</th>
+									<th>Consultas</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach($top_promos_questions as $promo): ?>
+								<tr>
+									<td><a href="<?=ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title)?>" target="_blank"><?=$promo->title?></a></td>
+									<td><?=number_format($promo->total,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+				<div class="col-md-6">
+					<h4>Centros más consultados</h4>
+					<?php if($top_clients_questions): ?>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped sz-10">
+							<thead>
+								<tr>
+									<th>Centro</th>
+									<th>Visitas</th>
+								</tr>
+							</thead>
+							<?php foreach($top_clients_questions as $client): ?>
+								<tr>
+									<td><a href="<?=ROOT.'centros/'.$client->permalink?>" target="_blank"><?=$client->name?></a></td>
+									<td><?=number_format($client->total,0,'','.')?></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+					<?php else: ?>
+					<p>No hay registros todavía</p>
+					<?php endif; ?>
+				</div>
+
+			</div>
 
 		</div>
 
 
-		
+
 	</div>
 </section>
-
 

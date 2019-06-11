@@ -87,7 +87,7 @@ class User {
 					}else{
 						$hash = $hashCheck->first()->hash;
 					}
-					Cookie::put($this->_cookieName, $hash, Config::get('cookie/cookie_expire'));
+					Cookie::put($this->_cookieName,$hash);
 					$this->_logged = true;
 					return true;
 				}

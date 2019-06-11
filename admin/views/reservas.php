@@ -8,6 +8,7 @@
 
 
 
+
 <section class="admin-box bg-gray-5">
 	<div class="container">
 
@@ -41,6 +42,7 @@
 							<th>Nombre</th>
 							<th>Email</th>
 							<th>Promo</th>
+							<th>Centro</th>
 							<th>Estado</th>
 						</tr>
 					</thead>
@@ -55,8 +57,9 @@
 							<td><?=$reservation->user_name?></td>
 							<td><a href="mailto:<?=$reservation->user_email?>" ><?=$reservation->user_email?></a></td>
 							<td><a href="<?= ROOT.'promos/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a></td>
+							<td><a href="<?= ROOT.'centros/'.$reservation->permalink ?>" target="_blank"><?=$reservation->client_name?></a></td>
 							<td>
-								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>
+								<span class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></span>
 							</td>
 						</tr>
 						<?php endforeach; ?>
@@ -69,24 +72,6 @@
 
 		</div>
 
-		<small>Toca el estado de cada reserva para más información</small>
-
 	</div>
 
 </section>
-
-
-
-<!-- MODAL EVENT -->
-<div id="modal_event" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header" >
-				<div class="close" data-dismiss="modal">&times;</div>
-			</div>
-
-			<div class="modal-body"></div>
-
-		</div>
-	</div>
-</div>

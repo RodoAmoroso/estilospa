@@ -144,30 +144,29 @@ class Dates {
 		return $monthconverted;
 	}
 
-	public static function convertFromUnix($date,$format=''){
-
-		$day = date('d',$date);
-		$dayname = date('l',$date);
-		$daynameshort = date('D',$date);
-		$month = date('m',$date);
-		$monthname = date('F',$date);
-		$monthshort = date('M',$date);
-		$yearfull = date('Y',$date);
-		$year = date('y',$date);
-
-		switch($format):
-			case 'dd/mm/yyyy':
-				self::$dateformat = $day.'/'.$month.'/'.$yearfull;
+	public static function convert_datetime($datetime,$format=''){
+		switch ($format) {
+			case 'Y-m-d H:i:s':
+				$arr = explode(' ',$datetime);
+				$date = explode('/',$arr[0]);
+				return $date[2].'-'.$date[1].'-'.$date[0].' '.(isset($arr[1]) ? $arr[1] : '00:00:00');
 				break;
-			case 'dd monthname yyyy':
-				self::$dateformat = $day.' '.self::translateMonths($monthname).' '.$yearfull;
+			case 'Y-m-d':
+				$date = explode('/',$datetime);
+				return $date[2].'-'.$date[1].'-'.$date[0];
 				break;
+
+			case 'd/m/Y H:i':
+				$arr = explode(' ',$datetime);
+				$dt = explode('-',$arr[0]);
+				$tm = explode(':',$arr[1]);
+				return $dt[2].'/'.$dt[1].'-'.$dt[0].' '.$tm[0].':'.$tm[1].' hs';
+				break;
+			
 			default:
-				self::$dateformat = $yearfull.'-'.$month.' '.$day.' 00:00:00';
+				return false;
 				break;
-		endswitch;
-
-		return self::$dateformat;
+		}
 	}
 
 	public static function getHours(){

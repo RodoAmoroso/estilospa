@@ -40,7 +40,7 @@ if($_sectionpath){
 		include $_sectionpath;		
 	}
 }else{
-	include PATH.'views/404.php';
+	include PATH.'site/views/404.php';
 }
 
 require 'views/scripts.php';

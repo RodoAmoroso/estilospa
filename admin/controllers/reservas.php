@@ -17,5 +17,4 @@ $next_month = $date->format('Y-m-d H:i:s');
 
 $Reservations->from = empty(Input::get('date_from')) ? $today : Dates::convert_datetime(Input::get('date_from'),'Y-m-d H:i:s');
 $Reservations->to = empty(Input::get('date_to')) ? $next_month : Dates::convert_datetime(Input::get('date_to'),'Y-m-d H:i:s');
-
-$_reservations = $Reservations->get($_userdata->idclient);
+$_reservations = $Reservations->get();

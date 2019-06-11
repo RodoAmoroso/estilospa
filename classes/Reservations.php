@@ -12,6 +12,7 @@ class Reservations {
 					$limit='',
 					$sort='',
 					$exclude=0,
+					$excluded_days=true,
 					$status=0,
 					$from='',
 					$to='';
@@ -49,6 +50,12 @@ class Reservations {
 			$values[] = $this->to;
 		}
 
+		if(!$this->excluded_days){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= "r.status!=?";
+			$values[] = 3;
+		}
+
 		$limit = "";
 		if(!empty($this->limit)){
 			$limit = "LIMIT 0,".$this->limit;
@@ -60,16 +67,18 @@ class Reservations {
 		}
 
 		$this->_db->query("
-			SELECT r.*, DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, c.name client_name, c.permalink, CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, p.title, p.subtitle, p.gallery, (p.price-(p.price*p.discount/100)) price
+			SELECT r.*, DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, c.name client_name, c.permalink, CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, p.title, p.subtitle, p.gallery, (p.price-(p.price*p.discount/100)) price, s.name status_name, s.label status_label
 			FROM {reservations} r 
 			LEFT JOIN {promos} p ON p.id=r.promoid
 			LEFT JOIN {users} u ON u.id=r.userid
 			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {reservations_status} s ON s.id=r.status
 			{$where}
 			{$sort}
 			{$limit}",
 			$values
 		);
+
 
 		if(!$this->_db->count()) return false;		
 		return $this->_db->results();

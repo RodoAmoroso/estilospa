@@ -104,7 +104,7 @@ let get_form = f => {
 let logout = () => {
 	ajax('site/users/logout',{})
 	.then(data => {
-		window.location.reload();
+		window.location.href = ROOT;
 	});
 }
 let toggle_button = function(el,status){

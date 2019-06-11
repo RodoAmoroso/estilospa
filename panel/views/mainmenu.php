@@ -6,6 +6,8 @@ $arrAdminMenu = array(
 	array('name'=>'Mi Centro','permalink'=>'mi-centro'),
 	array('name'=>'Promos','permalink'=>'promos'),
 	array('name'=>'Reservas','permalink'=>'reservas'),
+	array('name'=>'Calendario','permalink'=>'calendario'),
+	array('name'=>'Preguntas','permalink'=>'preguntas'),
 	array('name'=>'Mis Ventas','permalink'=>'mi-cuenta'),
 	array('name'=>'Vinculación con Mercado Pago','permalink'=>'mp')
 	//array('name'=>'Estadísticas','permalink'=>'estadisticas')

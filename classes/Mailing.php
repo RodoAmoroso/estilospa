@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	private $_mailer,
-					$_email='rodosoft@hotmail.com',
-					//$_email='estilospa.com@gmail.com',
+					//$_email='rodosoft@hotmail.com',
+					$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -31,6 +31,12 @@ class Mailing {
 
 		$this->_notifications = new Notifications();
 		$this->_newsletters = new Newsletters();
+	}
+	public function get_email_name(){
+		$output = new stdClass();
+		$output->email = $this->_email;
+		$output->name = $this->_fullname;
+		return $output;
 	}
 
 	public function send($body){
@@ -238,9 +244,9 @@ class Mailing {
 		$user = $User->data();
 
 		$obj = new stdClass();
-		$obj->user_name = $user->name.' '.$user->lastname;		
+		$obj->user_name = $user->name.' '.$user->lastname;
 		$obj->question = $question->message;
-		$obj->question_date = $question->creado;		
+		$obj->question_date = $question->creado;
 		$obj->response = $response->message;
 		$obj->response_date = $response->creado;
 
@@ -427,7 +433,11 @@ class Mailing {
 	public function newsletters($obj=null){
 		if(!is_object($obj)) return false;
 
-		$this->_mailer->addAddress($obj->email_to, $obj->name_to);
+		$User = new User();
+		if(!$User->find($obj->userid)) return false;
+		$user = $User->data();
+
+		$this->_mailer->addAddress($user->mail, $user->name.' '.$user->lastname);
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = $obj->subject;
 		if(!$this->send($obj->body)) return false;

@@ -3,7 +3,7 @@
 <div style="background-color:rgb(246,246,246);padding:16px;margin:16px 0;line-height: 1.5rem;">
 	<div>Nombre de Usuario: <?=$obj->user->name.' '.$obj->user->lastname?></div>
 	<div>Email: <?= $obj->user->mail ?></div>
-	<div>Día y Hora: <?= date('d/m/Y H:i:s',strtotime($obj->book_date)) ?></div>
+	<div>Día y Hora: <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?></div>
 </div>
 
 <p>&nbsp;</p>

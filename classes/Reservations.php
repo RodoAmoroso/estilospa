@@ -67,7 +67,7 @@ class Reservations {
 		}
 
 		$this->_db->query("
-			SELECT r.*, DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, c.name client_name, c.permalink, CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, p.title, p.subtitle, p.gallery, (p.price-(p.price*p.discount/100)) price, s.name status_name, s.label status_label
+			SELECT r.*, DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, c.name client_name, c.permalink, CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, p.title, p.subtitle, p.gallery, p.includes, (p.price-(p.price*p.discount/100)) price, s.name status_name, s.label status_label
 			FROM {reservations} r 
 			LEFT JOIN {promos} p ON p.id=r.promoid
 			LEFT JOIN {users} u ON u.id=r.userid

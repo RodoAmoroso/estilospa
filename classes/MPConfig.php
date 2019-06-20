@@ -13,10 +13,10 @@ class MPConfig {
 	public 	$arrfields=array(),
 					$idclient=0,
 					
-					//$app_id='7300466898804487',					
-					//$redirect_uri='https://www.estilospa.com/mp.php',
-					//$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					//$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
+					$app_id='7300466898804487',					
+					$redirect_uri=ROOT.'mp',
+					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
 
 
 					//Test Localhost
@@ -26,10 +26,10 @@ class MPConfig {
 					//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
 
 					// Test SpaEstilo
-					$redirect_uri=ROOT.'mp',
-					$app_id='4678134710817612',
-					$secret_key='UOf6fadyymoUTHv93Hqstk2iLHDUtOdC',
-					$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838';
+					//$redirect_uri=ROOT.'mp',
+					//$app_id='4678134710817612',
+					//$secret_key='UOf6fadyymoUTHv93Hqstk2iLHDUtOdC',
+					//$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838';
 
 
 	public function __construct(){

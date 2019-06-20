@@ -2,6 +2,7 @@
 
 require 'config.php';
 
+
 $Mailing = new Mailing();
 $Newsletters = new Newsletters();
 $Favs = new Favs();

@@ -36,7 +36,11 @@
 			<hr>
 			
 
-			<?php if($questions): foreach($questions as $question): ?>
+			<?php 
+			if($questions): 
+				foreach($questions as $question): 
+					$response = $Questions->has_response($question->id,$_userdata->id);
+			?>					
 
 			<div class="questions-wrapper">
 				<div class="question-box">
@@ -48,11 +52,11 @@
 						<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs. 						
 							
 						<?php if($question->type=='promos'): ?>
-						a la promo <a href="<?= ROOT.'promo/'.$question->permalink_promo.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
+						a la promo <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='clients'): ?>
-						al centro <a href="<?= ROOT.'centros/'.$question->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client->name?></a>
+						al centro <a href="<?= ROOT.'centros/'.$question->client->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client->name?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='glossary'): ?>
@@ -63,17 +67,16 @@
 
 					</div>
 					<div class="buttons">
-						<?php if(!$question->responses): ?>
+
+						<?php if(!$response): ?>
 						<a href="<?=ROOT.'responder-pregunta/'.$question->id?>" class="btn btn-primary btn-xs" target="_blank">Responder <i class="fa fa-comments"></i></a>
 						<?php endif ?>
 					</div>
 				</div>
 
-				<?php if($question->responses): ?>
+				<?php if($response): ?>
 				<!-- RESPONSES -->				
 				<h5 class="response-title text-gray-50">Respuestas:</h5>
-				<?php foreach($question->responses as $response): if($response->client->id == $_userdata->idclient): ?>
-
 				<div class="question-box response">
 					<div class="thumb thumb-cover" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>
 					<div class="message">
@@ -82,7 +85,8 @@
 						<small>Envidada: <?=$response->creado?> hs.</small>
 					</div>
 				</div>
-				<?php endif; endforeach; endif; ?>
+				<?php endif; ?>
+
 			</div>
 
 			<?php endforeach; endif; ?>

@@ -54,6 +54,8 @@ $(function(){
 	var slider = new Slider({
 		container:'.overview-header .gallery'
 	});
+
+	char_count('#form_question [name=message]');
 	
 	var owlClients = $('#clients_carousel');
 	owlClients.owlCarousel({autoplay:true,loop:true,dots:true,autoplaySpeed:1000,responsive:{0:{items:1},600:{items:2},960:{items:3},1200:{items:4}},margin:10});

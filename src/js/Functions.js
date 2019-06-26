@@ -276,15 +276,14 @@ var SearchSuggestions = function(FORM,PHP,MODE,FNCT){
 		}
 	});
 }
-var CharCount = function(FD){
-	$('[data-toogle="charcount"]').keyup(function(){
-		var len = $(this).prop('maxlength');
-		var id = $(this).attr('id');
-		if($('label[for="'+id+'"]').find('span').length==0){
-			$('label[for="'+id+'"]').append('<span></span>');
-		}
-		$('label[for="'+id+'"] span').text(' ('+(len-$(this).val().length)+')');
-		if($(this).val().length==0){$('label[for="'+id+'"] span').remove();}
+let char_count = field => {
+	const len = $(field).prop('maxlength');
+	const rand = Math.floor(Math.random()*10000);
+	$(field).parent().append('<small id="charcount_'+rand+'" class="text-gray-50"></small>');
+	const charcount = $('#charcount_'+rand);
+	$(field).keyup(function(){
+		let chars = len-$(this).val().length;
+		charcount.text('-'+chars);
 	});
 }
 var FormatDate = function(date) {

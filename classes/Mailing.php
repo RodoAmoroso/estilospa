@@ -422,6 +422,7 @@ class Mailing {
 	public function notifications($obj=null){
 		if(!is_object($obj)) return false;
 
+		$this->_mailer->clearAllRecipients();
 		$this->_mailer->addAddress($obj->email_to, $obj->name_to);
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = $obj->subject;
@@ -437,6 +438,7 @@ class Mailing {
 		if(!$User->find($obj->userid)) return false;
 		$user = $User->data();
 
+		$this->_mailer->clearAllRecipients();
 		$this->_mailer->addAddress($user->mail, $user->name.' '.$user->lastname);
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = $obj->subject;
@@ -551,6 +553,11 @@ class Mailing {
 		if(!$this->send($body)) return false;
 
 		return true;
+	}
+
+
+	public function root(){
+		return $_SERVER['HTTP_HOST'];
 	}
 	
 

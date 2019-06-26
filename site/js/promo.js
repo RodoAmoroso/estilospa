@@ -133,6 +133,8 @@ $(function(){
 		mode:'getbyid'
 	});
 	questions.get();
+
+	char_count('#form_question [name=message]');
 	
 	$('#form_promo_request').submit(function(e){
 		e.preventDefault();

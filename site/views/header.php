@@ -73,15 +73,27 @@
 							</a>
 						</li>
 						<li>
-							<a href="<?= View::url('admin','usuarios') ?>">
-								<i class="fa fa-users"></i> 
-								<span>Usuarios</span>
+							<a href="<?= View::url('admin','preguntas') ?>">
+								<i class="fa fa-comments"></i> 
+								<span>Preguntas</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','reservas') ?>">
+								<i class="fa fa-calendar"></i> 
+								<span>Reservas</span>
 							</a>
 						</li>
 						<li>
 							<a href="<?= View::url('admin','ventas') ?>">
 								<i class="fa fa-shopping-bag"></i> 
 								<span>Ventas</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('admin','usuarios') ?>">
+								<i class="fa fa-users"></i> 
+								<span>Usuarios</span>
 							</a>
 						</li>
 						<?php endif; ?>
@@ -108,6 +120,12 @@
 							<a href="<?= View::url('panel','reservas') ?>">
 								<i class="fa fa-calendar"></i> 
 								<span>Reservas</span>
+							</a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','preguntas') ?>">
+								<i class="fa fa-comments"></i> 
+								<span>Preguntas</span>
 							</a>
 						</li>
 						<li>

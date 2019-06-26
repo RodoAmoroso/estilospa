@@ -70,7 +70,7 @@ switch($_action){
 		$questionid = $Questions->add('questions',array(
 			'type'=>Input::get('type'),
 			'rowid'=>Input::get('rowid'),
-			'message'=>Input::get('message'),
+			'message'=>htmlentities(Input::get('message')),
 			'userid'=>$idu,
 			'added'=>date('Y-m-d H:i:s')
 		));
@@ -86,7 +86,7 @@ switch($_action){
 		$questionid = $Questions->add('questions_responses',array(
 			'messageid'=>Input::get('messageid'),
 			'userid'=>$User->data()->id,
-			'message'=>Input::get('message'),
+			'message'=>htmlentities(Input::get('message')),
 			'added'=>date('Y-m-d H:i:s')
 		));
 		if(!$Mailing->response($questionid)) die(Responses::response('fail'));

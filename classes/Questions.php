@@ -277,11 +277,13 @@ class Questions {
 		$this->_db->query(
 			"SELECT r.*, DATE_FORMAT(r.added,'%d/%m/%Y %H:%i:%s') creado
 			FROM {questions_responses} r
-			WHERE messageid=? AND userid=?",
+			WHERE r.messageid=? AND r.userid=?",
 			array($messageid,$userid)
 		);
 		if(!$this->_db->count()) return false;
-		return $this->_db->first();
+		$data = $this->_db->first();
+		$data->client = $this->find_client($data->userid);
+		return $data;
 	}
 
 

@@ -82,6 +82,8 @@ class MPConfig {
 		if(empty($PROMO) || empty($USER) || empty($CLIENTS)){
 			return false;
 		}
+
+
 		$this->_hash = hash('sha256', uniqid());
 		$promoprice = $PROMO->price-($PROMO->price*$PROMO->discount/100);
 		$discountvoucher = 0;
@@ -106,8 +108,9 @@ class MPConfig {
 		
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
 
-		MercadoPago\SDK::setClientId($this->app_id);
-		MercadoPago\SDK::setClientSecret($this->secret_key);
+		$client_accesstoken = $this->get_access_token($CLIENTS->id);
+		MercadoPago\SDK::setAccessToken($client_accesstoken);
+		//MercadoPago\SDK::setClientSecret($this->secret_key);
 
 		$promo_url = ROOT.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
 		
@@ -166,8 +169,8 @@ class MPConfig {
 		$preference->items = array($item);
 		$preference->payer = $payer;
 		$preference->marketplace_fee = floatval( $CLIENTS->fee*(($promoprice-$discountvoucher)*$quantity)/100 );
-		//$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
-		$preference->notification_url = ROOT.'ipn.php?idclient='.$PROMO->idclient;
+		$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
+		///$preference->notification_url = ROOT.'ipn.php?idclient='.$PROMO->idclient;
 		$preference->external_reference = $this->_hash;
 
 		$preference->back_urls = array(

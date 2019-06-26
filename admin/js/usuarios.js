@@ -192,7 +192,14 @@ var Users = {
 			
 		});
 
+		$('#login_as').click(function(){
+			ajax('admin/users/login_as',{userid:Users.ID}).then(function(data){
+				window.location.href=ROOT;
+			});
+		});
+
 		Users.get();
+
 
 	}
 }

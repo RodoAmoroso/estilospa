@@ -15,6 +15,7 @@ $Reservations->from = $today->format('Y-m-d H:i:s');
 $today->modify('+1 hour');
 $Reservations->to = $today->format('Y-m-d H:i:s');
 
+
 if($reservations = $Reservations->get()){
 	foreach($reservations as $reservation){
 

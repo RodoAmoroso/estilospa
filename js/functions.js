@@ -278,17 +278,14 @@ var SearchSuggestions = function SearchSuggestions(FORM, PHP, MODE, FNCT) {
 		}
 	});
 };
-var CharCount = function CharCount(FD) {
-	$('[data-toogle="charcount"]').keyup(function () {
-		var len = $(this).prop('maxlength');
-		var id = $(this).attr('id');
-		if ($('label[for="' + id + '"]').find('span').length == 0) {
-			$('label[for="' + id + '"]').append('<span></span>');
-		}
-		$('label[for="' + id + '"] span').text(' (' + (len - $(this).val().length) + ')');
-		if ($(this).val().length == 0) {
-			$('label[for="' + id + '"] span').remove();
-		}
+var char_count = function char_count(field) {
+	var len = $(field).prop('maxlength');
+	var rand = Math.floor(Math.random() * 10000);
+	$(field).parent().append('<small id="charcount_' + rand + '" class="text-gray-50"></small>');
+	var charcount = $('#charcount_' + rand);
+	$(field).keyup(function () {
+		var chars = len - $(this).val().length;
+		charcount.text('-' + chars);
 	});
 };
 var FormatDate = function FormatDate(date) {

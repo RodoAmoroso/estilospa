@@ -815,12 +815,9 @@ var Users = {
 		mod.removeAttr('id').removeClass('dp-none');
 		mod.attr('data-id',id);
 		mod.find('.edit').remove();
-		mod.find('.add').remove();
+		mod.find('.add').text('Ingresar como este usuario');
 		mod.find('h4').text(text);
-		$('#users').append(mod);
-		$('#users .delete').unbind('click').click(function(){
-			$(this).parent().parent().remove();
-		});
+		$('#users').append(mod);		
 	}
 }
 var Glossary = {
@@ -1101,6 +1098,28 @@ var Plans = {
 						Plans.delete();						
 					}
 				});
+		});
+
+		$('#users').on('click','.delete',function(){
+			var el = $(this).parent().parent();
+			Swal.fire({
+				type:'warning',
+				html:'¿Seguro querés quitar a este usuario para administrar este centro? Los cambios no se efecturarán hasta que se guarden todos los cambios desde el botón --Guardar--',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+				.then(function(data){
+					if(data.value){
+						el.remove();						
+					}
+				});
+		});
+
+		$('#users').on('click','.add',function(){
+			var id = $(this).parent().parent().attr('data-id');
+			ajax('admin/users/login_as',{userid:id}).then(function(data){
+				window.location.href=ROOT;
+			});
 		});
 
 		Plans.get();

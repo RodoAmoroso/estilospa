@@ -31,6 +31,21 @@ class Input {
 		return '';
 	}
 
+	public static function set($item='',$value='',$type='post'){
+		switch ($type) {
+			case 'post':
+				$_POST[$item] = $value;
+				break;
+			case 'get':
+				$_GET[$item] = $value;
+				break;
+			case 'request':
+				$_REQUEST[$item] = $value;
+				break;
+		}
+		return true;
+	}
+
 	public static function check($array=array()){
 		if(!empty($_POST) && !empty($array)){
 			foreach($array as $item){

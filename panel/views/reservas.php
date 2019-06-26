@@ -16,11 +16,11 @@
 			<form class="row" method="post">
 				<div class="col-md-4">
 					<label for="">Desde</label>
-					<input name="date_from" type="text" class="form-control" readonly value="<?=Input::get('date_from')?>">
+					<input name="date_from" type="text" class="form-control" readonly value="<?=empty(Input::get('date_from')) ? $today_formatted : Input::get('date_from') ?>">
 				</div>
 				<div class="col-md-4">
 					<label for="">Hasta</label>
-					<input name="date_to" type="text" class="form-control" readonly value="<?=Input::get('date_to')?>">
+					<input name="date_to" type="text" class="form-control" readonly value="<?=empty(Input::get('date_to')) ? $next_month_formatted : Input::get('date_to') ?>">
 				</div>
 				<div class="col-md-4">
 					<label for="">&nbsp;</label>
@@ -54,7 +54,7 @@
 							</td>
 							<td><?=$reservation->user_name?></td>
 							<td><a href="mailto:<?=$reservation->user_email?>" ><?=$reservation->user_email?></a></td>
-							<td><a href="<?= ROOT.'promos/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a></td>
+							<td><a href="<?= ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a></td>
 							<td>
 								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>
 							</td>

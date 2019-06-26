@@ -61,7 +61,7 @@ class Reservations {
 			$limit = "LIMIT 0,".$this->limit;
 		}
 
-		$sort = "";
+		$sort = "ORDER BY r.book_date DESC";
 		if(!empty($this->sort)){
 			$sort = "ORDER BY ".$this->sort;
 		}

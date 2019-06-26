@@ -15,13 +15,14 @@
 		<div class="alert alert-info">
 			<h5>Pregunta:</h5>
 			<p><?=$_question->message?></p>
-			<small>Enviada por <?=$_user->name?> el <?=$_question->creado?> hs.</small>
+			<small>Enviada por <?=$_user->name?> (<?=$_user->mail?>) el <?=$_question->creado?> hs.</small>
 		</div>
 
 		<?php if(!$response = $Questions->has_response($_question->id,$_userdata->id)): ?>
 		<form id="form_response">
 			<div class="form-group">
-				<textarea name="message" rows="6" class="form-control" required></textarea>
+				<textarea name="message" rows="6" class="form-control" required maxlength="500"></textarea>
+				<small class="text-gray-50">(máx. 500 caracteres)</small>
 			</div>
 			<input type="hidden" name="messageid" value="<?=$_question->id?>">
 

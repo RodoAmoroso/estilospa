@@ -226,15 +226,14 @@
 
 					</div>
 				</div>
-				<?php endif; ?>
-
-					
+				<?php endif; ?>				
 					 
 
 				<div class="form-group">
-					<textarea name="message" rows="4" class="form-control" required placeholder="Escribí tu pregunta..."></textarea>
+					<textarea name="message" rows="6" class="form-control" required placeholder="Escribí tu pregunta..." maxlength="500"></textarea>
 					<input type="hidden" name="rowid" value="<?=$Promos->data()->id?>">
 					<input type="hidden" name="type" value="promos">
+					<small class="text-gray-50">(máx. 500 caracteres)</small>
 				</div>
 				<div class="form-group">
 					<button class="btn btn-default" >Preguntar</button>

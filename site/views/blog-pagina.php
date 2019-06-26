@@ -34,7 +34,7 @@
 							$img = ROOT.'img/blog/'.$image->photoname.'-o.'.$image->extension;
 						endif;
 					?>
-					<div class="slide" style="background-image:url(<?= $img ?>);"><?= $play ?></div>
+					<div class="slide" style="background-image:url(<?= $img ?>);background-size:contain;background-repeat:no-repeat;"><?= $play ?></div>
 					<?php endforeach; endif; ?>
 					
 			</div>			

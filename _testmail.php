@@ -2,10 +2,6 @@
 require 'config.php';
 
 
+$Mailing = new Mailing();
 
-
-$obj = new stdClass();
-$content = Templates::template('reservations/notification-user',$obj);
-$body = Templates::template('email',$content);
-
-echo $body;
+echo $Mailing->root();

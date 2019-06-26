@@ -223,7 +223,11 @@
 			</div>	
 
 			<hr>
-			<div id="fd_notify" class="clickable"><i class="fa fa-toggle-on"></i> Enviar un mail al usuario con los datos de la cuenta (aplica sólamente cuando se crea un usuario)</div>		
+			<div id="fd_notify" class="clickable"><i class="fa fa-toggle-on"></i> Enviar un mail al usuario con los datos de la cuenta (aplica sólamente cuando se crea un usuario)</div>
+
+			<hr>
+
+			<button id="login_as" class="btn btn-xs btn-primary"><i class="fa fa-sign-in"></i> Ingresar como este usuario</button>
 
 		</div>
 

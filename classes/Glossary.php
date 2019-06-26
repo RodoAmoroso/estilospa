@@ -23,19 +23,19 @@ class Glossary {
 
 		///echo $search;	
 		$sortby = '';
-		if(!empty($this->sort)){
-			switch($this->sort){
-				case 'name':
-					$sortby = "ORDER BY g.name ASC";
-					break;
-				case 'rand':
-					$sortby = "ORDER BY RAND()";
-					break;
-				default:
-					$sortby = "ORDER BY g.position DESC";
-					break;
-			}
-		}		
+		
+		switch($this->sort){
+			case 'name':
+				$sortby = "ORDER BY g.name ASC";
+				break;
+			case 'rand':
+				$sortby = "ORDER BY RAND()";
+				break;
+			default:
+				$sortby = "ORDER BY g.position DESC";
+				break;
+		}
+			
 		if($this->idgroup){
 			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
 			$search .= " g.idgroup={$this->idgroup}";

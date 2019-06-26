@@ -64,6 +64,24 @@ var Reservations = function () {
 				$.each(data.taken_days, function (kk, vv) {
 					$(_this.container).find('.schedule .hours .hour[data-hour="' + vv.hora + ':' + (vv.minutos == 0 ? '00' : vv.minutos) + '"]').addClass('disabled');
 				});
+
+				var today = new Date();
+
+				var selected_date = new Date(year, month - 1, day);
+				var today_date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+				if (selected_date.getTime() == today_date.getTime()) {
+					$.each($(_this.container).find('.schedule .hours .hour'), function (kk, vv) {
+						var time = $(this).attr('data-hour');
+						var arrtime = time.split(':');
+						if (parseInt(arrtime[0]) <= today.getHours() + 3) {
+							$(this).addClass('disabled');
+						}
+					});
+				}
+				if (selected_date.getTime() < today_date.getTime()) {
+					$(_this.container).find('.schedule .hours .hour').addClass('disabled');
+				}
 			});
 		}
 	}, {

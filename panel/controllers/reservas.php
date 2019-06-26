@@ -9,10 +9,13 @@ $Reservations->excluded_days = false;
 $Reservations->limit = 250;
 
 $date = new DateTime();
+$date->modify('-5 days');
 $today = $date->format('Y-m-d H:i:s');
+$today_formatted = $date->format('d/m/Y');
 
 $date->modify('+1 month');
 $next_month = $date->format('Y-m-d H:i:s');
+$next_month_formatted = $date->format('d/m/Y');
 
 
 $Reservations->from = empty(Input::get('date_from')) ? $today : Dates::convert_datetime(Input::get('date_from'),'Y-m-d H:i:s');

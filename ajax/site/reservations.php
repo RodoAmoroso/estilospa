@@ -80,7 +80,7 @@ switch($_action){
 			}
 		}
 
-		$taken_days = $Reservations->taken_days(Input::get('idclient'),Input::get('date'));
+		$taken_days = $Reservations->taken_days(Input::get('idclient'),Input::get('date'));		
 
 		echo Responses::response('ok','',array('hours'=>$hours,'taken_days'=>$taken_days));
 		break;

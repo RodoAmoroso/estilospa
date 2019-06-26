@@ -19,6 +19,8 @@ $(function(){
 		SendRequest();
 	});*/
 
+	char_count('#form_question [name=message]');
+
 	var glossary = $('.glossary-page .page-content');
 	var glossaryHeight = $('.glossary-page .page-content').height();
 	var glossaryContentHeight = $('.glossary-page .page-content .content').height();

@@ -12,7 +12,7 @@
 
 <!--- Plugins --->
 <?php if(isset($_arrjs)): foreach($_arrjs as $js): ?>
-<script type="text/javascript" src="<?= !isset($js['folder']) ? $js['script'] : JS.$js['folder'].$js['script'].'.js' ?>"></script>
+<script type="text/javascript" src="<?= !isset($js['folder']) ? $js['script'] : JS.$js['folder'].$js['script'].'.js?id='.rand(111,999) ?>"></script>
 <?php endforeach; endif; ?>
 
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" src="<?= SITE.'js/main.js' ?>"></script>
 
 <?php if($_sectionpath): if($_jspath = View::loader('js','js')): ?>
-<script type="text/javascript" src="<?= SITE.$_jspath ?>"></script>
+<script type="text/javascript" src="<?= SITE.$_jspath.'?id='.rand(1111,9999) ?>"></script>
 <?php endif; endif; ?>
 
 </body>

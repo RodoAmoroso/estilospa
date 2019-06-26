@@ -61,6 +61,25 @@ class Reservations {
 					$(this.container).find('.schedule .hours .hour[data-hour="'+vv.hora+':'+(vv.minutos==0 ? '00' : vv.minutos)+'"]').addClass('disabled');					
 				});
 
+				let today = new Date();
+
+				let selected_date = new Date(year,month-1,day);
+				let today_date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
+				if(selected_date.getTime()==today_date.getTime()){
+					$.each($(this.container).find('.schedule .hours .hour'),function(kk,vv){
+						let time = $(this).attr('data-hour');
+						let arrtime = time.split(':');
+						if(parseInt(arrtime[0]) <= today.getHours()+3){
+							$(this).addClass('disabled');
+						}
+					});					
+				}
+				if(selected_date.getTime()<today_date.getTime()){
+					$(this.container).find('.schedule .hours .hour').addClass('disabled');
+				}
+				
+
 
 			});
 	}

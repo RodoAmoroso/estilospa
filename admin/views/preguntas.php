@@ -48,11 +48,11 @@
 						<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs. 						
 							
 						<?php if($question->type=='promos'): ?>
-						a la promo <a href="<?= ROOT.'promo/'.$question->permalink_promo.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
+						a la promo <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='clients'): ?>
-						al centro <a href="<?= ROOT.'centros/'.$question->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client->name?></a>
+						al centro <a href="<?= ROOT.'centros/'.$question->client->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client->name?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='glossary'): ?>

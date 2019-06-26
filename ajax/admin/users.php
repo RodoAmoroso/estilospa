@@ -92,6 +92,15 @@ switch($_action){
 		break;
 
 
+	case 'login_as':
+
+		$user = $User->find(Input::get('userid'));
+		$User->login();
+
+		echo Responses::response('ok','',array('user'=>$User->data()));
+		break;
+
+
 	default:
 		echo Responses::response('fail');
 		break;

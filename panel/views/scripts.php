@@ -20,7 +20,7 @@
 <script type="text/javascript" src="<?= PANEL.'js/main.js' ?>"></script>
 
 <?php if($_sectionpath): if($_jspath = View::loader('js','js')): ?>
-<script type="text/javascript" src="<?= PANEL.$_jspath ?>"></script>
+<script type="text/javascript" src="<?= PANEL.$_jspath.'?id='.rand(1111,9999) ?>"></script>
 <?php endif; endif; ?>
 
 </body>

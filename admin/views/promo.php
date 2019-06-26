@@ -31,10 +31,69 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="fd_subtitle">Subtítulo</label>
-				<input id="fd_subtitle" type="text" class="form-control">
+
+			<div class="row">
+				<div class="col-md-8">
+						<div class="form-group">
+							<label for="fd_subtitle">Subtítulo</label>
+							<input id="fd_subtitle" type="text" class="form-control">
+						</div>
+				</div>
+				<div class="col-md-4">
+						<div class="form-group">
+							<label for="fd_label">Etiqueta</label>
+							<input id="fd_label" type="text" class="form-control" placeholder="Ej: últimos disponibles!!!">
+						</div>
+				</div>
 			</div>
+
+			<hr>
+
+		
+
+
+
+			<div class="row" >
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
+						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_promotypes">Tipo de Promo</label>
+						<div class="input-group">
+							<select id="fd_promotypes" class="form-control"></select>
+							<div class="input-group-btn">
+								<button id="btn_edit_promotypes" class="btn btn-primary"><i class="fa fa-pencil" title="Editar listado"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de promo no corresponde a un descuento, dejar en 0"></i></label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
+							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>							
+						<input id="fd_amount" type="number" class="form-control" value="20" min="0">						
+					</div>
+				</div>
+			</div>
+
+			<div class="alert alert-warning">
+				<h4>Importante:</h4>
+				<p>Si el cliente no ha vinculado su cuenta de MercadoPago, los usuarios no podrán comprarla en el sitio. <br><?= $MPConfig->data() ? '<span class="label label-success">vinculado</span>' : '<span class="label label-danger">sin vincular</span>' ?> </p>
+			</div>
+			<hr>
+
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
@@ -45,7 +104,7 @@
 				</div>				
 				<div class="col-xs-12 col-sm-6">
 					<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" title="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
-					<div id="stores" class="well mod-container-sm"></div>
+					<div id="stores" class="well mod-container-sm" style="height:320px"></div>
 					<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>	
 				</div>
 			</div>	
@@ -94,46 +153,7 @@
 			<!-- ONLINE SALE -->
 			<hr>
 			<div id="fd_sale" class="form-group clickable active" data-toogle="checkbox">
-				<i class="fa fa-check-square"></i> <span>Venta Online</span>
-			</div>
-			
-			<div id="sale_box" class="row" >
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
-						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_promotypes">Tipo de Promo</label>
-						<div class="input-group">
-							<select id="fd_promotypes" class="form-control"></select>
-							<div class="input-group-btn">
-								<button id="btn_edit_promotypes" class="btn btn-primary"><i class="fa fa-pencil" title="Editar listado"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de promo no corresponde a un descuento, dejar en 0"></i></label>
-						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
-							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>							
-						<input id="fd_amount" type="number" class="form-control" value="20" min="0">						
-					</div>
-				</div>
-			</div>
-			<div class="alert alert-warning">
-				<h4>Importante:</h4>
-				<p>Si el cliente no ha vinculado su cuenta de MercadoPago, los usuarios no podrán comprarla en el sitio.</p>
+				<i class="fa fa-check-square"></i> <span>Mostrar en sección regalos</span>
 			</div>
 			<hr>
 

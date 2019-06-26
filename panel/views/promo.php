@@ -49,9 +49,47 @@
 				<input id="fd_subtitle" type="text" class="form-control">
 			</div>
 
+			<div class="row" >
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
+						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_promotypes">Tipo de Promo</label>						
+						<select id="fd_promotypes" class="form-control"></select>						
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de promo no corresponde a un descuento, dejar en 0"></i></label>
+						<div class="input-group">
+							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
+							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-3">
+					<div class="form-group">
+						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>							
+						<input id="fd_amount" type="number" class="form-control" value="20" min="0">						
+					</div>
+				</div>
+			</div>
+
+
+			<div class="alert alert-warning sz-12">
+				<h4 class="fw-600">Importante:</h4>
+				<p >Para poder habilitar la opción de venta online, deberás vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOT.'panel/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador. <br><br>
+				Estado actual: <?= $MPConfig->data() ? '<span class="label label-success">vinculado</span>' : '<span class="label label-danger">sin vincular</span>' ?></p>
+			</div>
+
+
 			<div class="form-group">
 				<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" title="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
-				<div id="stores" class="well mod-container-sm"></div>
+				<div id="stores" class="well mod-container-sm" style="height:320px"></div>
 				<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>	
 			</div>	
 
@@ -96,60 +134,17 @@
 			</div>
 			<p class="sz-9">Llenar solamente los que correspondan. La descripción general es obligatoria.</p>
 
+			<hr>
+
 			<!-- ONLINE SALE -->
-			<?php
-			$MPConfig = new MPConfig();
-			if($MPConfig->find($User->data()->idclient)):
-			?>
-			<hr>
+			
 			<div id="fd_sale" class="form-group clickable active" data-toogle="checkbox">
-				<i class="fa fa-check-square"></i> <span>Venta Online</span>
-			</div>
-			
-			<div id="sale_box" class="row" >
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
-						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_promotypes">Tipo de Promo</label>						
-						<select id="fd_promotypes" class="form-control"></select>						
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de promo no corresponde a un descuento, dejar en 0"></i></label>
-						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
-							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
-						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>							
-						<input id="fd_amount" type="number" class="form-control" value="20" min="0">						
-					</div>
-				</div>
-			</div>		
-			
-			<?php else: ?>
-
+				<i class="fa fa-check-square"></i> <span>Mostrar en la sección regalos</span>
+			</div>	
 			<hr>
-			<div class="form-group clickable inactive" data-toogle="checkbox">
-				<i class="fa fa-square"></i> <span>Venta Online</span>
-			</div>
-			<div class="alert alert-danger sz-12">
-				<h4 class="fw-600">Importante:</h4>
-				<p >Para poder habilitar la opción de venta online, debes vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOT.'panel/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador.</p>
-			</div>
-			<?php endif; ?>
-			<hr>
+			
 
-
+			
 			<label for="">Galería de Imágenes</label>
 			<div data-input="gallery" class="form-group">
 				<button id="btn_image" class="btn btn-primary btn-sm">Examinar...</button>

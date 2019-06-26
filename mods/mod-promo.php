@@ -8,6 +8,8 @@
 			</div>
 			<?php if($promo->discount): ?>
 			<div class="sale-tag"><span><?=$promo->discount?>% off</span></div>
+			<?php elseif(!empty($promo->label)): ?>
+			<div class="sale-tag"><span><?=$promo->label?></span></div>
 			<?php endif; ?>
 		</div>
 		<div class="content">
@@ -50,7 +52,7 @@
 					<?php if($promo->sale): ?>
 					<li><i class="fa fa-gift fa-fw"></i> <a href="<?=$promolink?>#regalar">Regalar</a></li>
 					<?php endif; ?>
-					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Solicitar Turno</a></li>
+					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
 				</ul>
 			</div>
 		</div>

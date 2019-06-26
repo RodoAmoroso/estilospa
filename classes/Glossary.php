@@ -32,7 +32,7 @@ class Glossary {
 				$sortby = "ORDER BY RAND()";
 				break;
 			default:
-				$sortby = "ORDER BY g.position DESC";
+				$sortby = "ORDER BY g.position ASC";
 				break;
 		}
 			

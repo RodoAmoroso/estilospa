@@ -14,7 +14,7 @@
 			?>
 			<li><a href="<?= ROOT.'busqueda/'.Permalink($type->name).'/' ?>"><?= $type->name ?></a></li>
 			<?php endforeach; endif; ?>
-			<li class="highlight"><a href="<?= ROOT.'venta-online/' ?>">Tienda Online</a></li>
+			<li class="highlight"><a href="<?= ROOT.'regalos/' ?>">Regalos</a></li>
 			<li><a href="<?= ROOT.'blog' ?>">Blog</a></li>
 			<li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li>
 		</ul>

@@ -204,6 +204,7 @@ var Promos = {
 		ajax('admin/promos/save',{
 			Title:$('#fd_title').val(),
 			Subtitle:$('#fd_subtitle').val(),
+			Label:$('#fd_label').val(),
 			IDClient:$('#fd_clients').val(),
 			Stores:stores,
 			Start:$('#fd_start').val(),
@@ -323,10 +324,10 @@ var Promos = {
 			$(this).toggleClass('active');
 			if($(this).hasClass('active')){
 				$(this).find('i').addClass('fa-check-square').removeClass('fa-square-o');
-				$('#sale_box').slideDown();
+				//$('#sale_box').slideDown();
 			}else{
 				$(this).find('i').removeClass('fa-check-square').addClass('fa-square-o');
-				$('#sale_box').slideUp();
+				//$('#sale_box').slideUp();
 			}
 		});
 		$('#btn_select_stores').click(function(){

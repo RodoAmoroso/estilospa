@@ -9,6 +9,10 @@ if($_promodata){
 }
 
 
+$MPConfig = new MPConfig();
+$MPConfig->find($_promodata->idclient);
+
+
 $_arrjs[] = ['folder'=>'lib/','script'=>'jquery.bootstrap-duallistbox'];
 $_arrjs[] = ['folder'=>'lib/','script'=>'upfile'];
 

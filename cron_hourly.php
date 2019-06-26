@@ -16,6 +16,8 @@ $today->modify('+1 hour');
 $Reservations->to = $today->format('Y-m-d H:i:s');
 
 
+$Reservations->status = 1;
+
 if($reservations = $Reservations->get()){
 	foreach($reservations as $reservation){
 

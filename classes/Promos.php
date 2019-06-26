@@ -214,6 +214,7 @@ class Promos {
 		'stores'=>implode(',',Input::get('Stores')),
 		'title'=>Input::get('Title'),
 		'subtitle'=>Input::get('Subtitle'),
+		'label'=>Input::get('Label'),
 		'description'=>Input::get('Description'),
 		'includes'=>Input::get('Includes'),
 		'duration'=>Input::get('Duration'),

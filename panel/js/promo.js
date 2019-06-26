@@ -225,10 +225,10 @@ var Promos = {
 			$(this).toggleClass('active');
 			if($(this).hasClass('active')){
 				$(this).find('i').addClass('fa-check-square').removeClass('fa-square-o');
-				$('#sale_box').slideDown();
+				//$('#sale_box').slideDown();
 			}else{
 				$(this).find('i').removeClass('fa-check-square').addClass('fa-square-o');
-				$('#sale_box').slideUp();
+				//$('#sale_box').slideUp();
 			}
 		});
 		$('#btn_select_stores').click(function(){

@@ -7,11 +7,6 @@
 <img src="<?=$obj->image?>" alt="" style="max-width: 200px">
 <p><b>Incluye: </b><?=$obj->includes?></p>
 
-<div style="background-color:rgb(240,240,240);padding:8px 16px">
-	<p><b>Nro de Operación: <?=$obj->collection_id?></b></p>
-	<small>Valor: <?=$obj->quantity?> x $ <?=number_format($obj->price,2,',','.')?></small>
-	<p><b>Total: $ <?=number_format($obj->price*$obj->quantity,2,',','.')?></b></p>
-</div>
 
 <h4>Canjeable en:</h4>
 <p>

@@ -98,13 +98,13 @@ Actions = {
 					mod.find('[data-tag="date"]').text('Fecha de compra: '+v.fecha+' hs.'+vouchertext).after('<hr /><div class="sz-8 pad-4 alert-'+Actions.status_payment(v.collection_status).label+'">'+Actions.status_payment(v.collection_status).text+'</div>');
 					mod.find('[data-button="toggle"],[data-group="status"]').attr('data-id',v.id);
 					///Actions.status(v.id,v.status);
-					if(v.gallery != null){
+					if(v.gallery != null && v.gallery !='' ){
 						var img = $.parseJSON(v.gallery);
 						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});					
 					}
 					mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
 					///////////// USER ////////////////////////////////
-					if(v.image != ''){
+					if(v.image != '' && v.image != null){
 						var imgu = $.parseJSON(v.image);
 						var thumbimage = imgu.photoname+'-t.'+imgu.extension;
 					}else{

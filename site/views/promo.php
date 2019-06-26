@@ -110,7 +110,7 @@
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
 							<li data-toggle="modal" data-target="<?= $User->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
 							<?php endif; ?>
-							<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Solicitar Turno</span></li>
+							<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
 						</ul>
 						
 
@@ -287,7 +287,7 @@
 							
 							<div class="form-group">
 								<label for="fd_message">Mensaje <i>(opcional)</i></label>
-								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" ></textarea>
+								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" placeholder="Indicar la cantidad de personas en caso que sean más de una." ></textarea>
 							</div>
 
 						</div>

@@ -35,7 +35,7 @@
 					<?php if($promo->sale): ?>
 					<li><i class="fa fa-gift fa-fw"></i> <a href="<?=$promolink?>#regalar">Regalar</a></li>
 					<?php endif; ?>
-					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Solicitar Turno</a></li>
+					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
 				</ul>
 			</div>
 		</div>

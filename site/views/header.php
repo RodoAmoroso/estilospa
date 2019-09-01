@@ -16,7 +16,7 @@
 </section>
 
 <!-- HEADER -->
-<header>
+<header class="header">
 	<div class="container">
 		<div class="header-inner">
 			
@@ -31,16 +31,16 @@
 					<li><a href="<?= ROOT ?>registro">REGISTRATE</a></li>
 				</ul>
 			</div>	
-			<?php 
-			else: 
+			<?php 			
+			else: 				
 			$img = empty($_userdata->image) ? '' : json_decode($_userdata->image);
 			$_AVATAR = empty($img) ? 'user-default.png' : $img->photoname.'-o.'.$img->extension;
 			?>
 
 			<div class="user user-logged text-center">
-				<div class="avatar thumb-cover" style="background-image:url(<?= View::img('users',$_AVATAR) ?>)"></div>
+				<div data-toggle="slide" href="#menu_user" class="avatar thumb-cover" style="background-image:url(<?= View::img('users',$_AVATAR) ?>)"></div>
 				<div class="user-title">	
-					<a data-toggle="slide" href="#menu_user">Hola <?= $_userdata->name ?>! <i class="fa fa-caret-down"></i></a>					
+					<a data-toggle="slide" href="#menu_user"><span>Hola <?= $_userdata->name ?>!</span> <i class="fa fa-caret-down"></i></a>
 				</div>
 				<div id="menu_user" class="menu-user-container" >
 					<div class="arrow"></div>
@@ -48,6 +48,7 @@
 						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
 						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
 						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>
+						<li class="separator"></li>
 
 						<?php if($_userdata->idtype == 2): ?>
 						<li><a href="<?= View::url('mi-agenda') ?>"><i class="fa fa-calendar"></i> <span>Agenda</span></a></li>
@@ -82,6 +83,7 @@
 							<a href="<?= View::url('admin','reservas') ?>">
 								<i class="fa fa-calendar"></i> 
 								<span>Reservas</span>
+								<span class="notify-icon">99</span>
 							</a>
 						</li>
 						<li>
@@ -125,7 +127,7 @@
 						<li>
 							<a href="<?= View::url('panel','preguntas') ?>">
 								<i class="fa fa-comments"></i> 
-								<span>Preguntas</span>
+								<span>Preguntas</span>								
 							</a>
 						</li>
 						<li>
@@ -135,6 +137,8 @@
 							</a>
 						</li>
 						<?php endif; ?>
+
+						<li class="separator"></li>
 
 						<li><a href="javascript:logout();"><i class="fa fa-times"></i> <span>Cerrar Sesión</span></a></li>
 					</ul>

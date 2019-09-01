@@ -30,8 +30,8 @@
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 
 	<?php 
-		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : PATH.'assets'.DS.'logo.jpg';
-		$_IMGSIZE = getimagesize($_IMGFACEBOOK);
+		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : 'assets'.DS.'logo-400x400.jpg';
+		$_IMGSIZE = getimagesize(PATH.$_IMGFACEBOOK);
 		$_URLHEAD = isset($_URLHEAD) ? $_URLHEAD : ROOT;
 		$_DESCRIPTION = isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION;
 		$_TITLE = isset($_TITLE) ? $_TITLE : TITLE;
@@ -45,7 +45,7 @@
 	<meta property="og:type" content="website"/>
 	<meta property="og:title" content="<?= $_TITLE ?>" />
 	<meta property="og:description" content="<?= $_DESCRIPTION ?>" />
-	<meta property="og:image" content="<?= $_IMGFACEBOOK ?>" />
+	<meta property="og:image" content="<?= ROOT.$_IMGFACEBOOK ?>" />
 	<meta property="og:image:width" content="<?= $_IMGSIZE[0] ?>" /> 
 	<meta property="og:image:height" content="<?= $_IMGSIZE[1] ?>" />
 
@@ -55,7 +55,7 @@
 	<meta name="twitter:site" content="@estilospa" />
 	<meta name="twitter:title" content="<?= $_TITLE ?>" />
 	<meta name="twitter:description" content="<?= $_DESCRIPTION ?>" />
-	<meta name="twitter:image:src" content="<?= $_IMGFACEBOOK ?>" />
+	<meta name="twitter:image:src" content="<?= ROOT.$_IMGFACEBOOK ?>" />
 
 	<script>
 		var ROOT = '<?= ROOT ?>';

@@ -58,7 +58,7 @@ $(function(){
 					$template.find('.user-name').html(data.user.fullname+' (<a href="mailto:'+data.user.mail+'">'+data.user.mail+'</a>)');
 					$template.find('.user-phone span').html(data.user.phone);
 
-					$template.find('.user-comments').html(data.comments==null ? 'No ha dejado comentarios' : data.comments);
+					$template.find('.user-comments').text(data.comments==null ? 'No ha dejado comentarios' : data.comments);
 
 					$template.find('.date span').html(data.fecha+' hs.');
 					$template.find('.price').html('$ '+(parseInt(data.promo.price).numberFormat(2,',','.')));

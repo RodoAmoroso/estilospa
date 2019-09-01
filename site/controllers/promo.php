@@ -42,7 +42,7 @@ if($Promos->data()->gallery != ''){
 	$_IMGFACEBOOK = 'img/promos/'.$gallery[0]->photoname.'-o.'.$gallery[0]->extension;
 }
 
-$MPConfig = new MPConfig();
+
 $mp = $MPConfig->find($Promos->data()->idclient);
 $showsalebuttons = false;
 if($Promos->data()->amount && $Promos->data()->sale && $mp){
@@ -62,3 +62,6 @@ for($i=1; $i<=4; $i++){
 	);	
 	$_today->modify('+1 day');
 }
+
+
+show_array($_uri);

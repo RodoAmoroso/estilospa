@@ -1,4 +1,6 @@
-<h3>¡Hola <?=$obj->gift->touser.', '.$obj->gift->fromuser ?> te ha regalado la siguiente experiencia EstiloSPA!!!</h3>
+<h3>¡Hola <?=$obj->gift->to_user->name?>!</h3>
+<h4><?= $obj->gift->from_user->name ?> te ha regalado la siguiente experiencia EstiloSPA.com!!!</h4>
+
 <div style="background-color:rgb(240,240,240);padding:26px;margin:16px 0;font-style:italic"><?= $obj->gift->message ?></div>
 
 <p>A continuación te detallamos en qué consiste:</p>
@@ -8,18 +10,12 @@
 <p><b>Incluye: </b><?=$obj->includes?></p>
 
 
-<h4>Canjeable en:</h4>
-<p>
-	<a href="<?= ROOT.'centros/'.$obj->permalink ?>"><?=$obj->clientname?></a><br />
-	<small>Email: <a href="mailto:<?=$obj->clientemail?>"><?=$obj->clientemail?></a></small>
-</p>
+<p>&nbsp;</p>
 
-<h5>Dirección(es):</h5>
-<?=$obj->stores?>
-<br />
 
-<p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
-<hr>
+<a href="<?=ROOT.'voucher-regalos/'.$obj->hash?>" style="background-color:#e7127c; padding:4px 10px; color:white; text-decoration:none">Descargar Voucher</a>
+
+<p>&nbsp;</p>
 
 <p>
 	Gracias.<br />

@@ -7,6 +7,7 @@ $_uri = explode('/',Input::get('uri'));
 $_section = isset($_uri[0]) && !empty($_uri[0]) ? $_uri[0] : 'home';
 $_subsection = isset($_uri[1]) && !empty($_uri[1]) ? $_uri[1] : '';
 $_idsection = isset($_uri[2]) && !empty($_uri[2]) ? $_uri[2] : '';
+$_vars = isset($_uri[3]) && !empty($_uri[3]) ? $_uri[3] : '';
 ///////////////////////////////////////////////////////////////
 
 require 'controllers/main.php';

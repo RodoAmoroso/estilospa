@@ -72,7 +72,7 @@ if(!empty($search_locations)){
 //show_array(var_dump($arridclients));
 //show_array(var_dump($arrwordslocations));
 ///echo '<br />';
-$page_results = 50;
+$page_results = 25;
 //echo $_page;
 ////////////// PROMOS ///////////////////
 $Promos->keywords = empty($search_main) ? '' : $search_main;

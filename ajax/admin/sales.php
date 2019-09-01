@@ -36,6 +36,22 @@ switch($_action){
 		echo Responses::response('ok');
 		break;
 
+	case 'evolution':
+
+		$datetime = new DateTime();
+		$this_month = $datetime->format('Y-m');
+		$datetime->modify('-6 month');
+		$last_month = $datetime->format('Y-m');
+
+		$stats = $Sales->evolution();
+
+		echo Responses::response('ok','',array(
+			'this_month'=>$this_month,
+			'last_month'=>$last_month,
+			'stats'=>$stats
+		));
+		break;
+
 	default:
 		echo Responses::response('fail');
 		break;

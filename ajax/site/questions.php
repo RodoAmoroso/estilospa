@@ -16,6 +16,7 @@ switch($_action){
 	case 'get':
 		$Questions->filters = [[Input::get('type')=>Input::get('rowid')]];
 		$Questions->limit = intval(Input::get('limit'));
+		$Questions->limit_responses = intval(Input::get('limit_responses'));
 		$Questions->page = intval(Input::get('page'));
 		$results = $Questions->get();
 		$total = $Questions->get_total(Input::get('type'),Input::get('rowid'));
@@ -70,7 +71,7 @@ switch($_action){
 		$questionid = $Questions->add('questions',array(
 			'type'=>Input::get('type'),
 			'rowid'=>Input::get('rowid'),
-			'message'=>htmlentities(Input::get('message')),
+			'message'=>strip_tags(Input::get('message')),
 			'userid'=>$idu,
 			'added'=>date('Y-m-d H:i:s')
 		));
@@ -86,7 +87,7 @@ switch($_action){
 		$questionid = $Questions->add('questions_responses',array(
 			'messageid'=>Input::get('messageid'),
 			'userid'=>$User->data()->id,
-			'message'=>htmlentities(Input::get('message')),
+			'message'=>strip_tags(Input::get('message')),
 			'added'=>date('Y-m-d H:i:s')
 		));
 		if(!$Mailing->response($questionid)) die(Responses::response('fail'));

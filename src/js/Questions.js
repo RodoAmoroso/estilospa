@@ -19,7 +19,8 @@ class Questions {
 			rowid:$(this.form).find('[name=rowid]').val(),
 			type:$(this.form).find('[name=type]').val(),
 			page:this.page,
-			limit:this.limit
+			limit:this.limit,
+			limit_responses:this.limit_responses
 		})
 			.then(function(response){
 				return response;
@@ -37,21 +38,26 @@ class Questions {
 					this.total_loaded += data.results.length;
 					this.results = data.results;
 					$.each(data.results,(k,v)=>{
+
 						var $module = $(templates[0]);
-						$module.find('[data-content=message]').text(v.message);
+						$module.find('[data-content=message]').html(v.message);
 						$module.find('[data-content=added]').text('Enviada: '+v.creado+' hs.');
 						if(v.responses!=false){
-							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>')
+							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>');							
 							$.each(v.responses,(kr,vr)=>{
 								let $mod_response = $(templates[1]);
-								//console.log(vr);
 								$mod_response.find('[data-content=client]').text(vr.client.name);
 								$mod_response.find('[data-content=client]').attr({href:ROOT+'centros/'+vr.client.permalink});
 								$mod_response.find('[data-content=thumb]').css({backgroundImage:'url('+vr.client.imagery.logo+')'});
-								$mod_response.find('[data-content=response]').text(vr.message);
+								$mod_response.find('[data-content=response]').html(vr.message);
 								$mod_response.find('[data-content=added]').text('Enviada: '+vr.creado+' hs.');
 								$module.append($mod_response);
 							});
+
+							if(v.total_responses>this.limit_responses){
+								$module.append('<div class="more-responses"><a href="'+ROOT+'pregunta/'+v.id+'">ver todas las respuestas de los centros</a></div>');
+							}
+
 						}
 						$(this.container).append($module);
 
@@ -99,6 +105,7 @@ class Questions {
 		this.results = false;
 		this.page = 'page' in this ? this.page : 1;
 		this.limit = 'limit' in this ? this.limit : 8;
+		this.limit_responses = 'limit_responses' in this ? this.limit_responses : 4;
 		this.total_loaded = 0;
 		this.mode = 'mode' in this ? this.mode : 'getbypromo';
 		this.form = 'form' in this ? this.form : '#form_null';

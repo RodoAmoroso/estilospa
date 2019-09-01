@@ -1,7 +1,8 @@
 <?php 
 
 ////$hash = $payment_info["response"]['external_reference'];
-if($Sales->findtemp($hash)){
+$first = true;
+if($Sales->find_temp($hash)){
 	
 	$idpromo = $Sales->data()->idpromo;
 	$idclient = $Sales->data()->idclient;
@@ -21,6 +22,8 @@ if($Sales->findtemp($hash)){
 		'payment_type'=>$payment_type,
 		'merchant_order_id'=>$merchant_order_id,	
 		'price'=>$price,
+		'application_fee'=>$fees->application_fee,
+		'mercadopago_fee'=>$fees->mercadopago_fee,
 		'added'=>date('Y-m-d H:i:s'),
 		'quantity'=>$quantity,
 		'hash'=>$hash
@@ -45,16 +48,21 @@ if($Sales->findtemp($hash)){
 			}
 		}
 	}
-	//$Sales->deletetemp($hash); 
+	
+	///$Sales->delete_temp($hash); borrar con cron
+
 	$Promos->take_amount($idpromo,$quantity);
 
 }else{
 	if(!$Sales->check($collection_id)) die(http_response_code(400));
 	$saleid = $Sales->data()->id;
+	$first = false;
 	$Sales->update($saleid,array(
 		'collection_id'=>$collection_id,
 		'collection_status'=>$collection_status,
 		'payment_type'=>$payment_type,
+		'application_fee'=>$fees->application_fee,
+		'mercadopago_fee'=>$fees->mercadopago_fee,
 		'modified'=>date('Y-m-d H:i:s')
 	));
 }
@@ -79,7 +87,7 @@ $_salesdata->stores .= '</ul>';
 $_salesdata->gift = null;
 $_salesdata->image = $Promos->get_image($_salesdata->gallery);
 
-if($Sales->findgift($hash)) $_salesdata->gift = $Sales->data();
+if($Sales->find_gift($hash)) $_salesdata->gift = $Sales->data();
 
 if(!is_null($_salesdata->voucher_id)){
 	if($_salesdata->voucher_percent){
@@ -91,15 +99,13 @@ if(!is_null($_salesdata->voucher_id)){
 }
 
 
-//show_array($_salesdata);
-//die();
-
-if($collection_status == 'approved'){
+if($collection_status == 'approved' && !$_salesdata->notified){
 	$Mailing->sales_success_user($_salesdata);
 	$Mailing->sales_success_client($_salesdata);
-	if(!is_null($_salesdata->gift)){
+	$Sales->notified($_salesdata->id);
+	/*if($_salesdata->gift){
 		$Mailing->sales_success_gift($_salesdata);
-	}				
+	}*/			
 }
 if($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation'){
 	$Mailing->sales_pending($_salesdata);

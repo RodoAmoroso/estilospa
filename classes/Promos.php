@@ -43,6 +43,7 @@ class Promos {
 		$this->_data = $this->_db->first();
 		$this->_data->glossary = $this->get_glossary($id);
 		$this->_data->image = $this->get_image($this->_data->gallery);
+		$this->_data->url = ROOT.'promo/'.$this->_data->permalink.'/'.$this->_data->id.'-'.Permalink($this->_data->title);
 		return true;
 		
 	}

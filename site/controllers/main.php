@@ -31,6 +31,7 @@ $GlossaryGroups = new GlossaryGroups();
 $Favs = new Favs();
 $colorsequence = array('yellow-2','green-1','cyan-1','pink-1','aqua-2');
 
+$MPConfig = new MPConfig();
 
 $Stats = new Stats();
 

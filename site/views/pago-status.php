@@ -1,24 +1,26 @@
-<?php
-
-//require_once 'config.php';
-$hidechat = true;
-///require 'head.php';
-
-$status = $_subsection;
-$back_url = isset($_REQUEST['promourl']) ? $_REQUEST['promourl'] : ROOT;
-$amount = isset($_REQUEST['amount']) ? $_REQUEST['amount'] : 0;
-
+<?php 
 switch($status):
 	case 'pending':		
 ?>
 <section class="gral-section">
 	<div class="container">
 		<h1>Pago en Proceso...</h1>
+		<h3>Estamos procesando tu compra.</h3>
 		<hr>
-		<h4>Estamos procesando tu compra.</h4>
-		<p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
+
+		<?php if($Gift): ?>
+
+		<p>Una vez confirmada, le estará llegando un email a <?=$Gift->data()->to_user->name.' ('.$Gift->data()->to_user->mail.')'?> con los detalles de la experiencia.</p>
+
+		<?php else: ?>
+
+		<p>Una vez confirmada, recordá comunicarte con el centro para poder reservar el día y el horario del turno.</p>
+		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
+		<?php endif; ?>
+
 		<hr>
-		<a href="<?=ROOT?>" class="btn btn-primary">Volver</a>
+		<a href="<?=ROOT?>" class="btn btn-primary btn-sm"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
+
 	</div>
 </section>
 
@@ -36,10 +38,22 @@ switch($status):
 <section class="gral-section">
 	<div class="container">
 		<h1>Gracias!!!</h1>
+		<h3>Hemos procesado la solicitud de pago exitosamente!</h3>
 		<hr>
-		<p>Hemos procesado la solicitud de pago exitosamente!</p>		
-		<p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y el horario del turno.</p>
-		<a href="<?=ROOT?>" class="btn btn-primary">Volver</a>
+
+		<?php if($Gift): ?>
+		<h4>Tu regalo ha sido enviado con éxito a: <?=$Gift->data()->to_user->name.' ('.$Gift->data()->to_user->mail.')'?></h4>
+
+		<p>En unos minutos le estará llegando un email con los detalles de la experiencia.</p>
+
+		<?php else: ?>
+		<p>Reservá tu turno ahora con el centro ahora para asegurarte el día y horario de tu experiencia.</p>
+		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
+		<?php endif; ?>
+
+		<hr>
+		<a href="<?=ROOT?>" class="btn btn-primary btn-sm"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
+
 	</div>
 </section>
 <script>

@@ -50,7 +50,8 @@
 				<img src="<?=View::img('promos',$img[0]->photoname.'-t.'.$img[0]->extension)?>" alt="" style="width:100%;position:absolute;left:0;top:0">				
 			</div>		
 			<div style="padding:16px;background-color: white">
-				<h2 style="font-size:11pt"><?=$related->title?></small>
+				<h2 style="font-size:11pt"><?=$related->title?></h2>
+				<a href="<?=ROOT.'promos/'.$related->permalink.'/'.$related->id?>" style="font-size:8pt;color:gray"><?=$related->name?></a>
 				<?php if($related->sale): ?>
 				<h4>$ <?=number_format($related->price-($related->price*$related->discount/100),2,',','.')?></h4>
 				<?php endif; ?>

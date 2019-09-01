@@ -16,7 +16,10 @@
 
 </div>
 
-<p><a href="<?=$obj->glossary_link.'#form_question'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Hacer otra pregunta</a></p>
+<p>
+	<a href="<?=$obj->glossary_link.'#form_question'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Hacer otra pregunta en <?=$obj->glossary_name?></a>
+	<a href="<?=$obj->client_link.'#form_question'?>" style="background-color:#e7127c;padding:8px 16px;color:white;text-decoration:none;" >Hacer pregunta en <?=$obj->client->name?></a>
+</p>
 <p>&nbsp;</p>
 
 

@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit2e32e1e88c192e190b8c5cd554720545
 {
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'setasign\\Fpdi\\' => 14,
+        ),
         'P' => 
         array (
             'PHPMailer\\PHPMailer\\' => 20,
@@ -26,6 +30,10 @@ class ComposerStaticInit2e32e1e88c192e190b8c5cd554720545
     );
 
     public static $prefixDirsPsr4 = array (
+        'setasign\\Fpdi\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -72,12 +80,19 @@ class ComposerStaticInit2e32e1e88c192e190b8c5cd554720545
         ),
     );
 
+    public static $classMap = array (
+        'FPDF' => __DIR__ . '/..' . '/setasign/fpdf/fpdf.php',
+        'TTFontFile' => __DIR__ . '/..' . '/setasign/tfpdf/font/unifont/ttfonts.php',
+        'tFPDF' => __DIR__ . '/..' . '/setasign/tfpdf/tfpdf.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2e32e1e88c192e190b8c5cd554720545::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2e32e1e88c192e190b8c5cd554720545::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit2e32e1e88c192e190b8c5cd554720545::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit2e32e1e88c192e190b8c5cd554720545::$classMap;
 
         }, null, ClassLoader::class);
     }

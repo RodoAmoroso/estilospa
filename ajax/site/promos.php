@@ -42,17 +42,38 @@ switch($_action){
 		if(!$User->logged()) die(Responses::response('require_login'));
 		if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
 
-		$arrfields = array(
-			'iduser'=>$User->data()->id,
-			'fromuser'=>Input::get('from'),
-			'touser'=>Input::get('to'),
-			'mail'=>Input::get('email'),
+		$from_user = $User->data()->id;
+
+		
+		if(!$User->find(Input::get('email'))){
+
+			$hash = hash('sha256', uniqid());
+			$password = rand(11111,99999);
+
+			if(!$to_user = $User->create(
+				array(
+					'name'=>Input::get('to'),
+					'mail'=>strtolower(Input::get('email')),
+					'pass'=>password_hash($password,PASSWORD_DEFAULT),
+					'created'=>date('Y-m-d H:i:s'),
+					'hash'=>$hash,
+					'active'=>0,
+					'idtype'=>2
+				)
+			)) die(Responses::response('fail'));
+
+		}else{
+			$to_user = $User->data()->id;
+		}
+
+		$Sales->save_gift(array(
+			'from_user'=>$from_user,
+			'to_user'=>$to_user,
 			'message'=>Input::get('message'),
-			'idpromo'=>intval(Input::get('idpromo')),
+			'promoid'=>intval(Input::get('idpromo')),
 			'hash'=>Input::get('hash'),
 			'added'=>date('Y-m-d H:i:s')
-		);
-		$Sales->savegift($arrfields);
+		));
 		echo Responses::response('ok');
 		break;
 

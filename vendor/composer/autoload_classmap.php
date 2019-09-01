@@ -6,4 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'FPDF' => $vendorDir . '/setasign/fpdf/fpdf.php',
+    'TTFontFile' => $vendorDir . '/setasign/tfpdf/font/unifont/ttfonts.php',
+    'tFPDF' => $vendorDir . '/setasign/tfpdf/tfpdf.php',
 );

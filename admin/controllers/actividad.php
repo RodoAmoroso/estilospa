@@ -20,6 +20,9 @@ function set_type($reference){
 			break;
 		case 'question':
 			$output = 'Pregunta';
+			break;
+		case 'reminder':
+			$output = 'Recordatorio';
 			break;	
 	}
 	return $output;

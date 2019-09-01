@@ -9,7 +9,7 @@ $Reservations->excluded_days = false;
 $Reservations->limit = 250;
 
 $date = new DateTime();
-$date->modify('-5 days');
+//$date->modify('-5 days');
 $today = $date->format('Y-m-d H:i:s');
 $today_formatted = $date->format('d/m/Y');
 

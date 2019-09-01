@@ -8,7 +8,8 @@ class Questions {
 
 	public 	$filters=array(),
 					$page=1,
-					$limit=20;
+					$limit=20,
+					$limit_responses='';
 
 	public function __construct(){
 		$this->_db = DB::getInstance();
@@ -113,6 +114,7 @@ class Questions {
 		$data = $this->_db->results();
 		foreach($data as $k=>$rs){
 			$data[$k]->responses = $this->get_responses($rs->id);
+			$data[$k]->total_responses = $this->get_total_responses($rs->id);
 			if($rs->type=='clients'){
 				$Clients->find($rs->rowid);
 				$data[$k]->client = $Clients->data();
@@ -132,11 +134,15 @@ class Questions {
 		return $data;
 	}
 	public function get_responses($messageid=0){
+
+		$limitby = !empty($this->limit_responses) ? "LIMIT 0,{$this->limit_responses}" : "";
+
 		$this->_db->query(
 			"SELECT r.*, DATE_FORMAT(r.added,'%d/%m/%Y %H:%i') creado
-			FROM {questions_responses} r			
+			FROM {questions_responses} r
 			WHERE r.messageid=?
-			ORDER BY r.added ASC",
+			ORDER BY r.added ASC
+			{$limitby}",
 			array($messageid)
 		);
 		if(!$this->_db->count()) return false;
@@ -215,9 +221,18 @@ class Questions {
 		$this->_db->query(
 			"SELECT COUNT(*) total
 			FROM {questions} q
-			WHERE q.type=? AND q.rowid=?
-			LIMIT 0,500",
+			WHERE q.type=? AND q.rowid=?",
 			array($type,$rowid)
+		);
+		if(!$this->_db->count()) return 0;
+		return $this->_db->first()->total;
+	}
+	public function get_total_responses($messageid=0){
+		$this->_db->query(
+			"SELECT COUNT(*) total
+			FROM {questions_responses} r
+			WHERE r.messageid=?",
+			array($messageid)
 		);
 		if(!$this->_db->count()) return 0;
 		return $this->_db->first()->total;

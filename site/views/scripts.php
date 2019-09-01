@@ -7,6 +7,7 @@
 <script type="text/javascript" src="<?= JS.'lib/jquery.scrollUp.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'lib/toastr.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'lib/sweetalert2.min.js' ?>"></script>
+<script type="text/javascript" src="<?= JS.'lib/lazyload.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'functions.js?id='.rand(1111,9999) ?>" ></script>
 
 
@@ -17,7 +18,7 @@
 
 
 <!-- Section Scripts -->
-<script type="text/javascript" src="<?= SITE.'js/main.js' ?>"></script>
+<script type="text/javascript" src="<?= SITE.'js/main.js?id='.rand(1111,9999) ?>"></script>
 
 <?php if($_sectionpath): if($_jspath = View::loader('js','js')): ?>
 <script type="text/javascript" src="<?= SITE.$_jspath.'?id='.rand(1111,9999) ?>"></script>

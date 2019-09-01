@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	private $_mailer,
-					//$_email='rodosoft@hotmail.com',
-					$_email='estilospa.com@gmail.com',
+					$_email='rodosoft@hotmail.com',
+					///$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -356,7 +356,6 @@ class Mailing {
 		if(!is_object($obj)) return false;
 
 		$this->_mailer->addAddress($obj->useremail, $obj->username);
-		$this->_mailer->addBCC($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Detalles de compra de '.$obj->title;
 
 		$body = Templates::template('sales/success-user',$obj);
@@ -370,7 +369,10 @@ class Mailing {
 	public function sales_success_client($obj=null){
 		if(!is_object($obj)) return false;
 
+		$this->_mailer->clearAllRecipients();
+
 		$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
+		$this->_mailer->addBCC($this->_email, $this->_fullname);
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Nueva venta en EstiloSPA.com - Nro: '.$obj->title;
 
@@ -382,9 +384,10 @@ class Mailing {
 	public function sales_success_gift($obj=null){
 		if(!is_object($obj)) return false;
 
-		$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
-		//$this->_mailer->addAddress($this->_email, $this->_fullname);
-		$this->_mailer->Subject = $obj->gift->fromuser.' te ha regalado esta promo!';
+		$this->_mailer->clearAllRecipients();
+
+		$this->_mailer->addAddress($obj->gift->to_user->mail, $obj->gift->to_user->name.' '.$obj->gift->to_user->lastname);
+		$this->_mailer->Subject = $obj->gift->from_user->name.' te ha regalado esta promo desde EstiloSPA.com!';
 
 		$body = Templates::template('sales/success-gift',$obj);
 		if(!$this->send($body)) return false;

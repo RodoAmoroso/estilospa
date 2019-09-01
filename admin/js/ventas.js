@@ -19,7 +19,7 @@ var DateFunctions = {
 		return true;
 	}
 }
-Actions = {
+sales = {
 	switchstatus:function(status){
 		var btn;
 		var label;
@@ -83,13 +83,20 @@ Actions = {
 				
 				$.each(DATA.results,function(k,v){
 					if(v.title == null){console.log(v.id)}
+				
 					var mod = $('#mod_sale').clone();
-					mod.removeAttr('id').removeClass('dp-none').attr('data-id',v.id);
-					mod.find('[data-tag="ordernumber"]').text('Orden Nro.: '+v.collection_id);
+
+					mod.removeAttr('id')
+						.removeClass('dp-none')
+						.attr('data-id',v.id);
+
+
 					if(v.title == null){
-						mod.find('[data-tag="title"]').html('La promo fue borrada');
+						mod.find('[data-tag="title"]')
+							.html('La promo fue borrada');
 					}else{
-						mod.find('[data-tag="title"]').html('<a href="'+ROOT+'promo/'+v.permalink+'/'+v.idpromo+'-'+v.title.permalink()+'" target="_blank">'+v.title+'</a> - <a href="'+ROOT+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
+						mod.find('[data-tag="title"]')
+							.html('<a href="'+ROOT+'promo/'+v.permalink+'/'+v.idpromo+'-'+v.title.permalink()+'" target="_blank">'+v.title+'</a> - <a href="'+ROOT+'centros/'+v.permalink+'" target="_blank">'+v.clientname+'</a>');
 					}
 					var discountvoucher = 0;
 					var vouchertext = '';
@@ -101,34 +108,64 @@ Actions = {
 							discountvoucher = v.value;
 						}
 					}
-					///mod.find('[data-tag="collectionid"]').html('Nro. de comprobante: #'+v.);
-					mod.find('[data-tag="price"]').html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity+' | <span class="fw-400">Total: $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.')+'</span>');
-					mod.find('[data-tag="date"]').text('Fecha de compra: '+v.fecha+' hs.'+vouchertext).after('<hr /><div class="sz-8 pad-4 alert-'+Actions.status_payment(v.collection_status).label+'">'+Actions.status_payment(v.collection_status).text+'</div>');
-					mod.find('[data-button="toggle"],[data-group="status"]').attr('data-id',v.id);
-					//Actions.status(v.id,v.status);
+
+					mod.find('[data-tag="ordernumber"]')
+						.text('Orden Nro.: '+v.collection_id+' - $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.'));
+					
+					mod.find('[data-tag="price"]')
+						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
+						
+					mod.find('[data-tag="date"]')
+						.text('Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+
+
+					mod.find('.status')
+						.addClass('alert-'+sales.status_payment(v.collection_status).label)
+						.find('.payment-status')
+						.text(sales.status_payment(v.collection_status).text);
+
+					mod.find('[data-button="toggle"],[data-group="status"]')
+						.attr('data-id',v.id);
+
+					if(v.status=='rejected') mod.find('.sale-actions').remove();
+					
 					if(v.gallery != null){
 						var img = $.parseJSON(v.gallery);
-						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
+						mod.find('.thumb')
+							.css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 					}
-					mod.find('[data-group="status"] button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(v.status).btn).find('span[data-tag="status"]').text(Actions.switchstatus(v.status).label);
-					///////////// USER ////////////////////////////////
+
+					mod.find('[data-group="status"] button')
+						.removeClass()
+						.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(v.status).btn).find('span[data-tag="status"]')
+						.text(sales.switchstatus(v.status).label);
+		
 					if(v.image != '' && v.image != null){
 						var imgu = $.parseJSON(v.image);
 						var thumbimage = imgu.photoname+'-t.'+imgu.extension;
 					}else{
 						var thumbimage = 'user-default.png';
 					}
-					mod.find('.user-thumb').css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
-					mod.find('[data-tag="username"]').text(v.username);
-					mod.find('[data-tag="mail"]').text(v.mail);
+
+					mod.find('.user-thumb')
+						.css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
+					mod.find('[data-tag="username"]')
+						.text(v.username);
+					mod.find('[data-tag="mail"]')
+						.text(v.mail);
+
 					if(v.text != null){
 						mod.find('[data-tag="comment"]').html(v.text);
 						for(var i=1; i<=v.rate; i++){
-							mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star');
+							mod.find('.stars i:eq('+(i-1)+')')
+								.addClass('fa-star');
 						}
 						for(var i=5; i>v.rate; i--){
-							mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star-o');
+							mod.find('.stars i:eq('+(i-1)+')')
+								.addClass('fa-star-o');
 						}
+					}else{
+						mod.find('.stars').remove();
 					}
 					///////////////////////////////////////////////////
 					$('#sales').append(mod);
@@ -148,7 +185,7 @@ Actions = {
 				})
 				return false;
 			}
-			Actions.get();
+			sales.get();
 		});
 
 		$('#sales').on('click','[data-button="toggle"]',function(){
@@ -159,7 +196,7 @@ Actions = {
 			e.preventDefault();
 			var st = $(this).attr('data-value');
 			var id = $(this).parent().parent().parent().attr('data-id');
-			$('#sales [data-id="'+id+'"] [data-group="status"]').find('button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+Actions.switchstatus(st).btn).find('span[data-tag="status"]').text(Actions.switchstatus(st).label);
+			$('#sales [data-id="'+id+'"] [data-group="status"]').find('button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(st).btn).find('span[data-tag="status"]').text(sales.switchstatus(st).label);
 			
 			ajax('admin/sales/setstatus',{ID:id,Status:st})
 				.then(function(){});
@@ -167,12 +204,53 @@ Actions = {
 		});
 
 		$('#fd_clients').change(function(){
-			Actions.get();
+			sales.get();
 		});
 		$('#fd_from,#fd_to').datepicker();
-		Actions.get();
+		sales.get();
 	}
 }
+
+var stats = {
+	evolution:function(){
+		ajax('admin/sales/evolution')
+			.then(function(data){
+				return data;
+			})
+			.then(function(data){
+				if(data.stats==false) return false;
+
+				var chartdata = [];
+				$.each(data.stats,function(k,v){
+					var dd = new Date(v.year+'-'+v.month).getTime();
+					chartdata.push([dd,parseInt(v.suma)]);					
+				});
+
+				var data, chartOptions;
+				data = [{label:"$", data:chartdata}];
+
+				chartOptions = {
+					xaxis: {min:data.this_month, max:data.last_month, mode:"time", tickSize:[1, "month"], monthNames:["Ene ", "Feb ", "Mar ", "Abr ", "May ", "Jun ", "Jul ", "Ago ", "Sep ", "Oct ", "Nov ", "Dic "], tickLength:0}, 
+					yaxis: {},
+					series: {lines: {show:true, fill:true, lineWidth:3}, points: {show:true, radius:3, fill:true, fillColor:"#ffffff", lineWidth:2}},
+					grid:{show:true, color:'#999', borderColor:'#dfdfdf', hoverable:true, clickable:false, borderWidth:1},
+					legend: {show:false, backgroundColor:'#fff'},
+					tooltip: true, tooltipOpts: {content: '%s: %y'},
+					colors: ['#68bbce']
+				}
+				$.plot('#evolution', data, chartOptions);
+
+
+			});
+		
+	},
+	init:function(){
+		this.evolution();		
+	}
+}
+
+	
 $(function(){
-	Actions.init();
+	sales.init();
+	stats.init();
 });

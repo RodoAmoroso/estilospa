@@ -14,12 +14,13 @@
 	<p><b>Total: $ <?=number_format($obj->price*$obj->quantity,2,',','.')?></b></p>
 </div>
 
-<?php if(!is_null($obj->gift)): ?>
+<?php if($obj->gift): ?>
 <h4>Le regalaste este servicio a:</h4>
-<ul>
-	<li>Nombre: <?=$obj->gift->touser?></li>
-	<li>E-mail: <a href="mailto:<?=$obj->gift->mail?>"><?=$obj->gift->mail?></a></li>
+<ul style="padding:0 16px">
+	<li>Nombre: <?=$obj->gift->to_user->name?></li>
+	<li>E-mail: <a href="mailto:<?=$obj->gift->to_user->mail?>"><?=$obj->gift->to_user->mail?></a></li>
 </ul>
+<a href="<?=ROOT.'voucher-regalo/'.$obj->hash?>" style="background-color:#e7127c; padding:4px 10px; color:white; text-decoration:none">Descargar Voucher</a>
 <hr>
 <?php endif; ?>
 
@@ -35,7 +36,10 @@
 <?=$obj->stores?>
 <br />
 
+<?php if(!$obj->gift): ?>
 <p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y horario del turno.</p>
+<?php endif; ?>
+
 <hr>
 
 <p>

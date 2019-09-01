@@ -12,21 +12,21 @@ class MPConfig {
 
 	public 	$arrfields=array(),
 					$idclient=0,
-					
-					$app_id='7300466898804487',					
 					$redirect_uri=ROOT.'mp',
+					
+					/*$notification_url = ROOT.'ipn.php',
+					$app_id='7300466898804487',					
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
 
 
 					//Test Localhost
-					//$redirect_uri=ROOT.'mp',
-					//$app_id='7030611358224519',
-					//$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+					$notification_url = 'https://www.estilospa.com/test-ipn.php',
+					$app_id='7030611358224519',
+					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
 
 					// Test SpaEstilo
-					//$redirect_uri=ROOT.'mp',
 					//$app_id='4678134710817612',
 					//$secret_key='UOf6fadyymoUTHv93Hqstk2iLHDUtOdC',
 					//$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838';
@@ -113,41 +113,7 @@ class MPConfig {
 		//MercadoPago\SDK::setClientSecret($this->secret_key);
 
 		$promo_url = ROOT.'promo/'.$PROMO->permalink.'/'.$PROMO->id.'-'.Permalink($PROMO->title);
-		
-		/*$preference_data = array(
-			"items" => array(
-				array(
-					"title" => $PROMO->title.' - '.$CLIENTS->name,
-					"description"=>$PROMO->subtitle,
-					"quantity" => $quantity,
-					"unit_price" => ($promoprice-$discountvoucher),
-					"currency_id" => "ARS",
-					//"picture_url" => "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
-					"picture_url" => ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension,
-					"category_id" => "services"
-				)
-			),
-			"marketplace_fee" => floatval( $CLIENTS->fee*(($promoprice-$discountvoucher)*$quantity)/100 ),
-			"payer"=>array(
-				"email"=>$USER->mail,
-				"name"=>$USER->name,
-				"surname"=>$USER->lastname
-			),
-			"back_urls"=>array(
-				"success"=>ROOT.'pago-status/success?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"failure"=>ROOT.'pago-status/failure?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity),
-				"pending"=>ROOT.'pago-status/pending?hash='.$this->_hash.'&promourl='.$promo_url.'&amount='.(($promoprice-$discountvoucher)*$quantity)
-			),
-			"payment_methods"=>array(
-				"excluded_payment_methods"=>array(),
-				"excluded_payment_types"=>array(array("id"=>"ticket"),array("id"=>"atm")),
-				//"excluded_payment_types"=>array(array("id"=>"atm")),
-				"installments"=>null
-			),
-			//"notification_url"=> ROOT."ipn.php",
-			"notification_url"=> "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient,
-			"external_reference"=> $this->_hash,
-		);*/
+
 
 		$preference = new MercadoPago\Preference();
 
@@ -169,8 +135,9 @@ class MPConfig {
 		$preference->items = array($item);
 		$preference->payer = $payer;
 		$preference->marketplace_fee = floatval( $CLIENTS->fee*(($promoprice-$discountvoucher)*$quantity)/100 );
-		$preference->notification_url = "https://www.estilospa.com/test-ipn.php?idclient=".$PROMO->idclient;
-		///$preference->notification_url = ROOT.'ipn.php?idclient='.$PROMO->idclient;
+
+		$preference->notification_url = $this->notification_url.'?idclient='.$PROMO->idclient;
+
 		$preference->external_reference = $this->_hash;
 
 		$preference->back_urls = array(
@@ -202,7 +169,7 @@ class MPConfig {
 		}*/
 
 		$Sales = new Sales();
-		if(!$Sales->createtemp(array(
+		if(!$Sales->create_temp(array(
 			'iduser'=>$USER->id,
 			'idclient'=>$PROMO->idclient,
 			'idpromo'=>$PROMO->id,
@@ -321,6 +288,22 @@ class MPConfig {
 		$this->_db->get('mp',array('idclient','=',$idclient));
 		if(!$this->_db->count()) return false;
 		return $this->_db->first()->access_token;
+	}
+
+
+	public function get_fees($fees=array()){
+		if(!is_array($fees) || empty($fees)) return false;
+
+		$output = new stdClass();
+		foreach ($fees as $fee) {
+			if($fee->type=='mercadopago_fee'){
+				$output->mercadopago_fee = $fee->amount;
+			}
+			if($fee->type=='application_fee'){
+				$output->application_fee = $fee->amount;	
+			}
+		}
+		return $output;
 	}
 
 

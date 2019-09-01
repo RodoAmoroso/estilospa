@@ -62,6 +62,7 @@
 				$Glossary->idgroup = $group->id;
 				$Glossary->limit = '0,10';
 				$Glossary->keywords = '';
+				$Glossary->sort = '';
 				if($Glossary->get()):
 					foreach ($Glossary->data() as $glossary): 
 				?>

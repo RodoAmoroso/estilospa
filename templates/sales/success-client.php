@@ -9,11 +9,11 @@
 </ul>
 
 
-<?php if(!is_null($obj->gift)): ?>
+<?php if($obj->gift): ?>
 <h4>El usuario ha regalado el servicio a:</h4>
 <ul>
-	<li>Nombre: <?=$obj->gift->touser?></li>
-	<li>E-mail: <a href="mailto:<?=$obj->gift->mail?>"><?=$obj->gift->mail?></a></li>
+	<li>Nombre: <?=$obj->gift->to_user->name?></li>
+	<li>E-mail: <a href="mailto:<?=$obj->gift->to_user->mail?>"><?=$obj->gift->to_user->mail?></a></li>
 </ul>
 <hr>
 <?php endif; ?>

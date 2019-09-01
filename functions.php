@@ -521,3 +521,34 @@ function reservation_labels($status){
 
 	return $output;
 }
+
+function status_payment($status=''){
+	$label;
+	$text;
+	switch($status){
+		case 'in_process':
+			$label = 'warning';
+			$text = 'El pago está siendo revisado';
+			break;
+		case 'rejected':
+			$label = 'danger';
+			$text = 'El pago fué rechazado';
+			break;
+		case 'approved':
+			$label = 'success';
+			$text = 'El pago fue aprobado y acreditado';
+			break;
+		case 'pending':
+			$label = 'warning';
+			$text = 'No se completó el pago';
+			break;
+		default:
+			$label = 'danger';
+			$text = 'No se completó el proceso de pago y no se ha generado ningún pago';
+			break;
+	}
+	$output = new stdClass();
+	$output->label = $label;
+	$output->text = $text;
+	return $output;
+}

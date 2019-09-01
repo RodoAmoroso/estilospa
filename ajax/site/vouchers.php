@@ -36,7 +36,7 @@ switch($_action){
 		$idcode = $Vouchers->data()->id;
 		$hash = hash('sha256',uniqid());
 
-		$Sales->createtemp(array(
+		$Sales->create_temp(array(
 			'iduser'=>$User->data()->id,
 			'idclient'=>$Promos->data()->idclient,
 			'idpromo'=>$idpromo,

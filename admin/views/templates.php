@@ -96,25 +96,29 @@
 			<div class="thumb thumb-cover"></div>
 		</div>
 		<div class="caption">
-			<h1 data-tag="ordernumber" class="sz-16 fw-400">Orden Nro.: </h1>
-			<h2 data-tag="price" class="sz-14">$0000 - Cant. 11</h2>
-			<h2 data-tag="title" class="sz-11">Cliente / Title Promo</h2>
-			<small data-tag="date" class="cl-gray-40">Fecha de compra: 00/00/0000 10:00:00 hs.</small>
-		
-			<div class="sale-actions">
-				<small>Estado: </small>
-				<div data-group="status" class="btn-group">
-					<button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<span data-tag="status" >Pendiente</span> <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						<li><a data-value="1" href="#">Pendiente</a></li>
-						<li><a data-value="2" href="#">Brindado</a></li>
-						<li><a data-value="3" href="#">Cancelado</a></li>
-					</ul>
-				</div>
+			<h1 data-tag="ordernumber" class="title">Orden Nro.: </h1>
+			<h4 data-tag="price" class="subtitle">$0000 - Cant. 11</h4>
+			<h4 data-tag="title" class="title-promo">Cliente / Title Promo</h4>
+			<small data-tag="date" class="date">Fecha de compra: 00/00/0000 10:00:00 hs.</small>
 
+			<div class="status">
+				<div class="payment-status"></div>
+				<div class="sale-actions">
+					<small>Servicio: </small>
+					<div data-group="status" class="btn-group">
+						<button type="button" class="btn btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span data-tag="status" >Pendiente</span> <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a data-value="1" href="#">Pendiente</a></li>
+							<li><a data-value="2" href="#">Brindado</a></li>
+							<li><a data-value="3" href="#">Cancelado</a></li>
+						</ul>
+					</div>
+
+				</div>
 			</div>
+		
 		</div>
 		<div class="action">
 			<button data-button="toggle" class="btn btn-primary btn-block btn-xs"><i class="fa fa-chevron-down"></i></button>
@@ -127,19 +131,19 @@
 					<div class="user-thumb thumb-cover"></div>
 				</div>
 				<div class="item">
-					<div data-tag="username" class="name">Rodo Amoroso</div>
-					<a data-tag="mail" href="#" class="mail">rodosoft@hotmail.com</a>
+					<div data-tag="username" class="name"></div>
+					<a data-tag="mail" href="#" class="mail"></a>
 				</div>
 			</div>
 			<div class="feedback" >
-				<p data-tag="comment" >El usuario aún no ha calificado</p>
-				<div class="stars">
+				<p data-tag="comment"><i>(El usuario aún no ha calificado)</i></p>
+				<span class="stars">
 					<i class="fa"></i>
 					<i class="fa"></i>
 					<i class="fa"></i>
 					<i class="fa"></i>
 					<i class="fa"></i>
-				</div>										
+				</span>										
 			</div>
 		</div>		
 	</div>	

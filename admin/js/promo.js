@@ -5,13 +5,22 @@ var Clients = {
 		ajax('admin/clients/get').then(function(DATA){
 			$.each(DATA.results,function(k,v){
 				$('#fd_clients').append('<option value="'+v.id+'">'+v.name+'</option>');
-			});			
+			});
 
-			if($_id!=0){
-				Promos.find();
-			}else{
-				$('[name="glossary"]').bootstrapDualListbox();
-			}
+
+			Glossary.get()
+				.then(function(response){
+					$.each(response.results,function(k,v){
+						$('[name="glossary"]').append('<option value="'+v.id+'">'+v.name+'</option>');
+					});
+					
+					if($_id!=0){
+						Promos.find();
+					}else{
+						$('[name="glossary"]').bootstrapDualListbox();
+					}
+				});
+
 
 		});
 	},
@@ -273,6 +282,7 @@ var Promos = {
 
 				$('[name="glossary"]').val(obj.glossary);
 				$('[name="glossary"]').bootstrapDualListbox();
+				
 
 			});
 	},
@@ -341,21 +351,27 @@ var Promos = {
 
 var Glossary = {
 	get:function(){
-		ajax('admin/glossary/get')
-			.then(function(data){
-				$('[name="glossary"]').html('');
-				if(!data.results) return false;
-				$.each(data.results,function(k,v){
-					$('[name="glossary"]').append('<option value="'+v.id+'">'+v.name+'</option>');
+		
+		return new Promise(function(resolve,reject){
+			ajax('admin/glossary/get')
+				.then(function(data){
+					$('[name="glossary"]').html('');
+					if(!data.results){ 
+						reject(data);
+						return false;
+					};
+					
+					resolve(data)
 				});
-			});
+		});
+
 	}
 }
 
 $(function(){
 	Promos.init();
 	Promotypes.init();
-	Glossary.get();
+	///Glossary.get();
 	Clients.init();
 	
 });

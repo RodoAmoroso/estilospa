@@ -5,7 +5,7 @@ class User {
 					$_data,
 					$_sessionName,
 					$_cookieName,
-					$_logged,
+					$_logged=false,
 					$_dbprefix,
 					$_lastid;
 
@@ -28,6 +28,7 @@ class User {
 			}
 		}else{
 			if($this->find($user)){
+				Session::put($this->_sessionName,$this->data()->id);
 				$this->_logged = true;
 			}
 		}

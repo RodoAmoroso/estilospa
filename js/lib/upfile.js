@@ -68,9 +68,10 @@ var UpFile = function () {
 						if ('gallery' in _this) {
 							_this.build_gallery();
 						}
-						loading({ show: false });
 						resolve(_this.arrfiles);
 					}
+				}).always(function (data) {
+					loading({ show: false });
 				}).fail(function (data) {
 					Swal.fire({ text: 'Hubo problemas al subir el archivo. Intenta nuevamente.', type: 'error' });
 					reject(data);

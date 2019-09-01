@@ -60,9 +60,11 @@ class UpFile {
 					if('gallery' in this){
 						this.build_gallery();
 					}
-					loading({show:false});
 					resolve(this.arrfiles);
 				}
+			})
+			.always(data=>{
+				loading({show:false});
 			})
 			.fail(data=>{
 				Swal.fire({text:'Hubo problemas al subir el archivo. Intenta nuevamente.',type:'error'});

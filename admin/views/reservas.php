@@ -12,8 +12,14 @@
 <section class="admin-box bg-gray-5">
 	<div class="container">
 
-
 		<div class="block-white">
+			
+			<div class="form-group">
+				<button data-btn-action="" class="btn btn-sm btn-default">Reservas Anteriores</button>
+				<button data-btn-action="" class="btn btn-sm btn-default active">Reservas Vigentes</button>
+			</div>
+			<hr>
+
 			<form class="row" method="post">
 				<div class="col-md-4">
 					<label for="">Desde</label>

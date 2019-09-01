@@ -54,6 +54,7 @@ switch($_action){
 	case 'get':
 		$UserAdmin->keywords = Input::get('keywords');
 		$UserAdmin->type = Input::get('type');
+		$UserAdmin->limit = '';
 		$UserAdmin->get();
 		echo Responses::response('ok','',array('results'=>$UserAdmin->data()));
 		break;

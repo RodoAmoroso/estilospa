@@ -268,7 +268,7 @@
 					<small class="text-gray-50">(máx. 500 caracteres)</small>
 				</div>
 				<div class="form-group">
-					<button class="btn btn-default" data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>">Preguntar</button>
+					<button class="btn btn-default" >Preguntar</button>
 				</div>
 			</form>
 

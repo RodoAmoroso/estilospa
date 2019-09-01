@@ -129,6 +129,7 @@ class UserAdmin {
 			FROM {users} u 
 			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
 			{$search} 
+			ORDER BY u.created DESC
 			{$limit}"
 		);
 		if($this->_db->count()){

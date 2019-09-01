@@ -2,7 +2,7 @@
 <div class="wrapper">
 	<div class="mod-body">
 		<div class="image-wrapper" >
-			<a href="<?=$promolink?>" class="overprint-absolute" style="background-image:url(<?=ROOT.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)"></a>
+			<a href="<?=$promolink?>" class="overprint-absolute lazy" data-bg="url(<?=ROOT.'img/promos/'.$imgpromo[0]->photoname.'-t.'.$imgpromo[0]->extension ?>)" ></a>
 			<div class="fav">
 				<?= Fav($promo->id,$promo->idclient); ?>
 			</div>
@@ -41,7 +41,7 @@
 
 			<div class="button promo-buttons">
 
-				<?php if($promo->sale): ?>				
+				<?php if($MPConfig->find($promo->idclient)): ?>
 				<div class="main-button" ><i class="fa fa-shopping-bag fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>

@@ -43,7 +43,7 @@ var Promos = {
 					mod.find('.preview').attr({'data-permalink':v.permalink,'data-title':v.title});
 					if(v.gallery!=''){
 						var img = $.parseJSON(v.gallery);
-						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
+						if(img[0].photoname!=undefined) mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 					}
 					$('#promos').append(mod);
 				});

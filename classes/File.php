@@ -10,15 +10,17 @@ class File {
 	private $arrName = array();
 	private $node = 0;
 
-	public function __construct($file,$folder){
+	public function __construct($file=array(),$folder=''){
 		$this->file = $file;
 		$this->folder = $folder;
-		if(!is_dir($this->folder)) mkdir($this->folder, 0777);
-		if(!is_dir($this->folder)) die(Responses::response('folder_fail'));
 	}
 
 	////////////////////// MOVE FILE ///////////////////////
 	public function MoveFile($image=true){
+		
+		if(!is_dir($this->folder)) mkdir($this->folder, 0777);
+		if(!is_dir($this->folder)) die(Responses::response('folder_fail'));
+
 		$this->image = $image;
 		$this->arrName = explode('.',$this->file['name']);
 		$this->filename = Permalink($this->arrName[0]).'-'.rand(1111,9999);
@@ -141,4 +143,21 @@ class File {
 		/////////////////////////////////////////////
 		return array('status'=>'ok','filename'=>$this->filename,'extension'=>$this->extension);
 	}
+
+	public static function download($filepath='',$name=''){
+		
+		//$original = PATH.'descargas'.DS.$file->filename.'.'.$file->extension;
+		
+		if(!is_file($filepath)) return false;
+
+		header("Content-Type: application/".$file->extension);
+		header("Content-Length: ".filesize($filepath));
+		header('Content-Disposition: attachment; filename="'.$name.'"');
+
+		ob_clean();
+		flush();
+		readfile($filepath);
+	}
+
+
 }

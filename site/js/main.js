@@ -1,5 +1,9 @@
 $(function(){
 
+	var lazyLoadInstance = new LazyLoad({
+		elements_selector: ".lazy"
+	});
+
 	$('[title]').tooltip();
 
 	$('nav .fa-bars').click(function(){

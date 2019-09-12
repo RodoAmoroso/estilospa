@@ -117,9 +117,9 @@ if($collection_status == 'approved' && !$_salesdata->notified){
 		$Mailing->sales_success_gift($_salesdata);
 	}*/			
 }
-if(($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation') && !$_salesdata->notified){
+if(($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation' || $collection_status == 'authorized')){
 	$Mailing->sales_pending($_salesdata);
 }
-if($collection_status == 'rejected' && !$_salesdata->notified){
+if(($collection_status == 'rejected' || $collection_status == 'cancelled') &&  !$_salesdata->notified){
 	$Mailing->sales_rejected($_salesdata);
 }

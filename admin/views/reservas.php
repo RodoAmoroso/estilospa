@@ -3,6 +3,8 @@
 		<h1>Reservas</h1>
 		<hr>
 		<p>Visualiza todas las reservas hechas en las promos.</p>
+
+		<a href="<?=View::url('admin/feriados')?>" class="btn btn-xs btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Establecer Feriados</a>
 	</div>
 </section>
 

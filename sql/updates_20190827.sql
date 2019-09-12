@@ -35,7 +35,8 @@ CREATE TABLE `spa_reservations_sales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `spa_reservations_sales`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_reservations_sales`
   ADD KEY `saleid` (`saleid`),
   ADD KEY `spa_reservations_sales_ibfk_2` (`reservationid`);
 
@@ -79,3 +80,15 @@ ALTER TABLE `spa_reservations`
 ALTER TABLE `spa_reservations` 
   ADD CONSTRAINT `spa_reservations_ibfk_4` FOREIGN KEY (`status`) REFERENCES `spa_reservations_status`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
+
+
+
+CREATE TABLE `spa_holidays` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(127) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_holidays`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `spa_holidays`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;

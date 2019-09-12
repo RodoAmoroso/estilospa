@@ -60,11 +60,16 @@ switch($_action){
 				));*/
 
 			}else{
-				$idu = $User->data()->id;
+				$idu = $User->data()->id;				
 			}
 		}else{
 			$idu = $User->data()->id;
 		}
+
+
+		$User->update($idu, array(
+			'phone'=>Input::get('phone')
+		));
 
 		
 

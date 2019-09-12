@@ -243,24 +243,39 @@
 			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
 			<form id="form_question" class="question-form">
-
-				<?php if(!$User->logged()): ?>
-
+					
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-4">
 						<div class="form-group">
-							<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  >
-						</div> 
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>"  >
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span><i class="fa fa-user"></i></span>
+								</div>
+								<input name="name" type="text" class="form-control" <?=is_null($_userdata) ? '' : 'readonly' ?> required value="<?= !is_null($_userdata) ? $_userdata->fullname : '' ?>" placeholder="Tu nombre..." >
+							</div>
 						</div>
-
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span><i class="fa fa-envelope"></i></span>
+								</div>
+								<input name="email" type="text" class="form-control" <?=is_null($_userdata) ? '' : 'readonly' ?> required value="<?=!is_null($_userdata) ? $_userdata->mail : '' ?>" placeholder="Tu email..." >
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<div class="input-group">
+								<div class="input-group-addon">
+									<span><i class="fa fa-phone"></i></span>
+								</div>
+								<input name="phone" type="text" class="form-control" required value="<?=!is_null($_userdata) ? $_userdata->phone : '' ?>" placeholder="Tu teléfono..."  >
+							</div>
+						</div>
 					</div>
 				</div>
-				<?php endif; ?>
-
 
 				<div class="form-group">
 					<textarea name="message" rows="6" class="form-control" required placeholder="Escribí tu pregunta..." maxlength="500"></textarea>

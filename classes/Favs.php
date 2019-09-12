@@ -50,21 +50,16 @@ class Favs {
 	}
 
 	public function find(){
-		$where = '';
-		if($this->idpromo){
-			$where = "AND idpromo=".$this->idpromo." AND idclient=".$this->idclient;
-		}
+
 		$this->_db->query(
 			"SELECT * 
-			FROM {favs} 
-			WHERE iduser=?
-			{$where}",
-			array($this->iduser)
+			FROM {favs}
+			WHERE iduser=? AND idpromo=? AND idclient=?",
+			array($this->iduser,$this->idpromo,$this->idclient)
 		);
-		if($this->_db->count()){
-			return true;
-		}
-		return false;
+		if(!$this->_db->count()) return false;
+		
+		return true;
 	}
 
 	public function getpromos($iduser=0){

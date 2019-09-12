@@ -1,11 +1,10 @@
 <?php 
 
-
 require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
-$Reservations = new Reservations();
 $User = new User();
+$Reservations = new Reservations();
 $Clients = new Clients();
 $Stores = new Stores();
 $Mailing = new Mailing();
@@ -69,7 +68,8 @@ switch($_action){
 
 	case 'get_hours':
 
-		$Stores->get(Input::get('idclient'));
+		///$Stores->get(Input::get('idclient'));
+		$Stores->get(112);
 		if(!$Stores->data()) die(Responses::response('fail'));
 
 		$schedules = json_decode($Stores->data()[0]->schedules);
@@ -80,9 +80,12 @@ switch($_action){
 			}
 		}
 
-		$taken_days = $Reservations->taken_days(Input::get('idclient'),Input::get('date'));		
+		$taken_days = $Reservations->taken_days(Input::get('idclient'),Input::get('date'));
 
-		echo Responses::response('ok','',array('hours'=>$hours,'taken_days'=>$taken_days));
+		echo Responses::response('ok','',array(
+			'hours'=>$hours,
+			'taken_days'=>$taken_days
+		));
 		break;
 
 	case 'book':
@@ -132,16 +135,16 @@ switch($_action){
 			'lastname'=>Input::get('lastname')
 		));
 
-		$reservationid = $Reservations->add(array(
-			'promoid'=>Input::get('promoid'),
-			'clientid'=>Input::get('clientid'),
+		if(!$reservationid = $Reservations->add(array(
+			'promoid'=>empty(Input::get('promoid')) ? null : Input::get('promoid'),
+			'clientid'=>empty(Input::get('clientid')) ? null : Input::get('clientid'),
 			'userid'=>$idu,
 			'book_date'=>Input::get('date'),
 			'status'=>0,
 			'comments'=>Input::get('message')
-		));
+		))) die(Responses::response('fail','Hubo un problema al guardar la reserva. Intentá nuevamente.'));
 
-		
+		$Reservations->reservations_sales($reservationid,Input::get('sale_hash'));
 
 		$Mailing->new_reservation($reservationid);
 
@@ -157,12 +160,20 @@ switch($_action){
 		echo Responses::response('ok','',array('results'=>$reservations));
 		break;
 
+	case 'find':
+		if(!$User->logged()) die(Responses::response('require_login'));
+		if(!$reservation = $Reservations->find(Input::get('id'))) die(Responses::response('fail','La reserva no ha sido encontrada'));
+
+		if($reservation->user->id != $User->data()->id) die(Responses::response('restricted'));
+		echo Responses::response('ok','',array('result'=>$reservation));
+		break;
+
 	case 'confirm':
 
 		if(!$User->logged()) die(Responses::response('require_login'));
 		
-		$Promos->find(Input::get('promoid'));
-		if(!$Promos->data()) die(Responses::response('fail'));
+		//$Promos->find(Input::get('promoid'));
+		//if(!$Promos->data()) die(Responses::response('fail'));
 		
 		$Reservations->confirm(Input::get('id'));
 		$Mailing->confirm_reservation_user(Input::get('id'),$User->data()->id);

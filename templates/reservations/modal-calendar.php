@@ -11,7 +11,7 @@
 				<div class="title"></div>
 				<p class="subtitle"></p>
 
-				<small class="client"></small>
+				<h4 class="client"></h4>
 
 				<div class="price"></div>
 				

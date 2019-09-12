@@ -42,6 +42,7 @@
 							<th>Email</th>
 							<th>Promo</th>
 							<th>Estado</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -54,9 +55,24 @@
 							</td>
 							<td><?=$reservation->user_name?></td>
 							<td><a href="mailto:<?=$reservation->user_email?>" ><?=$reservation->user_email?></a></td>
-							<td><a href="<?= ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a></td>
+
+							<?php if(!is_null($reservation->title)): ?>							
 							<td>
-								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>
+								<a href="<?= ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a>
+							</td>
+							<?php else: ?>
+							<td>
+								<small class="text-gray-40"><i>[no indicada]</i></small>
+							</td>
+							<?php endif; ?>
+
+							<td>
+								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>								
+							</td>
+							<td>
+								<?php if($reservation_sale = $Reservations->get_reservation_sale($reservation->id)): ?>
+								<a href="<?=View::url('panel/venta',$reservation_sale->saleid)?>" target="_blank">Pagada</a>
+								<?php endif; ?>
 							</td>
 						</tr>
 						<?php endforeach; ?>

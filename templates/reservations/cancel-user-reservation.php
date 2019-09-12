@@ -1,12 +1,19 @@
 <h3>¡Hola <?=$obj->user->name?></h3>
 
-<p>
-	Te informamos que la solicitud de reserva de turno para la promo: <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a> para el día  <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido cancelada por el centro.
-</p>
+<?php if($obj->promo): ?>
 
+<p>Te informamos que la solicitud de reserva de turno para la promo: <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a> para el día  <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido cancelada por el centro.</p>
 <p>&nbsp;</p>
-
 <p>Podés hacer una nueva reserva haciendo <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title).'#turno'?>">click aquí</a></p>
+
+<?php else: ?>
+
+<p>Te informamos que la solicitud de reserva de turno para el día  <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido cancelada por <a href="<?=ROOT.'centros/'.$obj->client->permalink?>"><?=$obj->client->name?></a> </p>
+<p>&nbsp;</p>
+<p>Podés hacer una nueva reserva haciendo <a href="<?=ROOT.'centros/'.$obj->promo->permalink.'#turno'?>">click aquí</a></p>
+
+<?php endif; ?>
+
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>

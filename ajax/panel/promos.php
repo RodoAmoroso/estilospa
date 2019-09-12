@@ -50,6 +50,7 @@ switch($_action){
 	case 'save':
 		
 		if(!Input::get('ID')){
+
 			$Promos->issale = 1;
 			$Promos->idclient = $User->data()->idclient;
 			$Promos->get();

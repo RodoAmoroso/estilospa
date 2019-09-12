@@ -5,7 +5,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Mailing {
 
-	private $_mailer,
+	public $_mailer,
 					$_email='rodosoft@hotmail.com',
 					///$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
@@ -466,7 +466,12 @@ class Mailing {
 		$body = Templates::template('reservations/new-reservation',$reservation);
 		if(!$this->send($body)) return false;
 
-		$this->_notifications->add_log('Nueva reserva de '.$reservation->user->name.' ('.$reservation->user->mail.'). Promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha,'reservation');
+		if($reservation->promo){
+			$this->_notifications->add_log('Nueva solicitud de reserva de '.$reservation->user->fullname.' ('.$reservation->user->mail.'). Promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha,'reservation');			
+		}else{
+			$this->_notifications->add_log('Nueva solicitud de reserva de '.$reservation->user->fullname.' ('.$reservation->user->mail.') a <a href="'.ROOT.'centros/'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'</a>','reservation');
+		}
+
 
 		return true;
 	}
@@ -482,10 +487,15 @@ class Mailing {
 		$body = Templates::template('reservations/cancel-user-reservation',$reservation);
 		if(!$this->send($body)) return false;
 
-		$this->_notifications->add_log('Cancelación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
+		if($reservation->promo){
+			$this->_notifications->add_log('Cancelación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
+		}else{			
+			$this->_notifications->add_log('Cancelación de reserva de parte de <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
+		}
+
 
 		return true;
-	}
+	}	
 	public function cancel_reservation_user($reservationid=0,$userid=0){
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
@@ -498,12 +508,17 @@ class Mailing {
 			$this->_mailer->addAddress(strtolower(trim($mail)), $reservation->client->name);
 		}
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
-		$this->_mailer->Subject = 'Confirmación de reserva en EstiloSPA.com';
+		$this->_mailer->Subject = 'Cancelación de reserva en EstiloSPA.com';
 
 		$body = Templates::template('reservations/cancel-client-reservation',$reservation);
 		if(!$this->send($body)) return false;
 
-		$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
+		if($reservation->promo){
+			$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
+		}else{
+			$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en el centro <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');			
+		}
+
 
 		return true;
 	}
@@ -512,6 +527,8 @@ class Mailing {
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
 
+		////$sale_reservation = $Reservations->get_reservation_sale($reservationid);
+
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->addAddress($reservation->user->mail, $reservation->user->name);
 		$this->_mailer->Subject = 'Confirmación de reserva en EstiloSPA.com';
@@ -519,7 +536,12 @@ class Mailing {
 		$body = Templates::template('reservations/confirm-user-reservation',$reservation);
 		if(!$this->send($body)) return false;
 
-		$this->_notifications->add_log('Confirmación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
+		if($reservation->promo){
+			$this->_notifications->add_log('Confirmación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
+		}else{
+			$this->_notifications->add_log('Confirmación de reserva de parte de <a href="'.ROOT.'centros/'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');			
+		}
+
 
 		return true;
 	}
@@ -539,7 +561,12 @@ class Mailing {
 		$body = Templates::template('reservations/confirm-client-reservation',$reservation);
 		if(!$this->send($body)) return false;
 
-		$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
+		if($reservation->promo){
+			$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
+		}else{
+			$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');			
+		}
+
 
 		return true;
 	}

@@ -1,15 +1,34 @@
 <?php 
 
 ////$hash = $payment_info["response"]['external_reference'];
-$first = true;
-if($Sales->find_temp($hash)){
-	
+
+if($Sales->check($collection_id)){
+
+	$saleid = $Sales->data()->id;
+	if($Sales->data()->collection_status!=$collection_status){
+		$Sales->notified($_salesdata->id,0);
+	}
+
+	$Sales->update($saleid,array(
+		'collection_id'=>$collection_id,
+		'collection_status'=>$collection_status,
+		'payment_type'=>$payment_type,
+		'application_fee'=>$fees->application_fee,
+		'mercadopago_fee'=>$fees->mercadopago_fee,
+		'modified'=>date('Y-m-d H:i:s')
+	));
+
+}else{
+
+	if(!$Sales->find_temp($hash)) die(http_response_code(400));
+
 	$idpromo = $Sales->data()->idpromo;
 	$idclient = $Sales->data()->idclient;
 	$iduser = $Sales->data()->iduser;
 	$quantity = $Sales->data()->quantity;
 	$price = $Sales->data()->price;
 	$idcode = $Sales->data()->idcode;
+	$reservationid = $Sales->data()->reservationid;
 
 	$arrfields = array(
 		'iduser'=>$iduser,
@@ -30,6 +49,10 @@ if($Sales->find_temp($hash)){
 	);
 	$Sales->save($arrfields);
 	$saleid = $Sales->getLastId();	
+
+
+	$Reservations = new Reservations();
+	$Reservations->reservations_sales($reservationid,$hash);
 	///////// VOUCHER ////////////
 	if($idcode){
 		if($Vouchers->findcode($idcode)){
@@ -50,22 +73,9 @@ if($Sales->find_temp($hash)){
 	}
 	
 	///$Sales->delete_temp($hash); borrar con cron
-
 	$Promos->take_amount($idpromo,$quantity);
-
-}else{
-	if(!$Sales->check($collection_id)) die(http_response_code(400));
-	$saleid = $Sales->data()->id;
-	$first = false;
-	$Sales->update($saleid,array(
-		'collection_id'=>$collection_id,
-		'collection_status'=>$collection_status,
-		'payment_type'=>$payment_type,
-		'application_fee'=>$fees->application_fee,
-		'mercadopago_fee'=>$fees->mercadopago_fee,
-		'modified'=>date('Y-m-d H:i:s')
-	));
 }
+
 
 
 if(!$saleid) die(http_response_code(400));
@@ -102,14 +112,14 @@ if(!is_null($_salesdata->voucher_id)){
 if($collection_status == 'approved' && !$_salesdata->notified){
 	$Mailing->sales_success_user($_salesdata);
 	$Mailing->sales_success_client($_salesdata);
-	$Sales->notified($_salesdata->id);
+	$Sales->notified($_salesdata->id,1);
 	/*if($_salesdata->gift){
 		$Mailing->sales_success_gift($_salesdata);
 	}*/			
 }
-if($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation'){
+if(($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation') && !$_salesdata->notified){
 	$Mailing->sales_pending($_salesdata);
 }
-if($collection_status == 'rejected'){
+if($collection_status == 'rejected' && !$_salesdata->notified){
 	$Mailing->sales_rejected($_salesdata);
 }

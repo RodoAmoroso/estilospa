@@ -4,7 +4,7 @@ $User = new User();
 if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
 	$hash = Cookie::get(Config::get('cookie/cookie_name'));
 	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
-	if($hashCheck->count()){
+	if($hashCheck->count()){		
 		$User = new User($hashCheck->first()->iduser);
 		$User->login();
 	}
@@ -34,4 +34,4 @@ $colorsequence = array('yellow-2','green-1','cyan-1','pink-1','aqua-2');
 $MPConfig = new MPConfig();
 
 $Stats = new Stats();
-
+$Reservations = new Reservations();

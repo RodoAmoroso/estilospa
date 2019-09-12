@@ -2,6 +2,7 @@
 
 $Reservations = new Reservations();
 if(!$_reservation = $Reservations->find($_subsection)) Redirect::to('panel/reservas');
+
 if($_userdata->idclient != $_reservation->client->id) Redirect::to('restricted');
 
 $_arrjs[] = ['folder'=>'site/','script'=>'reservations'];

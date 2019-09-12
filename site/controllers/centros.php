@@ -2,6 +2,7 @@
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
 $_arrjs[] = ['folder'=>'site/','script'=>'questions'];
+$_arrjs[] = ['folder'=>'site/','script'=>'reservations'];
 $_arrjs[] = ['script'=>'https://maps.googleapis.com/maps/api/js?key=AIzaSyC2m93XcFMuCAPZSjBUNsZO24UJOSPSF1M'];
 
 
@@ -48,5 +49,13 @@ $_arrcss[] = ['folder'=>'lib/','style'=>'owl.carousel.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'owl.theme.default.min'];
 
 
-
-///echo var_dump(preg_match('((http|https)\:\/\/)',$clientdata->web));
+$_today = new DateTime();
+$_arrdays = array();
+for($i=1; $i<=4; $i++){
+	$_arrdays[] = array(
+		'day'=>$_today->format('d'),
+		'dayname'=>$_today->format('D'),
+		'name'=>Dates::translateDays($_today->format('l'))
+	);	
+	$_today->modify('+1 day');
+}

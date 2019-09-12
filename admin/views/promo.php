@@ -47,9 +47,7 @@
 				</div>
 			</div>
 
-			<hr>
-
-		
+			<hr>	
 
 
 
@@ -88,11 +86,28 @@
 				</div>
 			</div>
 
-			<div class="alert alert-warning">
-				<h4>Importante:</h4>
-				<p>Si el cliente no ha vinculado su cuenta de MercadoPago, los usuarios no podrán comprarla en el sitio. <br><?= $MPConfig->data() ? '<span class="label label-success">vinculado</span>' : '<span class="label label-danger">sin vincular</span>' ?> </p>
+			<?php if($mp_client): ?>
+			<h4><span class="label label-success">Vinculado a MercadoPago</span></h4>
+			<?php else: ?>
+			<h4><span class="label label-danger">Sin vincular a MercadoPago</span></h4>
+			<?php endif; ?>
+
+			<div class="alert alert-info">			
+
+				<div id="fd_sale" class="clickable active" data-toogle="checkbox">
+					<i class="fa fa-check-square"></i> <span>Habilitar para la venta online</span>
+				</div>
+				<?php if(!$mp_client): ?>
+				<hr>
+				<p><b>Importante: </b>Si el cliente no ha vinculado su cuenta de MercadoPago, los usuarios no podrán comprarla en el sitio. <br> </p>
+				<?php endif; ?>
+
 			</div>
 			<hr>
+
+
+			<hr>
+
 
 
 			<div class="row">
@@ -150,9 +165,9 @@
 			</div>
 			<p class="sz-9">Llenar solamente los que correspondan. La descripción general es obligatoria.</p>
 
-			<!-- ONLINE SALE -->
+			<!-- GIFT -->
 			<hr>
-			<div id="fd_sale" class="form-group clickable active" data-toogle="checkbox">
+			<div id="fd_gift" class="form-group clickable active" data-toogle="checkbox">
 				<i class="fa fa-check-square"></i> <span>Mostrar en sección regalos</span>
 			</div>
 			<hr>

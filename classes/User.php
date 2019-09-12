@@ -19,6 +19,7 @@ class User {
 		$this->_sessionName = Config::get('session/session_name');
 		$this->_cookieName = Config::get('cookie/cookie_name');
 
+
 		if(!$user){
 			if(Session::exists($this->_sessionName)){
 				$user = Session::get($this->_sessionName);
@@ -50,30 +51,32 @@ class User {
 	}
 
 	public function find($user=null){		
-		if($user){
-			$field = is_numeric($user) ? 'u.id' : 'u.mail';
-			//$this->_db->get('users',array($field,'=',$user));
-			$this->_db->query("SELECT u.*, CONCAT(u.name,' ',u.lastname) fullname, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
-				FROM {users} u 
-				LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
-				LEFT JOIN {clients} c ON c.id=a.idclient 
-				LEFT JOIN {clientplans} p ON p.id=c.idplan 
-				WHERE {$field} = ?",
-				array($user)
-			);
-			if($this->_db->count()){
-				$this->_data = $this->_db->first();
-				return true;
-			}
-		}
-		return false;
+		$this->_data = null;
+
+		if(!$user) return false;
+
+		$field = is_numeric($user) ? 'u.id' : 'u.mail';
+		//$this->_db->get('users',array($field,'=',$user));
+		$this->_db->query("SELECT u.*, CONCAT(u.name,' ',u.lastname) fullname, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
+			FROM {users} u 
+			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
+			LEFT JOIN {clients} c ON c.id=a.idclient 
+			LEFT JOIN {clientplans} p ON p.id=c.idplan 
+			WHERE {$field} = ?",
+			array($user)
+		);
+		
+		if(!$this->_db->count()) return false;
+		
+		$this->_data = $this->_db->first();
+		return true;
 	}		
 
 	public function login($user=null,$pass=null){
 
 		if(!$user && !$pass && $this->exists()){
 			Session::put($this->_sessionName, $this->data()->id);
-		}else{		
+		}else{
 			$user = $this->find($user);
 			if($user){
 				if(password_verify($pass,$this->data()->pass)){

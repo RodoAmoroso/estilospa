@@ -455,8 +455,8 @@ function Fav($promoid=0,$clientid=0){
 		//echo $_CLIENTS->data()->id;
 		$Favs->idpromo = $promoid;
 		$Favs->idclient = $clientid;
-
 		$Favs->iduser = $User->data()->id;
+
 		if($Favs->find()):
 			$fav = '<i class="fa fa-heart active"></i>';
 		else:
@@ -551,4 +551,9 @@ function status_payment($status=''){
 	$output->label = $label;
 	$output->text = $text;
 	return $output;
+}
+
+function is_hashsed($hash=''){
+	if(preg_match("/^([a-f0-9]{64})$/", $hash) == 1) return true;
+	return false;
 }

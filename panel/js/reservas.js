@@ -29,6 +29,7 @@ $(function(){
 			null,
 			null,
 			null,
+			null,
 			null
 		]		
 	}
@@ -40,7 +41,10 @@ $(function(){
 		e.preventDefault();
 		var reservationid = $(this).attr('data-id');
 
-		Promise.all([get_template('reservations/modal-calendar'),ajax('panel/reservations/find',{reservationid:reservationid})])
+		Promise.all([
+			get_template('reservations/modal-calendar'),
+			ajax('panel/reservations/find',{reservationid:reservationid})
+		])
 			.then(function(promise){
 
 					var $template = $(promise[0]);
@@ -49,10 +53,16 @@ $(function(){
 					if(data==false) return false;
 					//return console.log(data);
 
+					if(data.promo){
+						$template.find('.title').html('<a href="'+ROOT+'promo/'+data.client.permalink+'/'+data.promoid+'-'+(data.promo.title).permalink()+'" target="_blank" >'+data.promo.title+'</a>');
+						$template.find('.subtitle').html(data.promo.subtitle);
+						$template.find('.price').html('$ '+(parseInt(data.promo.price).numberFormat(2,',','.')));
+						$template.find('.image').css({backgroundImage:'url('+data.promo.image+')'});
+					}else{
+						$template.find('.image').remove();						
+					}
 
-					$template.find('.title').html('<a href="'+ROOT+'promo/'+data.client.permalink+'/'+data.promoid+'-'+(data.promo.title).permalink()+'" target="_blank" >'+data.promo.title+'</a>');
 
-					$template.find('.subtitle').html(data.promo.subtitle);
 					$template.find('.client').html('<a href="'+ROOT+'centros/'+data.client.permalink+'" target="_blank" >'+data.client.name+'</a>');
 
 					$template.find('.user-name').html(data.user.fullname+' (<a href="mailto:'+data.user.mail+'">'+data.user.mail+'</a>)');
@@ -61,9 +71,7 @@ $(function(){
 					$template.find('.user-comments').text(data.comments==null ? 'No ha dejado comentarios' : data.comments);
 
 					$template.find('.date span').html(data.fecha+' hs.');
-					$template.find('.price').html('$ '+(parseInt(data.promo.price).numberFormat(2,',','.')));
 
-					$template.find('.image').css({backgroundImage:'url('+data.promo.image+')'});
 					$template.find('[data-btn=cancel],[data-btn=confirm]').attr({'data-id':data.id,'data-promoid':data.promoid});
 					$template.find('[data-btn=change-date]').attr({'href':ROOT+'panel/reserva/'+data.id});
 

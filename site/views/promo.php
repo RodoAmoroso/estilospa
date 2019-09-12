@@ -1,7 +1,7 @@
 <script>
 	var IDPromo = <?= $Promos->data()->id ?>; 
 	var IDClient = <?= $Promos->data()->idclient ?>; 
-	var islogged = <?= $User->logged() ? 1 : 0 ?>;
+	var islogged = <?= $User->logged() ? 1 : 0 ?>; 
 </script>
 
 <section class="promo">
@@ -110,7 +110,7 @@
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
 							<li data-toggle="modal" data-target="<?= $User->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
 							<?php endif; ?>
-							<li data-toggle="modal" data-target="#modal_promo_request"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
+							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
 						</ul>
 						
 
@@ -251,20 +251,19 @@
 </section>
 
 
-<!-- MESSAGES -->
-<div class="modal fade" id="modal_promo_request" tabindex="-1" role="dialog" >
+<!-- RESERVA -->
+<div class="modal fade" id="modal_reservation" tabindex="-1" role="dialog" >
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h3>Reservar un turno en <?= $Promos->data()->title ?></h3>
-				<p><?= $Clients->data()->name ?></p>			
-
-
+				<p><?= $Clients->data()->name ?></p>
 			</div>
 			<div class="modal-body ff-futuralight" >
 	
-				<form id="form_promo_request">
+				<form id="form_reservation">
+
 					<div class="row">
 						<div class="col-md-6">
 						
@@ -325,6 +324,7 @@
 							<input type="hidden" name="date" >
 							<input type="hidden" name="promoid" value="<?=$Promos->data()->id?>" >
 							<input type="hidden" name="clientid" value="<?=$Promos->data()->idclient?>" >
+							<input type="hidden" name="sale_hash" value="<?=$_vars?>">
 
 						</div>
 

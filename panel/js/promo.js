@@ -120,6 +120,7 @@ var Promos = {
 			Stores:stores,
 			Start:$('#fd_start').val(),
 			Finish:$('#fd_finish').val(),
+			Sale:$('#fd_gift').hasClass('active') ? 1 : 0,
 			Sale:$('#fd_sale').hasClass('active') ? 1 : 0,
 			Price:$('#fd_price').val(),
 			IDPromotype:$('#fd_promotypes').val(),
@@ -159,6 +160,11 @@ var Promos = {
 				$('#fd_reservation').val(obj.reservation);
 				$('#fd_duration').val(obj.duration);
 				$('#fd_cancellation').val(obj.cancellation);
+				if(obj.gift == 1){
+					$('#fd_gift').removeClass('active').trigger('click');
+				}else{
+					$('#fd_gift').addClass('active').trigger('click');
+				}
 				if(obj.sale == 1){
 					$('#fd_sale').removeClass('active').trigger('click');
 				}else{
@@ -221,7 +227,7 @@ var Promos = {
 				Promos.save();
 			});
 		});
-		$('#fd_sale').click(function(){			
+		$('#fd_gift,#fd_sale').click(function(){			
 			$(this).toggleClass('active');
 			if($(this).hasClass('active')){
 				$(this).find('i').addClass('fa-check-square').removeClass('fa-square-o');

@@ -45,7 +45,7 @@ $page_results = 50;
 $Promos->keywords = $search_main == ' ' ? '' : $search_main;
 $Promos->status = '1:1';
 $Promos->searchmixed = 1;
-$Promos->issale = true;
+$Promos->isgift = true;
 $Promos->sort = 'position';
 $Promos->visible = true;
 //$Promos->arrpromotypes = $arrpromotypes;

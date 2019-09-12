@@ -107,8 +107,9 @@
 					</div>
 				</div>
 
-				<div class="button-request">
-					<button data-toggle="scrollto" data-target="#form_question" class="btn btn-default btn-block"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
+				<div class="button-request btn-group-block">
+					<button data-toggle="scrollto" data-target="#form_question" class="btn btn-default"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
+					<button data-toggle="modal" data-target="#modal_reservation" class="btn btn-default"><i class="fa fa-calendar fa-fw"></i> Reservar</button>
 				</div>
 
 			</div>	
@@ -338,3 +339,102 @@ if($clients_related):
 <?php endif; ?>
 
 <?php include 'mods/mod-socials.php' ?>
+
+
+
+
+
+
+
+<!-- RESERVA -->
+<div class="modal fade" id="modal_reservation" tabindex="-1" role="dialog" >
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h3>Reservar un turno en <?= $clientdata->name ?></h3>				
+			</div>
+			<div class="modal-body ff-futuralight" >
+	
+				<form id="form_reservation">
+
+					<div class="row">
+						<div class="col-md-6">
+						
+							<div class="form-group">
+								<label for="fd_name">Nombre</label>
+								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
+							</div>
+							<div class="form-group">
+								<label for="fd_name">Apellido</label>
+								<input id="fd_name" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
+							</div>
+							<div class="form-group">
+								<label for="fd_phone">Teléfono</label>
+								<input id="fd_phone" type="text" name="phone" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->phone : '' ?>">
+							</div>
+							<div class="form-group">
+								<label for="fd_mail">E-mail</label>
+								<input id="fd_mail" type="email" name="email" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->mail : '' ?>">
+							</div>
+							
+							<div class="form-group">
+								<label for="fd_message">Mensaje <i>(opcional)</i></label>
+								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" placeholder="Indicar la cantidad de personas en caso que sean más de una." ></textarea>
+							</div>
+
+						</div>
+						
+						<div class="col-md-6">
+							<label>Elegir día y horario</label>
+
+							<div class="calendar-promo">
+								
+								<div class="month">
+									<div class="prev" data-action="prev"><i class="fa fa-angle-left"></i></div>
+									<div class="name" ><span data-month="<?=date('m')?>"><?=Dates::translateMonths(date('M'))?></span> <span data-year="<?=date('Y')?>"><?=date('Y')?></span></div>
+									<div class="next" data-action="next"><i class="fa fa-angle-right"></i></div>
+								</div>
+
+								<div class="week">
+									<ul class="days">
+										<li class="day prev" data-action="prev"><i class="fa fa-angle-left"></i></li>
+										
+										<?php foreach($_arrdays as $k=>$day): ?>
+										<li class="day <?=!$k ? 'active' : ''?>" data-day="<?=$day['day']?>" data-dayname="<?=$day['dayname']?>" ><?=$day['name'].' '.$day['day']?></li>
+										<?php endforeach; ?>
+
+										<li class="day next" data-action="next"><i class="fa fa-angle-right"></i></li>
+									</ul>
+								</div>
+								
+								<div class="schedule">
+									<ul class="hours"></ul>
+								</div>
+
+								<div id="selected_schedule" class="pad-10 text-center">Seleccioná un día y horario</div>
+							</div>
+							
+							<input type="hidden" name="date" >
+							<input type="hidden" name="promoid" value="" >
+							<input type="hidden" name="clientid" value="<?=$clientdata->id?>" >
+							<input type="hidden" name="sale_hash" value="">
+
+						</div>
+
+					</div>
+
+					<hr>					
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary" >ENVIAR</button>
+					</div>
+
+				</form>
+
+
+				
+			</div>
+		</div>
+	</div>
+</div>

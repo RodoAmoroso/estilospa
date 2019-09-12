@@ -57,6 +57,11 @@ var Promos = {
 		$('#fd_select_status').change(function(){Promos.get()});
 		$('#fd_select_client').change(function(){Promos.get()});
 		SearchSuggestions('#form_search','admin/promos/get','',Promos.get);
+
+
+		if($clientid!=''){
+			$('#fd_select_client').val($clientid).trigger('change');
+		}
 		
 		$('#promos').sortable({
 			update:function(){

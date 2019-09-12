@@ -1,7 +1,13 @@
-<h3>¡Hola <?=$obj->client->name?>, tenés una solicitud de reserva de turno para la promo: <a href="<?=$obj->promo->promolink ?>"><?=$obj->promo->title?></a></h3>
+
+<?php if($obj->promo): ?>
+<h3>¡Hola <?=$obj->client->name?>, tenés una nueva solicitud de reserva de turno para la promo: <a href="<?=$obj->promo->promolink ?>"><?=$obj->promo->title?></a></h3>
+
+<?php else: ?>
+<h3>¡Hola <?=$obj->client->name?>, tenés una nueva solicitud de reserva</a></h3>
+<?php endif; ?>
 
 <div style="background-color:rgb(246,246,246);padding:16px;margin:16px 0;line-height: 1.5rem;">
-	<div>Nombre de Usuario: <?=$obj->user->name.' '.$obj->user->lastname?></div>
+	<div>Nombre de Usuario: <?=$obj->user->fullname?></div>
 	<div>Email: <?= $obj->user->mail ?></div>
 	<div>Día y Hora: <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?></div>
 </div>

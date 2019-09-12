@@ -1,0 +1,3 @@
+<?php 
+
+$clientid = $_subsection;

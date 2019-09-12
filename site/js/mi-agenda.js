@@ -1,14 +1,11 @@
 var calendar = {
 	from:'',
 	to:'',
-	calendar:function(events){
-		
-	},
 	get:function(){
 		
 		ajax('site/reservations/get',{from:calendar.from,to:calendar.to})
 			.then(function(data){
-				//console.log(data);
+
 				if(data.results==false){return false;}
 				var events = [];
 				$.each(data.results,function(k,v){
@@ -33,23 +30,10 @@ var calendar = {
 					}
 
 					events.push({
-						title:v.title,
-						subtitle:v.subtitle,
+						title:v.title == null ? v.client_name : v.title,
 						start:start,
-						fecha:v.fecha,
 						end:end,
 						id:v.id,
-						price:v.price,
-						permalink:v.permalink,
-						promoid:v.promoid,
-						status:v.status,
-						image:img[0].photoname+'-t.'+img[0].extension,
-						
-						user_name:v.user_name,
-						user_email:v.user_email,
-						user_phone:v.user_phone,
-						client_name:v.client_name,
-						comments:v.comments,
 						
 						className:'pad-4 '+classcell
 					});
@@ -58,16 +42,16 @@ var calendar = {
 				$('#calendar').fullCalendar('addEventSource',events);
 			});
 	},
-	delete:function(id,promoid){
-		ajax('site/reservations/delete',{id:id,promoid:promoid})
+	delete:function(id){
+		ajax('site/reservations/delete',{id:id})
 			.then(function(data){
 				calendar.get();
 				$('#modal_event').modal('hide');
 				toastr['success'](data.message);
 			});
 	},
-	confirm:function(id,promoid){
-		ajax('site/reservations/confirm',{id:id,promoid:promoid})
+	confirm:function(id){
+		ajax('site/reservations/confirm',{id:id})
 			.then(function(data){
 				calendar.get();
 				$('#modal_event').modal('hide');
@@ -90,43 +74,50 @@ var calendar = {
 			themeSystem:'bootstrap4',
 			eventClick:function(e, jsEvent, view){
 
-				get_template('reservations/modal-calendar')
-					.then(function(template){
-						$template = $(template);
-						$template.find('.title').html('<a href="'+ROOT+'promo/'+e.permalink+'/'+e.promoid+'-'+(e.title).permalink()+'" target="_blank" >'+e.title+'</a>');
+				Promise.all([
+					get_template('reservations/modal-calendar'),
+					ajax('site/reservations/find',{id:e.id})
+				])
+				.then(function(promise){
 
-						$template.find('.subtitle').html(e.subtitle);
-						$template.find('.client').html('<a href="'+ROOT+'centros/'+e.permalink+'" target="_blank" >'+e.client_name+'</a>');
-						
-						//$template.find('.user-name').html(e.user_name+' (<a href="mailto:'+e.user_email+'">'+e.user_email+'</a>)');
-						//$template.find('.user-phone span').html(e.user_phone);
-						//$template.find('.user-comments').html(e.comments==null ? 'No ha dejado comentarios' : e.comments);
+					var $template = $(promise[0]);
+					var data = promise[1].result;
 
-						$template.find('[data-btn=change-date],.user').remove();
+					if(data==false) return false;
 
-						$template.find('.date span').html(e.fecha+' hs.');
-						$template.find('.price').html('$ '+(parseInt(e.price).numberFormat(2,',','.')));
+					if(data.promo.title!=null){
+						$template.find('.title').html('<a href="'+ROOT+'promo/'+data.client.permalink+'/'+data.promoid+'-'+(data.promo.title).permalink()+'" target="_blank" >'+data.promo.title+'</a>');
+						$template.find('.subtitle').html(data.promo.subtitle);
+						$template.find('.price').html('$ '+(parseInt(data.promo.price).numberFormat(2,',','.')));
+						$template.find('.image').css({backgroundImage:'url('+data.promo.image+')'});						
+					}else{
+						$template.find('.image').remove();
+					}
 
-						$template.find('.image').css({backgroundImage:'url('+ROOT+'img/promos/'+e.image +')'});
-						$template.find('[data-btn=cancel],[data-btn=confirm]').attr({'data-id':e.id,'data-promoid':e.promoid});
+					$template.find('[data-btn=cancel],[data-btn=confirm]').attr({'data-id':data.id});
 
-						if(e.status==1){
-							$template.find('[data-status]').removeClass().addClass('label bg-green-3').text('Confirmada');
-							$template.find('[data-btn="confirm"]').remove();
-						}else if(e.status==0){
-							$template.find('[data-status]').removeClass().addClass('label bg-yellow-3').text('Esperando confirmación del centro');
-							$template.find('[data-btn="confirm"]').remove();
-						}else{
-							$template.find('[data-status]').removeClass().addClass('label bg-aqua-3').text('Esperando tu confirmación');
-							
-							
-						}
+					$template.find('.client').html('<a href="'+ROOT+'centros/'+data.client.permalink+'" target="_blank" >'+data.client.name+'</a>');
+					
+					$template.find('[data-btn=change-date],.user').remove();
 
-						$('#modal_event').find('.modal-body').html('');
-						$('#modal_event').find('.modal-body').append($template);
-						$('#modal_event').modal('show');
+					$template.find('.date span').html(data.fecha+' hs.');
 
-					});
+
+					if(data.status==1){
+						$template.find('[data-status]').removeClass().addClass('label bg-green-3').text('Confirmada');
+						$template.find('[data-btn="confirm"]').remove();
+					}else if(data.status==0){
+						$template.find('[data-status]').removeClass().addClass('label bg-yellow-3').text('Esperando confirmación del centro');
+						$template.find('[data-btn="confirm"]').remove();
+					}else{
+						$template.find('[data-status]').removeClass().addClass('label bg-aqua-3').text('Esperando tu confirmación');	
+					}
+
+					$('#modal_event').find('.modal-body').html('');
+					$('#modal_event').find('.modal-body').append($template);
+					$('#modal_event').modal('show');
+					
+				});
 
 			},
 			viewRender:function (view, element) {
@@ -151,7 +142,6 @@ $(function(){
 
 	$('#modal_event').on('click','[data-btn=cancel]',function(){
 		var id = $(this).attr('data-id');
-		var promoid = $(this).attr('data-promoid');
 		Swal.fire({
 			type:'warning',
 			text:'¿Seguro que querés cancelar esta reserva?',
@@ -160,14 +150,13 @@ $(function(){
 		})
 		.then(function(response){
 			if(response.value){
-				calendar.delete(id,promoid);
+				calendar.delete(id);
 			}
 		});
 	});
 	$('#modal_event').on('click','[data-btn=confirm]',function(){
 		var id = $(this).attr('data-id');
-		var promoid = $(this).attr('data-promoid');
-		calendar.confirm(id,promoid);
+		calendar.confirm(id);
 	});
 
 	calendar.init();

@@ -45,16 +45,8 @@
 				<div id="menu_user" class="menu-user-container" >
 					<div class="arrow"></div>
 					<ul class="menu-user" >
-						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
-						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
-						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>
-						<li class="separator"></li>
 
-						<?php if($_userdata->idtype == 2): ?>
-						<li><a href="<?= View::url('mi-agenda') ?>"><i class="fa fa-calendar"></i> <span>Agenda</span></a></li>
-						<?php endif; ?>
-
-						<?php if($_userdata->idtype == 1): ?>
+					<?php if($_userdata->idtype == 1): ?>
 						<li>
 							<a href="<?= View::url('admin') ?>">
 								<i class="fa fa-wrench"></i> 
@@ -83,7 +75,6 @@
 							<a href="<?= View::url('admin','reservas') ?>">
 								<i class="fa fa-calendar"></i> 
 								<span>Reservas</span>
-								<span class="notify-icon">99</span>
 							</a>
 						</li>
 						<li>
@@ -98,9 +89,14 @@
 								<span>Usuarios</span>
 							</a>
 						</li>
-						<?php endif; ?>
+						<li class="separator"></li>
+					<?php endif; ?>
 
-						<?php if($_userdata->idtype == 3): ?>
+
+
+					<?php if($_userdata->idtype == 3): ?>
+
+						<?php $reservations_unconfirmed = $Reservations->get_unconfirmed($_userdata->idclient); ?>
 						<li>
 							<a href="<?= View::url('panel') ?>">
 								<i class="fa fa-wrench"></i> 
@@ -122,6 +118,9 @@
 							<a href="<?= View::url('panel','reservas') ?>">
 								<i class="fa fa-calendar"></i> 
 								<span>Reservas</span>
+								<?php if($reservations_unconfirmed): ?>
+								<span class="notify-icon"><?=$reservations_unconfirmed?></span>
+								<?php endif; ?>
 							</a>
 						</li>
 						<li>
@@ -136,7 +135,16 @@
 								<span>Ventas</span>
 							</a>
 						</li>
-						<?php endif; ?>
+						<li class="separator"></li>
+					<?php endif; ?>
+
+
+						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
+						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
+						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>
+						<?php if($_userdata->idtype == 2): ?>
+						<li><a href="<?= View::url('mi-agenda') ?>"><i class="fa fa-calendar"></i> <span>Agenda</span></a></li>
+						<?php endif; ?>					
 
 						<li class="separator"></li>
 

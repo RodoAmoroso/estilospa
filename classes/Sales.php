@@ -3,14 +3,14 @@
 class Sales {
 
 
-	private 	$_dbprefix,
+	private		$_dbprefix,
 						$_lastid,
 						$_overall=0;
 
-	protected $_db,
+	protected	$_db,
 						$_data;
 
-	public 		$keywords='',
+	public		$keywords='',
 						$searchmixed=0,
 						$arrfields=array(),
 						$idclient=0,
@@ -30,7 +30,7 @@ class Sales {
 
 	public function check($idc=0){
 		//$this->_db->query("SELECT id FROM {$this->_dbprefix}sales WHERE merchant_order_id=?",array($merchant_order_id));
-		$this->_db->query("SELECT id FROM {sales} WHERE collection_id=?",array($idc));
+		$this->_db->query("SELECT id, collection_status FROM {sales} WHERE collection_id=?",array($idc));
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
 		return true;
@@ -133,10 +133,18 @@ class Sales {
 		return false;
 	}
 
-	public function get(){
-		
+	public function get($id=null){
+		$this->_data = null;
+
 		$where = "";
 		$values = array();
+
+
+		if(!is_null($id)){
+			$field = is_numeric($id) ? 'id' : 'hash';
+			$where = "WHERE s.{$field}=?";
+			$values[] = $id;
+		}
 
 		if($this->idclient){
 			$where .= empty($where) ? "WHERE " : " AND ";
@@ -174,10 +182,11 @@ class Sales {
 			ss.name statusname, 
 			p.title, p.subtitle, p.gallery, p.includes,
 			c.name clientname, c.permalink, c.id clientid, c.mail clientemail,
-			u.mail, u.image, CONCAT(u.name,' ',u.lastname) username, u.phone userphone,
+			u.mail useremail, u.image, CONCAT(u.name,' ',u.lastname) username, u.phone userphone,
 			m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, 
-			vu.ispercent, vu.value, vu.idvoucher, vc.code, vu.idvoucher, 
-			sg.id giftid, sg.to_user
+			vu.idvoucher voucher_id, vu.ispercent voucher_percent, vu.value voucher_value, vc.code voucher_code,
+			sg.id giftid, sg.to_user,
+			rs.reservationid
 			FROM {sales} s 
 			LEFT JOIN {sales_status} ss ON ss.id=s.status 
 			LEFT JOIN {sales_gift} sg ON sg.hash=s.hash
@@ -187,52 +196,22 @@ class Sales {
 			LEFT JOIN {comments} m ON m.idsale=s.id AND m.iduser=s.iduser
 			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
 			LEFT JOIN {vouchers_codes} vc ON vc.id=vu.idcode
+			LEFT JOIN {reservations_sales} rs ON rs.saleid=s.id
 			{$where} 
 			ORDER BY s.added DESC 
 			{$limitby}",
 			$values
 		);
-
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->results();
 		return true;
 	}
 
-	public function find($id=false){
-		///$where = "WHERE s.collection_status = 'approved'";
-		/*$where = "";
-		$values = array();
-		
-		if($id){
-			$where .= empty($where) ? "WHERE " : " AND ";
-			$field = is_numeric($id) ? 'id' : 'hash';
-			$where .= "s.{$field}=?";
-			$values[] = $id;
-		}
-		if($this->iduser){
-			$where .= empty($where) ? "WHERE " : " AND ";
-			$where .= "s.iduser=? OR sg.";
-			$values[] = $this->iduser;
-		}
-		$this->_db->query(
-		"SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, ss.name statusname, 
-		p.title, p.description, p.subtitle, p.gallery, p.includes, 
-		c.name clientname, c.permalink, c.id clientid, c.mail clientemail, 
-		u.mail useremail, CONCAT(u.name,' ',u.lastname) username, u.phone userphone, 
-		m.text, m.rate, v.idvoucher voucher_id, v.ispercent voucher_percent, v.value voucher_value
-			FROM spa_sales s 
-			LEFT JOIN {sales_status} ss ON ss.id=s.status 
-			LEFT JOIN {promos} p ON p.id=s.idpromo 
-			LEFT JOIN {clients} c ON c.id=p.idclient 
-			LEFT JOIN {users} u ON u.id=s.iduser
-			LEFT JOIN {comments} m ON m.idsale=s.id AND m.iduser=s.iduser
-			LEFT JOIN {vouchers_usage} v ON v.idsale=s.id
-			{$where}",
-			$values
-		);
-		
-		if(!$this->_db->count()) return false;*/
+	public function find($id=''){
+		if(empty($id)) return false;
+
 		if(!$this->get($id)) return false;
+		
 		$this->_data = $this->_data[0];
 		return true;
 	}
@@ -283,12 +262,20 @@ class Sales {
 	}
 
 
-	public function evolution(){
+	public function evolution($clientid=0,$interval=6){
+
+		$where = "WHERE s.added>=DATE_SUB(NOW(),INTERVAL {$interval} MONTH)";
+		$values = array();
+		if($clientid){
+			$where .= " AND idclient=?";
+			$values[] = $clientid;
+		}
 		$this->_db->query(
-			"SELECT SUM(s.quantity) quantity, SUM(s.application_fee) suma, EXTRACT(YEAR FROM s.added) year, EXTRACT(MONTH FROM s.added) month
-			FROM {sales} s 
-			WHERE s.added>=DATE_SUB(NOW(),INTERVAL 6 MONTH)
-			GROUP BY EXTRACT(YEAR_MONTH FROM s.added)"
+			"SELECT SUM(s.quantity) quantity, SUM(s.application_fee) suma, ROUND(SUM(s.price)-SUM(s.application_fee)-SUM(s.mercadopago_fee),2) neto_client, EXTRACT(YEAR FROM s.added) year, EXTRACT(MONTH FROM s.added) month
+			FROM {sales} s
+			$where
+			GROUP BY EXTRACT(YEAR_MONTH FROM s.added)",
+			$values
 		);
 		if(!$this->_db->count()) return false;
 
@@ -321,8 +308,8 @@ class Sales {
 	}
 
 
-	public function notified($saleid=0){
-		$this->_db->update('sales',$saleid,array('notified'=>1));
+	public function notified($saleid=0,$status=1){
+		$this->_db->update('sales',$saleid,array('notified'=>$status));
 		return true;
 	}
 
@@ -331,6 +318,13 @@ class Sales {
 		$this->_db->query("SELECT * FROM {comments} WHERE idsale=? AND iduser=?",array($saleid,$userid));
 		if(!$this->_db->count()) return false;
 
+		return $this->_db->first();
+	}
+
+
+	public function get_reservation_sale($saleid=0){
+		$this->_db->get('reservations_sales',array('saleid','=',$saleid));
+		if(!$this->_db->count()) return false;
 		return $this->_db->first();
 	}
 

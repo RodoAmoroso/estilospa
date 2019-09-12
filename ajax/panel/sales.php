@@ -40,6 +40,23 @@ switch($_action){
 		echo Responses::response('ok','Tu solicitud fue enviada con éxito! En breve nos comunicaremos con vos.');
 		break;
 
+
+	case 'evolution':
+
+		$datetime = new DateTime();
+		$this_month = $datetime->format('Y-m');
+		$datetime->modify('-4 month');
+		$last_month = $datetime->format('Y-m');
+
+		$stats = $Sales->evolution($User->data()->idclient,4);
+
+		echo Responses::response('ok','',array(
+			'this_month'=>$this_month,
+			'last_month'=>$last_month,
+			'stats'=>$stats
+		));
+		break;
+
 	default:
 		echo Responses::response('fail');
 		break;

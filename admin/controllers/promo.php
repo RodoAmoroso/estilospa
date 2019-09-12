@@ -6,6 +6,7 @@ $_promodata = $Promos->data();
 
 $MPConfig = new MPConfig();
 if($_promodata) $MPConfig->find($_promodata->idclient);
+$mp_client = $MPConfig->data();
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'jquery.bootstrap-duallistbox'];
 $_arrjs[] = ['folder'=>'lib/','script'=>'upfile'];

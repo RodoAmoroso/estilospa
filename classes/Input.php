@@ -19,7 +19,7 @@ class Input {
 	}
 
 	public static function get_all(){
-		return $_POST;
+		return empty($_POST) ? $_GET : $_POST;
 	}
 
 	public static function get($item){

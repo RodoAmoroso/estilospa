@@ -21,15 +21,17 @@ switch($_action){
 		break;
 
 	case 'find':
-		$reservation = $Reservations->find(Input::get('reservationid'));		
+		if(!$reservation = $Reservations->find(Input::get('reservationid'))) die(Responses::response('fail','La reserva no ha sido encontrada'));
+
+		if($reservation->clientid != $User->data()->idclient) die(Responses::response('restricted'));
 		echo Responses::response('ok','',array('result'=>$reservation));
 		break;
 
 	case 'delete':
 
-		$Promos->find(Input::get('promoid'));
-		if(!$Promos->data()) die(Responses::response('fail'));
-		if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
+		//$Promos->find(Input::get('promoid'));
+		//if(!$Promos->data()) die(Responses::response('fail'));
+		//if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
 
 		$Mailing->cancel_reservation(Input::get('id'));
 		$Reservations->delete(Input::get('id'));
@@ -39,26 +41,26 @@ switch($_action){
 
 	case 'confirm':
 
-		$Promos->find(Input::get('promoid'));
-		if(!$Promos->data()) die(Responses::response('fail'));
-		if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
+		//$Promos->find(Input::get('promoid'));
+		//if(!$Promos->data()) die(Responses::response('fail'));
+		//if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
 
 		$Reservations->confirm(Input::get('id'));
 		$Mailing->confirm_reservation(Input::get('id'));
 		
-		echo Responses::response('ok','La reserva ha sido confirmada exitosamente. Se envió aviso al usuario. Cuando el usuario confirme el nuevo día y horario, te avisaremos por email.');
+		echo Responses::response('ok','La reserva ha sido confirmada exitosamente. Se envió aviso al usuario.');
 		break;
 
 
 	case 'change_date':
-		$Promos->find(Input::get('promoid'));
-		if(!$Promos->data()) die(Responses::response('fail'));
-		if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
+		//$Promos->find(Input::get('promoid'));
+		//if(!$Promos->data()) die(Responses::response('fail'));
+		//if($Promos->data()->idclient != $User->data()->idclient) die(Responses::response('restricted'));
 
 		$Reservations->change_date(Input::get('id'),Input::get('date'));
 		$Mailing->update_reservation(Input::get('id'));
 
-		echo Responses::response('ok','Día y horario actualizado. Se envió aviso al usuario.');
+		echo Responses::response('ok','Día y horario actualizado. Se envió aviso al usuario. Cuando el usuario confirme el nuevo día y horario, te avisaremos por email.');
 
 		break;
 

@@ -80,11 +80,24 @@
 			</div>
 
 
-			<div class="alert alert-warning sz-12">
-				<h4 class="fw-600">Importante:</h4>
-				<p >Para poder habilitar la opción de venta online, deberás vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOT.'panel/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador. <br><br>
-				Estado actual: <?= $MPConfig->data() ? '<span class="label label-success">vinculado</span>' : '<span class="label label-danger">sin vincular</span>' ?></p>
+			<?php if($mp_client): ?>
+			<h4><span class="label label-success">Vinculado a MercadoPago</span></h4>
+			<?php else: ?>
+			<h4><span class="label label-danger">Sin vincular a MercadoPago</span></h4>
+			<?php endif; ?>
+
+			<div class="alert alert-info">
+				<div id="fd_sale" class="clickable active" data-toogle="checkbox">
+					<i class="fa fa-check-square"></i> <span>Habilitar para la venta online</span>
+				</div>
+				<?php if(!$mp_client): ?>
+				<hr>
+				<p><b>Importante: </b>Para poder habilitar la opción de venta online, deberás vincular tu cuenta de MercadoPago desde la sección <a href="<?= ROOT.'panel/mp' ?>">Vincular con Mercado Pago</a> del menú principal del administrador.</p>
+				<?php endif; ?>
+
 			</div>
+
+
 
 
 			<div class="form-group">
@@ -136,9 +149,8 @@
 
 			<hr>
 
-			<!-- ONLINE SALE -->
-			
-			<div id="fd_sale" class="form-group clickable active" data-toogle="checkbox">
+			<!-- REGALOS -->			
+			<div id="fd_gift" class="form-group clickable active" data-toogle="checkbox">
 				<i class="fa fa-check-square"></i> <span>Mostrar en la sección regalos</span>
 			</div>	
 			<hr>

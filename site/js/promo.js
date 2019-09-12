@@ -4,10 +4,11 @@ var GetMPLink = function(GIFT,IDCode){
 	ajax('site/promos/getmplink',{
 		idpromo:IDPromo,
 		amount:$('#select_amount').val(),
-		idcode:IDCode
+		idcode:IDCode,
+		reservationid:_vars
 	})
 		.then(function(data){	
-			
+
 			if(GIFT){
 				var post = get_form('#modal_gift form');
 				post.hash = data.hash;
@@ -21,106 +22,7 @@ var GetMPLink = function(GIFT,IDCode){
 
 		});
 }
-var calendar = {
-	get_hours:function(){
-		var activeday = $('.calendar-promo .week .day[data-dayname].active').attr('data-dayname');
 
-		Promise.all([
-			ajax('site/reservations/get_hours',{idclient:IDClient,activeday:activeday}),
-			get_template('reservations/module-hour')
-		])
-			.then(function(promises){
-				$('.calendar-promo .schedule .hours').html('');
-				data = promises[0];
-
-				if(data.hours.length == 0) return false;
-		
-				var min = '09:00';
-				var max = '21:00';
-				$.each(data.hours,function(kk,vv){
-					if(kk==0){
-						min = vv[0];
-					}
-					if(kk==data.hours.length-1){
-						max = vv[1];
-					}
-				});
-
-				var hourminmin = min.split(':');
-				var hourminmax = max.split(':');
-
-				for(var i=parseInt(hourminmin[0]); i<=parseInt(hourminmax[0]); i++){
-					
-					$template = $(promises[1]);
-					$template.attr('data-hour',i+':00').find('.number').text(i+':00 hs.');
-					$('.calendar-promo .schedule .hours').append($template);
-					
-					$template = $(promises[1]);
-					$template.attr('data-hour',i+':30').find('.number').text(i+':30 hs.');
-					$('.calendar-promo .schedule .hours').append($template);
-					
-					if(i==14){
-						$template.addClass('disabled');
-					}
-				}				
-
-			});
-					
-	},
-	change_days:function(month,year,action,firstday,lastday){
-		ajax('site/reservations/change_days',{month:month,year:year,action:action,firstday:firstday,lastday:lastday})
-			.then(function(data){
-				$('.calendar-promo [data-month]').attr('data-month',data.month).text(data.month_name);
-				$('.calendar-promo [data-year]').attr('data-year',data.year).text(data.year);
-				$.each(data.days,function(k,v){
-					$('.calendar-promo .week .day[data-day]:eq('+k+')').attr({'data-day':v.day,'data-dayname':v.dayname}).text(v.name+' '+v.day);
-				});
-			});
-	},
-	change_month:function(month,year,action){
-		ajax('site/reservations/change_month',{month:month,year:year,action:action})
-			.then(function(data){
-				calendar.change_days(data.month,data.year,'');
-			});
-	},
-	init:function(){
-
-		$('.calendar-promo .month').on('click','.next,.prev',function(){
-			var month = $('.calendar-promo [data-month]').attr('data-month');
-			var year = $('.calendar-promo [data-year]').attr('data-year');
-			var action = $(this).attr('data-action');
-			calendar.change_month(month,year,action);
-		});
-
-		$('.calendar-promo .week').on('click','.next,.prev',function(){
-			var month = $('.calendar-promo [data-month]').attr('data-month');
-			var year = $('.calendar-promo [data-year]').attr('data-year');
-			var action = $(this).attr('data-action');
-			var firstday = $('.calendar-promo .week .day[data-day]').first().attr('data-day');
-			var lastday = $('.calendar-promo .week .day[data-day]').last().attr('data-day');
-			calendar.change_days(month,year,action,firstday,lastday);
-		});
-
-		$('.calendar-promo .week').on('click','.day[data-day]',function(data){
-			$('.calendar-promo .week .day[data-day]').removeClass('active');
-			$(this).addClass('active');
-			calendar.get_hours();
-		});
-
-		$('.calendar-promo .hours').on('click','.hour:not(.disabled) .btn',function(data){
-			$('.calendar-promo .hours .btn').removeClass('active');
-			$(this).addClass('active');
-
-			$('#selected_schedule').text($('.calendar-promo .week .day[data-day].active').text() + ' de ' + $('.calendar-promo [data-month]').text() + ' ' + $('.calendar-promo [data-year]').text() + ' ' + $('.calendar-promo [data-action=select].active').parent().parent().attr('data-hour') + 'hs.');
-
-			$('#form_promo_request [name=date]').val($('.calendar-promo [data-year]').text()+'-'+$('.calendar-promo [data-month]').attr('data-month')+'-'+$('.calendar-promo .week .day[data-day].active').attr('data-day')+' '+$('.calendar-promo [data-action=select].active').parent().parent().attr('data-hour')+':00' );
-
-		});
-
-		calendar.get_hours();
-
-	}
-}
 
 $(function(){
 	
@@ -136,7 +38,9 @@ $(function(){
 
 	char_count('#form_question [name=message]');
 	
-	$('#form_promo_request').submit(function(e){
+	
+
+	$('#form_reservation').submit(function(e){
 		e.preventDefault();
 		var post = get_form(this);
 		if(post.date == ''){
@@ -149,7 +53,7 @@ $(function(){
 		ajax('site/reservations/book',post)
 			.then(function(data){
 
-				$('#modal_promo_request').modal('hide');
+				$('#modal_reservation').modal('hide');
 				Swal.fire({
 					type:'success',
 					html:data.message
@@ -157,13 +61,12 @@ $(function(){
 			});
 		
 	});
-
 	var reservations = new Reservations({
 		idclient:IDClient,
 		container:'.calendar-promo',
 		callback:function(data){
 			$('#selected_schedule').text(data.text);
-			$('#form_promo_request [name=date]').val(data.date);
+			$('#form_reservation [name=date]').val(data.date);
 		}
 	});
 
@@ -254,14 +157,16 @@ $(function(){
 	if(hash != ''){
 		switch(hash){
 			case 'consultar':
-				$('#modal_promo_request').modal('show');
+				$('#modal_reservation').modal('show');
 				break;
 			case 'turno':
-				$('#modal_promo_request').modal('show');
+				$('#modal_reservation').modal('show');
 				break;
 			case 'comprar':
 				if(islogged==1){
+					
 					$('#btn_sale').trigger('click');
+
 				}else{
 					$('#modal_not_logged').modal('show');
 				}

@@ -174,6 +174,7 @@ class MPConfig {
 			'idclient'=>$PROMO->idclient,
 			'idpromo'=>$PROMO->id,
 			'idcode'=>$idcode,
+			'reservationid'=>Input::get('reservationid'),
 			'quantity'=>$quantity,
 			'price'=>$PROMO->price-($PROMO->price*$PROMO->discount/100),
 			'hash'=>$this->_hash,

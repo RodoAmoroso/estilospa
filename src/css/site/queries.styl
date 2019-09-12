@@ -6,6 +6,7 @@
 	.promos-highlight
 		.mod-promo 
 			width (100/4)%
+			
 @media screen and (max-width 1440px)
 	.client-promo-container
 		.mod-client-promos
@@ -32,6 +33,7 @@
 				.actions
 					order 2
 					width 180px
+
 @media screen and (max-width 1200px)
 	.promos-highlight
 		.mod-promo 
@@ -63,6 +65,7 @@
 			.info 
 				max-width 100%
 				width 100%
+				
 	.client-promo-container
 		.mod-client-promos
 			margin 0
@@ -85,8 +88,8 @@
 		.fa-bars
 			display block		
 			
-	.block-boxes
-		.block-box-wrapper
+	.boxes
+		.box-wrapper
 			width (100/2)%
 
 	.glossary-module
@@ -139,19 +142,20 @@
 								font-size 80%
 								/*position relative
 								width 100%*/
-	.overview 
+	
+	.overview
 		.container
 			.box-container
 				flex-wrap wrap
 				.left-box,.right-box
 					width 100%
-	.overview
 		.overview-header
 			display block
 			.info,.gallery
 				width 100%
 				max-width 100%				
 			.info
+				min-width 0
 				.header-info
 					display block
 					margin 0 0 0 0
@@ -159,15 +163,28 @@
 						margin 8px 0 0 0
 						display block
 				.box-icons
+					display block
 					.item 
-						flex-grow 1
-						border-right 1px solid Gray(5)
-						border-bottom none
+						flex-grow 0
+						border-right 1px solid gray(5)
+						border none
+						//background-color alpha(green,.2)
+						.outer
+							//background-color alpha(blue,.2)
+							text-align center
+							display block
+							.inner 
+								padding 8px 0
+								display block
+								width auto
+								.views
+									text-align center
 					.item:last-of-type
 						border none
 		.overview-info
 			#stores
 				height 260px
+				
 	footer 
 		.container 
 			text-align center
@@ -257,8 +274,8 @@
 		.response
 			margin 10px 0
 	
-	.sales-boxes
-		.block-box-wrapper
+	.boxes
+		.box-wrapper
 			width 100%
 
 @media screen and (max-width 592px)

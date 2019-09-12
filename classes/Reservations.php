@@ -13,7 +13,7 @@ class Reservations {
 					$sort='',
 					$exclude=0,
 					$excluded_days=true,
-					$status=0,
+					$status=null,
 					$from='',
 					$to='';
 
@@ -37,7 +37,7 @@ class Reservations {
 			$values[] = $iduser;
 		}
 
-		if($this->status){
+		if(!is_null($this->status)){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "r.status=?";
 			$values[] = $this->status;
@@ -67,11 +67,17 @@ class Reservations {
 		}
 
 		$this->_db->query("
-			SELECT r.*, DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, c.name client_name, c.permalink, CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, p.title, p.subtitle, p.gallery, p.includes, (p.price-(p.price*p.discount/100)) price, s.name status_name, s.label status_label
+			SELECT 
+				r.*, 
+				DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, 
+				c.name client_name, c.permalink, 
+				CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, 
+				p.title, p.subtitle, p.gallery, p.includes, (p.price-(p.price*p.discount/100)) price, 
+				s.name status_name, s.label status_label
 			FROM {reservations} r 
 			LEFT JOIN {promos} p ON p.id=r.promoid
 			LEFT JOIN {users} u ON u.id=r.userid
-			LEFT JOIN {clients} c ON c.id=p.idclient
+			LEFT JOIN {clients} c ON c.id=r.clientid
 			LEFT JOIN {reservations_status} s ON s.id=r.status
 			{$where}
 			{$sort}
@@ -91,19 +97,29 @@ class Reservations {
 		$output = $this->_db->first();
 		$output->fecha = date('d/m/Y H:i',strtotime($output->book_date));
 
-		$User = new User($output->userid);
+		$User = new User();
+		$User->find($output->userid);
+		
 		if(is_null($User->data())) return false;
 		$output->user = $User->data();
 		
-		$Promos = new Promos();
-		if(!$Promos->find($output->promoid)) return false;
-		$output->promo = $Promos->data();
-
-		$output->promo->promolink = ROOT.'promo/'.$output->promo->permalink.'/'.$output->promo->id.'-'.Permalink($output->promo->title);
-
 		$Clients = new Clients();
-		if(!$Clients->find($output->promo->idclient)) return false;
+		if(!$Clients->find($output->clientid)) return false;
 		$output->client = $Clients->data();
+
+
+		$output->promo = false;
+		$Promos = new Promos();
+		if($Promos->find($output->promoid)){
+			$output->promo = $Promos->data();
+			$output->promo->promolink = ROOT.'promo/'.$output->promo->permalink.'/'.$output->promo->id.'-'.Permalink($output->promo->title);	
+		}
+
+		$output->sale = false;
+		if($reservation_sale = $this->get_reservation_sale($reservationid)){
+			$Sales = new Sales();
+			if($Sales->find($reservation_sale->saleid)) $output->sale = $Sales->data();
+		}
 		
 		return $output;
 	}
@@ -156,6 +172,48 @@ class Reservations {
 	public function delete_all($userid=0){
 		$this->_db->delete('reservations',array('userid','=',$userid));
 		return true;
+	}
+
+	public function reservations_sales($reservationid=0,$hash=''){
+
+		$Sales = new Sales();
+		if(!$Sales->find($hash)) return false;
+		$sale = $Sales->data();
+
+		$this->_db->query(
+			"SELECT * 
+			FROM {reservations_sales} 
+			WHERE saleid=? AND reservationid=?",
+			array($sale->id,$reservationid)
+		);
+
+		if($this->_db->count()) return true;
+
+		$this->_db->insert('reservations_sales',array(
+			'saleid'=>$sale->id,
+			'reservationid'=>$reservationid
+		));
+		return true;
+	}
+
+	public function get_reservation_sale($reservationid=0){
+		//$this->_db->get('reservations_sales',array('reservationid','=',$reservationid));
+		$this->_db->query(
+			"SELECT rs.* 
+			FROM {reservations_sales} rs
+			LEFT JOIN {sales} s ON s.id=rs.saleid
+			WHERE rs.reservationid=? AND s.collection_status=?",
+			array($reservationid,'approved')
+		);
+		if(!$this->_db->count()) return false;
+		return $this->_db->first();
+	}
+
+
+	public function get_unconfirmed($clientid=0){
+		$this->status = 0;
+		if(!$reservations = $this->get($clientid)) return 0;
+		return count($reservations);
 	}
 
 

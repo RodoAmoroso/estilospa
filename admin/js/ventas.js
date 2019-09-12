@@ -109,14 +109,17 @@ sales = {
 						}
 					}
 
+					var total = (v.price-discountvoucher)*v.quantity;
+
+
 					mod.find('[data-tag="ordernumber"]')
-						.text('Orden Nro.: '+v.collection_id+' - $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.'));
+						.text('Orden Nro.: '+v.collection_id+' - $ '+(total.numberFormat(2,',','.')));
 					
 					mod.find('[data-tag="price"]')
 						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
-						
+					
 					mod.find('[data-tag="date"]')
-						.text('Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+						.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
 
 
 					mod.find('.status')
@@ -137,7 +140,8 @@ sales = {
 
 					mod.find('[data-group="status"] button')
 						.removeClass()
-						.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(v.status).btn).find('span[data-tag="status"]')
+						.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(v.status).btn)
+						.find('span[data-tag="status"]')
 						.text(sales.switchstatus(v.status).label);
 		
 					if(v.image != '' && v.image != null){
@@ -196,7 +200,11 @@ sales = {
 			e.preventDefault();
 			var st = $(this).attr('data-value');
 			var id = $(this).parent().parent().parent().attr('data-id');
-			$('#sales [data-id="'+id+'"] [data-group="status"]').find('button').removeClass().addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(st).btn).find('span[data-tag="status"]').text(sales.switchstatus(st).label);
+			$('#sales [data-id="'+id+'"] [data-group="status"]').find('button')
+				.removeClass()
+				.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(st).btn)
+				.find('span[data-tag="status"]')
+				.text(sales.switchstatus(st).label);
 			
 			ajax('admin/sales/setstatus',{ID:id,Status:st})
 				.then(function(){});

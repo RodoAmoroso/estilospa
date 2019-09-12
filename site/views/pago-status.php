@@ -8,15 +8,16 @@ switch($status):
 		<h3>Estamos procesando tu compra.</h3>
 		<hr>
 
-		<?php if($Gift): ?>
+		<?php if($giftdata): ?>
 
-		<p>Una vez confirmada, le estará llegando un email a <?=$Gift->data()->to_user->name.' ('.$Gift->data()->to_user->mail.')'?> con los detalles de la experiencia.</p>
+		<p>Una vez confirmada, le estará llegando un email a <?=$giftdata->to_user->name.' ('.$giftdata->to_user->mail.')'?> con los detalles de la experiencia.</p>
 
 		<?php else: ?>
 
+		<?php if(is_null($sales_data->reservationid)): ?>
 		<p>Una vez confirmada, recordá comunicarte con el centro para poder reservar el día y el horario del turno.</p>
 		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
-		<?php endif; ?>
+		<?php endif; endif;?>
 
 		<hr>
 		<a href="<?=ROOT?>" class="btn btn-primary btn-sm"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
@@ -41,17 +42,17 @@ switch($status):
 		<h3>Hemos procesado la solicitud de pago exitosamente!</h3>
 		<hr>
 
-		<?php if($Gift): ?>
-		<h4>Tu regalo ha sido enviado con éxito a: <?=$Gift->data()->to_user->name.' ('.$Gift->data()->to_user->mail.')'?></h4>
-
+		<?php if($giftdata): ?>
+		<h4>Tu regalo ha sido enviado con éxito a: <?=$giftdata->to_user->fullname.' ('.$giftdata->to_user->mail.')'?></h4>
 		<p>En unos minutos le estará llegando un email con los detalles de la experiencia.</p>
-
 		<?php else: ?>
+
+		<?php if(is_null($sales_data->reservationid)): ?>
 		<p>Reservá tu turno ahora con el centro ahora para asegurarte el día y horario de tu experiencia.</p>
 		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
-		<?php endif; ?>
-
 		<hr>
+		<?php endif; endif; ?>
+
 		<a href="<?=ROOT?>" class="btn btn-primary btn-sm"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
 
 	</div>

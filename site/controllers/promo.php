@@ -62,6 +62,3 @@ for($i=1; $i<=4; $i++){
 	);	
 	$_today->modify('+1 day');
 }
-
-
-show_array($_uri);

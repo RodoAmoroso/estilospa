@@ -13,9 +13,14 @@ if(!Input::check(Input::get('required'))) die(Responses::response('required'));
 switch($_action){
 
 	case 'getmplink':
+
 		$idpromo = intval(Input::get('idpromo'));
 		$amount = intval(Input::get('amount'));
 		$idcode = intval(Input::get('idcode'));
+
+		$reservationid = Input::get('_vars');
+
+
 
 		if(!$Promos->find($idpromo)) die(Responses::response('fail'));
 		if(!$Promos->data()->statusstart || !$Promos->data()->statusfinish) die(Responses::response('fail','La promo ha finalizado'));
@@ -34,7 +39,10 @@ switch($_action){
 
 		///$preference = $MPConfig->mplink()['response']['init_point'];
 		///show_array($MPConfig->mplink()['response']);
-		echo Responses::response('ok','',array('link'=>$preference->init_point,'hash'=>$MPConfig->hash()));
+		echo Responses::response('ok','',array(
+			'link'=>$preference->init_point,
+			'hash'=>$MPConfig->hash()
+		));
 		break;
 
 	case 'gift':

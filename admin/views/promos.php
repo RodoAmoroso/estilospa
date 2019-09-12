@@ -282,3 +282,8 @@
 
 
 <?php include 'templates.php' ?>
+
+
+<script>
+	var $clientid = '<?=$clientid?>';
+</script>

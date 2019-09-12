@@ -96,10 +96,10 @@
 			<div class="thumb thumb-cover"></div>
 		</div>
 		<div class="caption">
+			<h4 data-tag="title" class="title-promo">Cliente / Title Promo</h4>
 			<h1 data-tag="ordernumber" class="title">Orden Nro.: </h1>
 			<h4 data-tag="price" class="subtitle">$0000 - Cant. 11</h4>
-			<h4 data-tag="title" class="title-promo">Cliente / Title Promo</h4>
-			<small data-tag="date" class="date">Fecha de compra: 00/00/0000 10:00:00 hs.</small>
+			<small data-tag="date" class="date">$0000 - Cant. 11 | Fecha de compra: 00/00/0000 10:00:00 hs.</small>
 
 			<div class="status">
 				<div class="payment-status"></div>

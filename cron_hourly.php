@@ -21,6 +21,13 @@ $Reservations->status = 1;
 if($reservations = $Reservations->get()){
 	foreach($reservations as $reservation){
 
+		if(!is_null($reservation->title)){
+			$log = 'Notificación de recordatorio de reserva enviada a '.$reservation->user_name.' ('.$reservation->user_email.') para la promo <a href="'.ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title).'">'.$reservation->title.'</a>';
+		}else{
+			$log = 'Notificación de recordatorio de reserva enviada a '.$reservation->user_name.' ('.$reservation->user_email.') para <a href="'.ROOT.'centros/'.$reservation->permalink.'">'.$reservation->client_name.'</a>';
+		}
+
+
 		$Notifications->add(array(
 			'name_from'=>$Mailing->get_email_name()->name,
 			'email_from'=>$Mailing->get_email_name()->email,
@@ -28,7 +35,7 @@ if($reservations = $Reservations->get()){
 			'email_to'=>$reservation->user_email,
 			'subject'=>"No te olvidés de tu reserva en {$reservation->client_name}",
 			'body'=>Templates::template('reservations/reminder-user',$reservation),
-			'log'=>'Notificación de recordatorio de reserva enviada a '.$reservation->user_name.' ('.$reservation->user_email.') para la promo <a href="'.ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title).'">'.$reservation->title.'</a>',
+			'log'=>$log,
 			'type'=>'reminder',
 			'added'=>date('Y-m-d H:i:s'),
 		));
@@ -38,17 +45,21 @@ if($reservations = $Reservations->get()){
 			$client = $Clients->data();
 			$arrMails = str_replace(',', ';', $client->mail);
 			$arrMails = explode(';',$arrMails);
+
+			if(!is_null($reservation->title)){
+				$log = 'Notificación de recordatorio de reserva enviada a <a href="'.ROOT.'centros/'.$reservation->permalink.'">'.$reservation->client_name.'</a> para la promo <a href="'.ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title).'">'.$reservation->title.'</a>';
+			}else{
+				$log = 'Notificación de recordatorio de reserva enviada a '.$reservation->user_name.' ('.$reservation->user_email.') para <a href="'.ROOT.'centros/'.$reservation->permalink.'">'.$reservation->client_name.'</a>';
+			}
 			
 			$Notifications->add(array(
 				'name_from'=>$Mailing->get_email_name()->name,
 				'email_from'=>$Mailing->get_email_name()->email,
-
 				'name_to'=>$reservation->user_name,
 				'email_to'=>$arrMails[0],
-
-				'subject'=>"Recordatorio de reserva para ".$reservation->title,
+				'subject'=>"Recordatorio de reserva desde EstiloSPA",
 				'body'=>Templates::template('reservations/reminder-client',$reservation),
-				'log'=>'Notificación de recordatorio de reserva enviada a <a href="'.ROOT.'centros/'.$reservation->permalink.'">'.$reservation->client_name.'</a> para la promo <a href="'.ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title).'">'.$reservation->title.'</a>',
+				'log'=>$log,
 				'type'=>'reminder',
 				'added'=>date('Y-m-d H:i:s'),
 			));

@@ -1,6 +1,6 @@
 <?php 
 
-$User = new User();
+/*$User = new User();
 if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
 	$hash = Cookie::get(Config::get('cookie/cookie_name'));
 	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
@@ -8,10 +8,10 @@ if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config:
 		$User = new User($hashCheck->first()->iduser);
 		$User->login();
 	}
-}
+}*/
+require PATH.'site/controllers/main.php';
 
 if(!$User->logged()) Redirect::to('login#panel');
 if($User->data()->idtype != 3) Redirect::to('restricted');
 
-$_userdata = $User->data();
-//show_array($_userdata);
+////$_userdata = $User->data();

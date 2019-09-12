@@ -20,6 +20,8 @@
 					<div class="event event-modal">
 						<div class="event-wrapper">
 
+							<?php if($_reservation->promo): ?>
+
 							<div class="event-body">
 								<div class="image thumb-cover thumb-200x200" style="background-image:url(<?=$_reservation->promo->image?>) "></div>
 								
@@ -34,6 +36,7 @@
 
 								</div>
 							</div>
+							<?php endif; ?>
 							
 							<div class="user">
 								<h4>Datos del usuario</h4>

@@ -2,31 +2,33 @@
 
 require '../config.php';
 
-//$Mailing = new Mailing();
-///$Templ = new Mailing();
-
-//$obj->name = 'Rodo';
-//$obj->email = 'rodosoft@gmail.com';
-//$obj->id = 2;
-//$obj->hash = 'fde2fd2313fdefeffefdcc';
-/////$Mailing->register($obj);
-
-$Promos = new Promos();
-$Banners = new Banners();
+$Mailing = new Mailing();
 
 $obj = new stdClass();
-$Promos->exclude = 0;
-$Promos->limit = '0,10';
-$Promos->get();
-$obj->promos = $Promos->data();
+$obj->gift = new stdClass();
 
-$Banners->visible = 1;
-$Banners->type = 'main';
-$Banners->sort = 'position';
-$Banners->limit = '0,2';
-$Banners->get();
-$obj->banners = $Banners->data();
+$obj->gift->touser = 'Maria Elena Gonzalez';
+$obj->gift->fromuser = 'Jefatura Distrital';
+$obj->gift->message = 'Muy feliz día!!! secre';
 
 
-$template = Templates::template('newsletters/subscription',$obj);
-echo Templates::template('email',$template);
+$obj->title = 'Circuito Masajes 1.30 horas';
+$obj->includes = 'Masaje californiano profundo con aceite %100 puro de romero. Masaje reflexologico de pies con crema de menta.  Masaje vibracional de cuencos de cristal de cuarzo y tibetanos.';
+$obj->image = 'https://www.estilospa.com/img/promos/masaje-californiano-7693-t.jpg';
+$obj->promolink = 'https://www.estilospa.com/promo/vida-masajes/493-circuito-masajes-130-horas';
+$obj->permalink = 'https://www.estilospa.com/centros/vida-masajes';
+$obj->clientname = 'Vida Masajes';
+$obj->clientemail = 'info@vidamasajes.com';
+
+$obj->stores = '<ul style="padding:0 16px">
+<li>Honduras 4747, 1º Piso - Palermo Soho</li>
+<li>Tel: 4834-6407</li>
+</ul>';
+
+
+$Mailing->_mailer->addAddress('anahi@estilospa.com');
+$Mailing->_mailer->Subject = 'Test';
+
+$body = Templates::template('sales/_success-gift',$obj);
+if(!$Mailing->send($body)) return false;
+

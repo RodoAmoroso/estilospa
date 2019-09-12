@@ -11,7 +11,8 @@ class Promos {
 					$keywords_sort='',
 					$idclient=0,
 					$status='',
-					$issale=0,
+					$issale=false,
+					$isgift=false,
 					$sort='',
 					$limit='',
 					$exclude=0,
@@ -30,7 +31,8 @@ class Promos {
 		$this->_db = DB::getInstance();
 	}
 
-	public function find($id=0){
+	public function find($id=null){
+		if(is_null($id)) return false;
 		$this->_db->query(
 			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname
 			FROM {promos} p 
@@ -58,32 +60,32 @@ class Promos {
 		$this->_data = null;
 		
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('p.title','p.subtitle','p.description'));
-		$search = empty($search_main) ? "" : "WHERE (".$search_main;
+		$where = empty($search_main) ? "" : "WHERE (".$search_main;
 		
 		
 		//$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
-		//$search .= empty($search_type) ? "" : (empty($search) ? "WHERE (".$search_type : " AND".$search_type);
+		//$where .= empty($search_type) ? "" : (empty($where) ? "WHERE (".$search_type : " AND".$search_type);
 		
 		//$search_glossary = BuildSearchAssignment($this->arrglossary,'ga.glossaryid');
-		///$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
+		///$where .= empty($this->arrglossary) ? "" : (empty($where) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
 
-		$search .= empty($this->arrglossary) ? "" : (empty($search) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {promos_glossary_assignments} ga WHERE ga.glossaryid IN (".implode(',',$this->arrglossary).") AND ga.promoid=p.id) > 0";
+		$where .= empty($this->arrglossary) ? "" : (empty($where) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {promos_glossary_assignments} ga WHERE ga.glossaryid IN (".implode(',',$this->arrglossary).") AND ga.promoid=p.id) > 0";
 
 		
 		$search_promotype = BuildSearch($this->arrpromotypes,$this->searchmixed,array('p.idpromotype'));
-		$search .= empty($search_promotype) ? "" : (empty($search) ? "WHERE (".$search_promotype : " OR".$search_promotype);
+		$where .= empty($search_promotype) ? "" : (empty($where) ? "WHERE (".$search_promotype : " OR".$search_promotype);
 		
-		$search = !empty($search_main) ? $search.') ' : $search;
+		$where = !empty($search_main) ? $where.') ' : $where;
 
 		
 		//$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
-		//$search .= empty($search_idclient) ? "" : (empty($search) ? "WHERE".$search_idclient : " AND".$search_idclient);
+		//$where .= empty($search_idclient) ? "" : (empty($where) ? "WHERE".$search_idclient : " AND".$search_idclient);
 
 
-		$search .= empty($this->arridclients) ? "" : (empty($search) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
+		$where .= empty($this->arridclients) ? "" : (empty($where) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
 		///show_array( $this->arridclients);
 
-		//$search .= empty($search_glossary) ? "" : (empty($search) ? "WHERE (".$search_glossary : "OR".$search_glossary);
+		//$where .= empty($search_glossary) ? "" : (empty($where) ? "WHERE (".$search_glossary : "OR".$search_glossary);
 
 		$sortby = "ORDER BY p.sale DESC, p.added DESC";
 		if(!empty($this->sort)){
@@ -113,56 +115,58 @@ class Promos {
 		}
 		///echo $sortby;
 		if($this->idclient){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " p.idclient={$this->idclient}";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " p.idclient={$this->idclient}";
 		}
 		if(!empty($this->status)){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
+			$where .= empty($where) ? "WHERE " : " AND ";
 			$arrstatus = explode(':',$this->status);
 			if($arrstatus[0]){$start = "p.start<=NOW()";}else{$start = "p.start >= NOW()";}
 			if($arrstatus[1]){$finish = "p.finish>=NOW()";}else{$finish = "p.finish <= NOW()";}
-			$search .= " {$start} AND {$finish}";
+			$where .= " {$start} AND {$finish}";
 		}
 		if($this->visible){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " c.visible=1";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " c.visible=1";
 		}
 		$limitby = '';
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
-		/*if($amount){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " p.amount > 0";
-		}*/
 		if($this->exclude){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " p.id != {$this->exclude}";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " p.id != {$this->exclude}";
 		}
 		if($this->issale){
-			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= " p.sale = 1";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " p.sale = 1";
+		}
+		if($this->isgift){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " p.gift = 1";
 		}
 		if($this->expiring){
-			//if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= empty($search) ? "WHERE " : " AND ";
-			$search .= "(DATEDIFF(p.finish, NOW()) < 25 AND DATEDIFF(p.finish, NOW()) > 0)";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= "(DATEDIFF(p.finish, NOW()) < 25 AND DATEDIFF(p.finish, NOW()) > 0)";
 		}
 		if($this->expired){
-			//if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
-			$search .= empty($search) ? "WHERE " : " AND ";
-			$search .= "DATEDIFF(p.finish, NOW()) < 0";
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= "DATEDIFF(p.finish, NOW()) < 0";
 		}
 
-		$this->search = $search;
+		$this->search = $where;
 
 		//echo $search;
 
-		$query = "SELECT p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, t.name promotypename, DATEDIFF(p.finish, NOW()) dif
-			FROM {promos} p 
+		$query = "
+			SELECT 
+				p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, 
+				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, 
+				t.name promotypename, DATEDIFF(p.finish, NOW()) dif
+				FROM {promos} p 
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
-			{$search} 
+			{$where} 
 			{$sortby} 
 			{$limitby}";
 
@@ -211,6 +215,7 @@ class Promos {
 		$sql = array(
 		'idclient'=>$idclient,
 		'idpromotype'=>Input::get('IDPromotype'),
+		'gift'=>Input::get('Gift'),
 		'sale'=>Input::get('Sale'),
 		'stores'=>implode(',',Input::get('Stores')),
 		'title'=>Input::get('Title'),

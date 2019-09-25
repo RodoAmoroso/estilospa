@@ -163,24 +163,6 @@ class Stores{
 	}
 
 
-	/*public function getToday(){
-		$schedule = 'Horarios no disponible';
-		if(!empty($this->_data[0]->schedules)): 
-			$objschedules = json_decode($this->_data[0]->schedules);
-			foreach ($objschedules as $ks=>$vs):
-				if($vs->day == date('D')):
-					if(!$vs->schedules):
-						$schedule = '<span class="cl-pink-3">Hoy cerrado</span>';
-					else:
-						$schedule = 'Hoy abre a las '.$vs->schedules[0][0].' hs.';
-					endif;
-				endif;
-			endforeach;
-		endif;
-
-		return $schedule;
-	}*/
-
 	public function buildSchedule($schedules=''){
 		$arr = array();
 		$schedule = 'Horarios no disponible';
@@ -227,6 +209,9 @@ class Stores{
 		$this->_schedule_list = $arr;
 		$this->_schedule_today = $schedule;
 	}
+
+
+	public function scheduleShort($schedules=''){}
 
 	public function scheduleToday($schedule=''){
 		$this->buildSchedule($schedule);

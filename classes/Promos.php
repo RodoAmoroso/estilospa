@@ -24,7 +24,8 @@ class Promos {
 					$expiring=false,
 					$expired=false,
 					$visible=false,
-					$search='';
+					$search='',
+					$filters=false;
 
 	public function __construct(){
 		$this->_dbprefix = Config::get('mysql/prefix');
@@ -141,10 +142,13 @@ class Promos {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= " p.sale = 1";
 		}
-		if($this->isgift){
+		
+		/*if($this->isgift){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= " p.gift = 1";
-		}
+		}*/
+
+
 		if($this->expiring){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "(DATEDIFF(p.finish, NOW()) < 25 AND DATEDIFF(p.finish, NOW()) > 0)";
@@ -152,6 +156,18 @@ class Promos {
 		if($this->expired){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "DATEDIFF(p.finish, NOW()) < 0";
+		}
+
+		if($this->filters){
+			foreach($this->filters as $key=>$filter){
+				switch ($key) {
+					case 'gift':
+						$where .= empty($where) ? "WHERE " : " AND ";
+						$where .= "p.gift={$filter}";
+						break;					
+					
+				}
+			}
 		}
 
 		$this->search = $where;

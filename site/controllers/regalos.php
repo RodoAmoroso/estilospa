@@ -45,12 +45,15 @@ $page_results = 50;
 $Promos->keywords = $search_main == ' ' ? '' : $search_main;
 $Promos->status = '1:1';
 $Promos->searchmixed = 1;
-$Promos->isgift = true;
+///$Promos->isgift = true;
 $Promos->sort = 'position';
 $Promos->visible = true;
 //$Promos->arrpromotypes = $arrpromotypes;
 $Promos->arrglossary = $arrglossary;
 $Promos->arridclients = $arridclients;
+
+$Promos->filters = ['gift'=>1];
+
 $Promos->get();
 $total_results = $Promos->data() ? count($Promos->data()) : 0;
 

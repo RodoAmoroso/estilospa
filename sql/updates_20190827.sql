@@ -92,3 +92,24 @@ ALTER TABLE `spa_holidays`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `spa_holidays`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+
+
+
+CREATE TABLE `spa_sales_vouchers` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `saleid` int(10) UNSIGNED NOT NULL,
+  `downloads` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `gift` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `to_user` varchar(80) DEFAULT NULL,
+  `image` varchar(500) DEFAULT NULL,
+  `message` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+ALTER TABLE `spa_sales_vouchers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `saleid` (`saleid`);
+ALTER TABLE `spa_sales_vouchers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `spa_sales_vouchers`
+  ADD CONSTRAINT `spa_sales_vouchers_ibfk_1` FOREIGN KEY (`saleid`) REFERENCES `spa_sales` (`id`) ON DELETE CASCADE;

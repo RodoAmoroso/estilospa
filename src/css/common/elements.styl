@@ -241,3 +241,26 @@
 	.btn 
 		margin 2px
 		width 100%
+
+
+.radio-group
+	margin 1rem 0
+	.radio-item
+		border 1px solid gray(10)
+		border-radius 4px
+		padding .465rem 1rem
+		margin 0 1rem 1rem 0
+		input[type="radio"]
+			display none
+			&:checked +
+				.radio-icon
+					&:before
+						content '\f046'
+						font-family 'FontAwesome'
+		.radio-label
+			font-size 1.5rem
+			font-style normal
+		.radio-icon 
+			&:before 
+				content '\f096'
+				font-family 'FontAwesome'

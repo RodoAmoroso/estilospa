@@ -106,9 +106,8 @@
 						<ul id="btn_list" class="btn-list collapse">
 							<?php if($showsalebuttons): ?>
 
-
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
-							<li data-toggle="modal" data-target="<?= $User->logged() ? '#modal_gift' : '#modal_not_logged' ?>" ><i class="fa fa-gift fa-fw"></i> <span>Regalar!</span></li>
+							
 							<?php endif; ?>
 							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
 						</ul>

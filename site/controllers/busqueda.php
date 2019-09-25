@@ -88,6 +88,9 @@ $Promos->get();
 $total_results = $Promos->data() ? count($Promos->data()) : 0;
 
 $Promos->limit = (($page*$page_results)-$page_results).','.$page_results;
+
+$Promos->filters = ['gift'=>0];
+
 $Promos->get();
 
 if(!$total_results){

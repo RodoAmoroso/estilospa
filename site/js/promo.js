@@ -138,6 +138,7 @@ $(function(){
 			});
 		//});		
 	});
+
 	$('#btn_voucher_cancel').click(function(){
 		$('#modal_voucher').modal('hide');
 		var isgift = $(this).attr('data-gift');		
@@ -156,12 +157,16 @@ $(function(){
 	var hash = window.location.hash.replace('#','');
 	if(hash != ''){
 		switch(hash){
+
 			case 'consultar':
-				$('#modal_reservation').modal('show');
+				///$('#modal_reservation').modal('show');
+				$('[data-toggle=scrollto][data-target="#form_question"]').trigger('click');
 				break;
+
 			case 'turno':
 				$('#modal_reservation').modal('show');
 				break;
+
 			case 'comprar':
 				if(islogged==1){
 					
@@ -171,13 +176,14 @@ $(function(){
 					$('#modal_not_logged').modal('show');
 				}
 				break;
-			case 'regalar':
+
+			/*case 'regalar':
 				if(islogged==1){
 					$('#modal_gift').modal('show');
 				}else{
 					$('#modal_not_logged').modal('show');
 				}
-				break;
+				break;*/
 		}
 	}
 });

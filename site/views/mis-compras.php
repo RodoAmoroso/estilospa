@@ -28,7 +28,9 @@
 						
 						<h2 class="title-promo"><?= $titlepromo ?></h2>
 						
-						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small>
+						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small> 
+
+						<a href="<?=View::url('compra',$sale->id)?>" class="text-fucsia btn-xs "><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 						<hr>
 
 						<?php 
@@ -52,47 +54,40 @@
 								<label class="label label-<?= $label ?>"><?= $sale->statusname ?></label>
 							</div>
 						</div>
+
+
 					
 					</div>
 				</div>
 
 				<div class="sale-footer sale-user-footer">
 					<div class="sale-user">
-						<div class="feedback">
+						<div class="feedback">					
 
-						<?php 
-						if($sale->giftid && $_userdata->id!=$sale->to_user):
-							$Sales->find_gift($sale->hash);
-							$gift = $Sales->data();
-						?>
-
-						<?php if($gift): ?>
-						<h5>Esta experiencia es para: <strong><?=$gift->to_user->name.' '.$gift->to_user->lastname?></strong></h5>
-						<p><a href="<?=View::url('voucher-descarga',$gift->hash)?>" class="btn btn-fucsia btn-xs"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a></p>
 					
-						<?php endif; ?>
-
+						<?php 
+						$comment = $Sales->get_comment($sale->id,$_userdata->id);
+						if(!$comment): ?>
+						<p >Todavía no calificaste <a href="<?= ROOT.'calificar/'.$sale->id ?>" class="btn btn-sm btn-success"><i class="fa fa-thumbs-up"></i> Calificar</a></p>
 						<?php else: ?>
-							<?php 
-							$comment = $Sales->get_comment($sale->id,$_userdata->id);
-							if(!$comment): ?>
-							<p >Todavía no calificaste <a href="<?= ROOT.'calificar/'.$sale->id ?>" class="btn btn-sm btn-success"><i class="fa fa-thumbs-up"></i> Calificar</a></p>
-							<?php else: ?>
-							<p><?= nl2br(htmlspecialchars($comment->text,ENT_QUOTES,'utf-8')) ?></p>
-							<div class="stars">
-								<?php for($i=1; $i<=$comment->rate; $i++): ?>
-								<i class="fa fa-star"></i>
-								<?php endfor; ?>
-								<?php for($i=5; $i>$comment->rate; $i--): ?>
-								<i class="fa fa-star-o"></i>
-								<?php endfor; ?>
-							</div>
-							<?php endif; ?>
+						<p><?= nl2br(htmlspecialchars($comment->text,ENT_QUOTES,'utf-8')) ?></p>
+						<div class="stars">
+							<?php for($i=1; $i<=$comment->rate; $i++): ?>
+							<i class="fa fa-star"></i>
+							<?php endfor; ?>
+							<?php for($i=5; $i>$comment->rate; $i--): ?>
+							<i class="fa fa-star-o"></i>
+							<?php endfor; ?>
+						</div>
 						<?php endif; ?>
+						
 											
 						</div>
 					</div>		
 				</div>	
+
+
+
 			</div>
 			<?php
 				endforeach;

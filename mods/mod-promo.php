@@ -41,17 +41,14 @@
 
 			<div class="button promo-buttons">
 
-				<?php if($MPConfig->find($promo->idclient)): ?>
+				<?php if($promo->sale && $MPConfig->find($promo->idclient)): ?>
 				<div class="main-button" ><i class="fa fa-shopping-bag fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php endif; ?>
 
 				<ul id="btn_promo_<?=$kp?>" class="collapse">
-					<li><i class="fa fa-envelope fa-fw"></i> <a href="<?=$promolink?>#consultar"> Consultar</a></li>
-					<?php if($promo->sale): ?>
-					<li><i class="fa fa-gift fa-fw"></i> <a href="<?=$promolink?>#regalar">Regalar</a></li>
-					<?php endif; ?>
+					<li><i class="fa fa-envelope fa-fw"></i> <a href="<?=$promolink?>#consultar">Consultar</a></li>
 					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
 				</ul>
 			</div>

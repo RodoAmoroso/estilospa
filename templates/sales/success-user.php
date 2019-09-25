@@ -36,13 +36,11 @@
 <?=$obj->stores?>
 <br />
 
-<?php if(!$obj->gift): ?>
+
+
 <p>Recordá comunicarte con el centro para poder confirmar tu compra y reservar el día y horario del turno.</p>
-
 <?php if(is_null($obj->reservationid)): ?>
-<p><a href="<?=$obj->promolink.'/'.$obj->hash.'#turno'?>" style="background-color:#e7127c; padding:4px 10px; color:white; text-decoration:none">Reservar ahora</a></p>
-<?php endif; ?>
-
+<p><a href="<?=ROOT.'compra/'.$obj->id?>" style="background-color:#e7127c; padding:4px 10px; color:white; text-decoration:none">Bajar Voucher</a></p>
 <?php endif; ?>
 
 <hr>

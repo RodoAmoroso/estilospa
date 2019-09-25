@@ -329,4 +329,46 @@ class Sales {
 	}
 
 
+
+	public function add_voucher(){
+		$values = array(
+			'saleid'=>Input::get('saleid'),
+			'downloads'=>0,
+			'gift'=>Input::get('gift')
+		);
+		if(Input::get('gift')){
+			$values['to_user'] = Input::get('to_user');
+			$values['message'] = Input::get('message');
+			$values['image'] = empty(Input::get('image')) ? null : json_encode(Input::get('image'));
+		}
+
+		$this->_db->insert('sales_vouchers',$values);
+		return $this->_db->getLastId();
+	}
+
+
+	public function get_vouchers($saleid=0){
+		$this->_db->get('sales_vouchers',array('saleid','=',$saleid));
+		if(!$this->_db->count()) return false;
+		return $this->_db->results();
+	}
+
+	public function find_voucher($voucherid=0){
+		$this->_db->get('sales_vouchers',array('id','=',$voucherid));
+		if(!$this->_db->count()) return false;
+
+		$output = $this->_db->first();
+
+		if(!is_null($output->image)){
+			$image = new stdClass();
+			$img = json_decode($output->image);
+			$image->path = IMG.'gift/'.$img->f.'.'.$img->e;
+			$image->f = $img->f;
+			$image->e = $img->e;
+			$output->image = $image;
+		}
+		return $this->_db->first();
+	}
+
+
 }

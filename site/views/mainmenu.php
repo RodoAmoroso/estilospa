@@ -6,7 +6,7 @@
 		<i class="fa fa-bars fa-lg cl-white" ></i>
 
 		<ul id="main_menu" class="main-menu" >
-			<li class="highlight"><a href="<?= ROOT.'busqueda/' ?>">Promos</a></li>
+			<li class="highlight"><a href="<?= ROOT.'busqueda/' ?>">Experiencias</a></li>
 			<?php 
 			$ClientTypes->keywords = '';
 			if($ClientTypes->get()): 

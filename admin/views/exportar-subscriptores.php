@@ -1,9 +1,10 @@
 <?php 
 
 require_once '../../config.php';
+require_once '../controllers/main.php';
 $_subscribers = new Subscribers();
 
-if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('status'=>'fail')));
+//if(!$_USER->logged() || $_USER->data()->idtype != 1) die(json_encode(array('status'=>'fail')));
 
 $_data = $_subscribers->get();
 

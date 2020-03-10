@@ -91,7 +91,8 @@ class Questions {
 		}
 
 		$this->_db->query(
-			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, u.name user_name, u.lastname user_lastname, u.mail user_email
+			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, 
+			u.name user_name, u.lastname user_lastname, u.mail user_email, u.phone user_phone
 			FROM {questions} q
 			LEFT JOIN {users} u ON u.id=q.userid
 			LEFT JOIN {promos} p ON p.id=q.rowid AND q.type='promos'

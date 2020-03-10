@@ -3,9 +3,9 @@
 
 
 <section class="glossary-page bg-gray-5">
-	
+
 	<div class="container">
-		
+
 		<div class="section-header bg-aqua-5">
 			<div class="bg overprint-absolute parallax" style="background-image:<?= empty($imgheader) ? 'none' : 'url('.ROOT.$imgheader.')' ?>;"></div>
 			<div class="container">
@@ -22,7 +22,7 @@
 				<p>&nbsp;</p>
 			</div>
 			<div class="view-more">
-				
+
 				<div class="row">
 					<div class="col-sm-6">
 						<button id="view_more" class="btn btn-default"><span>leer más</span> <i class="fa fa-caret-down"></i></button>
@@ -30,48 +30,19 @@
 					<div class="col-sm-6 text-right">
 						<button class="btn btn-primary" data-toggle="scrollto" data-target="#form_question"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $Glossary->data()->name ?></button>
 					</div>
-				</div>				
+				</div>
 			</div>
 		</div>
 
 
-		<div class="block-white">
-			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
-			<form id="form_question" class="question-form">
-				<?php if(!$User->logged()): ?>
-
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<input class="form-control" name="name" type="text" required placeholder="Tu nombre" value="<?=$User->logged() ? $_userdata->name : ''?>"  >
-						</div> 
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<input class="form-control" name="email" type="email" required placeholder="Tu email" value="<?=$User->logged() ? $_userdata->mail : ''?>"  >
-						</div>
-
-					</div>
-				</div>
-				<?php endif; ?>
-
-				<div class="form-group">
-					<textarea name="message" rows="6" class="form-control" required placeholder="Escribí tu pregunta..." maxlength="500"></textarea>
-					<input type="hidden" name="rowid" value="<?=$Glossary->data()->id?>">
-					<input type="hidden" name="type" value="glossary">
-					<small class="text-gray-50">(máx. 500 caracteres)</small>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-default" >Preguntar</button>
-				</div>
-			</form>
-			<hr>
-			<h5 class="text-gray-50">Últimas preguntas:</h5>
-			<div id="questions">
-				<p>Cargando...</p>
-			</div>
-		</div>
+		<!-- QUESTIONS -->
+		<?php
+		$question_rowid = $Glossary->data()->id;
+		$question_type = 'glossary';
+		$show_responses = $_userdata && $_userdata->idtype == 1 ? true : false;
+		include 'questions.php';
+		?>
 
 
 	</div>
@@ -90,9 +61,9 @@
 	<div class="container">
 
 		<div class="promos-highlight">
-		<?php 				
+		<?php
 		foreach($Promos->data() as $kp=>$promo):
-			
+
 			if($Clients->find($promo->idclient)):
 			$imgpromo = json_decode($promo->gallery);
 			$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
@@ -137,13 +108,13 @@
 
 
 <!-- CENTROS CON LA ETIQUETA -->
-<?php 
+<?php
 $Clients->visible = 1;
 $Clients->sort = 'rand';
 $Clients->limit = '0,12';
 $Clients->arrglossary = array($Glossary->data()->id);
 $Clients->get();
-if($Clients->data()): 
+if($Clients->data()):
 ?>
 <section class="bg-gray-5">
 	<div class="title-bar">
@@ -154,7 +125,7 @@ if($Clients->data()):
 
 	<div class="container">
 		<div id="clients_carousel" class="clients-carousel dp-none">
-		<?php 	
+		<?php
 		foreach($Clients->data() as $client):
 			$logo = json_decode($client->logo);
 			$clientlink = ROOT.'centros/'.$client->permalink;

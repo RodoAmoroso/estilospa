@@ -13,36 +13,42 @@ $id = $_GET["id"];
 $topic = $_GET["topic"];
 $idclient = $_GET["idclient"];
 
-$MPConfig = new MPConfig();
+//$MPConfig = new MPConfig();
 
-MercadoPago\SDK::setClientId($MPConfig->app_id);
-MercadoPago\SDK::setClientSecret($MPConfig->secret_key);
+//if(!$MPConfig->find($idclient)) die('not found');
 
+//MercadoPago\SDK::setAccessToken($MPConfig->data()->access_token);
+//show_array($MPConfig->data());
+//MercadoPago\SDK::setAccessToken($MPConfig->access_token);
+//MercadoPago\SDK::setClientId($MPConfig->app_id);
+//MercadoPago\SDK::setClientSecret($MPConfig->secret_key);
 
-if($topic == 'payment'){
+/*if($topic == 'payment'){
 	try {
 		$payment_info = MercadoPago\Payment::find_by_id($id);
-		show_array($payment_info);		
+		$merchant_order = MercadoPago\MerchantOrder::find_by_id($payment_info->order->id);
+		show_array($merchant_order);
 	} catch (Exception $e) {
 		show_array($e->getMessage());
 		http_response_code(400);
 	}
 }
 
-die();
 
+die();
+*/
 
 
 /////////////////
+$DB = DB::getInstance();
 
-
-/*$DB->insert('testmp',array(
+$DB->insert('testmp',array(
 	'collection_id'=>$id,
 	'topic'=>$topic,
 	'input'=>json_encode($_GET)
 ));
 http_response_code(200);
-die();*/
+die();
 
 $clientmp = $DB->get('mp',array('idclient','=',$idclient))->first();
 $mp = new MP($clientmp->access_token); ///token del seller

@@ -72,7 +72,7 @@ if(!empty($search_locations)){
 //show_array(var_dump($arridclients));
 //show_array(var_dump($arrwordslocations));
 ///echo '<br />';
-$page_results = 25;
+$page_results = 50;
 //echo $_page;
 ////////////// PROMOS ///////////////////
 $Promos->keywords = empty($search_main) ? '' : $search_main;
@@ -80,16 +80,20 @@ $Promos->status = '1:1';
 $Promos->searchmixed = 1;
 $Promos->sort = 'position';
 $Promos->visible = true;
+//$Promos->filters = ['gift'=>0];
 ///$Promos->arrtypes = $arrtypes;
 ///$Promos->arrpromotypes = $arrpromotypes;
 $Promos->arrglossary = $arrglossary;
 $Promos->arridclients = $arridclients;
+
+////////////////
 $Promos->get();
 $total_results = $Promos->data() ? count($Promos->data()) : 0;
+/////////////
 
 $Promos->limit = (($page*$page_results)-$page_results).','.$page_results;
+///show_array($total_results);
 
-$Promos->filters = ['gift'=>0];
 
 $Promos->get();
 

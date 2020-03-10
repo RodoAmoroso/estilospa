@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 ////$hash = $payment_info["response"]['external_reference'];
 
@@ -39,16 +39,16 @@ if($Sales->check($collection_id)){
 		'preference_id'=>'',
 		'external_reference'=>$hash,
 		'payment_type'=>$payment_type,
-		'merchant_order_id'=>$merchant_order_id,	
+		'merchant_order_id'=>$merchant_order_id,
 		'price'=>$price,
-		'application_fee'=>$fees->application_fee,
-		'mercadopago_fee'=>$fees->mercadopago_fee,
+		'application_fee'=>isset($fees) ? $fees->application_fee : 0,
+		'mercadopago_fee'=>isset($fees) ? $fees->mercadopago_fee : 0,
 		'added'=>date('Y-m-d H:i:s'),
 		'quantity'=>$quantity,
 		'hash'=>$hash
 	);
 	$Sales->save($arrfields);
-	$saleid = $Sales->getLastId();	
+	$saleid = $Sales->getLastId();
 
 
 	$Reservations = new Reservations();
@@ -71,7 +71,7 @@ if($Sales->check($collection_id)){
 			}
 		}
 	}
-	
+
 	///$Sales->delete_temp($hash); borrar con cron
 	$Promos->take_amount($idpromo,$quantity);
 }
@@ -97,14 +97,14 @@ $_salesdata->stores .= '</ul>';
 $_salesdata->gift = null;
 $_salesdata->image = $Promos->get_image($_salesdata->gallery);
 
-if($Sales->find_gift($hash)) $_salesdata->gift = $Sales->data();
+//if($Sales->find_gift($hash)) $_salesdata->gift = $Sales->data();
 
 if(!is_null($_salesdata->voucher_id)){
 	if($_salesdata->voucher_percent){
 		$_salesdata->price = $_salesdata->price-($_salesdata->voucher_value*$_salesdata->price/100);
 	}else{
 		$_salesdata->price = $_salesdata->price-$_salesdata->voucher_value;
-		
+
 	}
 }
 
@@ -115,7 +115,7 @@ if($collection_status == 'approved' && !$_salesdata->notified){
 	$Sales->notified($_salesdata->id,1);
 	/*if($_salesdata->gift){
 		$Mailing->sales_success_gift($_salesdata);
-	}*/			
+	}*/
 }
 if(($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation' || $collection_status == 'authorized')){
 	$Mailing->sales_pending($_salesdata);

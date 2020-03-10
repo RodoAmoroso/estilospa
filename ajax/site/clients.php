@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $Clients = new Clients();
@@ -11,7 +10,7 @@ if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 switch($_action){
 
 
-	case 'findstore':		
+	case 'findstore':
 		$Stores->find(Input::get('idstore'));
 		$today = $Stores->scheduleToday($Stores->data()->schedules);
 		$schedules = $Stores->schedulesList($Stores->data()->schedules);

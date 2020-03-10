@@ -1,7 +1,7 @@
 <script>
-	var IDPromo = <?= $Promos->data()->id ?>; 
-	var IDClient = <?= $Promos->data()->idclient ?>; 
-	var islogged = <?= $User->logged() ? 1 : 0 ?>; 
+	var IDPromo = <?= $Promos->data()->id ?>;
+	var IDClient = <?= $Promos->data()->idclient ?>;
+	var islogged = <?= $User->logged() ? 1 : 0 ?>;
 </script>
 
 <section class="promo">
@@ -21,12 +21,12 @@
 				<h1 class="client-name"><?= $Clients->data()->name ?></h1>
 				<?php if($Stores->get($Clients->data()->id)): ?>
 				<h2 class="client-location"> <i class="fa fa-map-marker"></i>
-				<?php 
+				<?php
 				if(count($Stores->data())>1){
 					echo 'Varias sucursales';
 				}else{
 					echo $Stores->data()[0]->city;
-				} 
+				}
 				?>
 
 				</h2>
@@ -36,14 +36,14 @@
 		</a>
 
 		<div class="main-wrapper">
-		
+
 			<?php if(count($gallery)): ?>
 			<div class="gallery gallery-section">
-				
+
 				<?php foreach($gallery as $img): ?>
 				<div class="overprint-absolute thumb-cover bg-black slide" style="background-image: url(<?= ROOT.'img/promos/'.$img->photoname.'-o.'.$img->extension ?>);"></div>
-				<?php endforeach; ?>			
-				
+				<?php endforeach; ?>
+
 			</div>
 			<?php endif ?>
 
@@ -60,7 +60,7 @@
 
 					<!-- PRICING -->
 					<?php if($Promos->data()->sale): ?>
-						
+
 						<?php if($Promos->data()->discount): ?>
 						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
 						<?php endif; ?>
@@ -69,36 +69,36 @@
 
 					<!-- AMOUNT -->
 					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
-					
+
 					<?php endif; ?>
 
 
 				</div>
 
 
-				<!-- SHOP -->					
+				<!-- SHOP -->
 				<div class="shop-action">
-					
+
 					<?php if($showsalebuttons): ?>
-					<div class="amount">							
+					<div class="amount">
 						<select id="select_amount" type="text" class="form-control">
 							<?php for($i=1; $i<=15; $i++): ?>
 							<option value="<?= $i ?>"><?= $i ?></option>
 							<?php endfor; ?>
-						</select>							
+						</select>
 					</div>
 					<?php endif; ?>
 
 					<div class="button-action">
 						<?php if($showsalebuttons): ?>
 						<div class="highlight-button" >
-							<i class="fa fa-shopping-bag fa-fw"></i> 
+							<i class="fa fa-shopping-bag fa-fw"></i>
 							<span <?= $User->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
 						</div>
 						<?php else: ?>
 						<div class="highlight-button" >
-							<i class="fa fa-envelope fa-fw"></i> 
-							<span data-toggle="scrollto" data-target="#form_question">Consultar!</span> 
+							<i class="fa fa-envelope fa-fw"></i>
+							<span data-toggle="scrollto" data-target="#form_question">Consultar!</span>
 							<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
 						</div>
 						<?php endif; ?>
@@ -107,11 +107,11 @@
 							<?php if($showsalebuttons): ?>
 
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
-							
+
 							<?php endif; ?>
 							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
 						</ul>
-						
+
 
 					</div>
 
@@ -122,11 +122,11 @@
 				<!-- ICONS -->
 				<div class="box-icons ">
 
-					<!-- Stars -->					
+					<!-- Stars -->
 					<div class="item">
 						<div class="rating">
 						<?php $promstars = $Promos->rating($Promos->data()->id); ?>
-						
+
 							<div class="stars">
 								<?= Stars($promstars,''); ?><br>
 								<small class="punctuation"><?= round($promstars,1) ?>/5</small>
@@ -145,9 +145,9 @@
 							<i class="fa fa-eye fa-lg"></i><br>
 							<small><?= number_format($Promos->data()->views,0,'','.') ?> visitas</small>
 						</div>
-					</div>				
-					
-				</div>				
+					</div>
+
+				</div>
 
 			</div>
 		</div>
@@ -204,65 +204,18 @@
 
 		<?php endif; ?>
 
-			
-		<div class="block-white">
-			<h4 class="title-bar">Preguntas y Respuestas</h4>
 
-			<form id="form_question" class="question-form">
 
-				<div class="row">
-					<div class="col-md-4">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span><i class="fa fa-user"></i></span>
-								</div>
-								<input name="name" type="text" class="form-control" <?=is_null($_userdata) ? '' : 'readonly' ?> required value="<?= !is_null($_userdata) ? $_userdata->fullname : '' ?>" placeholder="Tu nombre..." >
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span><i class="fa fa-envelope"></i></span>
-								</div>
-								<input name="email" type="text" class="form-control" <?=is_null($_userdata) ? '' : 'readonly' ?> required value="<?=!is_null($_userdata) ? $_userdata->mail : '' ?>" placeholder="Tu email..." >
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="form-group">
-							<div class="input-group">
-								<div class="input-group-addon">
-									<span><i class="fa fa-phone"></i></span>
-								</div>
-								<input name="phone" type="text" class="form-control" required value="<?=!is_null($_userdata) ? $_userdata->phone : '' ?>" placeholder="Tu teléfono..."  >
-							</div>
-						</div>
-					</div>
-				</div>			
-					 
+		<!-- QUESTIONS -->
+		<?php
+		$question_rowid = $Promos->data()->id;
+		$question_type = 'promos';
+		$show_responses = true;
+		include 'questions.php';
+		?>
 
-				<div class="form-group">
-					<textarea name="message" rows="6" class="form-control" required placeholder="Escribí tu pregunta..." maxlength="500"></textarea>
-					<input type="hidden" name="rowid" value="<?=$Promos->data()->id?>">
-					<input type="hidden" name="type" value="promos">
-					<small class="text-gray-50">(máx. 500 caracteres)</small>
-				</div>
-				<div class="form-group">
-					<button class="btn btn-default" >Preguntar</button>
-				</div>
-			</form>
-			<hr>
-			<h5>Últimas preguntas:</h5>
-			<div id="questions">
-				<p>Cargando...</p>
-			</div>
-		</div>
 
-		
-	</div>	
+	</div>
 </section>
 
 
@@ -276,12 +229,12 @@
 				<p><?= $Clients->data()->name ?></p>
 			</div>
 			<div class="modal-body ff-futuralight" >
-	
+
 				<form id="form_reservation">
 
 					<div class="row">
 						<div class="col-md-6">
-						
+
 							<div class="form-group">
 								<label for="fd_name">Nombre</label>
 								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
@@ -298,19 +251,19 @@
 								<label for="fd_mail">E-mail</label>
 								<input id="fd_mail" type="email" name="email" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->mail : '' ?>">
 							</div>
-							
+
 							<div class="form-group">
 								<label for="fd_message">Mensaje <i>(opcional)</i></label>
 								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" placeholder="Indicar la cantidad de personas en caso que sean más de una." ></textarea>
 							</div>
 
 						</div>
-						
+
 						<div class="col-md-6">
 							<label>Elegir día y horario</label>
 
 							<div class="calendar-promo">
-								
+
 								<div class="month">
 									<div class="prev" data-action="prev"><i class="fa fa-angle-left"></i></div>
 									<div class="name" ><span data-month="<?=date('m')?>"><?=Dates::translateMonths(date('M'))?></span> <span data-year="<?=date('Y')?>"><?=date('Y')?></span></div>
@@ -320,7 +273,7 @@
 								<div class="week">
 									<ul class="days">
 										<li class="day prev" data-action="prev"><i class="fa fa-angle-left"></i></li>
-										
+
 										<?php foreach($_arrdays as $k=>$day): ?>
 										<li class="day <?=!$k ? 'active' : ''?>" data-day="<?=$day['day']?>" data-dayname="<?=$day['dayname']?>" ><?=$day['name'].' '.$day['day']?></li>
 										<?php endforeach; ?>
@@ -328,14 +281,14 @@
 										<li class="day next" data-action="next"><i class="fa fa-angle-right"></i></li>
 									</ul>
 								</div>
-								
+
 								<div class="schedule">
 									<ul class="hours"></ul>
 								</div>
 
 								<div id="selected_schedule" class="pad-10 text-center">Seleccioná un día y horario</div>
 							</div>
-							
+
 							<input type="hidden" name="date" >
 							<input type="hidden" name="promoid" value="<?=$Promos->data()->id?>" >
 							<input type="hidden" name="clientid" value="<?=$Promos->data()->idclient?>" >
@@ -345,7 +298,7 @@
 
 					</div>
 
-					<hr>					
+					<hr>
 
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary" >ENVIAR</button>
@@ -354,7 +307,7 @@
 				</form>
 
 
-				
+
 			</div>
 		</div>
 	</div>
@@ -440,7 +393,7 @@
 </div>
 
 
-<?php 
+<?php
 $Vouchers->status = '1:1';
 if($Vouchers->getpromo($Promos->data()->id)):
 ?>
@@ -452,12 +405,12 @@ if($Vouchers->getpromo($Promos->data()->id)):
 				<button class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
 			</div>
 			<div class="modal-body">
-				
+
 					<div class="cl-fucsia-5">
 						<h2>Voucher de Descuento</h2>
 						<p class="sz-11">Si tienes un código para esta promo puedes aplicarlo para obtener un descuento en la compra de esta promoción.</p>
-						<hr>					
-							
+						<hr>
+
 						<form id="form_voucher_apply" class="form-group">
 							<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
 							<label for="fd_voucher_code">Ingresar código</label>
@@ -468,13 +421,13 @@ if($Vouchers->getpromo($Promos->data()->id)):
 								</div>
 							</div>
 						</form>
-								
+
 						<div id="voucher_status" class="alert"></div>
 						<hr>
 						<button id="btn_voucher_cancel" class="btn btn-primary pull-right">No tengo un código promocional <i class="fa fa-angle-double-right"></i></button>
 						<div class="clearfix"></div>
 					</div>
-				
+
 			</div>
 		</div>
 	</div>
@@ -483,7 +436,7 @@ if($Vouchers->getpromo($Promos->data()->id)):
 
 
 <!-- OFERTAS -->
-<?php 
+<?php
 $Promos->status = '1:1';
 $Promos->sort = 'rand';
 $Promos->exclude = $Promos->data()->id;
@@ -501,7 +454,7 @@ if($Promos->data()):
 	<div class="container">
 		<div class="promos-highlight">
 		<?php
-		
+
 			$nm = 0;
 			foreach($Promos->data() as $kp=>$promo):
 				if($Clients->find($promo->idclient)):

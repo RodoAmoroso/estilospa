@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Stores{
 
@@ -34,7 +34,7 @@ class Stores{
 			switch ($this->group) {
 				case 'province':
 					$groupby = "GROUP BY p.name";
-					break;				
+					break;
 				case 'city':
 					$groupby = "GROUP BY s.city";
 					break;
@@ -46,10 +46,10 @@ class Stores{
 		}
 		$this->_db->query(
 			"SELECT s.id, s.city, s.idclient, s.idprovince, p.name, (SELECT COUNT(*) FROM {stores} ss LEFT JOIN {clients} c ON c.id=ss.idclient WHERE ss.city=s.city AND c.visible=1) as countclients
-			FROM {stores} s 
-			LEFT JOIN {provinces} p ON p.id=s.idprovince 
-			{$search} 
-			{$groupby} 
+			FROM {stores} s
+			LEFT JOIN {provinces} p ON p.id=s.idprovince
+			{$search}
+			{$groupby}
 			{$limitby}");
 		//show_array($this->_db->getquery()->queryString);
 		if($this->_db->count()){
@@ -71,17 +71,17 @@ class Stores{
 			$where .= ")";
 		}
 		$this->_db->query(
-			"SELECT s.*, p.name 
-			FROM {stores} s 
-			LEFT JOIN {provinces} p ON p.id=s.idprovince 
+			"SELECT s.*, p.name
+			FROM {stores} s
+			LEFT JOIN {provinces} p ON p.id=s.idprovince
 			WHERE s.idclient=?
-			{$where} 
+			{$where}
 			ORDER BY s.position ASC",
 			array($idclient)
 		);
 		///show_array( $this->_db->getquery() );
 		if(!$this->_db->count()) return true;
-		
+
 		$this->_data = $this->_db->results();
 		return true;
 	}
@@ -114,6 +114,7 @@ class Stores{
 			'idprovince'=>Input::get('IDProvince'),
 			'phones'=>Input::get('Phones'),
 			'whatsapp'=>Input::get('Whatsapp'),
+			'map'=>Input::get('Map'),
 			'schedules'=>Input::get('Schedules')
 		);
 		if(Input::get('ID')){
@@ -121,8 +122,8 @@ class Stores{
 			return true;
 		}else{
 			$this->_db->query(
-				"UPDATE {stores} 
-				SET position=position+1 
+				"UPDATE {stores}
+				SET position=position+1
 				WHERE idclient=?",
 				array($idclient)
 			);
@@ -166,10 +167,10 @@ class Stores{
 	public function buildSchedule($schedules=''){
 		$arr = array();
 		$schedule = 'Horarios no disponible';
-		if(!empty($schedules)): 
-			//foreach ($this->_data as $kst=>$vst):			
+		if(!empty($schedules)):
+			//foreach ($this->_data as $kst=>$vst):
 			$objschedules = json_decode($schedules);
-			
+
 			foreach($objschedules as $ks=>$vs):
 				$day = Dates::translateShortToFull($vs->day).' ';
 				$open = false;

@@ -1,9 +1,13 @@
-<?php 
+<?php
 
 $_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
 $_arrjs[] = ['folder'=>'site/','script'=>'questions'];
 $_arrjs[] = ['folder'=>'site/','script'=>'reservations'];
-$_arrjs[] = ['script'=>'https://maps.googleapis.com/maps/api/js?key=AIzaSyC2m93XcFMuCAPZSjBUNsZO24UJOSPSF1M'];
+
+
+$_arrjs[] = ['folder'=>'lib/','script'=>'leaflet'];
+$_arrcss[] = ['folder'=>'lib/','style'=>'leaflet'];
+
 
 
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
@@ -56,6 +60,6 @@ for($i=1; $i<=4; $i++){
 		'day'=>$_today->format('d'),
 		'dayname'=>$_today->format('D'),
 		'name'=>Dates::translateDays($_today->format('l'))
-	);	
+	);
 	$_today->modify('+1 day');
 }

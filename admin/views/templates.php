@@ -30,12 +30,12 @@
 		<div class="mod-header">
 			<h1></h1>
 			<div class="buttons">
-				<button class="btn btn-sm btn-danger delete" title="Borrar"><i class="fa fa-trash"></i></button>			 
+				<button class="btn btn-sm btn-danger delete" title="Borrar"><i class="fa fa-trash"></i></button>
 				<button class="btn btn-success btn-sm edit" title="Editar"><i class="fa fa-pencil"></i> EDITAR</button>
 			</div>
 		</div>
 		<p></p>
-	</div>	
+	</div>
 </div>
 
 <!-- MOD LIST -->
@@ -65,7 +65,7 @@
 			<div class="dp-table-cell text-center">
 				<button class="edit btn btn-sm btn-primary" title="Editar"><i class="fa fa-pencil" ></i></button>
 			</div>
-		</div>		
+		</div>
 		<i class="delete fa fa-times cl-white" title="Borrar"></i>
 	</div>
 </div>
@@ -79,7 +79,7 @@
 </div>
 <div id="mod_panel_group_item" class="list-group-item dp-none">
 	<div class="item">
-		<i class="fa fa-square"></i> 
+		<i class="fa fa-square"></i>
 		<span></span>
 	</div>
 	<div class="buttons">
@@ -118,7 +118,14 @@
 
 				</div>
 			</div>
-		
+
+			<a href="#" data-tag="ipn" target="_blank" ><small><i class="fa fa-code"></i> ver detalles</small></a>
+			<small data-tag="voucher_usage" class="text-gray-60"></small>
+			<hr>
+
+			<small>Vouchers Generados:</small>
+			<ul class="voucher-list"></ul>
+
 		</div>
 		<div class="action">
 			<button data-button="toggle" class="btn btn-primary btn-block btn-xs"><i class="fa fa-chevron-down"></i></button>
@@ -132,7 +139,8 @@
 				</div>
 				<div class="item">
 					<div data-tag="username" class="name"></div>
-					<a data-tag="mail" href="#" class="mail"></a>
+					<a data-tag="mail" href="#" class="mail"></a> <span data-tag="phone" class="mail"></span>
+
 				</div>
 			</div>
 			<div class="feedback" >
@@ -143,8 +151,8 @@
 					<i class="fa"></i>
 					<i class="fa"></i>
 					<i class="fa"></i>
-				</span>										
+				</span>
 			</div>
-		</div>		
-	</div>	
+		</div>
+	</div>
 </div>

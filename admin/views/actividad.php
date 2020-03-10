@@ -23,7 +23,7 @@
 						<option value="sale" <?= Input::get('type') == 'sale' ? 'selected' : '' ?>>Compras</option>
 						<option value="reservation" <?= Input::get('type') == 'reservation' ? 'selected' : '' ?>>Reservas</option>
 						<option value="question" <?= Input::get('type') == 'question' ? 'selected' : '' ?>>Preguntas realizadas</option>
-						<option value="promo" <?= Input::get('type') == 'promo' ? 'selected' : '' ?>>Promos Cargadas</option>
+						<option value="promo" <?= Input::get('type') == 'promo' ? 'selected' : '' ?>>Experiencias Cargadas</option>
 						
 						<option value="reminder" <?= Input::get('type') == 'reminder' ? 'selected' : '' ?>>Recordatorios de reservas</option>
 						<option value="promo_status" <?= Input::get('type') == 'promo_status' ? 'selected' : '' ?>>Actualizar el estado de la compra</option>

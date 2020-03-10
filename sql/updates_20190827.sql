@@ -15,7 +15,7 @@ CREATE TABLE `spa_sales_gift` (
   `promoid` int(10) UNSIGNED NOT NULL,
   `hash` char(64) NOT NULL,
   `added` datetime NOT NULL,
-  `downloads` int(10) UNSIGNED NOT NULL DEFAULT '0' AFTER `added`
+  `downloads` int(10) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ALTER TABLE `spa_sales_gift`
   ADD PRIMARY KEY (`id`);

@@ -22,14 +22,14 @@ switch($_action){
 		break;
 
 	case 'free':
-		
+
 		if(!$User->logged()) die(Responses::response('require_login'));
 
 		$code = Input::get('code');
 		$idpromo = Input::get('idpromo');
 
 		if(!$Vouchers->findcode($code)) die(Responses::response('fail','El código ingresado no es válido',array('voucher'=>$code)));
-		
+
 		if(!$Promos->find($idpromo)) die(Responses::response('fail','No se encuentra la promo.'));
 
 		$idvoucher = $Vouchers->data()->idvoucher;
@@ -47,14 +47,17 @@ switch($_action){
 			'added'=>date('Y-m-d H:i:s')
 		));
 
-		$collection_id = rand(111111,999999);
+		$collection_id = date('YmdHis');
 		$payment_type = 'free';
-		$merchant_order_id = rand(111111,999999);
+		$merchant_order_id = date('YmdHis');
 		$collection_status = 'approved';
 
 		require PATH.'payment-process.php';
 
-		echo Responses::response('ok');
+
+		$promo_url = ROOT.'promo/'.$Promos->data()->permalink.'/'.$Promos->data()->id.'-'.Permalink($Promos->data()->title);
+
+		echo Responses::response('ok','',array('promourl'=>$promo_url,'hash'=>$hash));
 		break;
 
 	default:

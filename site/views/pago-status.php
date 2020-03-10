@@ -1,6 +1,6 @@
-<?php 
+<?php
 switch($status):
-	case 'pending':		
+	case 'pending':
 ?>
 <section class="gral-section">
 	<div class="container">
@@ -17,6 +17,7 @@ switch($status):
 		<?php if(is_null($sales_data->reservationid)): ?>
 		<p>Una vez confirmada, recordá comunicarte con el centro para poder reservar el día y el horario del turno.</p>
 		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
+		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 		<?php endif; endif;?>
 
 		<hr>
@@ -50,6 +51,8 @@ switch($status):
 		<?php if(is_null($sales_data->reservationid)): ?>
 		<p>Reservá tu turno ahora con el centro ahora para asegurarte el día y horario de tu experiencia.</p>
 		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
+
+		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 		<hr>
 		<?php endif; endif; ?>
 
@@ -65,7 +68,7 @@ switch($status):
 </script>
 
 <?php
-		break;	
+		break;
 	default:
 ?>
 <section class="gral-section">

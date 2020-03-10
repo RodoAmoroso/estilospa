@@ -1,13 +1,13 @@
-<?php 
+<?php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class Mailing {
 
-	public $_mailer,
+	public 	$_mailer,
 					$_email='rodosoft@hotmail.com',
-					///$_email='estilospa.com@gmail.com',
+					//$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -81,7 +81,7 @@ class Mailing {
 	public function publish(){
 
 		$user = (object) Input::get_all();
-	
+
 		$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->clearReplyTos();
 		$this->_mailer->addReplyTo($user->email, $user->fullname);
@@ -96,7 +96,7 @@ class Mailing {
 
 	public function contact(){
 		$user = (object) Input::get_all();
-		
+
 		$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->clearReplyTos();
 		$this->_mailer->addReplyTo($user->email, $user->fullname);
@@ -112,7 +112,7 @@ class Mailing {
 	public function question($questionid=0){
 		if(!$questionid) return false;
 
-		
+
 		$Questions = new Questions();
 		$User = new User();
 		$Promos = new Promos();
@@ -132,7 +132,7 @@ class Mailing {
 		$obj->question_date = $question->creado;
 
 		switch ($question->type) {
-			
+
 			case 'promos':
 
 				if(!$Promos->find($question->rowid)) return false;
@@ -143,7 +143,7 @@ class Mailing {
 				$obj->promo_link = ROOT.'promo/'.$client->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 				$obj->promo_title = $promo->title;
 
-				$obj->client = $client;				
+				$obj->client = $client;
 				$body = Templates::template('questions/question-promo',$obj);
 
 				$arrMails = str_replace(',', ';', $client->mail);
@@ -154,11 +154,11 @@ class Mailing {
 				//$this->_mailer->addAddress($this->_email, $this->_fullname);
 				//$this->_mailer->clearReplyTos();
 				//$this->_mailer->addReplyTo($this->_email, $this->_fullname);
-				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';		
+				$this->_mailer->Subject = 'Te hicieron una pregunta en EstiloSPA.com';
 				if(!$this->send($body)) return false;
 
 				$this->_notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.$obj->promo_link.'#questions" target="_blank">'.$promo->title.'</a>','question');
-				
+
 
 				break;
 
@@ -186,7 +186,7 @@ class Mailing {
 				break;
 
 			case 'glossary':
-				
+
 				if(!$clients = $Glossary->get_clients($question->rowid)) return false;
 				if(!$Glossary->find($question->rowid)) return false;
 				$glossary = $Glossary->data();
@@ -199,7 +199,7 @@ class Mailing {
 					$arrMails = explode(';',$arrMails);
 
 					$obj->client = $client;
-					
+
 					foreach($arrMails as $mail){
 						$this->_notifications->add(array(
 							'name_from'=>$user->name.' '.$user->lastname,
@@ -218,9 +218,9 @@ class Mailing {
 
 				$this->_notifications->add_log('Nueva pregunta enviada de '.$user->name.' '.$user->lastname.' ('.$user->mail.') a la etiqueta <a href="'.$obj->glossary_link.'#questions" target="_blank">'.$glossary->name.'</a>','question');
 
-				break;		
-			
-		}		
+				break;
+
+		}
 
 		return true;
 	}
@@ -229,12 +229,12 @@ class Mailing {
 	public function response($responseid=0){
 		if(!$responseid) return false;
 
-		
+
 		$Questions = new Questions();
 		$User = new User();
 		$Promos = new Promos();
 		$Clients = new Clients();
-		$Glossary = new Glossary();		
+		$Glossary = new Glossary();
 		$Assoc = new Assoc();
 
 		if(!$response = $Questions->get_response($responseid)) return false;
@@ -262,7 +262,7 @@ class Mailing {
 
 				$obj->client_link = ROOT.'centros/'.$client->permalink;
 				$obj->promo_link = ROOT.'promo/'.$client->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
-				$obj->promo_title = $promo->title;				
+				$obj->promo_title = $promo->title;
 				$body = Templates::template('questions/response-promo',$obj);
 
 				$this->_mailer->addAddress($user->mail, $user->name);
@@ -272,11 +272,11 @@ class Mailing {
 				$this->_notifications->add_log('Nueva respuesta enviada a '.$user->name.' '.$user->lastname.' ('.$user->mail.') en la promo <a href="'.ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title).'#questions" target="_blank">'.$promo->title.'</a>','question');
 
 				break;
-			
+
 			case 'clients':
 				if(!$Clients->find($question->rowid)) return false;
 				$client = $Clients->data();
-				
+
 				$obj->client_link = ROOT.'centros/'.$client->permalink;
 				$obj->client = $client;
 
@@ -293,7 +293,7 @@ class Mailing {
 			case 'glossary':
 				if(!$Glossary->find($question->rowid)) return false;
 				$glossary = $Glossary->data();
-				
+
 				$obj->glossary_link = ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name);
 				$obj->glossary_name = $glossary->name;
 
@@ -317,8 +317,8 @@ class Mailing {
 
 		}
 
-		//$this->_mailer->clearReplyTos();		
-		//$this->_mailer->addReplyTo($this->_email, $this->_fullname);		
+		//$this->_mailer->clearReplyTos();
+		//$this->_mailer->addReplyTo($this->_email, $this->_fullname);
 		if(!$this->send($body)) return false;
 
 		return true;
@@ -467,7 +467,7 @@ class Mailing {
 		if(!$this->send($body)) return false;
 
 		if($reservation->promo){
-			$this->_notifications->add_log('Nueva solicitud de reserva de '.$reservation->user->fullname.' ('.$reservation->user->mail.'). Promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha,'reservation');			
+			$this->_notifications->add_log('Nueva solicitud de reserva de '.$reservation->user->fullname.' ('.$reservation->user->mail.'). Promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha,'reservation');
 		}else{
 			$this->_notifications->add_log('Nueva solicitud de reserva de '.$reservation->user->fullname.' ('.$reservation->user->mail.') a <a href="'.ROOT.'centros/'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'</a>','reservation');
 		}
@@ -489,13 +489,13 @@ class Mailing {
 
 		if($reservation->promo){
 			$this->_notifications->add_log('Cancelación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
-		}else{			
+		}else{
 			$this->_notifications->add_log('Cancelación de reserva de parte de <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
 		}
 
 
 		return true;
-	}	
+	}
 	public function cancel_reservation_user($reservationid=0,$userid=0){
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
@@ -516,7 +516,7 @@ class Mailing {
 		if($reservation->promo){
 			$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
 		}else{
-			$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en el centro <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');			
+			$this->_notifications->add_log('Cancelación de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en el centro <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');
 		}
 
 
@@ -539,7 +539,7 @@ class Mailing {
 		if($reservation->promo){
 			$this->_notifications->add_log('Confirmación de reserva de parte del centro para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
 		}else{
-			$this->_notifications->add_log('Confirmación de reserva de parte de <a href="'.ROOT.'centros/'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');			
+			$this->_notifications->add_log('Confirmación de reserva de parte de <a href="'.ROOT.'centros/'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a> para el día '.$reservation->fecha.' hs. El usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') ha sido notificado.','reservation');
 		}
 
 
@@ -564,13 +564,13 @@ class Mailing {
 		if($reservation->promo){
 			$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para la promo: <a href="'.$reservation->promo->promolink.'" target="_blank">'.$reservation->promo->title.'</a> para el día '.$reservation->fecha.' hs. El centro ha sido notificado.','reservation');
 		}else{
-			$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');			
+			$this->_notifications->add_log('Confirmación de nueva fecha de reserva de parte del usuario '.$reservation->user->fullname.' ('.$reservation->user->mail.') para el día '.$reservation->fecha.' hs. en <a href="'.$reservation->client->permalink.'" target="_blank">'.$reservation->client->name.'<a>. El centro ha sido notificado.','reservation');
 		}
 
 
 		return true;
 	}
-	
+
 	public function update_reservation($reservationid=0){
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
@@ -589,7 +589,7 @@ class Mailing {
 	public function root(){
 		return $_SERVER['HTTP_HOST'];
 	}
-	
+
 
 
 

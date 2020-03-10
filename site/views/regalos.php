@@ -100,13 +100,13 @@
 				<p>&nbsp;</p>
 				<ul class="pagination">
 					
-					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
+					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'regalos/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
 					
 					<?php for($i=1; $i<=PageMaker($page_results,$total_results); $i++): ?>
-					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'busqueda/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
+					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'regalos/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
 					<?php endfor; ?>
 
-					<li class="page-item <?=$page==PageMaker($page_results,$total_results) ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page+1) ?>" class="page-link" ><i class="fa fa-angle-double-right"></i></a></li>
+					<li class="page-item <?=$page==PageMaker($page_results,$total_results) ? 'disabled' : ''?>"><a href="<?= ROOT.'regalos/'.$query.'/'.$location.'/'.($page+1) ?>" class="page-link" ><i class="fa fa-angle-double-right"></i></a></li>
 
 				</ul>
 

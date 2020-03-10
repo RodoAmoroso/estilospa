@@ -88,7 +88,7 @@ sales = {
 						.removeClass('dp-none')
 						.attr('data-id',v.id);
 
-					
+
 
 					if(v.title == null){
 						mod.find('[data-tag="title"]')
@@ -99,18 +99,21 @@ sales = {
 					}
 					var discountvoucher = 0;
 					var vouchertext = '';
-					if(v.idvoucher!= null){
-						vouchertext = ' - Usó Código: '+v.code;
-						if(v.ispercent==1){
-							discountvoucher = v.value*v.price/100;
+					if(v.voucher_id!= null){
+						vouchertext = ' - Usó Código de descuento ';
+						if(v.voucher_percent==1){
+							discountvoucher = v.voucher_value*v.price/100;
+							vouchertext += ' ('+v.voucher_value+'% Off)';
 						}else{
-							discountvoucher = v.value;
+							discountvoucher = v.voucher_value;
+							vouchertext += ' (-$'+v.voucher_value+')';
 						}
+						mod.find('[data-tag="voucher_usage"]').text(vouchertext);
 					}
 
 					mod.find('[data-tag="ordernumber"]')
 						.text('Orden Nro.: '+v.collection_id+' - $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.'));
-					
+
 					mod.find('[data-tag="price"]')
 						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
 
@@ -131,7 +134,7 @@ sales = {
 					if(v.gallery != null && v.gallery !='' ){
 						var img = $.parseJSON(v.gallery);
 						mod.find('.thumb')
-							.css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});					
+							.css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});
 					}
 
 					mod.find('[data-group="status"] button')
@@ -139,7 +142,7 @@ sales = {
 						.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(v.status).btn)
 						.find('span[data-tag="status"]')
 						.text(sales.switchstatus(v.status).label);
-					
+
 
 					if(v.image != '' && v.image != null){
 						var imgu = $.parseJSON(v.image);
@@ -154,7 +157,11 @@ sales = {
 					mod.find('[data-tag="username"]')
 						.text(v.username);
 					mod.find('[data-tag="mail"]')
-						.text(v.mail);
+						.html('<i class="fa fa-envelope fa-fw"></i> '+v.useremail);
+					if(v.userphone != null){
+						mod.find('[data-tag="phone"]')
+							.html('| <i class="fa fa-phone fa-fw"></i> '+v.userphone);
+					}
 
 					if(v.text != null){
 						mod.find('[data-tag="comment"]').html(v.text);
@@ -165,11 +172,19 @@ sales = {
 							mod.find('.stars i:eq('+(i-1)+')').addClass('fa-star-o');
 						}
 					}
+
+					if(v.sales_vouchers){
+						$.each(v.sales_vouchers,function(sk,sv){
+							mod.find('.voucher-list').append('<li><a href="'+ROOT+'compra-descarga-voucher/'+sv.id+'" target="_blank">'+v.merchant_order_id+'-'+sv.id+'</a></li>')
+						});
+					}
+
+					mod.find('[data-tag="ipn"]').remove();
 					///////////////////////////////////////////////////
 					$('#sales').append(mod);
 				});
 
-				
+
 			});
 	},
 	init:function(){
@@ -228,7 +243,7 @@ var stats = {
 				data = [{label:"$", data:chartdata}];
 
 				chartOptions = {
-					xaxis: {min:data.this_month, max:data.last_month, mode:"time", tickSize:[1, "month"], monthNames:["Ene ", "Feb ", "Mar ", "Abr ", "May ", "Jun ", "Jul ", "Ago ", "Sep ", "Oct ", "Nov ", "Dic "], tickLength:0}, 
+					xaxis: {min:data.this_month, max:data.last_month, mode:"time", tickSize:[1, "month"], monthNames:["Ene ", "Feb ", "Mar ", "Abr ", "May ", "Jun ", "Jul ", "Ago ", "Sep ", "Oct ", "Nov ", "Dic "], tickLength:0},
 					yaxis: {},
 					series: {lines: {show:true, fill:true, lineWidth:3}, points: {show:true, radius:3, fill:true, fillColor:"#ffffff", lineWidth:2}},
 					grid:{show:true, color:'#999', borderColor:'#dfdfdf', hoverable:true, clickable:false, borderWidth:1},
@@ -240,10 +255,10 @@ var stats = {
 
 
 			});
-		
+
 	},
 	init:function(){
-		this.evolution();		
+		this.evolution();
 	}
 }
 
@@ -266,7 +281,7 @@ $(function(){
 						});
 			}
 		});
-		
+
 	});
 
 

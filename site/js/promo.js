@@ -7,7 +7,7 @@ var GetMPLink = function(GIFT,IDCode){
 		idcode:IDCode,
 		reservationid:_vars
 	})
-		.then(function(data){	
+		.then(function(data){
 
 			if(GIFT){
 				var post = get_form('#modal_gift form');
@@ -25,7 +25,7 @@ var GetMPLink = function(GIFT,IDCode){
 
 
 $(function(){
-	
+
 	var slider = new Slider({
 		container:'.gallery'
 	});
@@ -37,8 +37,8 @@ $(function(){
 	questions.get();
 
 	char_count('#form_question [name=message]');
-	
-	
+
+
 
 	$('#form_reservation').submit(function(e){
 		e.preventDefault();
@@ -59,7 +59,7 @@ $(function(){
 					html:data.message
 				});
 			});
-		
+
 	});
 	var reservations = new Reservations({
 		idclient:IDClient,
@@ -80,7 +80,7 @@ $(function(){
 			$('#btn_voucher_cancel,#btn_voucher_next').removeAttr('data-gift');
 		}
 	});
-	
+
 	$('#fd_gift_message').keyup(function(){
 		$('#gift_left_characters').text(255-$(this).val().length);
 	});
@@ -93,7 +93,7 @@ $(function(){
 		}else{
 			$('#modal_voucher').modal('show');
 			$('#btn_voucher_cancel,#btn_voucher_next').attr('data-gift','true');
-		}	
+		}
 	});
 
 	$('#form_voucher_apply').submit(function(e){
@@ -105,11 +105,11 @@ $(function(){
 		ajax('site/vouchers/validate',post)
 			.then(function(data){
 				$('#btn_voucher_apply').button('reset');
-				
+
 				var v = data.result;
 
 				$('#voucher_status').removeClass('alert-danger').addClass('alert-success').empty().append(v.ispercent==1 ? v.value+'% de descuento' : 'Descuento de $'+v.value,' sobre el valor total de la promo');
-				
+
 				var promoprice = (v.price-(v.discount*v.price/100));
 				var total=0;
 				if(v.ispercent==1){
@@ -128,7 +128,7 @@ $(function(){
 						GetMPLink(false,v.id);
 					}else{
 						ajax('site/vouchers/free',post).then(function(data){
-							window.location.href = ROOT+'pago-status/success';
+							window.location.href = ROOT+'pago-status/success?promourl='+data.promourl+'&hash='+data.hash;
 						});
 					}
 				});
@@ -136,12 +136,12 @@ $(function(){
 			.catch(function(response){
 				$('#btn_voucher_apply').button('reset');
 			});
-		//});		
+		//});
 	});
 
 	$('#btn_voucher_cancel').click(function(){
 		$('#modal_voucher').modal('hide');
-		var isgift = $(this).attr('data-gift');		
+		var isgift = $(this).attr('data-gift');
 		GetMPLink(isgift==undefined?false:true,0);
 	});
 	$('#modal_voucher').on('hidden.bs.modal', function (e) {
@@ -169,7 +169,7 @@ $(function(){
 
 			case 'comprar':
 				if(islogged==1){
-					
+
 					$('#btn_sale').trigger('click');
 
 				}else{

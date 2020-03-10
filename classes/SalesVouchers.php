@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 use setasign\Fpdi\Fpdi;
@@ -17,7 +17,7 @@ class SalesVouchers extends Sales{
 
 		if(!parent::find($voucher->saleid)) return false;
 		$voucher->sale = parent::data();
-		
+
 		$User = new User();
 		$User->find($voucher->sale->iduser);
 		$voucher->user = $User->data();
@@ -39,7 +39,7 @@ class SalesVouchers extends Sales{
 		define('FPDF_FONTPATH',PATH.'fonts'.DS);
 		require_once PATH.'vendor/autoload.php';
 
-		$this->_pdf = new Fpdi();	
+		$this->_pdf = new Fpdi();
 
 		$this->_pdf->AddFont('ProximaNormal','','proxima-nova-600.php');
 		$this->_pdf->AddFont('ProximaBold','','proxima-nova-700.php');
@@ -58,13 +58,15 @@ class SalesVouchers extends Sales{
 		$this->_pdf->SetTextColor(0,0,0);
 		$this->_pdf->SetXY(21,179);
 		$this->_pdf->MultiCell(180,6,utf8_decode($voucher->promo->title),0,'L',false);
-		
 
 
-		$this->_pdf->SetFont('ProximaNormal','',10); 
+
+		$this->_pdf->SetFont('ProximaNormal','',10);
 		$this->_pdf->SetTextColor(0,0,0);
 		$this->_pdf->SetXY(21,186);
-		$this->_pdf->MultiCell(180,4,utf8_decode($voucher->promo->includes),0,'L',false);
+
+		$includes = preg_replace('/\r|\n/',' ',$voucher->promo->includes);
+		$this->_pdf->MultiCell(180,4,utf8_decode($includes),0,'L',false);
 		$this->_pdf->Ln();
 
 
@@ -88,7 +90,7 @@ class SalesVouchers extends Sales{
 		$this->_pdf->SetXY(21, 238);
 		$this->_pdf->Cell(180,6,'Realizar la reserva del turno al '.(empty($voucher->stores->phones) ? '' : 'Tel: '.$voucher->stores->phones.' ').(empty($voucher->stores->whatsapp) ? '' : '- Whatsapp: '.$voucher->stores->whatsapp),0,0,'L',false);
 
-		///return $this->_pdf->Output('D','estilospa.com_voucher_'.$gift->sale->collection_id.'.pdf');
+		//return $this->_pdf->Output('D','estilospa.com_voucher_'.$voucher->sale->collection_id.'.pdf');
 		return $this->_pdf->Output();
 		//return true;
 	}
@@ -96,7 +98,7 @@ class SalesVouchers extends Sales{
 	public function generate_voucher($voucher){
 
 		$this->_pdf->setSourceFile(PATH.'assets/voucher.pdf');
-		$tplidx = $this->_pdf->importPage(1); 
+		$tplidx = $this->_pdf->importPage(1);
 
 		$this->_pdf->addPage();
 		$this->_pdf->useTemplate($tplidx,0,0,210,297,true);
@@ -113,32 +115,32 @@ class SalesVouchers extends Sales{
 		}else{
 			$this->_pdf->Image(PATH.'assets/balloons.jpg',64,88,$imgw);
 		}
-		
+
 
 	}
 
 	public function generate_voucher_gift($voucher){
 
 		$this->_pdf->setSourceFile(PATH.'assets/voucher-regalo.pdf');
-		$tplidx = $this->_pdf->importPage(1); 
+		$tplidx = $this->_pdf->importPage(1);
 
 		$this->_pdf->addPage();
 		$this->_pdf->useTemplate($tplidx,0,0,210,297,true);
 
-		$this->_pdf->SetFont('Oleo','',22); 
+		$this->_pdf->SetFont('Oleo','',22);
 		$this->_pdf->SetTextColor(247,170,172);
-		
+
 		/// To
 		$this->_pdf->SetXY(40,35);
 		$this->_pdf->Cell(150,10,utf8_decode($voucher->to_user),0,0,'L',false);
-		
+
 		/// From
 		$this->_pdf->SetXY(40,45);
 		$this->_pdf->Cell(150,10,utf8_decode($voucher->user->name.' '.$voucher->user->lastname),0,0,'L',false);
-		
+
 		/// Message
 		$this->_pdf->SetTextColor(90,90,90);
-		$this->_pdf->SetFont('ProximaNormal','',15); 
+		$this->_pdf->SetFont('ProximaNormal','',15);
 		$this->_pdf->SetXY(18,59);
 		$this->_pdf->MultiCell(180,6,utf8_decode($voucher->message),0,'L',false);
 		$this->_pdf->Ln();
@@ -146,7 +148,7 @@ class SalesVouchers extends Sales{
 
 
 
-		//Image 		
+		//Image
 		if(!is_null($voucher->image) && file_exists($voucher->image->path)){
 			$image_size = getimagesize($voucher->image->path);
 			$wd = 80*$image_size[0]/$image_size[1];
@@ -161,8 +163,8 @@ class SalesVouchers extends Sales{
 
 	public function add_download($voucherid=0){
 		$this->_db->query(
-			"UPDATE {sales_vouchers} 
-			SET downloads=downloads+1 
+			"UPDATE {sales_vouchers}
+			SET downloads=downloads+1
 			WHERE id=?",
 			array($voucherid)
 		);

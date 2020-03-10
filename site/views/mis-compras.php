@@ -5,7 +5,7 @@
 		<hr>
 
 		<div id="sales">
-			<?php 			
+			<?php
 			if($sale_data):
 				foreach($sale_data as $key=>$sale):
 					if(!is_null($sale->title)){
@@ -19,21 +19,24 @@
 			?>
 			<div data-id="<?= $sale->id ?>" class="mod-sales">
 				<div class="sale-header">
-					<div class="thumb-container">						
+					<div class="thumb-container">
 						<div class="thumb thumb-cover" style="background-image:url(<?= $imgpromo ?>)"></div>
 					</div>
 					<div class="caption">
 						<h1 class="title">Orden Nro.: <?= $sale->merchant_order_id ?></h1>
 						<h2 class="subtitle">Precio Unit.: $ <?= number_format($sale->price,2,',','.') ?> | Cantidad: <?= $sale->quantity ?> | <span class="subtitle" >Total: $ <?= number_format($sale->price*$sale->quantity,2,',','.') ?></span></h2>
-						
-						<h2 class="title-promo"><?= $titlepromo ?></h2>
-						
-						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small> 
 
+						<h2 class="title-promo"><?= $titlepromo ?></h2>
+
+						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small>
+
+						<?php if($sale->collection_status=='approved'): ?>
 						<a href="<?=View::url('compra',$sale->id)?>" class="text-fucsia btn-xs "><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
+						<?php endif; ?>
+
 						<hr>
 
-						<?php 
+						<?php
 						switch ($sale->status) {
 							case 1:
 								$label = 'warning';
@@ -56,16 +59,16 @@
 						</div>
 
 
-					
+
 					</div>
 				</div>
 
 				<div class="sale-footer sale-user-footer">
 					<div class="sale-user">
-						<div class="feedback">					
+						<div class="feedback">
 
-					
-						<?php 
+
+						<?php
 						$comment = $Sales->get_comment($sale->id,$_userdata->id);
 						if(!$comment): ?>
 						<p >Todavía no calificaste <a href="<?= ROOT.'calificar/'.$sale->id ?>" class="btn btn-sm btn-success"><i class="fa fa-thumbs-up"></i> Calificar</a></p>
@@ -80,11 +83,11 @@
 							<?php endfor; ?>
 						</div>
 						<?php endif; ?>
-						
-											
+
+
 						</div>
-					</div>		
-				</div>	
+					</div>
+				</div>
 
 
 

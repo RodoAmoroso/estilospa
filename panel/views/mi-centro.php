@@ -3,7 +3,7 @@
 	<div class="container">
 		<h1>Mi Centro</h1>
 		<hr>
-		<p>En esta sección puedes administrar la información de tu comercio.</p>		
+		<p>En esta sección puedes administrar la información de tu comercio.</p>
 
 	</div>
 </section>
@@ -36,7 +36,7 @@
 			<li role="presentation"><a href="#tab_stores">Direcciones</a></li>
 			<li role="presentation"><a href="#tab_gallery">Imágenes</a></li>
 			<li role="presentation"><a href="#tab_features">Descripción/Características</a></li>
-			<li role="presentation"><a href="#tab_socials">Redes Sociales</a></li>			
+			<li role="presentation"><a href="#tab_socials">Redes Sociales</a></li>
 		</ul>
 
 
@@ -50,7 +50,7 @@
 							<label for="fd_name">Nombre</label>
 							<input id="fd_name" type="text" class="form-control">
 						</div>
-						
+
 						<div class="form-group">
 							<label for="fd_web">Web</label>
 							<div class="input-group">
@@ -58,7 +58,7 @@
 								<input id="fd_web" type="text" class="form-control">
 							</div>
 						</div>
-					
+
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
@@ -66,14 +66,14 @@
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
 						<div class="form-group">
-							<label for="fd_mail">Mail</label>								
-							<input id="fd_mail" type="text" class="form-control">							
+							<label for="fd_mail">Mail</label>
+							<input id="fd_mail" type="text" class="form-control">
 						</div>
 					</div>
 
 				</div>
 
-				<hr> 
+				<hr>
 				<div class="row">
 
 					<div class="col-xs-12 col-sm-6">
@@ -84,12 +84,12 @@
 						<div class="form-group">
 							<div data-input="logo">
 								<button id="btn_logo" class="btn btn-primary btn-sm">Subir Imagen</button>
-								<input type="file" accept="image/*" class="d-none">								
-							</div>							
+								<input type="file" accept="image/*" class="d-none">
+							</div>
 						</div>
 					</div>
 
-				</div>				
+				</div>
 			</div>
 
 
@@ -98,9 +98,9 @@
 				<h4 class="fw-600">Direcciones / Sucursales</h4>
 				<hr>
 
-				<div class="row">				
+				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="row">						
+						<div class="row">
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label for="fd_store_address">Dirección y Nro. <i class="fa fa-question-circle cl-pink-3" title="Agregar sólo la calle y el número."></i></label>
@@ -124,7 +124,7 @@
 								<div class="form-group">
 									<label for="fd_store_province">Provincia/Zona</label>
 									<select id="fd_store_province" class="form-control">
-										<?php 
+										<?php
 										$province = DB::getInstance()->get('provinces',array('id','!=',0));
 										if($province->count()):
 											foreach($province->results() as $kp=>$vp):
@@ -150,7 +150,14 @@
 									</div>
 								</div>
 							</div>
-						</div>						
+						</div>
+
+						<div class="form-group">
+							<label for="">Código de inserción de google maps</label>
+							<textarea id="fd_store_map" rows="5" class="form-control"></textarea>
+							<small><a href="https://support.google.com/maps/answer/144361?co=GENIE.Platform%3DDesktop&hl=es" target="_blank">¿cómo hago?</a></small>
+						</div>
+
 						<div class="form-group">
 							<label for="fd_store_schedules" class="dp-block">Horarios </label>
 							<button id="btn_schedules" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Editar</button>
@@ -169,7 +176,7 @@
 					</div>
 
 					<div class="col-xs-12 col-sm-6">
-						
+
 						<div id="stores" class="well mod-container-lg"></div>
 
 					</div>
@@ -189,9 +196,9 @@
 					<div class="hours">
 						<?php foreach(Dates::getHours() as $hour): ?>
 						<button data-hour="<?= $hour ?>" class="btn btn-white btn-xs"><?= $hour ?></button>
-						<?php endforeach; ?>						
+						<?php endforeach; ?>
 					</div>
-					<button id="btn_schedules_lunvie" class="btn btn-success btn-sm">Establecer este horario para Lunes a Viernes <i class="fa fa-check fa-fw op-0"></i></button> 
+					<button id="btn_schedules_lunvie" class="btn btn-success btn-sm">Establecer este horario para Lunes a Viernes <i class="fa fa-check fa-fw op-0"></i></button>
 					<button id="btn_schedules_alldays" class="btn btn-success btn-sm">Establecer este horario para todos los días <i class="fa fa-check fa-fw op-0"></i></button>
 					<hr>
 					<p class="sz-11 alert alert-info">Horario Establecido: <span id="schedules_text">No se estableció ningún horario aún.</span></p>
@@ -212,7 +219,7 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="fd_video">Agregar Imagen</label><br />
-							
+
 							<div data-input="gallery">
 								<button id="btn_images" class="btn btn-primary btn-sm">Examinar...</button>
 								<input type="file" multiple accept="image/*" class="d-none">
@@ -229,12 +236,12 @@
 								<div class="input-group-btn">
 									<button id="btn_add_video" class="btn btn-success"><i class="fa fa-plus"></i></button>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<p class="sz-9">Agregar sólamente la URL del video de Youtube. Es la que figura en la barra de direcciones. Por ej: https://www.youtube.com/watch?v=puvKF8gmXUM</p>
 					</div>
 				</div>
-				
+
 
 				<div id="gallery" class="well admin-gallery"></div>
 				<small>Puedes arrastrar y cambiar de lugar las imágenes.</small>
@@ -270,7 +277,7 @@
 				</div>
 			</div>
 
-			
+
 			<!-- REDES SOCIALES -->
 			<div id="tab_socials" class="tab-panel">
 

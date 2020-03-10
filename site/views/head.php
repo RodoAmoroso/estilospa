@@ -7,7 +7,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
-	
+
 	<meta name="description" content="<?= isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION ?>" >
 	<meta name="keywords" content="<?= isset($_KEYWORDS) ? $_KEYWORDS : KEYWORDS ?>" >
 
@@ -22,14 +22,14 @@
 	<link rel="stylesheet" href="<?= CSS ?>lib/toastr.min.css" >
 
 	<?php if(isset($_arrcss)): foreach ($_arrcss as $css): ?>
-	<link rel="<?= isset($css['rel']) ? $css['rel'] : 'stylesheet' ?>" href="<?= CSS.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> > 
+	<link rel="<?= isset($css['rel']) ? $css['rel'] : 'stylesheet' ?>" href="<?= CSS.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> >
 	<?php endforeach; endif; ?>
-	
+
 	<link rel="stylesheet" href="<?= CSS.'styles.css?id='.rand(1111,9999) ?>" >
 
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 
-	<?php 
+	<?php
 		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : 'assets'.DS.'logo-400x400.jpg';
 		$_IMGSIZE = getimagesize(PATH.$_IMGFACEBOOK);
 		$_URLHEAD = isset($_URLHEAD) ? $_URLHEAD : ROOT;
@@ -46,7 +46,7 @@
 	<meta property="og:title" content="<?= $_TITLE ?>" />
 	<meta property="og:description" content="<?= $_DESCRIPTION ?>" />
 	<meta property="og:image" content="<?= ROOT.$_IMGFACEBOOK ?>" />
-	<meta property="og:image:width" content="<?= $_IMGSIZE[0] ?>" /> 
+	<meta property="og:image:width" content="<?= $_IMGSIZE[0] ?>" />
 	<meta property="og:image:height" content="<?= $_IMGSIZE[1] ?>" />
 
 	<meta property="og:locale" content="es_ES" />
@@ -64,7 +64,7 @@
 		var _section = '<?= $_section ?>';
 		var _subsection = '<?= $_subsection ?>';
 		var _vars = '<?= $_vars ?>';
-	</script>	
+	</script>
 
 	<!-- Google Analytics -->
 	<script>
@@ -101,11 +101,11 @@
 	t.src=v;s=b.getElementsByTagName(e)[0];
 	s.parentNode.insertBefore(t,s)}(window, document,'script',
 	'https://connect.facebook.net/en_US/fbevents.js');
-	fbq('init', '1788765504486504');
+	fbq('init', '2625780054142690');
 	fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"
-	src="https://www.facebook.com/tr?id=1788765504486504&ev=PageView&noscript=1"
+	src="https://www.facebook.com/tr?id=2625780054142690&ev=PageView&noscript=1"
 	/></noscript>
 	<!-- End Facebook Pixel Code -->
 

@@ -14,7 +14,7 @@ var Types = {
 					////////////////////////////////////////
 					$('#list_types').append('<button data-id="'+v.id+'" class="list-group-item"><i class="fa fa-square"></i> '+v.name+'</button>');
 				});
-				
+
 				$('#list_types_edit').sortable({
 					update:function(){
 						var arrid = [];
@@ -32,7 +32,7 @@ var Types = {
 	},
 	save:function(){
 		ajax('admin/clients-types/save',{
-			Name:$('#fd_type_name').val(),			
+			Name:$('#fd_type_name').val(),
 			ID:Types.ID
 		})
 			.then(function(data){
@@ -94,7 +94,7 @@ var Types = {
 			.then(function(response){
 				if(response.value){
 					Types.ID = id;
-					Types.delete();					
+					Types.delete();
 				}
 			});
 
@@ -142,14 +142,14 @@ var Clients = {
 					mod.find('.foot').remove();
 					mod.find('.preview').attr('data-permalink',v.permalink);
 					var visible = v.visible == 1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>';
-					mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);	
+					mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);
 					if(v.logo != ''){
 						var logo = $.parseJSON(v.logo);
 						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});
 					}
 					$('#clients').append(mod);
 				});
-				
+
 			});
 	},
 	save:function(action){
@@ -168,7 +168,7 @@ var Clients = {
 		$.each($('#users .mod-list'),function(k,v){
 			users.push($(this).attr('data-id'));
 		});
-		
+
 		var visible = $('#fd_visible').hasClass('fa-toggle-on') ? 1 : 0;
 		var types = [];
 		$.each($('#list_types button'),function(k,v){
@@ -239,18 +239,18 @@ var Clients = {
 			});
 	},
 	delete:function(ID){
-		
+
 		ajax('admin/clients/delete',{ID:ID})
 			.then(function(){
 				Clients.reset();
 				Clients.get();
 			});
-		
+
 	},
 	find:function(){
 		ajax('admin/clients/find',{id:Clients.ID})
 			.then(function(DATA){
-	
+
 				$('#fd_name').val(DATA.client.name);
 				$('#fd_subtitle').val(DATA.client.subtitle);
 				$('#fd_web').val(DATA.client.web);
@@ -277,7 +277,7 @@ var Clients = {
 					var socials = $.parseJSON(DATA.client.socials);
 					$.each(socials,function(k,v){
 						Socials.OBJ.push({social:v.social,link:v.link});
-					});				
+					});
 					Socials.build();
 				}
 				//////////// TYPES /////////////////////////////////
@@ -363,7 +363,7 @@ var Clients = {
 			$('.nav-tabs li').not(li).removeClass('active');
 			li.addClass('active');
 			$('body,html').animate({scrollTop:$('.page-header').offset().top},{duration:900,easing:'easeInOutCubic'});
-			$('#main_content .tab-panel').not(href).slideUp({easing:'easeInOutCubic',duration:900});		
+			$('#main_content .tab-panel').not(href).slideUp({easing:'easeInOutCubic',duration:900});
 			$(href).slideDown({easing:'easeInOutCubic',duration:900});
 		});
 
@@ -380,7 +380,7 @@ var Clients = {
 			gallery:'#gallery',
 			sortable:true
 		});
-		
+
 		$('#clients').on('click','.delete',function(){
 			var id = $(this).attr('data-id');
 			Swal.fire({
@@ -405,15 +405,15 @@ var Clients = {
 			window.open(ROOT+'centros/'+$(this).attr('data-permalink'));
 		});
 
-		
+
 		///$('.nav-tabs a[href="#tab_stores"]').trigger('click');
-		$('#type_plans .flex-item').click(function(){		
+		$('#type_plans .flex-item').click(function(){
 			$('#type_plans i').removeClass('fa-check-circle').addClass('fa-circle');
 			$(this).find('i').removeClass('fa-circle').addClass('fa-check-circle');
 		});
 		$('#fd_visible,[for="fd_visible"]').click(function(){
 			$('#fd_visible').toggleClass('fa-toggle-off fa-toggle-on');
-		});	
+		});
 		////////////////////////////////////////////////////////////////////
 		SearchSuggestions('#form_search_users','admin/users/getbytype','',function(INPUT,ths,DATA){
 			var id = $(ths).attr('data-id');
@@ -429,7 +429,7 @@ var Clients = {
 			}
 			$.each($('#users .mod-list'),function(kk,vv){
 				if($(this).attr('data-id')==id){
-					pass = true;					
+					pass = true;
 				}
 			});
 			if(!pass){
@@ -443,7 +443,7 @@ var Clients = {
 		});
 		/*$('section').click(function(){
 			$('#search_suggest_users').hide();
-		});*/	
+		});*/
 		$('#btn_cancel').click(function(){
 			Clients.reset();
 		});
@@ -486,7 +486,7 @@ var Clients = {
 		});
 		$('#fd_name').keyup(function(){
 			$('#fd_permalink').val($(this).val().permalink());
-		});		
+		});
 		$('#btn_add_video').click(function(){
 			CheckFields(['#fd_video'],function(){
 				var idyoutube = GetIDVideo($('#fd_video').val(),'youtube');
@@ -497,7 +497,7 @@ var Clients = {
 					});
 				}else{
 					Swal.fire({type:'warning',text:'La URL ingresada es errónea. Asegúrate de que esté bien escrita.'});
-				}			
+				}
 			});
 		});
 		$('#btn_plans').click(function(){
@@ -527,11 +527,11 @@ var Stores = {
 					mod.append('<p>'+v.city+', '+v.name+'</p>')
 					$('#stores').append(mod);
 				});
-					
-			});	
+
+			});
 	},
 	reset:function(){
-		$('#fd_store_address,#fd_store_additional,#fd_store_city,#fd_store_phones,#fd_store_whatsapp,#fd_store_schedules').val('');
+		$('#tab_stores').find('input,textarea').val('');
 		Stores.ID = 0;
 		Schedules.reset();
 		$('#stores .mod-list,.block-buttons .inactive-block').removeClass('active');
@@ -545,6 +545,7 @@ var Stores = {
 				$('#fd_store_city').val(obj.city);
 				$('#fd_store_phones').val(obj.phones);
 				$('#fd_store_whatsapp').val(obj.whatsapp);
+				$('#fd_store_map').val(obj.map);
 				$('#fd_store_province option[value="'+obj.idprovince+'"]').prop('selected',true);
 				if(obj.schedules != ''){
 					Schedules.OBJ = $.parseJSON(obj.schedules);
@@ -563,6 +564,7 @@ var Stores = {
 			IDProvince:$('#fd_store_province').val(),
 			Phones:$('#fd_store_phones').val(),
 			Whatsapp:$('#fd_store_whatsapp').val(),
+			Map:$('#fd_store_map').val(),
 			Schedules:JSON.stringify(Schedules.OBJ)
 		})
 			.then(function(DATA){
@@ -613,7 +615,7 @@ var Stores = {
 			})
 				.then(function(response){
 					if(response.value){
-						Stores.delete(id);						
+						Stores.delete(id);
 					}
 				});
 
@@ -627,7 +629,7 @@ var Features = {
 	EditMode:false,
 	build:function(){
 		$('#features').html('');
-		
+
 		$.each(Features.OBJ,function(k,v){
 			var mod = $('#mod_list').clone();
 			mod.removeAttr('id').removeClass('dp-none');
@@ -701,7 +703,7 @@ var Features = {
 						Features.build();
 					}
 				});
-			
+
 		});
 
 
@@ -732,9 +734,9 @@ var Socials = {
 			mod.find('.delete').attr('data-node',k);
 			mod.find('.add').remove();
 			$('#socials').append(mod);
-		});		
-		
-		Socials.reset();		
+		});
+
+		Socials.reset();
 	},
 	reset:function(){
 		$('#fd_social_link').val('');
@@ -801,7 +803,7 @@ var Socials = {
 						Socials.build();
 					}
 				});
-			
+
 		});
 
 		$('#btn_social_cancel').click(function(){
@@ -817,7 +819,7 @@ var Users = {
 		mod.find('.edit').remove();
 		mod.find('.add').text('Ingresar como este usuario');
 		mod.find('h4').text(text);
-		$('#users').append(mod);		
+		$('#users').append(mod);
 	}
 }
 var Glossary = {
@@ -830,7 +832,7 @@ var Glossary = {
 					mod.removeClass('dp-none').removeAttr('id');
 					mod.find('.panel-heading').html(v.name+' <i class="fa fa-caret-down fa-fw clickable" data-target="#group_body_'+v.id+'" data-toggle="collapse" title="Plegar/Desplegar Todos"></i> | <i data-toogle="check" class="fa fa-square fa-fw clickable" title="Marcar/Desmarcar Todos"></i>');
 					mod.find('.panel-body').addClass('collapse in').attr('id','group_body_'+v.id);
-					
+
 					$.each(DATA.glossary[k],function(kg,vg){
 						var item = $('#mod_panel_group_item').clone();
 						item.removeAttr('id').removeClass('dp-none').addClass('clickable').attr('data-id',vg.id);
@@ -841,7 +843,7 @@ var Glossary = {
 
 					$('#glossary').append(mod);
 				});
-				
+
 			});
 	},
 	init:function(){
@@ -856,7 +858,7 @@ var Glossary = {
 				$('#glossary .panel-body').addClass('in');
 				$(this).attr('data-collapse','false');
 			}
-		});	
+		});
 		$('#btn_check_glossary').click(function(){
 			if($(this).attr('data-check')=='false'){
 				$('#glossary .item i').removeClass('fa-check-square').addClass('fa-square');
@@ -865,10 +867,10 @@ var Glossary = {
 				$('#glossary .item i').addClass('fa-check-square').removeClass('fa-square');
 				$(this).attr('data-check','false');
 			}
-		});	
+		});
 		$('#glossary button').click(function(){
 			$(this).find('i').toggleClass('fa-square fa-check-square');
-		});	
+		});
 
 		$('#glossary').on('click','.item',function(){
 			$(this).find('i').toggleClass('fa-square fa-check-square');
@@ -921,7 +923,7 @@ var Schedules = {
 		$.each(Schedules.OBJ[indx].schedules,function(kk,vv){
 			$.each($('#pop_schedules .hours button'),function(k,v){
 				var hour = $(this).attr('data-hour');
-				if(vv[0]==hour){match = true;}				
+				if(vv[0]==hour){match = true;}
 				if(match){
 					$('#pop_schedules .hours button:eq('+k+')').addClass('active');
 				}
@@ -929,7 +931,7 @@ var Schedules = {
 			});
 		});
 		$('#schedules_text').text(Schedules.buildtext(Schedules.OBJ[indx].schedules));
-	},	
+	},
 	buildhours:function(mode){
 		var arrhours = [];
 		var arrhourpos = [];
@@ -937,7 +939,7 @@ var Schedules = {
 			if($(this).hasClass('active')){
 				arrhours.push($(this).attr('data-hour'));
 				arrhourpos.push(k);
-			}				
+			}
 		});
 		var schedule = [];
 		$.each(arrhourpos,function(k,v){
@@ -948,16 +950,16 @@ var Schedules = {
 					///// break ////
 					schedule.push([arrhours[k]]);
 				}
-			}else{				
+			}else{
 				schedule.push([arrhours[k]]);  //first element
 			}
 		});
-		if(arrhours.length>0){			
+		if(arrhours.length>0){
 			schedule[schedule.length-1].push(arrhours[arrhours.length-1]);
 		}
 		//////////////////////////////////
 		$('#schedules_text').text(Schedules.buildtext(schedule));
-		var day = $('#pop_schedules .row-days button.active').attr('data-day');		
+		var day = $('#pop_schedules .row-days button.active').attr('data-day');
 		$.each(Schedules.OBJ,function(ks,vs){
 			if(mode=='alldays'){
 				Schedules.OBJ[ks].schedules = schedule;
@@ -966,7 +968,7 @@ var Schedules = {
 			}else if(vs.day==day){
 				Schedules.OBJ[ks].schedules = schedule;
 			}
-		});		
+		});
 		//console.log(Schedules.OBJ);
 	},
 	reset:function(){
@@ -1019,7 +1021,7 @@ var Plans = {
 		$('#fd_plans,#list_plans_edit').html('');
 		ajax('admin/plans/get')
 			.then(function(data){
-				
+
 				$.each(data.results,function(k,v){
 					var mod = $('#mod_list').clone();
 					mod.removeClass('dp-none').removeAttr('id').attr('data-id',v.id);
@@ -1030,7 +1032,7 @@ var Plans = {
 					$('#fd_plans').append('<option value="'+v.id+'" >'+v.name+' (Comisión '+v.fee+'%)</option>');
 				});
 
-				
+
 			});
 	},
 	find:function(){
@@ -1085,7 +1087,7 @@ var Plans = {
 		});
 		$('#list_plans_edit').on('click','.delete',function(){
 			var id = $(this).attr('data-id');
-			
+
 			Swal.fire({
 				type:'warning',
 				text:'¿Seguro deseas borrar este item?',
@@ -1095,7 +1097,7 @@ var Plans = {
 				.then(function(response){
 					if(response.value){
 						Plans.ID = id;
-						Plans.delete();						
+						Plans.delete();
 					}
 				});
 		});
@@ -1110,7 +1112,7 @@ var Plans = {
 			})
 				.then(function(data){
 					if(data.value){
-						el.remove();						
+						el.remove();
 					}
 				});
 		});
@@ -1125,9 +1127,9 @@ var Plans = {
 		Plans.get();
 	}
 }
-$(function(){	
-	ModViews();	
-	
+$(function(){
+	ModViews();
+
 	Stores.init();
 	Features.init();
 	Socials.init();

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class MPConfig {
 
@@ -13,18 +13,26 @@ class MPConfig {
 	public 	$arrfields=array(),
 					$idclient=0,
 					$redirect_uri=ROOT.'mp',
-					
-					/*$notification_url = ROOT.'ipn.php',
-					$app_id='7300466898804487',					
+
+
+					//Producción
+					$notification_url = ROOT.'ipn.php',
+					$app_id='7300466898804487',
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
 
 
 					//Test Localhost
-					$notification_url = 'https://www.estilospa.com/test-ipn.php',
-					$app_id='7030611358224519',
-					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+					///$notification_url = 'https://www.estilospa.com/test-ipn.php',
+					///$app_id='7030611358224519',
+					///$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+					///$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+
+					//Test Demo
+					//$notification_url = ROOT.'ipn.php',
+					//$app_id='7030611358224519',
+					//$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+					//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
 
 					// Test SpaEstilo
 					//$app_id='4678134710817612',
@@ -103,9 +111,9 @@ class MPConfig {
 			}
 		}
 		require PATH.'/vendor/autoload.php';
-		
+
 		//$mp = new MP($this->_data->access_token); // seller access_token
-		
+
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
 
 		$client_accesstoken = $this->get_access_token($CLIENTS->id);
@@ -158,7 +166,7 @@ class MPConfig {
 		$preference->save();
 
 		$this->_mplink = $preference;
-		
+
 
 
 		/*try{
@@ -180,7 +188,7 @@ class MPConfig {
 			'hash'=>$this->_hash,
 			'added'=>date('Y-m-d H:i:s')
 		))) return false;
-			
+
 		return $preference;
 	}
 
@@ -208,7 +216,7 @@ class MPConfig {
 	}
 
 	public function renewtoken($idclient=0){
-		
+
 		$where = "WHERE UNIX_TIMESTAMP(m.added)+m.expires_in-(60*60*24*7)<=UNIX_TIMESTAMP(NOW())";
 		if($idclient) $where = "WHERE m.idclient={$idclient}";
 
@@ -301,7 +309,7 @@ class MPConfig {
 				$output->mercadopago_fee = $fee->amount;
 			}
 			if($fee->type=='application_fee'){
-				$output->application_fee = $fee->amount;	
+				$output->application_fee = $fee->amount;
 			}
 		}
 		return $output;

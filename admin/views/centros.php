@@ -23,7 +23,7 @@
 						<div class="input-group-btn">
 							<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
-					</div>					
+					</div>
 				</form>
 
 				<div class="row">
@@ -48,11 +48,11 @@
 					<label for="" class="dp-block" >&nbsp;</label>
 					<button id="btn_new" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Centro</button>
 				</div>
-			</div>			
-			
+			</div>
+
 		</div>
 
-		
+
 		<hr>
 
 		<div class="well"><div id="clients" class="row"></div></div>
@@ -73,7 +73,7 @@
 			<li role="presentation"><a href="#tab_categories">Categorías</a></li>
 			<li role="presentation"><a href="#tab_gallery">Imágenes</a></li>
 			<li role="presentation"><a href="#tab_features">Descripción/Características</a></li>
-			<li role="presentation"><a href="#tab_socials">Redes Sociales</a></li>			
+			<li role="presentation"><a href="#tab_socials">Redes Sociales</a></li>
 		</ul>
 
 
@@ -87,7 +87,7 @@
 							<label for="fd_name">Nombre</label>
 							<input id="fd_name" type="text" class="form-control">
 						</div>
-						
+
 						<div class="form-group">
 							<label for="fd_web">Web</label>
 							<div class="input-group">
@@ -95,12 +95,12 @@
 								<input id="fd_web" type="text" class="form-control">
 							</div>
 						</div>
-						
+
 						<div class="form-group">
 							<label class="dp-block" for="fd_plans">Tipo de Plan</label>
 							<div class="input-group">
 								<select id="fd_plans" class="form-control">
-									<?php 
+									<?php
 									$plans = DB::getInstance()->get('clientplans',array('id','!=',0));
 									if($plans->count()): foreach($plans->results() as $kp=>$vp):
 									?>
@@ -112,7 +112,7 @@
 								</div>
 							</div>
 						</div>
-					
+
 					</div>
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
@@ -120,8 +120,8 @@
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
 						<div class="form-group">
-							<label for="fd_mail">Mail</label>								
-							<input id="fd_mail" type="text" class="form-control">							
+							<label for="fd_mail">Mail</label>
+							<input id="fd_mail" type="text" class="form-control">
 						</div>
 						<div class="form-group">
 							<label for="fd_permalink">Enlace Permanente	<i class="fa fa-question-circle cl-pink-3" data-toggle="tooltip" title="" data-original-title="El enlace permanente permite identificar a una página de manera fácil y rápida. Se genera automáticamente a partir del título. Si decides editarlo no debe contener espacios, acentos o caracteres especiales para que funcione correctamente."></i></label>
@@ -136,24 +136,24 @@
 					</div>
 
 				</div>
-				
+
 				<hr>
 
 				<i id="fd_visible" class="fa fa-toggle-on clickable"></i> <label for="fd_visible" class="clickable">Visible</label>
 
-				<hr> 
+				<hr>
 				<div class="row">
-					
-					
+
+
 					<div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="fd_users_search">Usuarios Asignados</label>
-							
-							<form id="form_search_users" class="form-group" autocomplete="off">								
+
+							<form id="form_search_users" class="form-group" autocomplete="off">
 								<input id="fd_users_search" type="text" class="form-control" placeholder="Buscar usuarios...">
 							</form>
 
-							<div id="users" class="well mod-container-sm"></div>	
+							<div id="users" class="well mod-container-sm"></div>
 
 							<p class="sz-8">Puedes asignar 1 o más usuarios registrados para editar la info de su propio negocio. Sólo aparecerán en la búsqueda los usuarios del tipo 'Cliente'</p>
 						</div>
@@ -163,7 +163,7 @@
 							<label for="btn_logo">Logo</label>
 							<div id="logo_client" class="thumb-contain thumb-200x200 border-gray-10"></div>
 						</div>
-						
+
 						<div class="form-group">
 							<div data-input="logo">
 								<button class="btn btn-xs btn-primary">Examinar...</button>
@@ -173,7 +173,7 @@
 
 					</div>
 
-				</div>				
+				</div>
 			</div>
 
 
@@ -182,9 +182,9 @@
 				<h4 class="fw-600">Direcciones / Sucursales</h4>
 				<hr>
 
-				<div class="row">				
+				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="row">						
+						<div class="row">
 							<div class="col-xs-6">
 								<div class="form-group">
 									<label for="fd_store_address">Dirección y Nro. <i class="fa fa-question-circle cl-pink-3" title="Agregar sólo la calle y el número."></i></label>
@@ -208,7 +208,7 @@
 								<div class="form-group">
 									<label for="fd_store_province">Provincia/Zona</label>
 									<select id="fd_store_province" class="form-control">
-										<?php 
+										<?php
 										$province = DB::getInstance()->get('provinces',array('id','!=',0));
 										if($province->count()):
 											foreach($province->results() as $kp=>$vp):
@@ -234,7 +234,14 @@
 									</div>
 								</div>
 							</div>
-						</div>						
+						</div>
+
+						<div class="form-group">
+							<label for="">Código de inserción de google maps</label>
+							<textarea id="fd_store_map" rows="5" class="form-control"></textarea>
+							<small><a href="https://support.google.com/maps/answer/144361?co=GENIE.Platform%3DDesktop&hl=es" target="_blank">¿cómo hago?</a></small>
+						</div>
+
 						<div class="form-group">
 							<label for="fd_store_schedules" class="dp-block">Horarios </label>
 							<button id="btn_schedules" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Editar</button>
@@ -253,7 +260,7 @@
 					</div>
 
 					<div class="col-xs-12 col-sm-6">
-						
+
 						<div id="stores" class="well mod-container-lg"></div>
 
 					</div>
@@ -273,9 +280,9 @@
 					<div class="hours">
 						<?php foreach(Dates::getHours() as $hour): ?>
 						<button data-hour="<?= $hour ?>" class="btn btn-white btn-xs"><?= $hour ?></button>
-						<?php endforeach; ?>						
+						<?php endforeach; ?>
 					</div>
-					<button id="btn_schedules_lunvie" class="btn btn-success btn-sm">Establecer este horario para Lunes a Viernes <i class="fa fa-check fa-fw op-0"></i></button> 
+					<button id="btn_schedules_lunvie" class="btn btn-success btn-sm">Establecer este horario para Lunes a Viernes <i class="fa fa-check fa-fw op-0"></i></button>
 					<button id="btn_schedules_alldays" class="btn btn-success btn-sm">Establecer este horario para todos los días <i class="fa fa-check fa-fw op-0"></i></button>
 					<hr>
 					<p class="sz-11 alert alert-info">Horario Establecido: <span id="schedules_text">No se estableció ningún horario aún.</span></p>
@@ -285,7 +292,7 @@
 
 				</div>
 
-			</div>	
+			</div>
 
 
 			<!-- TYPES & GLOSSARY -->
@@ -308,11 +315,11 @@
 						<h4 class="fw-600">Etiquetas</h4>
 						<div class="buttons">
 							<a href="<?= ADMIN.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
-							<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> | 
-							<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button> 
+							<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> |
+							<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button>
 							<button id="btn_check_glossary" data-check="true" class="btn btn-xs btn-white" ><i class="fa fa-check-square"></i> Marcar/Desmarcar Todos</button>
 						</div>
-						
+
 						<hr>
 						<div id="glossary" class="well mod-container-md"></div>
 
@@ -345,12 +352,12 @@
 								<div class="input-group-btn">
 									<button id="btn_add_video" class="btn btn-success"><i class="fa fa-plus"></i></button>
 								</div>
-							</div>							
+							</div>
 						</div>
 						<p class="sz-9">Agregar sólamente la URL del video de Youtube. Es la que figura en la barra de direcciones. Por ej: https://www.youtube.com/watch?v=puvKF8gmXUM</p>
 					</div>
 				</div>
-				
+
 
 				<div id="gallery" class="well admin-gallery"></div>
 				<p class="sz-9">Puedes arrastrar y cambiar de lugar las imágenes.</p>
@@ -384,7 +391,7 @@
 				</div>
 			</div>
 
-			
+
 			<!-- REDES SOCIALES -->
 			<div id="tab_socials" class="tab-panel">
 
@@ -424,14 +431,14 @@
 
 		</div>
 
-		
+
 		<div class="block-white block-buttons">
 			<div class="inactive-block" ></div>
 			<button id="btn_save" class="btn btn-lg btn-success pull-right"><i class="fa fa-save"></i> Guardar & Cerrar</button>
 			<button id="btn_cancel" class="btn btn-warning ">Cancelar</button>
 			<button id="btn_delete" class="btn btn-danger ">Borrar</button>
 		</div>
-		
+
 
 	</div>
 </section>
@@ -439,14 +446,14 @@
 
 <!-- TYPES -->
 <section id="type_panel" class="admin-box bg-gray-5 dp-none">
-	
+
 	<div class="container">
 		<h3 class="fw-600">Tipos de Centros</h3>
 		<hr>
 
-		<div class="block-white">			
+		<div class="block-white">
 			<div class="row">
-				
+
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_type_name">Nombre</label>
@@ -465,14 +472,14 @@
 						Recuerda que estas categorías conforman el menú principal del sitio.</p>
 					</div>
 				</div>
-				
+
 			</div>
 			<hr>
-			<button id="btn_close_types" class="btn btn-warning">Cerrar</button>			
+			<button id="btn_close_types" class="btn btn-warning">Cerrar</button>
 		</div>
 
 	</div>
-	
+
 </section>
 
 
@@ -481,9 +488,9 @@
 	<div class="container">
 		<h3 class="fw-600">Editar / Agregar Planes</h3>
 		<hr>
-		<div class="block-white">			
+		<div class="block-white">
 			<div class="row">
-				
+
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_plan_name">Nombre</label>
@@ -491,10 +498,10 @@
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
-							<div class="form-group">								
+							<div class="form-group">
 								<label for="fd_plan_fee">Comisión <i class="fa fa-question-circle cl-pink-3" title="Sólo agregar el valor sin la comisión de Mercado Pago"></i></label>
 								<div class="input-group">
-									<input id="fd_plan_fee" type="number" min="0" max="100" value="0" class="form-control">	
+									<input id="fd_plan_fee" type="number" min="0" max="100" value="0" class="form-control">
 									<div class="input-group-addon"><i class="fa fa-percent"></i></div>
 								</div>
 							</div>
@@ -506,7 +513,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="form-group">
 						<button id="btn_save_plan" class="btn btn-sm btn-success">Agregar/Editar</button>
 					</div>
@@ -514,13 +521,13 @@
 
 				<div class="col-xs-12 col-sm-6">
 					<div class="well mod-container-sm">
-						<div id="list_plans_edit" class="list-group"></div>						
+						<div id="list_plans_edit" class="list-group"></div>
 					</div>
 				</div>
-				
+
 			</div>
 			<hr>
-			<button id="btn_close_plans" class="btn btn-warning">Cerrar</button>			
+			<button id="btn_close_plans" class="btn btn-warning">Cerrar</button>
 		</div>
 	</div>
 </section>

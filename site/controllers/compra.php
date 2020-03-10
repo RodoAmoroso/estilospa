@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $Sales = new Sales();
 $Promos = new Promos();
@@ -14,10 +14,10 @@ if(!$Sales->find($_subsection)) Redirect::to('404');
 $sale = $Sales->data();
 
 if($sale->iduser != $_userdata->id) Redirect::to('restricted');
+if($sale->collection_status != 'approved') Redirect::to('404');
 
 
-
-$Promos->find($sale->idpromo);
+if(!$Promos->find($sale->idpromo)) Redirect::to('404');
 $promo = $Promos->data();
 
 $Stores->get($promo->idclient);

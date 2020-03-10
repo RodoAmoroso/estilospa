@@ -69,7 +69,7 @@ sales = {
 	get:function(){
 		$('#sales').html('');
 		$('[data-tag="totalmods"]').text(0);
-		
+
 		ajax('admin/sales/get',{
 			OrderNumber:$('#fd_ordernumber').val(),
 			From:$('#fd_from').val(),
@@ -78,12 +78,12 @@ sales = {
 		})
 			.then(function(DATA){
 				if(DATA.results == null){return false;}
-				
+
 				$('[data-tag="totalmods"]').text(DATA.results.length);
-				
+
 				$.each(DATA.results,function(k,v){
 					if(v.title == null){console.log(v.id)}
-				
+
 					var mod = $('#mod_sale').clone();
 
 					mod.removeAttr('id')
@@ -100,13 +100,16 @@ sales = {
 					}
 					var discountvoucher = 0;
 					var vouchertext = '';
-					if(v.idvoucher!= null){
-						vouchertext = ' - Usó Código: '+v.code;
-						if(v.ispercent==1){
-							discountvoucher = v.value*v.price/100;
+					if(v.voucher_id!= null){
+						vouchertext = ' - Usó Código: '+v.voucher_code;
+						if(v.voucher_percent==1){
+							discountvoucher = v.voucher_value*v.price/100;
+							vouchertext += ' ('+v.voucher_value+'% Off)';
 						}else{
-							discountvoucher = v.value;
+							discountvoucher = v.voucher_value;
+							vouchertext += ' (-$'+v.voucher_value+')';
 						}
+						mod.find('[data-tag="voucher_usage"]').text(vouchertext);
 					}
 
 					var total = (v.price-discountvoucher)*v.quantity;
@@ -114,10 +117,10 @@ sales = {
 
 					mod.find('[data-tag="ordernumber"]')
 						.text('Orden Nro.: '+v.collection_id+' - $ '+(total.numberFormat(2,',','.')));
-					
+
 					mod.find('[data-tag="price"]')
 						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
-					
+
 					mod.find('[data-tag="date"]')
 						.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
 
@@ -131,7 +134,7 @@ sales = {
 						.attr('data-id',v.id);
 
 					if(v.status=='rejected') mod.find('.sale-actions').remove();
-					
+
 					if(v.gallery != null){
 						var img = $.parseJSON(v.gallery);
 						mod.find('.thumb')
@@ -143,7 +146,7 @@ sales = {
 						.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(v.status).btn)
 						.find('span[data-tag="status"]')
 						.text(sales.switchstatus(v.status).label);
-		
+
 					if(v.image != '' && v.image != null){
 						var imgu = $.parseJSON(v.image);
 						var thumbimage = imgu.photoname+'-t.'+imgu.extension;
@@ -154,9 +157,13 @@ sales = {
 					mod.find('.user-thumb')
 						.css({backgroundImage:'url('+ROOT+'img/users/'+thumbimage+')'});
 					mod.find('[data-tag="username"]')
-						.text(v.username);
+						.html(v.username);
 					mod.find('[data-tag="mail"]')
-						.text(v.mail);
+						.html('<i class="fa fa-envelope fa-fw"></i> '+v.useremail);
+					if(v.userphone != null){
+						mod.find('[data-tag="phone"]')
+							.html('| <i class="fa fa-phone fa-fw"></i> '+v.userphone);
+					}
 
 					if(v.text != null){
 						mod.find('[data-tag="comment"]').html(v.text);
@@ -171,15 +178,24 @@ sales = {
 					}else{
 						mod.find('.stars').remove();
 					}
+
+					if(v.sales_vouchers){
+						$.each(v.sales_vouchers,function(sk,sv){
+							mod.find('.voucher-list').append('<li><a href="'+ROOT+'compra-descarga-voucher/'+sv.id+'" target="_blank">'+v.merchant_order_id+'-'+sv.id+'</a></li>')
+						});
+					}
+
+					mod.find('[data-tag="ipn"]').attr('href',ADMIN+'detalles-compra/'+v.collection_id);
+
 					///////////////////////////////////////////////////
 					$('#sales').append(mod);
 				});
-				
+
 			});
 	},
 
 	init:function(){
-		
+
 		$('#fd_search').submit(function(e){
 			e.preventDefault();
 			if(!DateFunctions.checkrange($('#fd_from').val(),$('#fd_to').val())){
@@ -205,7 +221,7 @@ sales = {
 				.addClass('btn btn-xs dropdown-toggle btn-'+sales.switchstatus(st).btn)
 				.find('span[data-tag="status"]')
 				.text(sales.switchstatus(st).label);
-			
+
 			ajax('admin/sales/setstatus',{ID:id,Status:st})
 				.then(function(){});
 
@@ -231,14 +247,14 @@ var stats = {
 				var chartdata = [];
 				$.each(data.stats,function(k,v){
 					var dd = new Date(v.year+'-'+v.month).getTime();
-					chartdata.push([dd,parseInt(v.suma)]);					
+					chartdata.push([dd,parseInt(v.suma)]);
 				});
 
 				var data, chartOptions;
 				data = [{label:"$", data:chartdata}];
 
 				chartOptions = {
-					xaxis: {min:data.this_month, max:data.last_month, mode:"time", tickSize:[1, "month"], monthNames:["Ene ", "Feb ", "Mar ", "Abr ", "May ", "Jun ", "Jul ", "Ago ", "Sep ", "Oct ", "Nov ", "Dic "], tickLength:0}, 
+					xaxis: {min:data.this_month, max:data.last_month, mode:"time", tickSize:[1, "month"], monthNames:["Ene ", "Feb ", "Mar ", "Abr ", "May ", "Jun ", "Jul ", "Ago ", "Sep ", "Oct ", "Nov ", "Dic "], tickLength:0},
 					yaxis: {},
 					series: {lines: {show:true, fill:true, lineWidth:3}, points: {show:true, radius:3, fill:true, fillColor:"#ffffff", lineWidth:2}},
 					grid:{show:true, color:'#999', borderColor:'#dfdfdf', hoverable:true, clickable:false, borderWidth:1},
@@ -250,14 +266,14 @@ var stats = {
 
 
 			});
-		
+
 	},
 	init:function(){
-		this.evolution();		
+		this.evolution();
 	}
 }
 
-	
+
 $(function(){
 	sales.init();
 	stats.init();

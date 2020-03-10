@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Sales {
 
@@ -62,21 +62,21 @@ class Sales {
 
 	public function find_gift($hash=''){
 		$this->_db->get('sales_gift',array('hash','=',$hash));
-		
+
 		if(!$this->_db->count()) return false;
 
 		$output = $this->_db->first();
-		$user = new User();		
-		
+		$user = new User();
+
 		if(!$user->find($output->from_user)) return false;
-		$output->from_user = $user->data();		
-		
+		$output->from_user = $user->data();
+
 		if(!$user->find($output->to_user)) return false;
 		$output->to_user = $user->data();
 
 		$this->_data = $output;
 		return $output;
-		
+
 	}
 
 	public function find_temp($hash=''){
@@ -172,38 +172,42 @@ class Sales {
 			$where .= "s.collection_status=?";
 			$values[] = $this->status;
 		}
-		
+
 		$limitby = 'LIMIT 0,100';
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
 		$this->_db->query(
-			"SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha, 
-			ss.name statusname, 
+			"SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha,
+			ss.name statusname,
 			p.title, p.subtitle, p.gallery, p.includes,
 			c.name clientname, c.permalink, c.id clientid, c.mail clientemail,
 			u.mail useremail, u.image, CONCAT(u.name,' ',u.lastname) username, u.phone userphone,
-			m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment, 
+			m.text, m.rate, DATE_FORMAT(m.added, '%d/%m/%Y %H:%i:%s') fechacomment,
 			vu.idvoucher voucher_id, vu.ispercent voucher_percent, vu.value voucher_value, vc.code voucher_code,
 			sg.id giftid, sg.to_user,
 			rs.reservationid
-			FROM {sales} s 
-			LEFT JOIN {sales_status} ss ON ss.id=s.status 
+			FROM {sales} s
+			LEFT JOIN {sales_status} ss ON ss.id=s.status
 			LEFT JOIN {sales_gift} sg ON sg.hash=s.hash
-			LEFT JOIN {promos} p ON p.id=s.idpromo 
-			LEFT JOIN {clients} c ON c.id=p.idclient 
+			LEFT JOIN {promos} p ON p.id=s.idpromo
+			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {users} u ON u.id=s.iduser
 			LEFT JOIN {comments} m ON m.idsale=s.id AND m.iduser=s.iduser
 			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
 			LEFT JOIN {vouchers_codes} vc ON vc.id=vu.idcode
 			LEFT JOIN {reservations_sales} rs ON rs.saleid=s.id
-			{$where} 
-			ORDER BY s.added DESC 
+			{$where}
+			GROUP BY collection_id
+			ORDER BY s.added DESC
 			{$limitby}",
 			$values
 		);
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->results();
+		foreach($this->_data as $key=>$row){
+			$this->_data[$key]->sales_vouchers = $this->get_vouchers($row->id);
+		}
 		return true;
 	}
 
@@ -211,7 +215,7 @@ class Sales {
 		if(empty($id)) return false;
 
 		if(!$this->get($id)) return false;
-		
+
 		$this->_data = $this->_data[0];
 		return true;
 	}
@@ -236,19 +240,19 @@ class Sales {
 		}
 
 		$this->_db->query(
-			"SELECT 
+			"SELECT
 				SUM(s.price*s.quantity) - IF(vu.id != '', IF(vu.ispercent=1, SUM(vu.value*s.price/100), SUM(vu.value)), 0) overall,
 				SUM(s.quantity) quantity,
 				SUM(s.application_fee) neto,
 				SUM(s.mercadopago_fee) mp_fee
-			FROM {sales} s 
-			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			FROM {sales} s
+			LEFT JOIN {promos} p ON p.id=s.idpromo
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
 			{$where}");
 		if($this->_db->count()){
 			$this->_overall = $this->_db->first();
-			return true;			
+			return true;
 		}
 		return false;
 	}
@@ -286,19 +290,19 @@ class Sales {
 	public function get_latest(){
 
 		$this->_db->query(
-			"SELECT s1.* 
+			"SELECT s1.*
 			FROM {sales} s1
 			INNER JOIN {promos} p ON p.id=s1.idpromo
-			INNER JOIN 
+			INNER JOIN
 				(
 					SELECT MAX(added) recent, iduser
-					FROM {sales} 
+					FROM {sales}
 					WHERE DATEDIFF(NOW(),added) = 16
 					GROUP BY iduser
-				) s2 
+				) s2
 				ON s2.iduser=s1.iduser AND s2.recent=s1.added
 			WHERE s1.idpromo != 0
-				AND p.start<=NOW() 
+				AND p.start<=NOW()
 				AND p.finish>=NOW()
 			LIMIT 0,100"
 		);
@@ -368,6 +372,11 @@ class Sales {
 			$output->image = $image;
 		}
 		return $this->_db->first();
+	}
+
+
+	public function getquery(){
+		return $this->_db->getquery()->queryString;
 	}
 
 

@@ -49,7 +49,7 @@
 					</div>
 					<div class="message">
 						<p data-content="message" class="caption"><?=$question->message?></p>
-						<small data-content="added">Enviada por <?=$question->user_name.' ('.$question->user_email.')'?>: <?=$question->creado?> hs. 						
+						<small data-content="added">Enviada por <?=$question->user_name.' (<a href="mailto:'.$question->user_email.'">'.$question->user_email.'</a> '.($question->user_phone ? ' | '.$question->user_phone : '').')'?>: <?=$question->creado?> hs. 						
 							
 						<?php if($question->type=='promos'): ?>
 						a la promo <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>

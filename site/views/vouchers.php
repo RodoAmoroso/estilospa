@@ -14,24 +14,26 @@
 			
 			<hr>
 
-			<div class="row">
+			<div class="promos-highlight">
 				<?php						
 				
-					$nm = 0;
-					foreach($Vouchers->data() as $kp=>$voucher):
+					
+					if($Vouchers->data()): foreach($Vouchers->data() as $kp=>$voucher):
+
 						$Promos->find($voucher->idpromo);
-						$promo = $Promos->data();						
-						if($promo->statusstart && $promo->statusfinish):				
-							echo '<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">';
-								if($Clients->find($promo->idclient)):
-									$imgpromo = json_decode($promo->gallery);
-									$Stores->get($Clients->data()->id,$promo->stores);
-									include 'mods/mod-promo.php';
-									if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
-								endif;
-							echo '</div>';
-						endif;
-					endforeach;				
+						$promo = $Promos->data();
+						
+						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+						$clientlink = ROOT.'centros/'.$promo->permalink;
+						$mp = $MPConfig->find($promo->idclient);
+						//$image = json_decode($promo->gallery);
+						$imgpromo = json_decode($promo->gallery);
+						$Stores->get($promo->idclient);
+						echo '<div class="mod-promo mod-promo-4">';
+						include 'mods/mod-promo.php';
+						echo '</div>';
+
+					endforeach; endif;
 				?>					
 			</div>
 		</div>

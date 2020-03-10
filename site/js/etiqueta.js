@@ -1,5 +1,5 @@
 $(function(){
-	var owlClients = $('#clients_carousel');	
+	var owlClients = $('#clients_carousel');
 	owlClients.owlCarousel({
 		autoplay:true,
 		loop:true,
@@ -27,7 +27,7 @@ $(function(){
 	var glossaryBar = $('.glossary-page .page-content .view-more').height();
 
 	$('#view_more').on('click',function(){
-	
+
 		if(glossary.attr('data-collapse')=='false'){
 			glossary.css({height:(glossaryContentHeight+glossaryBar+20)+'px'}).attr({'data-collapse':'true'});
 			$(this).find('span').text('leer menos');
@@ -43,7 +43,6 @@ $(function(){
 		$('.glossary-page .page-content').css({'height':'auto'});
 		$('.glossary-page .page-content .view-more #view_more').remove();
 	}
-
 
 	var questions = new Questions({
 		container:'#questions',

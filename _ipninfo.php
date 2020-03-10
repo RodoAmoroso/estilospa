@@ -10,7 +10,8 @@ if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
 
 $MPConfig = new MPConfig();
 
-MercadoPago\SDK::setAccessToken($MPConfig->access_token);
+MercadoPago\SDK::setClientId($MPConfig->app_id);
+MercadoPago\SDK::setClientSecret($MPConfig->secret_key);
 
 $payment_info = null;
 
@@ -19,6 +20,8 @@ switch($_GET["topic"]) {
 		try {
 			//$payment_info = $mp->get('/v1/payments/'.$_GET["id"]);
 			$payment_info = MercadoPago\Payment::find_by_id($_GET["id"]);
+			$merchant_order = MercadoPago\MerchantOrder::find_by_id($payment_info->order->id);
+
 		} catch (Exception $e) {
 			http_response_code(400);
 			return;
@@ -52,4 +55,4 @@ switch($_GET["topic"]) {
 }
 
 
-show_array($payment_info);
+show_array($merchant_order);

@@ -57,7 +57,7 @@ Clients.save = function(action){
 		Features:Features.OBJ,
 		Socials:Socials.OBJ
 	})
-		.then(function(DATA){			
+		.then(function(DATA){
 			if(action=='save'){
 				///window.location.reload();
 				toastr['success'](DATA.message);
@@ -85,7 +85,7 @@ Clients.find = function(){
 				var socials = $.parseJSON(DATA.client.socials);
 				$.each(socials,function(k,v){
 					Socials.OBJ.push({social:v.social,link:v.link});
-				});				
+				});
 				Socials.build();
 			}
 			///////////// GALLERY //////////////////////
@@ -140,7 +140,7 @@ Clients.init = function(){
 		$('.nav-tabs li').not(li).removeClass('active');
 		li.addClass('active');
 		$('body,html').animate({scrollTop:$('.page-header').offset().top},{duration:900,easing:'easeInOutCubic'});
-		$('#main_content .tab-panel').not(href).slideUp({easing:'easeInOutCubic',duration:900});		
+		$('#main_content .tab-panel').not(href).slideUp({easing:'easeInOutCubic',duration:900});
 		$(href).slideDown({easing:'easeInOutCubic',duration:900});
 	});
 	////////////////////////////////////////////////////////////////////
@@ -178,7 +178,7 @@ Clients.init = function(){
 		}
 		var action = $(this).attr('id') == 'btn_save' ? 'save' : 'preview';
 		Clients.save(action);
-	});	
+	});
 	$('#btn_add_video').click(function(){
 		CheckFields(['#fd_video'],function(){
 			var idyoutube = GetIDVideo($('#fd_video').val(),'youtube');
@@ -192,7 +192,7 @@ Clients.init = function(){
 					type:'warning',
 					text:'La URL ingresada es errónea. Asegúrate de que esté bien escrita.'
 				});
-			}			
+			}
 		});
 	});
 	Clients.find();
@@ -214,11 +214,11 @@ var Stores = {
 					mod.append('<p>'+v.city+', '+v.name+'</p>')
 					$('#stores').append(mod);
 				});
-				
-			});	
+
+			});
 	},
 	reset:function(){
-		$('#fd_store_address,#fd_store_additional,#fd_store_city,#fd_store_phones,#fd_store_whatsapp,#fd_store_schedules').val('');
+		$('#tab_stores').find('input,textarea').val('');
 		Stores.ID = 0;
 		///Stores.EditMode = false;
 		Schedules.reset();
@@ -233,12 +233,13 @@ var Stores = {
 				$('#fd_store_city').val(obj.city);
 				$('#fd_store_phones').val(obj.phones);
 				$('#fd_store_whatsapp').val(obj.whatsapp);
+				$('#fd_store_map').val(obj.map);
 				$('#fd_store_province option[value="'+obj.idprovince+'"]').prop('selected',true);
 				if(obj.schedules != ''){
 					Schedules.OBJ = $.parseJSON(obj.schedules);
 					Schedules.buildlist();
 				}
-			});		
+			});
 	},
 	save:function(){
 		ajax('panel/stores/save',{
@@ -250,6 +251,7 @@ var Stores = {
 			IDProvince:$('#fd_store_province').val(),
 			Phones:$('#fd_store_phones').val(),
 			Whatsapp:$('#fd_store_whatsapp').val(),
+			Map:$('#fd_store_map').val(),
 			Schedules:JSON.stringify(Schedules.OBJ)
 		})
 			.then(function(DATA){
@@ -298,10 +300,10 @@ var Stores = {
 						ajax('panel/store/delete',{IDS:Stores.ID},function(DATA){
 							Stores.reset();
 							Stores.get();
-						});								
+						});
 					}
-				});					
-		});	
+				});
+		});
 
 
 	}
@@ -346,8 +348,8 @@ var Features = {
 						Features.build();
 					}
 				});
-			
-		});		
+
+		});
 		Features.reset();
 	},
 	reset:function(){
@@ -413,7 +415,7 @@ var Socials = {
 			mod.find('.delete').attr('data-node',k);
 			mod.find('.add').remove();
 			$('#socials').append(mod);
-		});		
+		});
 		$('#socials .edit').unbind('click').click(function(){
 			var node = $(this).attr('data-node');
 			Socials.NODE = node;
@@ -439,7 +441,7 @@ var Socials = {
 					}
 				});
 		});
-		Socials.reset();		
+		Socials.reset();
 	},
 	reset:function(){
 		$('#fd_social_link').val('');
@@ -521,7 +523,7 @@ var Schedules = {
 		$.each(Schedules.OBJ[indx].schedules,function(kk,vv){
 			$.each($('#pop_schedules .hours button'),function(k,v){
 				var hour = $(this).attr('data-hour');
-				if(vv[0]==hour){match = true;}				
+				if(vv[0]==hour){match = true;}
 				if(match){
 					$('#pop_schedules .hours button:eq('+k+')').addClass('active');
 				}
@@ -529,7 +531,7 @@ var Schedules = {
 			});
 		});
 		$('#schedules_text').text(Schedules.buildtext(Schedules.OBJ[indx].schedules));
-	},	
+	},
 	buildhours:function(mode){
 		var arrhours = [];
 		var arrhourpos = [];
@@ -537,7 +539,7 @@ var Schedules = {
 			if($(this).hasClass('active')){
 				arrhours.push($(this).attr('data-hour'));
 				arrhourpos.push(k);
-			}				
+			}
 		});
 		var schedule = [];
 		$.each(arrhourpos,function(k,v){
@@ -548,16 +550,16 @@ var Schedules = {
 					///// break ////
 					schedule.push([arrhours[k]]);
 				}
-			}else{				
+			}else{
 				schedule.push([arrhours[k]]);  //first element
 			}
 		});
-		if(arrhours.length>0){			
+		if(arrhours.length>0){
 			schedule[schedule.length-1].push(arrhours[arrhours.length-1]);
 		}
 		//////////////////////////////////
 		$('#schedules_text').text(Schedules.buildtext(schedule));
-		var day = $('#pop_schedules .row-days button.active').attr('data-day');		
+		var day = $('#pop_schedules .row-days button.active').attr('data-day');
 		$.each(Schedules.OBJ,function(ks,vs){
 			if(mode=='alldays'){
 				Schedules.OBJ[ks].schedules = schedule;
@@ -566,7 +568,7 @@ var Schedules = {
 			}else if(vs.day==day){
 				Schedules.OBJ[ks].schedules = schedule;
 			}
-		});		
+		});
 		//console.log(Schedules.OBJ);
 	},
 	reset:function(){

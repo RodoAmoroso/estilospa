@@ -86,6 +86,7 @@ class Newsletters {
 		$this->add_log(array(
 			'userid'=>$obj->userid,
 			'type'=>$obj->type,
+			'body'=>$obj->body,
 			'contextid'=>$obj->contextid
 		));
 		$this->_db->delete('newsletters_queue',array('id','=',$obj->id));

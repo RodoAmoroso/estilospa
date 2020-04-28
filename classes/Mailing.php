@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	public 	$_mailer,
-					$_email='rodosoft@hotmail.com',
-					//$_email='estilospa.com@gmail.com',
+					//$_email='rodosoft@hotmail.com',
+					$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -19,10 +19,10 @@ class Mailing {
 		$this->_mailer->SMTPDebug = false;
 		$this->_mailer->CharSet = 'UTF-8';
 		$this->_mailer->isSMTP();
-		$this->_mailer->Host = 'mail.estilospa.com';
+		$this->_mailer->Host = 'warao.lineadns.com';
 		$this->_mailer->SMTPAuth = true;
 		$this->_mailer->Username = 'webmaster@estilospa.com';
-		$this->_mailer->Password = 'WmEsRaPd17';
+		$this->_mailer->Password = 'TwaIdrnQBEO2';
 		$this->_mailer->SMTPSecure = 'ssl';
 		$this->_mailer->Port = 465;
 		$this->_mailer->setFrom('webmaster@estilospa.com',$this->_fullname);
@@ -371,7 +371,13 @@ class Mailing {
 
 		$this->_mailer->clearAllRecipients();
 
-		$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
+		//$this->_mailer->addAddress($obj->clientemail, $obj->clientname);
+		$arrMails = str_replace(',', ';', $obj->clientemail);
+		$arrMails = explode(';',$arrMails);
+		foreach($arrMails as $mail){
+			$this->_mailer->addAddress(strtolower(trim($mail)), $obj->clientname);
+		}
+
 		$this->_mailer->addBCC($this->_email, $this->_fullname);
 		//$this->_mailer->addAddress($this->_email, $this->_fullname);
 		$this->_mailer->Subject = 'Nueva venta en EstiloSPA.com - Nro: '.$obj->title;

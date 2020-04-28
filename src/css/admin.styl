@@ -4,13 +4,13 @@
 @import 'common/variables'
 
 .header-admin
-	.logo 
+	.logo
 		padding 36px 10px
 	.nav-tabs
 		li
 			display inline-block
 			float none
-			vertical-align top 
+			vertical-align top
 		.active
 			a
 				background-color gray(5)
@@ -24,12 +24,12 @@
 	padding 20px 0
 	position relative
 	margin 0
-	hr 
+	hr
 		margin 16px 0
 	h1
 		font-weight 700
 		margin 0
-	p 
+	p
 		font-size 11pt
 
 
@@ -39,17 +39,17 @@
 	.thumbnail
 		margin 2px
 		position relative
-		.redbg 
+		.redbg
 			background-color rgba(150,20,30,0.65)
 			display none
-			height 100%	
+			height 100%
 			left 0
 			position absolute
 			top 0
 			width 100%
-			i 
+			i
 				cursor pointer
-				&:hover 
+				&:hover
 					color orange
 			.delete
 				position absolute
@@ -57,8 +57,8 @@
 				color white
 				top 8px
 		&:hover
-			.redbg 
-				display block	
+			.redbg
+				display block
 
 .admin-box
 	padding 0 0 10px 0
@@ -66,7 +66,7 @@
 		padding-top 16px
 		padding-bottom 16px
 		//Shadow(1px 1px 2px 1px rgba(0,0,0,0.10))
-			
+
 .mod-menu-container
 	min-height 100px
 	max-height 696px
@@ -74,7 +74,7 @@
 	.mod-menu
 		Transition(opacity,300ms,ease-out)
 		margin-bottom 2px
-		&:hover 
+		&:hover
 			opacity 0.6
 .mod-container
 	max-height 580px
@@ -86,24 +86,24 @@
 		opacity 1
 		padding 10px
 		position relative
-		border-radius 4px 
+		border-radius 4px
 		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.25)
 		Transition(all 300ms ease-out)
-		&:hover 
+		&:hover
 			border 1px solid gray(20)
 			box-shadow 2px 2px 4px 0 rgba(0,0,0,0.15)
 		.thumbnail
 			margin-bottom 0
 			height 80%
 			position absolute
-			width 80px 
+			width 80px
 		.data
 			overflow hidden
 			margin 0 130px 0 90px
-			hr 
+			hr
 				margin 8px 0 8px 0
 			.buttons
-				top 10px 
+				top 10px
 				position absolute
 				right 10px
 			.options
@@ -111,7 +111,7 @@
 				position absolute
 				right 10px
 
-.mod-card	
+.mod-card
 	Transition(width 300ms ease-out)
 	margin 0 0 4px 0
 	.card-inner
@@ -119,18 +119,18 @@
 		overflow hidden
 		margin-bottom 8px
 		transition box-shadow 300ms ease-out
-		&:hover 
+		&:hover
 			Shadow(5px 5px 6px 1px rgba(0,0,0,0.16))
 		.thumb
 			position relative
-			.buttons 
+			.buttons
 				position absolute
 				bottom 10px
 				right 10px
 			.selector
-				left 8px 
+				left 8px
 				position absolute
-				top 8px			
+				top 8px
 		.caption
 			background-color white
 			position relative
@@ -151,10 +151,10 @@
 					position absolute
 					width 80px
 					right 0
-					top 0					
-			hr 
+					top 0
+			hr
 				margin 0
-			p 
+			p
 				font-size 10pt
 				padding 10px
 				margin 0
@@ -172,14 +172,14 @@
 				position absolute
 				top 10px
 				right 10px
-			.foot 
+			.foot
 				align-items center
 				border-top 1px solid gray(10)
 				color gray(65)
-				display flex 
+				display flex
 				justify-content space-between
 				padding 6px 10px
-				text-align right	
+				text-align right
 			/*.edit
 				cursor pointer
 				position absolute
@@ -187,8 +187,8 @@
 				right 10px
 				.fa-circle
 					Transition(color 300ms ease-out)
-				&:hover 
-					.fa-circle 
+				&:hover
+					.fa-circle
 						color black
 			.edit-list
 				top 16px*/
@@ -202,7 +202,7 @@
 	height 360px
 	overflow auto
 .mod-container-lg
-	height 620px 
+	height 620px
 	overflow auto
 .mod-list-thumb
 	background-color  white
@@ -214,21 +214,21 @@
 	border-radius 4px
 	box-shadow 2px 2px 4px 0 rgba(0,0,0,0.25)
 	transition all 300ms ease-out
-	&:hover 
-		border 1px solid gray(20)		
+	&:hover
+		border 1px solid gray(20)
 		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.15)
 	.thumbnail
 		margin-bottom 0
 		height 80%
 		position absolute
-		width 80px 
+		width 80px
 	.data
 		overflow hidden
 		margin 0 130px 0 90px
-		hr 
+		hr
 			margin 8px 0 8px 0
 		.buttons
-			top 10px 
+			top 10px
 			position absolute
 			right 10px
 		.options
@@ -242,9 +242,9 @@
 	overflow hidden
 	padding 4px 14px
 	position relative
-	border-radius 2px 
+	border-radius 2px
 	///Transition(shadow 200ms linear)
-	&:hover 
+	&:hover
 		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.12)
 	h4
 		margin-right 50px
@@ -253,17 +253,17 @@
 	.buttons
 		position absolute
 		top 10px
-		right 10px		
-	p 
+		right 10px
+	p
 		font-size 9pt
 		color gray(50)
-	small 
+	small
 		color gray(60)
 		font-family 'Open Sans', sans-serif
 		font-size 8pt
 	hr
 		margin 6px 0
-.mod-list.active 
+.mod-list.active
 	background-color $aqua_2
 	border 1px solid $aqua_3
 	&:after
@@ -274,35 +274,35 @@
 		height 10px
 		position absolute
 		transform rotateZ(45deg)
-		width 10px		
-	&:hover 
+		width 10px
+	&:hover
 		box-shadow none
 
 .form-group
 	position relative
 
 .panel-admin-mod
-	.panel-heading 
+	.panel-heading
 		background-color gray(10)
 		color gray(60)
 		padding 6px 16px
 	.panel-body
 		margin 0
 		padding 0
-		.list-group 
+		.list-group
 			margin-bottom 0
 			.list-group-item
 				position relative
 				border none
 				border-top 1px solid gray(10)
-				border-radius 0				
+				border-radius 0
 				.buttons
 					right 10px
 					top 10px
 					position absolute
 				.item
 					margin-right 50px
-					i 
+					i
 						cursor pointer
 						margin 0 8px 0 0
 			.list-group-item:first-of-type
@@ -325,8 +325,8 @@
 	background-color white
 	margin 0 0 8px 0
 	.tab-panel
-		border-left 1px solid gray(10)	
-		border-right 1px solid gray(10)	
+		border-left 1px solid gray(10)
+		border-right 1px solid gray(10)
 		border-bottom 1px solid gray(10)
 		padding 36px 26px
 		position relative
@@ -342,17 +342,17 @@
 			top 0
 			width 100%
 			z-index 3
-			h1 
+			h1
 				font-size 18pt
-			.close 
+			.close
 				position absolute
 				right 16px
 				top 16px
 				opacity 1
 				font-size 9pt
-				&:hover 
+				&:hover
 					color $fucsia_3
-.pop-schedules 
+.pop-schedules
 	.row-days
 		overflow auto
 		margin 6px 0
@@ -361,7 +361,7 @@
 		button.active
 			background-color $aqua_3
 			color white
-	.hours 
+	.hours
 		margin 16px 0
 		display flex
 		flex-wrap wrap
@@ -374,19 +374,19 @@
 			padding 10px 0
 			text-align center
 			width 64px
-			&:hover 
+			&:hover
 				background-color $aqua_1
-		button.active 
+		button.active
 			background-color $aqua_3
 			color white
 .flex-options
-	display flex 
+	display flex
 	.flex-item
 		border 1px solid gray(10)
 		cursor pointer
 		padding 10px 16px
 		margin 0 10px 0 0
-		&:hover 
+		&:hover
 			background-color gray(5)
 .cke_editable
 	padding 18px
@@ -396,48 +396,48 @@
 
 
 .stats-highlights
-	display flex 
-	flex-wrap wrap 
+	display flex
+	flex-wrap wrap
 	justify-content center
-	.stats-block 
+	.stats-block
 		background-color white
 		border-radius 8px
 		border 1px solid gray(10)
 		margin 0 10px 10px 0
-		min-width 180px 
+		min-width 180px
 		padding 26px
 		text-align center
 		width 200px
-		.icon 
+		.icon
 			font-size 4rem
 			color $aqua_3
-		.number 
+		.number
 			font-size 2rem
 			font-weight 600
-		.caption 
+		.caption
 			margin-top 10px
-			font-size 1.2rem 
+			font-size 1.2rem
 			line-height 1.2rem
 			color gray(40)
-			
 
-table.dataTable 
+
+table.dataTable
 	margin 26px 0 !important
-	thead 
-		th,td 
+	thead
+		th,td
 			border-bottom 1px solid gray(10)
 table.dataTable.no-footer
 	border-bottom 1px solid gray(10)
 .dataTables_info
 	font-size 1.2rem
-.dataTables_wrapper .dataTables_length, 
-.dataTables_wrapper .dataTables_filter, 
-.dataTables_wrapper .dataTables_info, 
-.dataTables_wrapper .dataTables_processing, 
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate
 	color gray(60)
-	
-.dataTables_wrapper 
+
+.dataTables_wrapper
 	input,select
 		border 1px solid gray(10)
 		height 30px
@@ -445,16 +445,17 @@ table.dataTable.no-footer
 		padding 5px 10px
 		font-size 12px
 		border-radius 3px
-	.dataTables_paginate 
+	.dataTables_paginate
 		.paginate_button
 			border none !important
 			padding .25em .75em !important
 			background none !important
-			&:hover 
+			&:hover
 				color $pink_3 !important
 	.table-spacer-top
 		margin 16px 0
 		position relative
 		height 46px
-		
+
 @import 'admin/queries'
+@import 'admin/users-questions'

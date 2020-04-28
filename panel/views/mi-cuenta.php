@@ -44,7 +44,7 @@
 						<h2 class="fw-400">$ <?= number_format($Sales->overall()->overall-$Sales->overall()->neto-$Sales->overall()->mp_fee,2,',','.') ?></h2>
 						<small>(Cantidad neta en ventas del mes)</small>
 					</div>
-				
+
 					<div class="box-footer">
 						<?php
 						$Sales->period='lastmonth';
@@ -52,7 +52,7 @@
 						$lastmonthquantity = $Sales->overall()->quantity;
 						$difmonth = $thismonthquantity-$lastmonthquantity;
 						?>
-						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> promos vendidas</small> 
+						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> promos vendidas</small>
 						<small>
 							(<span class="text-<?= $difmonth < 0 ? 'danger' : 'success' ?> fw-700 ff-opensans"><?= ($difmonth < 0 ? '-' : '+').abs($difmonth) ?> <i class="fa fa-level-<?= $difmonth < 0 ? 'down' : 'up' ?>"></i></span> con respecto al mes anterior)
 						</small>
@@ -66,7 +66,7 @@
 					<div class="box-title">Total Vendido</div>
 					<?php
 					$Sales->period='';
-					$Sales->getOverall(); 
+					$Sales->getOverall();
 					?>
 					<div class="box-content alert-info">
 						<h2 class="fw-400">$ <?= number_format($Sales->overall()->overall-$Sales->overall()->neto-$Sales->overall()->mp_fee,2,',','.') ?></h2>
@@ -77,14 +77,14 @@
 						<small class="cl-gray-40"><?= $Sales->overall()->quantity ?> promos vendidas en total (desde el <?= date('d/m/Y', strtotime($User->data()->clientadded)) ?> hasta hoy)</small>
 					</div>
 				</div>
-			</div>		
+			</div>
 
 			<div class="box-wrapper box-4">
 				<div class="box">
 					<div class="box-title">Tipo de Cuenta</div>
 					<div class="box-content alert-info">
 						<h4 class="fw-400"><?= $User->data()->planname ?></h4>
-						<h5>Promos disponibles: 1/<?= $User->data()->cantpromos ?></h5>
+						<h5>Promos disponibles: <?= $User->data()->cantpromos-$total_promos ?>/<?= $User->data()->cantpromos ?></h5>
 					</div>
 					<div class="box-content">
 						<small>Comisión de venta online: <?= $User->data()->fee ?>%</small>
@@ -124,7 +124,7 @@
 						$thismonthquantity = $Sales->overall()->quantity;
 						?>
 						<h1 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h1>
-						<small class="cl-gray-40">Promos Vendidas: <?= $thismonthquantity ?></small>					
+						<small class="cl-gray-40">Promos Vendidas: <?= $thismonthquantity ?></small>
 					</div>
 					<div class="alert alert-success">
 						<h4 class="fw-400">Comisiones de EstiloSPA: $ <?= number_format($Sales->overall()->neto,2,',','.') ?></h4>
@@ -142,13 +142,13 @@
 						</small>
 					</div>
 				</div>
-				
+
 				<div class="block-box">
 					<div class="box-title">Total Vendido</div>
 					<div class="box-content">
 						<?php
 						$Sales->period='';
-						$Sales->getOverall(); 
+						$Sales->getOverall();
 						?>
 						<h3 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h3>
 						<small class="cl-gray-40">Promos Totales Vendidas: <?= $Sales->overall()->quantity ?></small>
@@ -158,7 +158,7 @@
 					</div>
 				</div>
 
-				
+
 
 				<div class="block-box">
 					<div class="box-title">Datos de mi cuenta</div>
@@ -169,17 +169,17 @@
 					</div>
 					<div class="box-footer">
 						<button id="btn_change_plan" class="btn btn-primary btn-sm btn-block">Deseo cambiar mi plan</button>
-					</div>								
-				</div>				
+					</div>
+				</div>
 
 			</div>
 
 			<!-- RIGHT COLUMN -->
 			<div class="col-xs-12 col-sm-8">
-				
+
 			</div>
 
-		</div>	
+		</div>
 
 
 
@@ -188,9 +188,9 @@
 
 			<h5 class="fw-400">Búsqueda</h5>
 
-			<form id="fd_search" class="row" autocomplete="off">					
-				
-				<div class="col-xs-12 col-sm-6">							
+			<form id="fd_search" class="row" autocomplete="off">
+
+				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<div class="row">
 							<div class="col-xs-6">
@@ -200,7 +200,7 @@
 								<input id="fd_to" type="text" class="form-control" placeholder="Hasta">
 							</div>
 						</div>
-					</div>						
+					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">

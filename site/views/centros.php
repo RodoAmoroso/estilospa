@@ -140,6 +140,7 @@
 		<!-- PROMOS -->
 		<?php
 		$Promos->idclient = $clientdata->id;
+		$Promos->sort = 'position';
 		$Promos->get();
 		if($Promos->data()):
 		?>

@@ -1,0 +1,114 @@
+.users-questions
+	border 1px solid gray(15)
+	box-shadow 2px 2px 6px alpha(black,.125)
+	border-radius 1rem
+	margin-bottom 1.5rem
+	overflow hidden
+	.uq-header
+		background-color gray(10)
+		background-color $cyan_0
+		padding .45rem 1rem
+		position relative
+		.title
+			font-size 1.875rem
+			font-weight 600
+		.subtitle
+			a
+				color $fucsia_3
+		small
+			color $cyan_3
+		.arrow
+			background-color white
+			border-radius 50%
+			cursor pointer
+			display flex
+			justify-content center
+			align-items center
+			right 1.5rem
+			top 1.5rem
+			height 26px
+			position absolute
+			width 26px
+			i
+				font-size 1.8rem
+	.uq-body
+		padding .765rem 1rem
+		.title-bar
+			background-color gray(10)
+			border-top-left-radius 1rem
+			border-top-right-radius 1rem
+			overflow hidden
+			margin 0
+			padding .45rem 1rem
+			.title
+				font-weight 600
+				font-size 110%
+				a
+					color black
+			.subtitle
+				a
+					color black
+		.uq-content
+			border-bottom-left-radius 1rem
+			border-bottom-right-radius 1rem
+			border 1px solid gray(10)
+			display flex
+
+			.questions,.sales
+				padding 1rem
+				width 50%
+			.questions
+				.title
+					color $fucsia_3
+					font-weight 700
+					font-size 1.5rem
+					border-bottom 1px solid gray(5)
+					margin-bottom .425rem
+				.questions-wrapper
+					display flex
+					align-items flex-start
+					padding .465rem
+					.date
+						color $fucsia_3
+					.question
+						line-height 1.25
+						padding 0 1.5rem
+						width 100%
+				.questions-wrapper:not(:last-of-type)
+					border-bottom 1px solid gray(10)
+			.sales
+				border-left 1px solid gray(10)
+				.title
+					color $fucsia_3
+					font-weight 700
+					font-size 1.5rem
+					border-bottom 1px solid gray(5)
+					margin-bottom .425rem
+				.sales-wrapper
+					display flex
+					margin 1rem 0
+					.date
+						color $fucsia_3
+					.sale
+						width 100%
+						padding 0 1.5rem
+						.order
+							color $cyan_3
+							font-size 1.5rem
+							font-weight 600
+
+			@media screen and (max-width 991px)
+				flex-wrap wrap
+				.questions,.sales
+					width 100%
+				.questions
+					.questions-wrapper
+						flex-wrap wrap
+						.question
+							padding .456rem 0
+				.sales
+					border-left none
+					.sales-wrapper
+						flex-wrap wrap
+						.sale
+							padding .456rem 0

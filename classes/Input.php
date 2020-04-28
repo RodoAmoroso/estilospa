@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Input {
 	public static function exists($type='post'){
@@ -12,7 +12,7 @@ class Input {
 			case 'request':
 				return (!empty($_REQUEST)) ? true : false;
 				break;
-			default: 
+			default:
 				return false;
 				break;
 		}
@@ -69,7 +69,7 @@ class Input {
 			switch($key){
 				case 'password':
 					if(strlen($value) < 8) {
-						$obj->response = Responses::response('password_length');
+						$obj->response = Responses::response('invalid_pass');
 						$obj->status = false;
 					}
 					/*if(!preg_match("#[0-9]+#", $value)) {
@@ -109,5 +109,5 @@ class Input {
 		return $obj;
 
 	}
-	
+
 }

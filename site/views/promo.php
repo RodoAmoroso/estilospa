@@ -194,6 +194,7 @@
 			<h4 class="title-bar">Validez</h4>
 			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
 			<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>
+			<p class="alert alert-danger"><b>CUARENTENA:</b> Se extienden las fechas de uso para luego de la cuarentena.</p>
 		</div>
 
 		<?php if($Promos->data()->sale): ?>

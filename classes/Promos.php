@@ -36,19 +36,19 @@ class Promos {
 		if(is_null($id)) return false;
 		$this->_db->query(
 			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname
-			FROM {promos} p 
-			LEFT JOIN {clients} c ON c.id=p.idclient 
+			FROM {promos} p
+			LEFT JOIN {clients} c ON c.id=p.idclient
 			WHERE p.id=?",
 			array($id)
 		);
-		
+
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
 		$this->_data->glossary = $this->get_glossary($id);
 		$this->_data->image = $this->get_image($this->_data->gallery);
 		$this->_data->url = ROOT.'promo/'.$this->_data->permalink.'/'.$this->_data->id.'-'.Permalink($this->_data->title);
 		return true;
-		
+
 	}
 
 	public function get_image($gallery=''){
@@ -59,26 +59,26 @@ class Promos {
 
 	public function get(){
 		$this->_data = null;
-		
+
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('p.title','p.subtitle','p.description'));
 		$where = empty($search_main) ? "" : "WHERE (".$search_main;
-		
-		
+
+
 		//$search_type = BuildSearch($this->arrtypes,$this->searchmixed,array('c.types'));
 		//$where .= empty($search_type) ? "" : (empty($where) ? "WHERE (".$search_type : " AND".$search_type);
-		
+
 		//$search_glossary = BuildSearchAssignment($this->arrglossary,'ga.glossaryid');
 		///$where .= empty($this->arrglossary) ? "" : (empty($where) ? "WHERE " : " OR ")." ga.glossaryid IN (".implode(',',$this->arrglossary).")";
 
 		$where .= empty($this->arrglossary) ? "" : (empty($where) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {promos_glossary_assignments} ga WHERE ga.glossaryid IN (".implode(',',$this->arrglossary).") AND ga.promoid=p.id) > 0";
 
-		
+
 		$search_promotype = BuildSearch($this->arrpromotypes,$this->searchmixed,array('p.idpromotype'));
 		$where .= empty($search_promotype) ? "" : (empty($where) ? "WHERE (".$search_promotype : " OR".$search_promotype);
-		
+
 		$where = !empty($search_main) ? $where.') ' : $where;
 
-		
+
 		//$search_idclient = BuildSearch($this->arridclients,$this->searchmixed,array('c.id'),'equal');
 		//$where .= empty($search_idclient) ? "" : (empty($where) ? "WHERE".$search_idclient : " AND".$search_idclient);
 
@@ -142,7 +142,7 @@ class Promos {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= " p.sale = 1";
 		}
-		
+
 		/*if($this->isgift){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= " p.gift = 1";
@@ -164,8 +164,8 @@ class Promos {
 					case 'gift':
 						$where .= empty($where) ? "WHERE " : " AND ";
 						$where .= "p.gift={$filter}";
-						break;					
-					
+						break;
+
 				}
 			}
 		}
@@ -175,15 +175,15 @@ class Promos {
 		//echo $search;
 
 		$query = "
-			SELECT 
-				p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado, 
-				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, 
+			SELECT
+				p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado,
+				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types,
 				t.name promotypename, DATEDIFF(p.finish, NOW()) dif
-				FROM {promos} p 
+				FROM {promos} p
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
-			{$where} 
-			{$sortby} 
+			{$where}
+			{$sortby}
 			{$limitby}";
 
 		//GROUP BY p.id
@@ -191,17 +191,17 @@ class Promos {
 		//echo $query;
 
 		$this->_db->query($query);
-		
+
 		if(!$this->_db->count()){
 			$this->_data = null;
 			return true;
 		}
-		
+
 		$this->_data = $this->_db->results();
 		return true;
 	}
 
-	public function get_glossary($promoid){		
+	public function get_glossary($promoid){
 		$this->_db->get('promos_glossary_assignments',array('promoid','=',$promoid));
 		if(!$this->_db->count()) return false;
 		$arr = array();
@@ -211,11 +211,18 @@ class Promos {
 		return $arr;
 	}
 
-	public function rating($id=0){		
+	public function get_total($clientid=0){
+		$this->_db->get('promos',['idclient','=',$clientid]);
+		if($this->_db->count()) return 0;
+		return $this->_db->count();
+
+	}
+
+	public function rating($id=0){
 		$this->_db->query(
-			"SELECT AVG(cm.rate) rating 
-			FROM {comments} cm 
-			LEFT JOIN {sales} s ON s.id=cm.idsale 
+			"SELECT AVG(cm.rate) rating
+			FROM {comments} cm
+			LEFT JOIN {sales} s ON s.id=cm.idsale
 			WHERE s.idpromo=?",
 			array($id)
 		);
@@ -288,9 +295,9 @@ class Promos {
 			$th = IMG.'promos'.DS.$vp->photoname.'-t.'.$vp->extension;
 
 			if(file_exists($th)) unlink($th);
-			if(file_exists($bg)) unlink($bg);		
+			if(file_exists($bg)) unlink($bg);
 		}
-	
+
 
 		if(!$this->_db->delete('promos_glossary_assignments',array('promoid','=',$promoid))) return false;
 		if(!$this->_db->delete('promo_views',array('promoid','=',$promoid))) return false;
@@ -303,8 +310,8 @@ class Promos {
 		)) return false;
 
 		if(!$this->_db->delete('promos',array('id','=',$promoid))) return false;
-		return true;		
-		
+		return true;
+
 	}
 
 	public function deleteAll($idclient=0){
@@ -353,7 +360,7 @@ class Promos {
 			//if(!empty($exclude))
 
 			/*$this->_db->query(
-				"UPDATE {$this->_dbprefix}promos 
+				"UPDATE {$this->_dbprefix}promos
 				SET position = position+1
 				{$where_include}"
 			);*/

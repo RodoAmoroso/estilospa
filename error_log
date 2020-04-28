@@ -1,0 +1,1017 @@
+[17-Mar-2020 22:45:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=0uWLFEEaiUk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[17-Mar-2020 22:45:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=-xYdsKbpgc8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[18-Mar-2020 19:06:20 UTC] PHP Warning:  Packets out of order. Expected 0 received 1. Packet size=23 in /home/estilosp/public_html/classes/DB.php on line 17
+[18-Mar-2020 19:06:20 UTC] PHP Warning:  PDO::__construct(): MySQL server has gone away in /home/estilosp/public_html/classes/DB.php on line 17
+[18-Mar-2020 19:06:20 UTC] PHP Warning:  PDO::__construct(): Error while reading greeting packet. PID=19679 in /home/estilosp/public_html/classes/DB.php on line 17
+[21-Mar-2020 23:14:26 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 00:46:12 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=EsL-ocxcSj8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 01:26:49 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 01:26:49 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 01:44:23 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 02:34:52 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=myA7ZOHfnKk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[22-Mar-2020 23:11:12 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:21:37 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Pv1GDpFGsBw&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:26:14 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=myA7ZOHfnKk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:29:03 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=fkYSHdp-BUM&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:29:03 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=VRv8McgwzRE&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:29:04 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=0uWLFEEaiUk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:31:52 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=myA7ZOHfnKk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:46:44 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=EsL-ocxcSj8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:55:26 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[23-Mar-2020 01:55:27 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 01:09:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:33:38 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:33:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:33:52 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=63DSOL-LeIM&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:36:23 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Tw9RG9fDD1o&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:36:34 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 503 Service Unavailable
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:36:43 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:36:52 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[26-Mar-2020 12:37:03 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=0uWLFEEaiUk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 500 Internal Server Error
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[27-Mar-2020 23:48:18 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 00:00:58 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 00:00:58 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 00:21:08 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=63DSOL-LeIM&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 02:49:01 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 02:49:01 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=nNqh9dXApus&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 02:49:01 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Tw9RG9fDD1o&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:33:07 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Tw9RG9fDD1o&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:33:07 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:33:08 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[28-Mar-2020 03:44:47 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Pv1GDpFGsBw&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[29-Mar-2020 21:56:43 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 02:28:34 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=myA7ZOHfnKk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 02:28:57 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=63DSOL-LeIM&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 02:42:57 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=9uY7RbBFja8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[30-Mar-2020 03:22:32 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 03:23:14 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 03:46:53 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[30-Mar-2020 03:53:07 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=9uY7RbBFja8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[31-Mar-2020 22:15:38 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 22:15:39 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 22:15:39 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=nNqh9dXApus&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 22:15:39 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 22:40:21 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=50nZl339HaA&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[31-Mar-2020 22:46:04 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HQbjYD_3SYI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 23:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 23:01:48 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 23:01:53 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[31-Mar-2020 23:01:53 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[01-Apr-2020 00:15:15 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Pv1GDpFGsBw&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[01-Apr-2020 01:28:20 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[01-Apr-2020 02:08:41 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HQbjYD_3SYI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:01:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:01:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:01:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=nNqh9dXApus&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:01:29 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:38:32 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=YSAAGpeYUhQ&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 01:57:22 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=50nZl339HaA&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[02-Apr-2020 01:59:55 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=50nZl339HaA&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[02-Apr-2020 03:24:19 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=63DSOL-LeIM&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[02-Apr-2020 13:51:35 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[02-Apr-2020 21:05:42 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[02-Apr-2020 21:05:45 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[03-Apr-2020 13:11:47 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[03-Apr-2020 13:11:48 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[03-Apr-2020 17:12:44 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[03-Apr-2020 17:12:44 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[03-Apr-2020 21:43:34 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[03-Apr-2020 21:43:34 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 14:35:09 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 14:35:09 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 14:35:48 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 14:35:49 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 14:36:39 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 15:59:39 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 16:00:08 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 16:00:17 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[04-Apr-2020 16:00:36 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[04-Apr-2020 16:00:37 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[05-Apr-2020 14:24:47 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[05-Apr-2020 14:24:51 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[05-Apr-2020 14:27:31 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[06-Apr-2020 01:02:54 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 01:02:54 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 01:24:15 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:24:15 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:24:15 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=nNqh9dXApus&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:24:15 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=khBymyumsYo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:59:10 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Ev5E8w6q4MI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:59:10 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:59:11 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 01:59:25 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HQbjYD_3SYI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 02:43:57 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=EsL-ocxcSj8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 02:48:02 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=Pv1GDpFGsBw&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/functions.php on line 336
+[06-Apr-2020 03:07:00 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=EsL-ocxcSj8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 03:07:00 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=myA7ZOHfnKk&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[06-Apr-2020 03:38:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 03:38:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 03:46:00 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 03:46:00 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 12:48:11 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 12:48:11 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 17:31:53 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 17:31:53 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 17:31:56 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 17:32:41 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 17:41:32 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[06-Apr-2020 18:57:52 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 18:57:52 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 19:04:22 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 19:04:22 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 19:04:56 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 19:04:57 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[06-Apr-2020 19:05:49 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[06-Apr-2020 19:06:09 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 15:09:27 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:10:10 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:10:27 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:34:04 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:34:04 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:35:21 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 15:41:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:41:05 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 15:43:07 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 16:06:56 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 16:07:47 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 16:25:11 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:12:30 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:12:30 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:30:42 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 17:34:38 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:34:39 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:55:35 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 17:55:35 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 19:25:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 19:25:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 19:26:02 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 19:31:43 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 21:14:39 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 21:15:32 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 21:34:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 21:35:36 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 22:14:26 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 22:14:26 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[07-Apr-2020 22:20:24 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[07-Apr-2020 22:25:37 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 09:26:42 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 09:27:29 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 10:36:55 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 10:36:55 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 11:07:20 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 11:14:26 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 11:17:09 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 11:17:48 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 11:24:34 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 11:29:18 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 13:01:27 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 13:01:27 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 13:01:30 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 13:02:12 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 18:08:02 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:08:02 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:08:07 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:11:11 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 18:24:38 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:24:38 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:26:00 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 18:35:23 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:35:23 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[08-Apr-2020 18:36:04 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 18:39:12 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[08-Apr-2020 19:08:37 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[09-Apr-2020 00:14:49 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HQbjYD_3SYI&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 00:16:41 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=XvdeWjgLi20&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 00:16:41 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=OIgr1yYGeGU&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 00:28:08 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=FgNTpo3OYR8&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 00:28:08 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=HeSKvDdGywo&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 00:28:08 America/Argentina/Buenos_Aires] PHP Warning:  file_get_contents(https://www.googleapis.com/youtube/v3/videos?id=nNqh9dXApus&amp;key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&amp;part=snippet): failed to open stream: HTTP request failed! HTTP/1.0 403 Forbidden
+ in /home/estilosp/public_html/site/views/centros.php on line 125
+[09-Apr-2020 07:11:31 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[09-Apr-2020 07:28:36 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[09-Apr-2020 07:32:58 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[09-Apr-2020 07:33:47 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067
+[09-Apr-2020 08:37:15 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[09-Apr-2020 08:38:33 America/Argentina/Buenos_Aires] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/estilosp/public_html/vendor/setasign/fpdf/fpdf.php:1008) in /home/estilosp/public_html/classes/Redirect.php on line 12
+[09-Apr-2020 14:55:06 America/Argentina/Buenos_Aires] PHP Fatal error:  Uncaught exception 'PHPMailer\PHPMailer\Exception' with message 'Invalid address:  (to): info@depi4ever.com; recepfranquicias@depi4ever.com' in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php:1067
+Stack trace:
+#0 [internal function]: PHPMailer\PHPMailer\PHPMailer->addAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#1 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(1030): call_user_func_array(Array, Array)
+#2 /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php(934): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', 'info@depi4ever....', 'Depi4ever')
+#3 /home/estilosp/public_html/classes/Mailing.php(374): PHPMailer\PHPMailer\PHPMailer->addAddress('info@depi4ever....', 'Depi4ever')
+#4 /home/estilosp/public_html/payment-process.php(114): Mailing->sales_success_client(Object(stdClass))
+#5 /home/estilosp/public_html/ipn.php(84): include('/home/estilosp/...')
+#6 {main}
+  thrown in /home/estilosp/public_html/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1067

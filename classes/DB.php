@@ -3,9 +3,9 @@
 class DB {
 
 	private static $_instance = null;
-	private $_pdo, 
-					$_query, 
-					$_error = false, 
+	private $_pdo,
+					$_query,
+					$_error = false,
 					$_results,
 					$_count = 0,
 					$_lastid = 0,
@@ -40,21 +40,21 @@ class DB {
 				}
 			}
 			if($this->_query->execute()){
-				
-				//if(!preg_match('/(INSERT )\w/', $sql)){				
+
+				//if(!preg_match('/(INSERT )\w/', $sql)){
 				$this->_count = $this->_query->rowCount();
 				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
 				//}
 				//}else{
 				//$this->_lastid = $this->_pdo->lastInsertId();
 				//}
-				
+
 			}else{
 				$this->_error = true;
 			}
-		}		
+		}
 		return $this;
-	}	
+	}
 	public function getquery(){
 		return $this->_query;
 	}
@@ -76,12 +76,12 @@ class DB {
 			$value 			= $where[2];
 
 			if(in_array($operator,$operators)){
-				$sql = "{$action} FROM {$this->_prefix}{$table} WHERE {$field} {$operator} ?";
+				$sql = "{$action} FROM {{$table}} WHERE {$field} {$operator} ?";
 				if(!$this->query($sql, array($value))->error()) return $this;
 			}
 		}else{
 			$sql = "{$action} FROM {{$table}}";
-			if(!$this->query($sql)->error()) return $this;		
+			if(!$this->query($sql)->error()) return $this;
 		}
 		return false;
 	}
@@ -110,9 +110,9 @@ class DB {
 			$where = "id={$id}";
 		}
 		$sql = "UPDATE {{$table}} SET {$set} WHERE {$where}";
-		if(!$this->query($sql,$fields)->error()){			
+		if(!$this->query($sql,$fields)->error()){
 			return true;
-		}		
+		}
 		return false;
 	}
 

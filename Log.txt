@@ -1,11 +1,52 @@
-http://www.estilospa.com/cpanel 
+NEOLO
+
+andrea@estilospa.com
+28luci@10
+
+[CPANEL]
+
+host: http://209.133.198.50:2082/
+user: estilosp
+pass: (Js1E3Pqq5f4D)
+
+
+[FTP]
+host: 209.133.198.50
+user: estilosp
+pass: (Js1E3Pqq5f4D)
+
+
+[EMAIL]
+smtp: warao.lineadns.com
+port: 465
+user: webmaster@estilospa.com
+pass: TwaIdrnQBEO2
+
+[BBDD]
+bbdd: estilosp_site
+user: estilosp_user
+pass: d1E05fwSvCYQ
+
+shared ip: 209.133.198.50
+
+
+[CRON]
+0	*	*	*	*			/usr/local/bin/php /home/estilo/public_html/cron_hourly.php >/dev/null 2>&1
+40	*	*	*	*		/usr/local/bin/php /home/estilo/public_html/cron_newsletters.php >/dev/null 2>&1
+0	0	*	*	*			/usr/local/bin/php /home/estilo/public_html/cron_daily.php >/dev/null 2>&1
+20	*	*	*	*		/usr/local/bin/php /home/estilo/public_html/cron_notifications.php >/dev/null 2>&1
+
+
+//////////////////////////////////
+
+http://www.estilospa.com/cpanel
 
 https://www.efemossesistemas.com.ar/cpanel
 
 Nombre de usuario: estilo
 Contraseña: S5dVx8VyCKnT
 
-Host: ftp.estilospa.com 
+Host: ftp.estilospa.com
 
 Nombre de usuario: estilo
 

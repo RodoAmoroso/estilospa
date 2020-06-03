@@ -11,7 +11,7 @@
 	<div class="container">
 
 		<div class="row">
-			<div class="col-xs-12 col-sm-6">
+			<div class="col-lg-6">
 				<form id="form_search" class="form-group" autocomplete="off">
 					<label for="fd_search">Buscar por nombre</label>
 					<div class="input-group">
@@ -22,7 +22,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-xs-12 col-sm-6 text-right">
+			<div class="col-lg-6 text-right">
 				<div class="form-group">
 					<label for="" class="dp-block" >&nbsp;</label>
 					<a href="<?=ADMIN.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Experiencia</a>
@@ -33,7 +33,7 @@
 		<hr>
 
 		<div class="row">
-			<div class="col-xs-4">
+			<div class="col-lg-3">
 				<label for="fd_select_status">Filtrar por status</label>
 				<select id="fd_select_status" class="form-control input-sm">
 					<option value="0">-- Todas --</option>
@@ -42,7 +42,7 @@
 					<option value="1:0">Finalizadas</option>
 				</select>
 			</div>
-			<div class="col-xs-4">
+			<div class="col-lg-3">
 				<label for="fd_select_client">Filtrar por cliente</label>
 				<select id="fd_select_client" class="form-control input-sm">
 					<option value="0">-- Todos --</option>
@@ -56,7 +56,7 @@
 					<?php endforeach; endif; ?>
 				</select>
 			</div>
-			<div class="col-xs-12 col-sm-4">
+			<div class="col-lg-3">
 				<div class="form-group">
 					<label for="fd_select_order">Ordernar</label>
 					<select id="fd_select_order" class="form-control input-sm">
@@ -65,6 +65,15 @@
 						<option value="title">Ordenar por orden alfabético (a-z)</option>
 					</select>
 				</div>
+			</div>
+			<div class="col-lg-3">
+				<label for="fd_select_category">Filtrar por Categoría</label>
+				<select id="fd_select_category" class="form-control input-sm">
+					<option value="">-- Todas --</option>
+					<?php if($categories): foreach($categories as $category): ?>
+					<option value="<?=$category->id?>"><?=$category->name?></option>
+					<?php endforeach; endif; ?>
+				</select>
 			</div>
 		</div>
 
@@ -93,21 +102,21 @@
 		<div class="block-white">
 
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_title">Nombre/Título</label>
 						<input id="fd_title" type="text" class="form-control" maxlength="80" data-toogle="charcount" >
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="row">
-						<div class="col-xs-6">
+						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="fd_start">Inicia</label>
 								<input id="fd_start" type="text" class="form-control clickable" readonly>
 							</div>
 						</div>
-						<div class="col-xs-6">
+						<div class="col-lg-6">
 							<div class="form-group">
 								<label for="fd_finish">Termina</label>
 								<input id="fd_finish" type="text" class="form-control clickable" readonly>
@@ -124,13 +133,13 @@
 
 
 			<div class="row" >
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-12 col-sm-3">
 					<div class="form-group">
 						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
 						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-12 col-sm-3">
 					<div class="form-group">
 						<label for="fd_promotypes">Tipo de Experiencia</label>
 						<div class="input-group">
@@ -141,7 +150,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-12 col-sm-3">
 					<div class="form-group">
 						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de experiencia no corresponde a un descuento, dejar en 0"></i></label>
 						<div class="input-group">
@@ -150,7 +159,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-12 col-sm-3">
 					<div class="form-group">
 						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>
 						<input id="fd_amount" type="number" class="form-control" value="20" min="0">
@@ -161,13 +170,13 @@
 
 
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_clients">Centro</label>
 						<select id="fd_clients" class="form-control" size="16" ></select>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" title="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
 					<div id="stores" class="well mod-container-sm"></div>
 					<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>
@@ -200,13 +209,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_duration">Duración de la actividad</label>
 						<input id="fd_duration" type="text" class="form-control">
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_cancellation">¿Cuál es la política de cancelación?</label>
 						<input id="fd_cancellation" type="text" class="form-control" value="24 hs antes del Turno Solicitado">
@@ -259,7 +268,7 @@
 		<hr>
 		<div class="block-white">
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_promotype_name">Nombre</label>
 						<input type="text" id="fd_promotype_name" class="form-control">
@@ -268,7 +277,7 @@
 						<button id="btn_save_promotype" class="btn btn-success btn-sm pull-right">Guardar</button>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-12 col-sm-6">
 					<label for="">Listado de Tipos de Experiencias</label>
 					<div id="mod_promotype" class="mod-container-sm well"></div>
 				</div>

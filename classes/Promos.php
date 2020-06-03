@@ -25,7 +25,8 @@ class Promos {
 					$expired=false,
 					$visible=false,
 					$search='',
-					$filters=false;
+					$filters=false,
+					$categoryid;
 
 	public function __construct(){
 		$this->_dbprefix = Config::get('mysql/prefix');
@@ -141,6 +142,10 @@ class Promos {
 		if($this->issale){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= " p.sale = 1";
+		}
+		if($this->categoryid){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= " p.categoryid = {$this->categoryid}";
 		}
 
 		/*if($this->isgift){

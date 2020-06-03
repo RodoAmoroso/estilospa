@@ -17,7 +17,7 @@ switch($_action){
 
 	case 'gallery':
 
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(1280,720,'-o'),array(600,600,'-t')), '', false);
@@ -36,6 +36,7 @@ switch($_action){
 		$Promos->keywords = Input::get('keywords');
 		$Promos->idclient = Input::get('idclient');
 		$Promos->status = Input::get('status');
+		$Promos->categoryid = Input::get('categoryid');
 		$Promos->sort = Input::get('sort');
 		$Promos->searchmixed = Input::get('search_mixed');
 		$Promos->get();

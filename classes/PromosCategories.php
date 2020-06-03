@@ -15,7 +15,7 @@ class PromosCategories extends Core{
 				'exclude'=>"pc.id!=?"
 			],
 			'search'=>[
-				'pc.name','pc.title'
+				'pc.name','pc.caption'
 			],
 			'sort'=>[
 				'name'=>"pc.name ASC",

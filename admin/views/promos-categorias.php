@@ -17,28 +17,28 @@
 <section id="list_panel" class="admin-box">
 	<div class="container">
 
-		<div class="row">
+		<form class="row">
 			<div class="col-lg-4">
-				<form id="form_search" class="form-group" autocomplete="off">
-					<label for="fd_search">Buscar por nombre</label>
+				<div class="form-group" autocomplete="off">
+					<label for="">Buscar por nombre</label>
 					<div class="input-group input-group-sm">
-						<input id="fd_search" type="text" class="form-control">
+						<input name="search" type="text" class="form-control" value="<?=Input::get('search')?>">
 						<div class="input-group-btn">
 							<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 			<div class="col-lg-4">
-				<label for="fd_select_status">Filtrar por status</label>
-				<select id="fd_select_status" class="form-control input-sm">
-					<option value="">-- Todas --</option>
-					<option value="1">Visible</option>
-					<option value="0">No Visibles</option>
+				<label for="">Filtrar por status</label>
+				<select name="visible" class="form-control input-sm" onchange="this.form.submit()">
+					<option value="" >-- Todas --</option>
+					<option value="1" <?= Input::get('visible')==1 ? 'selected' : '' ?>>Visible</option>
+					<option value="0" <?= Input::get('visible')==0 ? 'selected' : '' ?>>No Visibles</option>
 				</select>
 			</div>
 
-		</div>
+		</form>
 
 		<hr>
 

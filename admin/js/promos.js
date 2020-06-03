@@ -16,6 +16,7 @@ var Promos = {
 			keywords:$('#fd_search').val(),
 			sort:$('#fd_select_order').val(),
 			idclient:$('#fd_select_client').val(),
+			categoryid:$('#fd_select_category').val(),
 			status:$('#fd_select_status').val()
 		})
 			.then(function(DATA){
@@ -47,22 +48,20 @@ var Promos = {
 					}
 					$('#promos').append(mod);
 				});
-				
+
 			});
 	},
 	init:function(){
 
 		$('#form_search').submit(function(e){e.preventDefault();Promos.get()});
-		$('#fd_select_order').change(function(){Promos.get()});
-		$('#fd_select_status').change(function(){Promos.get()});
-		$('#fd_select_client').change(function(){Promos.get()});
+		$('#fd_select_order,#fd_select_status,#fd_select_client,#fd_select_category').change(function(){Promos.get()});
 		SearchSuggestions('#form_search','admin/promos/get','',Promos.get);
 
 
 		if($clientid!=''){
 			$('#fd_select_client').val($clientid).trigger('change');
 		}
-		
+
 		$('#promos').sortable({
 			update:function(){
 				var arrids = [];
@@ -93,7 +92,7 @@ var Promos = {
 						Promos.delete();
 					}
 				});
-			
+
 		});
 		$('#promos').on('click','.preview',function(){
 			var id = $(this).attr('data-id');
@@ -108,13 +107,13 @@ var Promos = {
 			$(this).attr('data-value',$(this).attr('data-value') == 1 ? 0 : 1);
 			$(this).find('i').toggleClass('fa-circle-o fa-dot-circle-o');
 		});
-		
+
 		$('button[data-toggle="move"]').click(function(){
 			var action = $(this).attr('data-value');
 			var arrids = [];
 			$.each($('#promos .selector'),function(){
 				if($(this).attr('data-value')==1){
-					arrids.push($(this).attr('data-id'));					
+					arrids.push($(this).attr('data-id'));
 				}
 			});
 			if(arrids.length==0){
@@ -131,7 +130,7 @@ var Promos = {
 		});
 
 		Promos.get();
-	}	
+	}
 }
 $(function(){
 	ModViews();

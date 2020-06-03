@@ -16,15 +16,15 @@
 
 			<div class="row">
 				<div class="col-lg-4">
-					<div class="form-group">
+					<form method="POST" class="form-group">
 						<label for="">Centros</label>
-						<select name="clients" class="form-control">
+						<select name="clients" class="form-control" onchange="this.form.submit()">
 							<option value="">--Todos los Centros--</option>
 							<?php if($clients): foreach($clients as $client): ?>
-							<option value="<?=$client->id?>"><?=$client->name?></option>
+							<option value="<?=$client->id?>" <?= Input::get('clients')==$client->id ? 'selected' : '' ?>><?=$client->name?></option>
 							<?php endforeach; endif; ?>
 						</select>
-					</div>
+					</form>
 				</div>
 			</div>
 
@@ -37,7 +37,7 @@
 					<div class="uq-header">
 						<div class="title"><?=$user->fullname?></div>
 						<div class="subtitle"><a href="mailto:<?=$user->mail?>"><i class="fa fa-envelope fa-fw"></i> <?=$user->mail?></a> <?php if($user->phone): ?> | <i class="fa fa-phone fa-fw"></i> <?=$user->phone?> <?php endif; ?></div>
-						<small>Usuario desde: <?=date('d/m/Y',strtotime($user->created))?> | Último acceso: <?=date('d/m/Y H:i',strtotime($user->logged))?> hs.</small>
+						<small>Usuario desde: <?=date('d/m/Y',strtotime($user->created))?> | Último acceso: <?= is_null($user->logged) ? 'Nunca' : date('d/m/Y H:i',strtotime($user->logged))?> hs.</small>
 
 						<div class="arrow" data-toggle="collapse" data-target="#mod_user_<?=$user->id?>">
 							<i class="fa fa-angle-down"></i>

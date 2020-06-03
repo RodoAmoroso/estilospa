@@ -16,14 +16,14 @@
 
 
 		<div class="stats-highlights">
-			
+
 			<div class="stats-block">
 				<div class="icon">
 					<i class="fa fa-eye"></i>
 				</div>
 				<div class="number"><?=$total_views?></div>
 				<div class="caption">
-					Visitas totales de tu página y las promos
+					Visitas totales de tu página y las experiencias
 				</div>
 			</div>
 
@@ -34,7 +34,7 @@
 				<div class="number"><?=round($rating,1)?>/5</div>
 				<small><?= Stars($rating); ?></small>
 				<div class="caption">
-					Promedio de calificaciones recibidas en tus promos
+					Promedio de calificaciones recibidas en tus experiencias
 				</div>
 			</div>
 
@@ -44,7 +44,7 @@
 				</div>
 				<div class="number"><?=$total_favs?></div>
 				<div class="caption">
-					Favoritos totales de tu página y promos
+					Favoritos totales de tu página y experiencias
 				</div>
 			</div>
 
@@ -54,7 +54,7 @@
 				</div>
 				<div class="number"><?=$total_questions?></div>
 				<div class="caption">
-					Consultas recibidas en tu página, promos y etiquetas
+					Consultas recibidas en tu página, experiencias y etiquetas
 				</div>
 			</div>
 
@@ -64,7 +64,7 @@
 				</div>
 				<div class="number"><?=$total_sales?></div>
 				<div class="caption">
-					Compras efectuadas en tus promos
+					Compras efectuadas en tus experiencias
 				</div>
 			</div>
 
@@ -75,7 +75,7 @@
 				</div>
 				<div class="number"><?=$total_reservations?></div>
 				<div class="caption">
-					Total turnos acumulados solicitados en tus promos
+					Total turnos acumulados solicitados en tus experiencias
 				</div>
 			</div>
 
@@ -96,26 +96,26 @@
 		<div class="block-white">
 
 			<div class="row">
-				
+
 				<div class="col-sm-6">
-				
-					<h4>Promos próximas a vencer</h4>
-					<?php 
+
+					<h4>Experiencias próximas a vencer</h4>
+					<?php
 					$Promos->expiring = true;
 					$Promos->sort = 'finish';
 					$Promos->get();
-					if($promos_expiring = $Promos->data()): 
+					if($promos_expiring = $Promos->data()):
 					?>
 					<div class="table-responsive">
 						<table class="table table-hover table-bordered sz-10 table-striped">
 							<thead>
 								<tr>
-									<th>Promo</th>
+									<th>Experiencias</th>
 									<th>Vence el:</th>
 									<th>Quedan:</th>
 									<th></th>
-								</tr>							
-							</thead>							
+								</tr>
+							</thead>
 							<tbody>
 								<?php foreach($promos_expiring as $promo): ?>
 								<tr>
@@ -132,15 +132,15 @@
 						</table>
 					</div>
 					<?php else: ?>
-					<p class="alert alert-info">No hay promos próximas a vencer.</p>
+					<p class="alert alert-info">No hay experiencias próximas a vencer.</p>
 					<?php endif; ?>
-					
+
 				</div>
 
 				<div class="col-sm-6">
-					
-					<h4>Promos finalizadas</h4>
-					<?php 
+
+					<h4>Experiencias finalizadas</h4>
+					<?php
 					$Promos->expiring = false;
 					$Promos->expired = true;
 					$Promos->sort = 'added';
@@ -152,12 +152,12 @@
 						<table class="table table-hover table-bordered table-striped sz-10">
 							<thead>
 								<tr>
-									<th>Promo</th>
+									<th>Experiencia</th>
 									<th>Finalizó el:</th>
 									<th></th>
-								</tr>							
-							</thead>				
-							
+								</tr>
+							</thead>
+
 							<tbody>
 								<?php foreach($promos_expired as $promo): ?>
 								<tr>
@@ -172,9 +172,9 @@
 					</div>
 
 					<?php else: ?>
-					<p class="alert alert-info">No se encontraron promos vencidas.</p>
+					<p class="alert alert-info">No se encontraron experiencias vencidas.</p>
 					<?php endif; ?>
-					
+
 				</div>
 
 			</div>
@@ -182,15 +182,15 @@
 			<hr>
 
 			<div class="row">
-				
+
 				<div class="col-md-6">
-					<h4>Promos más visitadas</h4>
+					<h4>Experiencias más visitadas</h4>
 					<?php if($top_promos): ?>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped sz-10">
 							<thead>
 								<tr>
-									<th>Promo</th>
+									<th>Experiencias</th>
 									<th>Visitas</th>
 								</tr>
 							</thead>
@@ -210,13 +210,13 @@
 				</div>
 
 				<div class="col-md-6">
-					<h4>Promos más consultada</h4>
+					<h4>Experiencias más consultada</h4>
 					<?php if($top_promos_questions): ?>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped sz-10">
 							<thead>
 								<tr>
-									<th>Promo</th>
+									<th>Experiencias</th>
 									<th>Consultas</th>
 								</tr>
 							</thead>
@@ -238,7 +238,7 @@
 			</div>
 
 		</div>
-		
+
 
 	</div>
 </section>

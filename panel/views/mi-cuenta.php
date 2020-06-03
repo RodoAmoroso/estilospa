@@ -3,8 +3,8 @@
 	<div class="container">
 		<h1>Mis Ventas</h1>
 		<hr>
-		<p>En esta sección puedes visualizar la información de tu cuenta, información de tus promos vendidas y datos estadísticos de tus ventas.</p>
-		<p>Es importante que al brindar el servicio de la promo a cada usuario cambies el estado de la misma. Para ello deberás buscar en el listado por el nro. de orden y establecer el estado 'brindado' o 'cancelado' desde el listado.</p>
+		<p>En esta sección puedes visualizar la información de tu cuenta, información de tus experiencias vendidas y datos estadísticos de tus ventas.</p>
+		<p>Es importante que al brindar el servicio de la experiencia a cada usuario cambies el estado de la misma. Para ello deberás buscar en el listado por el nro. de orden y establecer el estado 'brindado' o 'cancelado' desde el listado.</p>
 
 	</div>
 </section>
@@ -52,7 +52,7 @@
 						$lastmonthquantity = $Sales->overall()->quantity;
 						$difmonth = $thismonthquantity-$lastmonthquantity;
 						?>
-						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> promos vendidas</small>
+						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> experiencias vendidas</small>
 						<small>
 							(<span class="text-<?= $difmonth < 0 ? 'danger' : 'success' ?> fw-700 ff-opensans"><?= ($difmonth < 0 ? '-' : '+').abs($difmonth) ?> <i class="fa fa-level-<?= $difmonth < 0 ? 'down' : 'up' ?>"></i></span> con respecto al mes anterior)
 						</small>
@@ -74,7 +74,7 @@
 					</div>
 
 					<div class="box-footer">
-						<small class="cl-gray-40"><?= $Sales->overall()->quantity ?> promos vendidas en total (desde el <?= date('d/m/Y', strtotime($User->data()->clientadded)) ?> hasta hoy)</small>
+						<small class="cl-gray-40"><?= $Sales->overall()->quantity ?> experiencias vendidas en total (desde el <?= date('d/m/Y', strtotime($User->data()->clientadded)) ?> hasta hoy)</small>
 					</div>
 				</div>
 			</div>
@@ -84,7 +84,7 @@
 					<div class="box-title">Tipo de Cuenta</div>
 					<div class="box-content alert-info">
 						<h4 class="fw-400"><?= $User->data()->planname ?></h4>
-						<h5>Promos disponibles: <?= $User->data()->cantpromos-$total_promos ?>/<?= $User->data()->cantpromos ?></h5>
+						<h5>Experiencias disponibles: <?= $User->data()->cantpromos-$total_promos ?>/<?= $User->data()->cantpromos ?></h5>
 					</div>
 					<div class="box-content">
 						<small>Comisión de venta online: <?= $User->data()->fee ?>%</small>
@@ -124,7 +124,7 @@
 						$thismonthquantity = $Sales->overall()->quantity;
 						?>
 						<h1 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h1>
-						<small class="cl-gray-40">Promos Vendidas: <?= $thismonthquantity ?></small>
+						<small class="cl-gray-40">Experiencias Vendidas: <?= $thismonthquantity ?></small>
 					</div>
 					<div class="alert alert-success">
 						<h4 class="fw-400">Comisiones de EstiloSPA: $ <?= number_format($Sales->overall()->neto,2,',','.') ?></h4>
@@ -151,7 +151,7 @@
 						$Sales->getOverall();
 						?>
 						<h3 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h3>
-						<small class="cl-gray-40">Promos Totales Vendidas: <?= $Sales->overall()->quantity ?></small>
+						<small class="cl-gray-40">Experiencias Totales Vendidas: <?= $Sales->overall()->quantity ?></small>
 					</div>
 					<div class="box-footer">
 						<small class="cl-gray-40">Calculado desde el <?= date('d/m/Y', strtotime($User->data()->clientadded)) ?> hasta hoy</small>
@@ -164,7 +164,7 @@
 					<div class="box-title">Datos de mi cuenta</div>
 					<div class="box-content">
 						<h3 class="fw-400">Tipo de Cuenta: <?= $User->data()->planname ?></h3>
-						<h4>Promos disponibles: 1/<?= $User->data()->cantpromos ?></h4>
+						<h4>Experiencias disponibles: 1/<?= $User->data()->cantpromos ?></h4>
 						<small>Comisión de venta online: <?= $User->data()->fee ?>%</small>
 					</div>
 					<div class="box-footer">
@@ -214,7 +214,7 @@
 				</div>
 			</form>
 
-			<small>Listado de las últimas 100 Promos Vendidas - Total: <span data-tag="totalmods" >0</span></small>
+			<small>Listado de las últimas 100 Experiencias Vendidas - Total: <span data-tag="totalmods" >0</span></small>
 			<hr>
 
 			<div id="sales"></div>

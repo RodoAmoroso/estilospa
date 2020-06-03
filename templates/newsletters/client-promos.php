@@ -1,26 +1,26 @@
 
 <?php if($obj->promos): ?>
 
-<h2 style="font-size:12pt">Mirá estas promos de <?=$obj->client->name?> que tenemos para vos:</h2>
+<h2 style="font-size:12pt">Mirá estas experiencias de <?=$obj->client->name?> que tenemos para vos:</h2>
 <table cellpadding="0" cellspacing="0" style="background-color: #eee;width:100%">
-	
-	<?php 
+
+	<?php
 	$loop = PageMaker(2,count($obj->promos));
-	for($i=1; $i<=$loop; $i++):		
+	for($i=1; $i<=$loop; $i++):
 	?>
-	
+
 	<tr>
 
-		<?php 
+		<?php
 		for($p=1; $p<=2; $p++):
-			if(!empty($obj->promos)): 
+			if(!empty($obj->promos)):
 				$promo = $obj->promos[0];
 				$img = json_decode($promo->gallery);
-		?>		
+		?>
 		<td style="width:50%;vertical-align: top;padding:8px">
 			<div style="position:relative;height:180px;overflow:hidden;">
-				<img src="<?=View::img('promos',$img[0]->photoname.'-t.'.$img[0]->extension)?>" alt="" style="width:100%;position:absolute;left:0;top:0">				
-			</div>		
+				<img src="<?=View::img('promos',$img[0]->photoname.'-t.'.$img[0]->extension)?>" alt="" style="width:100%;position:absolute;left:0;top:0">
+			</div>
 			<div style="padding:16px;background-color: white">
 				<h2 style="font-size:11pt"><?=$promo->title?></small>
 				<?php if($promo->sale): ?>

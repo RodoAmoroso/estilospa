@@ -24,7 +24,7 @@
 								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 							</div>
 						</div>
-						
+
 					</form>
 				</div>
 
@@ -34,7 +34,7 @@
 						<button id="btn_new" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Voucher</button>
 					</div>
 				</div>
-				
+
 			</div>
 			<hr>
 			<div class="row">
@@ -49,7 +49,7 @@
 				</div>
 				<div class="col-sm-4">
 					<label for="fd_filter_client">Filtrar por cliente</label>
-					<?php 
+					<?php
 					$_CLIENTS = new Clients();
 					$_CLIENTS->sort = 'name';
 					if($_CLIENTS->get()):
@@ -61,11 +61,11 @@
 						<?php endforeach; ?>
 					</select>
 					<?php endif; ?>
-					
+
 				</div>
 				<div class="col-sm-4">
 					<div class="form-group">
-						<label for="fd_filter_promo">Filtrar por promo</label>
+						<label for="fd_filter_promo">Filtrar por experiencia</label>
 						<select id="fd_filter_promo" class="form-control input-sm">
 							<option value="0">-- Todas --</option>
 						</select>
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 
-			
+
 			<hr>
 			<h4>Listado de vouchers creados</h4>
 
@@ -105,7 +105,7 @@
 				<small>Los vouchers de código único pueden ser usados por varios usuarios (cada usuario registrado sólo podrá usarlo una vez) hasta la fecha de finalización. Los códigos de los vouchers múltiples sólo pueden ser usados una sola vez sin importar el usuario y son válidos hasta la fecha de finalización.</small>
 			</p>
 
-			
+
 			<hr>
 			<div class="row">
 				<div class="col-sm-6 col-md-4">
@@ -153,7 +153,7 @@
 								</div>
 							</div>
 						</div>
-						
+
 						<div id="code_list" class="well list-group mod-container-sm"></div>
 
 						<form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
@@ -183,12 +183,12 @@
 			<hr>
 
 
-			<h3>Asociar Voucher a Promos</h3>
-			<p>Click en cada promo para agregarla en la lista de seleccionadas. Para remover cada promo, hacer click en la promo de la lista de seleccionadas</p>
+			<h3>Asociar Voucher a Experiencias</h3>
+			<p>Click en cada experiencia para agregarla en la lista de seleccionadas. Para remover cada experiencia, hacer click en la experiencia de la lista de seleccionadas</p>
 			<div class="row">
 				<div class="col-sm-6">
 					<div class="row">
-						
+
 
 						<div class="col-sm-6">
 							<div class="form-group">
@@ -225,7 +225,7 @@
 
 				</div>
 				<div class="col-sm-6">
-					<label>Promos Seleccionadas</label>
+					<label>Experiencias Seleccionadas</label>
 					<div id="promos_selected" class="well mod-container-md list-group"></div>
 
 					<button id="btn_remove_all" data-check="true" class="btn btn-xs btn-white"><i class="fa fa-arrow-left fa-fw"></i> Quitar Todas</button>

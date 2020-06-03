@@ -48,17 +48,17 @@ switch($_action){
 
 
 	case 'save':
-		
+
 		if(!Input::get('ID')){
 
 			$Promos->issale = 1;
 			$Promos->idclient = $User->data()->idclient;
 			$Promos->get();
-			
+
 			$cantpromos = !$Promos->data() ? 0 : count($Promos->data());
 			if($cantpromos == $User->data()->cantpromos){
 				///die(json_encode(array('Status'=>'cantpromos')));
-				die(Responses::response('fail','Tu plan contratado no te permite agregar más promociones.'));
+				die(Responses::response('fail','Tu plan contratado no te permite agregar más experiencias.'));
 			}
 		}
 		if(!$Promos->save($User->data()->idclient)) die(Responses::response('fail'));
@@ -66,12 +66,12 @@ switch($_action){
 		$promoid = $Promos->getLastId();
 		$Notifications->add_log('Promo nueva agregada por <a href="'.ROOT.'centros/'.$User->data()->client_permalink.'" target="_blank">'.$User->data()->client_name.'</a>:<br><a href="'.ROOT.'promo/'.$User->data()->client_permalink.'/'.$promoid.'-'.Permalink(Input::get('Title')).'"  target="_blank">'.Input::get('Title').'</a> ','promo');
 
-		echo Responses::response('ok','La promo se guardó correctamente!',array('ID'=>$promoid));
+		echo Responses::response('ok','La experiencia se guardó correctamente!',array('ID'=>$promoid));
 		break;
 
 	case 'gallery':
 
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(1280,720,'-o'),array(600,600,'-t')), '', false);

@@ -1,6 +1,6 @@
 <h4>Hola <?=$obj->name?></h4>
 
-<p>Si ya viviste la experiencia de la promo <a href='<?= ROOT.'promo/'.$obj->permalink.'/'.$obj->permalink.'-'.Permalink($obj->promotitle) ?>"'><?=$obj->promotitle?></a>, por favor contanos cómo fue y sumá beneficios para tus próximas compras en EstiloSPA. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p>
+<p>Si ya viviste la experiencia <a href='<?= ROOT.'promo/'.$obj->permalink.'/'.$obj->permalink.'-'.Permalink($obj->promotitle) ?>"'><?=$obj->promotitle?></a>, por favor contanos cómo fue y sumá beneficios para tus próximas compras en EstiloSPA. Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p>
 
 <p>&nbsp;</p>
 

@@ -7,22 +7,22 @@
 		<!-- PROMOS -->
 		<?php if(count($Vouchers->data())): ?>
 		<div class="block-white">
-			
+
 			<h2 class="fw-600 cl-aqua-5"><?= $voucherdata->name ?></h2>
-			<div class="sz-14 ff-fira cl-aqua-5">Vouchers disponibles en estas promos:</div>
+			<div class="sz-14 ff-fira cl-aqua-5">Vouchers disponibles en estas experiencias:</div>
 			<small class="cl-aqua-5">Válido desde <?= $voucherdata->start ?> hasta <?= $voucherdata->finish ?></small>
-			
+
 			<hr>
 
 			<div class="promos-highlight">
-				<?php						
-				
-					
+				<?php
+
+
 					if($Vouchers->data()): foreach($Vouchers->data() as $kp=>$voucher):
 
 						$Promos->find($voucher->idpromo);
 						$promo = $Promos->data();
-						
+
 						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$clientlink = ROOT.'centros/'.$promo->permalink;
 						$mp = $MPConfig->find($promo->idclient);
@@ -34,10 +34,10 @@
 						echo '</div>';
 
 					endforeach; endif;
-				?>					
+				?>
 			</div>
 		</div>
 		<?php endif; ?>
-		
+
 	</div>
 </section>

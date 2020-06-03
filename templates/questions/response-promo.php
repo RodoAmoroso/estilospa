@@ -1,4 +1,4 @@
-<p>Hola <?=$obj->user_name?>, respondieron tu pregunta para la siguiente promo: <a href="<?=$obj->promo_link?>"><?=$obj->promo_title?></a></p>
+<p>Hola <?=$obj->user_name?>, respondieron tu pregunta para la siguiente experiencia: <a href="<?=$obj->promo_link?>"><?=$obj->promo_title?></a></p>
 
 <div style="background-color:rgb(240,240,240);padding:16px;color:rgb(90,90,90)">
 	<div style="padding:10px">
@@ -18,7 +18,7 @@
 
 <p>
 	<a href="<?=$obj->promo_link.'#form_question'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Hacer otra pregunta</a>
-	
+
 	<a href="<?=$obj->promo_link.'#turno'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Reservar</a>
 
 	<?php if($obj->promo->sale): ?>

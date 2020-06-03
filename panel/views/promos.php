@@ -2,7 +2,7 @@
 <!-- PAGE HEADER -->
 <section class="page-header">
 	<div class="container">
-		<h1>Promos</h1>
+		<h1>Experiencias</h1>
 	</div>
 </section>
 
@@ -25,7 +25,7 @@
 <section id="list_panel" class="admin-box">
 	<div class="container">
 
-	
+
 		<div class="row">
 			<div class="col-xs-4">
 				<label for="fd_select_status">Filtrar por status</label>
@@ -48,14 +48,14 @@
 			<div class="col-xs-12 col-sm-4 text-right">
 				<div class="form-group">
 					<label for="" class="dp-block" >&nbsp;</label>
-					<a href="<?=PANEL.'promo/nueva'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Promo</a>
+					<a href="<?=PANEL.'promo/nueva'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Experiencia</a>
 				</div>
 			</div>
 		</div>
 
 
 		<button data-group="views" data-toggle="large" class="btn btn-sm btn-default active"><i class="fa fa-th-large"></i></button>
-		<button data-group="views" data-toggle="list" class="btn btn-sm btn-default"><i class="fa fa-th-list"></i></button>	
+		<button data-group="views" data-toggle="list" class="btn btn-sm btn-default"><i class="fa fa-th-list"></i></button>
 		<hr>
 
 		<div class="well "><div id="promos" class="row"></div></div>

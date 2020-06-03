@@ -2,12 +2,12 @@
 
 <section class="gral-section">
 	<div class="container">
-		
+
 		<?php if($response->status==200): ?>
 
 		<h1>Vinculación Correcta!!!</h1>
 		<hr>
-		<p>Tu cuenta de MercadoPago ha sido vinculada con éxito!. Ahora podés habilitar la venta online en todas tus promociones.</p>
+		<p>Tu cuenta de MercadoPago ha sido vinculada con éxito!. Ahora podés habilitar la venta online en todas tus experiencias.</p>
 
 		<?php else: ?>
 

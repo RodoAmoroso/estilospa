@@ -2,7 +2,7 @@
 	<div class="container">
 		<h1>Reservas</h1>
 		<hr>
-		<p>Visualiza todas las reservas hechas en las promos.</p>
+		<p>Visualiza todas las reservas hechas en las experiencias.</p>
 
 		<a href="<?=View::url('admin/feriados')?>" class="btn btn-xs btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Establecer Feriados</a>
 	</div>
@@ -15,7 +15,7 @@
 	<div class="container">
 
 		<div class="block-white">
-			
+
 			<div class="form-group">
 				<button data-btn-action="" class="btn btn-sm btn-default">Reservas Anteriores</button>
 				<button data-btn-action="" class="btn btn-sm btn-default active">Reservas Vigentes</button>
@@ -49,14 +49,14 @@
 							<th>Fecha</th>
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>Promo</th>
+							<th>Experiencia</th>
 							<th>Centro</th>
 							<th>Estado</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($_reservations as $k=>$reservation): $fecha = new DateTime($reservation->book_date) ?>						
+						<?php foreach($_reservations as $k=>$reservation): $fecha = new DateTime($reservation->book_date) ?>
 						<tr>
 							<td><?=$k+1?></td>
 							<td>
@@ -66,7 +66,7 @@
 							<td><?=$reservation->user_name?></td>
 							<td><a href="mailto:<?=$reservation->user_email?>" ><?=$reservation->user_email?></a></td>
 
-							<?php if(!is_null($reservation->title)): ?>							
+							<?php if(!is_null($reservation->title)): ?>
 							<td>
 								<a href="<?= ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a>
 							</td>
@@ -75,7 +75,7 @@
 									<small class="text-gray-40"><i>[reserva en centro]</i></small>
 								</td>
 							<?php endif; ?>
-							
+
 							<td><a href="<?= ROOT.'centros/'.$reservation->permalink ?>" target="_blank"><?=$reservation->client_name?></a></td>
 							<td>
 								<span class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></span>

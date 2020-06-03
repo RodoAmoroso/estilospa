@@ -6,7 +6,7 @@
 		<i class="fa fa-bars fa-lg cl-white" ></i>
 
 		<ul id="main_menu" class="main-menu" >
-			<li class="highlight"><a href="<?= ROOT.'busqueda/' ?>">Promos</a></li>
+			<li class="highlight"><a href="<?= ROOT.'busqueda/' ?>">Experiencias</a></li>
 			<?php
 			$ClientTypes->keywords = '';
 			if($ClientTypes->get()):
@@ -50,7 +50,7 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-shopping-bag"></i></span>
 					<select name="type" id="" class="form-control">
-						<option value="busqueda" <?= $_section!='categoria' ? 'selected' : '' ?> >Promos</option>
+						<option value="busqueda" <?= $_section!='categoria' ? 'selected' : '' ?> >Experiencias</option>
 						<option value="categoria" <?= $_section=='categoria' ? 'selected' : '' ?> >Centros</option>
 					</select>
 				</div>

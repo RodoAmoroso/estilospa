@@ -20,7 +20,7 @@
 					<select onchange="this.form.submit()" data-toggle="filter" name="where" class="form-control input-sm">
 						<option value="">-- Todo el sitio --</option>
 						<option value="clients" <?= $_where=='clients' ? 'selected' : '' ?> >En Centros</option>
-						<option value="promos" <?= $_where=='promos' ? 'selected' : '' ?> >En Promos</option>
+						<option value="promos" <?= $_where=='promos' ? 'selected' : '' ?> >En Experiencias</option>
 						<option value="glossary" <?= $_where=='glossary' ? 'selected' : '' ?> >En Etiquetas</option>
 					</select>
 				</div>
@@ -50,7 +50,7 @@
 						<small data-content="added">Enviada por <?=$question->user_name.' (<a href="mailto:'.$question->user_email.'">'.$question->user_email.'</a> '.($question->user_phone ? ' | '.$question->user_phone : '').')'?>: <?=$question->creado?> hs.
 
 						<?php if($question->type=='promos'): ?>
-						a la promo <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
+						a la experiencia <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='clients'): ?>

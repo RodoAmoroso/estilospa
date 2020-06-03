@@ -6,7 +6,7 @@
 			<div class="col-xs-8">
 				<hr>
 				<ol class="number-list">
-					<li>Seleccioná la PROMO</li>
+					<li>Seleccioná la Experiencia</li>
 					<li>Leé bien los detalles para no tener dudas</li>
 					<li>Hacé click en el botón COMPRAR</li>
 					<li>Si aún no estás registrado te va a pedir que te registres con información básica</li>
@@ -15,7 +15,7 @@
 					<li>Vas a poder abonar mediante Mercado Pago, hasta en 12 cuotas, con todos los bancos</li>
 					<li>Una vez finalizada la compra, recibirás el Voucher con todos los datos.</li>
 					<li>Reservá Tu Turno y disfrutá de tu compra</li>
-				</ol>				
+				</ol>
 
 			</div>
 		</div>

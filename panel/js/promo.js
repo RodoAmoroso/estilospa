@@ -69,9 +69,9 @@ var Promos = {
 			return false;
 		}
 		var gallery = [];
-		$.each($('#gallery .thumbnail'),function(k,v){			
+		$.each($('#gallery .thumbnail'),function(k,v){
 			gallery.push({photoname:$(this).attr('data-filename'),extension:$(this).attr('data-extension')});
-			
+
 		});
 		if(gallery.length==0){
 			Swal.fire({
@@ -102,7 +102,7 @@ var Promos = {
 			if($('#fd_price').val()==0){
 				Swal.fire({
 					type:'warning',
-					text:'Debes indicar el valor de la promo.'
+					text:'Debes indicar el valor de la experiencia.'
 				});
 				return false;
 			}
@@ -124,6 +124,7 @@ var Promos = {
 			Sale:$('#fd_sale').hasClass('active') ? 1 : 0,
 			Price:$('#fd_price').val(),
 			IDPromotype:$('#fd_promotypes').val(),
+			CategoryID:$('#fd_category').val(),
 			Discount:$('#fd_discount').val(),
 			Amount:$('#fd_amount').val(),
 			Description:$('#fd_description').val(),
@@ -172,6 +173,7 @@ var Promos = {
 				}
 				$('#fd_price').val(obj.price);
 				$('#fd_promotypes option[value="'+obj.idpromotype+'"]').prop('selected',true);
+				$('#fd_category').val(obj.categoryid);
 				$('#fd_discount').val(obj.discount);
 				$('#fd_amount').val(obj.amount);
 				if(obj.gallery != ''){
@@ -209,7 +211,7 @@ var Promos = {
 		$('#btn_delete').click(function(){
 			Swal.fire({
 				type:'warning',
-				text:'¿Realmente deseas borrar esta promo?',
+				text:'¿Realmente deseas borrar esta experiencia?',
 				showCancelButton:true,
 				reverseButtons:true
 			})
@@ -227,7 +229,7 @@ var Promos = {
 				Promos.save();
 			});
 		});
-		$('#fd_gift,#fd_sale').click(function(){			
+		$('#fd_gift,#fd_sale').click(function(){
 			$(this).toggleClass('active');
 			if($(this).hasClass('active')){
 				$(this).find('i').addClass('fa-check-square').removeClass('fa-square-o');

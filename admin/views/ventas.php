@@ -2,7 +2,7 @@
 	<div class="container">
 		<h1>Mi Cuenta</h1>
 		<hr>
-		<p>En esta sección puedes visualizar la información de las promos vendidas y datos estadísticos de las ventas en el sitio.</p>
+		<p>En esta sección puedes visualizar la información de las experiencia vendidas y datos estadísticos de las ventas en el sitio.</p>
 
 	</div>
 </section>
@@ -28,7 +28,7 @@
 					<div class="box-content">
 						<h4 class="fw-400">$ <?= number_format($_SALES->overall()->overall,2,',','.') ?></h4>
 						<small>Volumen Total de Venta</small>
-					</div>					
+					</div>
 					<div class="box-footer">
 						<?php
 						$_SALES->period='lastmonth';
@@ -36,7 +36,7 @@
 						$lastmonthquantity = $_SALES->overall()->quantity;
 						$difmonth = $thismonthquantity-$lastmonthquantity;
 						?>
-						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> promos vendidas</small> 
+						<small class="cl-gray-40"><?= (int) $thismonthquantity ?> experiencia vendidas</small>
 						<small>
 							(<span class="text-<?= $difmonth < 0 ? 'danger' : 'success' ?> fw-700 ff-opensans"><?= ($difmonth < 0 ? '-' : '+').abs($difmonth) ?> <i class="fa fa-level-<?= $difmonth < 0 ? 'down' : 'up' ?>"></i></span> con respecto al mes anterior)
 						</small>
@@ -50,7 +50,7 @@
 					<div class="box-title">Total Vendido</div>
 					<?php
 					$_SALES->period='';
-					$_SALES->getOverall(); 
+					$_SALES->getOverall();
 					?>
 					<div class="box-content alert-info">
 						<h2 class="fw-400">$ <?= number_format($_SALES->overall()->neto,2,',','.') ?></h2>
@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="box-footer">
-						<small class="cl-gray-40"><?= $_SALES->overall()->quantity ?> promos vendidas en total (desde el 01/08/2017 hasta hoy)</small>
+						<small class="cl-gray-40"><?= $_SALES->overall()->quantity ?> experiencias vendidas en total (desde el 01/08/2017 hasta hoy)</small>
 					</div>
 				</div>
 			</div>
@@ -86,8 +86,8 @@
 		<!-- VENTAS -->
 		<div class="block-white ">
 
-			<form id="fd_search" class="row" autocomplete="off">					
-				
+			<form id="fd_search" class="row" autocomplete="off">
+
 				<div class="col-md-4">
 					<label for="">Desde / Hasta</label>
 					<div class="form-group">
@@ -99,7 +99,7 @@
 								<input id="fd_to" type="text" class="form-control" placeholder="Hasta">
 							</div>
 						</div>
-					</div>						
+					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
@@ -116,7 +116,7 @@
 					<label>Filtrar por centro</label>
 					<select id="fd_clients" class="form-control">
 						<option value="0">-- Todos los centros --</option>
-						<?php 
+						<?php
 						$clients = new Clients();
 						$clients->sort = 'name';
 						if($clients->get()){
@@ -128,7 +128,7 @@
 					</select>
 				</div>
 			</form>
-			<small>Listado de las últimas 100 Promos Vendidas</small>
+			<small>Listado de las últimas 100 Experiencias Vendidas</small>
 			<hr>
 
 			<div id="sales"></div>

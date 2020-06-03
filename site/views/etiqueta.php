@@ -54,7 +54,7 @@
 <section>
 	<div class="title-bar">
 		<div class="container">
-			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos con: <?= $Glossary->data()->name ?></h3>
+			<h3 class="title"><i class="fa fa-shopping-bag"></i> Experiencias con: <?= $Glossary->data()->name ?></h3>
 		</div>
 	</div>
 

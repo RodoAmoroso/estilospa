@@ -19,7 +19,7 @@
 		</div>
 	</section>
 
-<?php 
+<?php
 else:
 	$MPConfig = new MPConfig();
 	if(!$MPConfig->find($User->data()->idclient)):
@@ -48,13 +48,13 @@ else:
 				<hr>
 
 				<h4 class="fw-700">Ya tengo cuenta en Mercado Pago:</h4>
-				<p>Si ya tenés cuenta en Mercado Pago debes vincular tu cuenta con la cuenta de EstiloSpa, así cada vez que vendas una promo en nuestro sitio te llegará el dinero en tu cuenta.</p>
+				<p>Si ya tenés cuenta en Mercado Pago debes vincular tu cuenta con la cuenta de EstiloSpa, así cada vez que vendas una experiencia en nuestro sitio te llegará el dinero en tu cuenta.</p>
 				<p>La comisión que te cobra EstiloSpa es de <?= $User->data()->fee ?>%</p>
 				<p>&nbsp;</p>
 				<p>El proceso es simple, hacé click en el botón de abajo.<br />Si no has ingresado a la plataforma de Mercado Pago te pedirá que ingreses con tu usuario y contraseña. </p>
 				<p>Una vez que llegues a la pantalla de vinculación, sólo tenés que darle permiso a Mercado Pago para que se vincule con la cuenta de EstiloSpa.</p>
 				<p>&nbsp;</p>
-				
+
 				<a href="https://auth.mercadopago.com.ar/authorization?client_id=<?=$MPConfig->app_id?>&response_type=code&platform_id=mp&redirect_uri=<?=$MPConfig->redirect_uri?>" class="btn btn-success btn-lg"><i class="fa fa-handshake-o"></i> VINCULAR CUENTA</a>
 
 			</div>
@@ -68,7 +68,7 @@ else:
 
 				<h3>Tu Cuenta de Mercado Pago ya ha sido vinculada con EstiloSPA</h3>
 				<hr>
-				<p>Ya podés vender tus promociones a través de nuestra plataforma. Dirigite a la sección <a href="<?= ROOT.'panel/promos' ?>">Promos</a> para crear o administrar todas las promociones disponibles de tu centro.</p>
+				<p>Ya podés vender tus experiencias a través de nuestra plataforma. Dirigite a la sección <a href="<?= ROOT.'panel/promos' ?>">Experiencias</a> para crear o administrar todas las experiencias disponibles de tu centro.</p>
 
 				<hr>
 

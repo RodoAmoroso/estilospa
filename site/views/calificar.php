@@ -1,7 +1,7 @@
 
 <section class="gral-section qualify">
 	<div class="container">
-		
+
 		<h1>Calificar</h1>
 		<hr>
 
@@ -12,7 +12,7 @@
 					<div class="box-wrapper">
 						<div class="box">
 							<div class="box-title">
-								<h3><?= !is_null($Sales->data()->title) ? $Sales->data()->title : 'La Promo fue borrada' ?></h3>
+								<h3><?= !is_null($Sales->data()->title) ? $Sales->data()->title : 'La experiencia fue borrada' ?></h3>
 								<h5><?= !is_null($Sales->data()->clientname) ? $Sales->data()->clientname : '' ?></h5>
 							</div>
 							<div class="box-content">
@@ -24,7 +24,7 @@
 								<small><?= nl2br($Sales->data()->subtitle) ?></small>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -70,7 +70,7 @@
 										</div>
 									</div>
 									<hr>
-									
+
 									<div class="form-group">
 										<button id="btn_qualify" class="btn btn-primary">Enviar <i class="fa fa-paper-plane"></i></button>
 									</div>
@@ -81,9 +81,9 @@
 					</div>
 
 				</div>
-				
 
-				
+
+
 			</div>
 		</div>
 

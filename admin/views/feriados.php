@@ -15,7 +15,7 @@
 		<div class="block-white">
 
 			<div class="row">
-				<div class="col-md-4">					
+				<div class="col-md-4">
 					<div class="form-group">
 						<label for="">Elegir año</label>
 						<select name="year" class="form-control">
@@ -60,7 +60,7 @@
 		<div class="block-white">
 
 			<h4>Agregar Feriado</h4>
-			<small>Al definir un feriado nuevo ese día queda excluído para reservas en los centros y las promos, salvo que cada centro indique lo contrario.</small>
+			<small>Al definir un feriado nuevo ese día queda excluído para reservas en los centros y las experiencias, salvo que cada centro indique lo contrario.</small>
 			<hr>
 
 			<form id="form_holiday" class="row">

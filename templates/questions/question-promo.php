@@ -1,4 +1,4 @@
-<p>Hola <?=$obj->client->name ?>, te hicieron una pregunta para la siguiente promo: <a href="<?=$obj->promo_link?>"><?=$obj->promo_title?></a></p>
+<p>Hola <?=$obj->client->name ?>, te hicieron una pregunta para la siguiente experiencia: <a href="<?=$obj->promo_link?>"><?=$obj->promo_title?></a></p>
 
 <div style="background-color:rgb(240,240,240);padding:16px;color:rgb(90,90,90)">
 	<p><?=$obj->question?></p>

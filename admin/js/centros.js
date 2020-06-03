@@ -142,7 +142,7 @@ var Clients = {
 					mod.find('.foot').remove();
 					mod.find('.preview').attr('data-permalink',v.permalink);
 					var visible = v.visible == 1 ? '<i class="fa fa-toggle-on"></i>' : '<i class="fa fa-toggle-off"></i>';
-					mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Cant. Promos: '+v.promos);
+					mod.find('p').html(v.creado+' &bullet; Vistas: '+v.views+' &bullet; '+visible+' &bullet; Experiencias: '+v.promos);
 					if(v.logo != ''){
 						var logo = $.parseJSON(v.logo);
 						mod.find('.thumb').css({backgroundImage:'url('+ROOT+'img/clients/'+logo.photoname+'.'+logo.extension+')'});

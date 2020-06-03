@@ -2,7 +2,7 @@
 
 
 <?php if($obj->promo): ?>
-<p>Te informamos que la solicitud de reserva de turno para la promo: <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a> para el día  <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido confirmada por el usuario.</p>
+<p>Te informamos que la solicitud de reserva de turno para la experiencia: <a href="<?=ROOT.'promo/'.$obj->promo->permalink.'/'.$obj->promo->id.'-'.Permalink($obj->promo->title) ?>"><?=$obj->promo->title?></a> para el día  <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido confirmada por el usuario.</p>
 <?php else: ?>
 <p>Te informamos que la solicitud de reserva de turno para el día <?= date('d/m/Y H:i',strtotime($obj->book_date)) ?> hs., ha sido confirmada por el usuario.</p>
 <?php endif; ?>

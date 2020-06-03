@@ -5,22 +5,22 @@
 		<div class="row">
 
 			<div class="col-left col-xs-12 col-sm-4">
-				
-				<div class="mod-slide">					
+
+				<div class="mod-slide">
 					<img src="<?= ROOT ?>assets/blank-square-2.gif" alt="" class="wd-100 blank">
 
-					<?php 
+					<?php
 					$Banners->visible = 1;
 					$Banners->type = 'main';
 					$Banners->sort = 'position';
 					$Banners->limit = '0,1';
-					if($Banners->get()): 
-						foreach($Banners->data() as $banner): 
+					if($Banners->get()):
+						foreach($Banners->data() as $banner):
 							$img = json_decode($banner->image);
 							$link = json_decode($banner->link);
 							$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
 							$target = $link->blank ? '' : 'target="_blank"';
-					?>					
+					?>
 					<a <?= $href.' '.$target ?> class="slide" >
 						<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>" ></div>
 						<?php if(!empty($banner->title)): ?>
@@ -32,32 +32,32 @@
 					</a>
 					<?php endforeach;	endif; ?>
 
-					
+
 					<!-- <i class="fa fa-chevron-left prev"></i>
 					<i class="fa fa-chevron-right next"></i>
 					<div class="navigation"></div>-->
-					
+
 				</div>
 
 			</div>
 
 			<div class="col-left col-xs-12 col-sm-4">
-				
-				<div class="mod-slide mod-slide-2">					
+
+				<div class="mod-slide mod-slide-2">
 					<img src="<?= ROOT ?>assets/blank-square-2.gif" alt="" class="wd-100 blank">
 
-					<?php 
+					<?php
 					$Banners->visible = 1;
 					$Banners->type = 'main';
 					$Banners->sort = 'position';
 					$Banners->limit = '1,1';
-					if($Banners->get()): 
-						foreach($Banners->data() as $banner): 
+					if($Banners->get()):
+						foreach($Banners->data() as $banner):
 							$img = json_decode($banner->image);
 							$link = json_decode($banner->link);
 							$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
 							$target = $link->blank ? '' : 'target="_blank"';
-					?>					
+					?>
 					<a <?= $href.' '.$target ?> class="slide" >
 						<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>" ></div>
 						<?php if(!empty($banner->title)): ?>
@@ -69,17 +69,17 @@
 					</a>
 					<?php endforeach;	endif; ?>
 
-					
+
 					<!-- <i class="fa fa-chevron-left prev"></i>
 					<i class="fa fa-chevron-right next"></i>
 					<div class="navigation"></div> -->
-					
+
 				</div>
 
 			</div>
 
 			<div class="col-right col-xs-12 col-sm-4">
-				<?php 
+				<?php
 				$Banners->visible = 1;
 				$Banners->type = 'side';
 				$Banners->sort = 'rand';
@@ -91,11 +91,11 @@
 						$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
 						$target = $link->blank ? '' : 'target="_blank"';
 				?>
-				<a <?= $href.' '.$target ?> class="mod-slide ">					
+				<a <?= $href.' '.$target ?> class="mod-slide ">
 					<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
 					<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>"></div>
 				</a>
-				<?php endforeach; endif; ?>			
+				<?php endforeach; endif; ?>
 
 			</div>
 
@@ -105,7 +105,7 @@
 
 
 <!-- PROMOS -->
-<section class="home-carousel bg-gray-5">	
+<section class="home-carousel bg-gray-5">
 	<div class="container text-center cl-gray-60 pad-20">
 		<h2><i class="fa fa-shopping-bag"></i> Ofertas Imperdibles!!!</h2>
 		<a href="<?=View::url('busqueda')?>">ver más</a>
@@ -131,7 +131,7 @@
 					include 'mods/mod-promo.php';
 					echo '</div>';
 				else:
-					echo '<p>No se encontraron promociones vigentes</p>';
+					echo '<p>No se encontraron experiencia vigentes</p>';
 				endif;
 			endforeach;
 		endif;
@@ -143,16 +143,16 @@
 
 <!-- SERVICIOS DESTACADOS -->
 <section class="home-carousel ">
-	
+
 	<div class="container text-center cl-gray-60 pad-20">
 		<h2><i class="fa fa-leaf"></i> Servicios y Tratamientos más buscados</h2>
-		
+
 	</div>
 
 	<div class="container">
 
 		<div id="glossary_carousel" class="row">
-		<?php 
+		<?php
 		$Glossary->limit = '0,12';
 		$Glossary->sort = 'rand';
 		if($Glossary->get('',0,12)):
@@ -165,13 +165,13 @@
 				}
 				include 'mods/mod-glossary.php';
 				if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
-			endforeach; 
-		endif; 
+			endforeach;
+		endif;
 		?>
 	</div>
 
 	</div>
-		
+
 </section>
 <p>&nbsp;</p>
 
@@ -188,7 +188,7 @@
 
 		<div id="clients_carousel" class="clients-carousel dp-none">
 
-			<?php 
+			<?php
 			$Clients->sort = 'rand';
 			$Clients->limit = '0,12';
 			$Clients->visible = 1;
@@ -212,11 +212,11 @@
 <!-- NOTICIAS -->
 <section class="news-home">
 
-	<div class="container text-center cl-gray-60 pad-20">		
+	<div class="container text-center cl-gray-60 pad-20">
 		<h2><i class="fa fa-newspaper-o"></i>  Notas &bullet; Noticias &bullet; Blog</h2>
 		<a href="<?=ROOT.'blog'?>">ver todas</a>
 	</div>
-		
+
 	<div class="container">
 		<div id="blog_carousel" class="carousel">
 			<?php

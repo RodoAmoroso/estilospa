@@ -2,7 +2,7 @@
 <!-- PAGE HEADER -->
 <section class="page-header">
 	<div class="container">
-		<h1>Promos</h1>
+		<h1>Experiencias</h1>
 	</div>
 </section>
 
@@ -19,18 +19,18 @@
 						<div class="input-group-btn">
 							<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
-					</div>					
+					</div>
 				</form>
 			</div>
 			<div class="col-xs-12 col-sm-6 text-right">
 				<div class="form-group">
 					<label for="" class="dp-block" >&nbsp;</label>
-					<a href="<?=ADMIN.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Promo</a>
+					<a href="<?=ADMIN.'promo'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Experiencia</a>
 				</div>
 			</div>
 		</div>
 
-		<hr>		
+		<hr>
 
 		<div class="row">
 			<div class="col-xs-4">
@@ -46,7 +46,7 @@
 				<label for="fd_select_client">Filtrar por cliente</label>
 				<select id="fd_select_client" class="form-control input-sm">
 					<option value="0">-- Todos --</option>
-					<?php 
+					<?php
 					$_CLIENTS = new Clients();
 					$_CLIENTS->sort = 'name';
 					if($_CLIENTS->get()):
@@ -87,11 +87,11 @@
 <!-- PROMOS -->
 <section id="edit_panel" class="admin-box bg-gray-5 dp-none">
 	<div class="container">
-		<h3 class="fw-600">Editar / Agregar Promo</h3>
+		<h3 class="fw-600">Editar / Agregar Experiencia</h3>
 		<hr>
 
 		<div class="block-white">
-			
+
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
@@ -132,7 +132,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
-						<label for="fd_promotypes">Tipo de Promo</label>
+						<label for="fd_promotypes">Tipo de Experiencia</label>
 						<div class="input-group">
 							<select id="fd_promotypes" class="form-control"></select>
 							<div class="input-group-btn">
@@ -143,7 +143,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
-						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de promo no corresponde a un descuento, dejar en 0"></i></label>
+						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de experiencia no corresponde a un descuento, dejar en 0"></i></label>
 						<div class="input-group">
 							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
 							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
@@ -152,8 +152,8 @@
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="form-group">
-						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>							
-						<input id="fd_amount" type="number" class="form-control" value="20" min="0">						
+						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>
+						<input id="fd_amount" type="number" class="form-control" value="20" min="0">
 					</div>
 				</div>
 			</div>
@@ -163,16 +163,16 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
-						<label for="fd_clients">Centro</label> 						
+						<label for="fd_clients">Centro</label>
 						<select id="fd_clients" class="form-control" size="16" ></select>
 					</div>
-				</div>				
+				</div>
 				<div class="col-xs-12 col-sm-6">
 					<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" title="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
 					<div id="stores" class="well mod-container-sm"></div>
-					<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>	
+					<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>
 				</div>
-			</div>	
+			</div>
 
 			<hr>
 
@@ -186,9 +186,9 @@
 					<div class="form-group">
 						<label for="fd_includes">¿Que incluye la experiencia?</label>
 						<textarea id="fd_includes" rows="5" class="form-control"></textarea>
-					</div>					
+					</div>
 				</div>
-				<div class="col-sm-12 col-md-6">					
+				<div class="col-sm-12 col-md-6">
 					<div class="form-group">
 						<label for="fd_recomendations">¿Que recomendamos que lleve?</label>
 						<input id="fd_recomendations" type="text" class="form-control">
@@ -196,7 +196,7 @@
 					<div class="form-group">
 						<label for="fd_reservation">¿Requiere reserva y/o algún requisito?</label>
 						<input id="fd_reservation" type="text" class="form-control" value="Si. Solicitar Previa Reserva de Turno">
-					</div>					
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -219,7 +219,7 @@
 			<hr>
 			<div id="fd_sale" class="form-group clickable active" data-toogle="checkbox">
 				<i class="fa fa-check-square"></i> <span>Venta Online</span>
-			</div>			
+			</div>
 			<div class="alert alert-warning">
 				<h4>Importante:</h4>
 				<p>Si el cliente no ha vinculado su cuenta de MercadoPago, los usuarios no podrán comprarla en el sitio.</p>
@@ -235,12 +235,12 @@
 				<input type="file" accept="image/*" multiple>
 			</form>
 			<div id="gallery" class="well admin-gallery mod-container-sm"></div>
-			<p class="sz-9">&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la promo.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
+			<p class="sz-9">&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la experiencia.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
 
 		</div>
 
 		<div class="block-white">
-			<button id="btn_save" class="btn btn-success pull-right">Guardar Promo</button>
+			<button id="btn_save" class="btn btn-success pull-right">Guardar Experiencia</button>
 			<button id="btn_cancel" class="btn btn-warning btn-sm">Cancelar</button>
 			<button id="btn_delete" class="btn btn-danger btn-sm">Borrar</button>
 		</div>
@@ -254,8 +254,8 @@
 <!-- PROMO TYPES -->
 <section id="promotypes_panel" class="admin-box bg-gray-5 dp-none">
 	<div class="container">
-		
-		<h3 class="fw-600">Editar / Agregar Tipo de Promo</h3>
+
+		<h3 class="fw-600">Editar / Agregar Tipo de Experiencia</h3>
 		<hr>
 		<div class="block-white">
 			<div class="row">
@@ -269,7 +269,7 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<label for="">Listado de Tipos de Promos</label>
+					<label for="">Listado de Tipos de Experiencias</label>
 					<div id="mod_promotype" class="mod-container-sm well"></div>
 				</div>
 			</div>

@@ -2,7 +2,7 @@
 	<div class="container">
 		<h1>Reservas</h1>
 		<hr>
-		<p>Visualiza todas las reservas hechas en las promos.</p>
+		<p>Visualiza todas las reservas hechas en las experiencias.</p>
 	</div>
 </section>
 
@@ -40,13 +40,13 @@
 							<th>Fecha</th>
 							<th>Nombre</th>
 							<th>Email</th>
-							<th>Promo</th>
+							<th>Experiencia</th>
 							<th>Estado</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<?php foreach($_reservations as $k=>$reservation): $fecha = new DateTime($reservation->book_date) ?>						
+						<?php foreach($_reservations as $k=>$reservation): $fecha = new DateTime($reservation->book_date) ?>
 						<tr>
 							<td><?=$k+1?></td>
 							<td>
@@ -56,7 +56,7 @@
 							<td><?=$reservation->user_name?></td>
 							<td><a href="mailto:<?=$reservation->user_email?>" ><?=$reservation->user_email?></a></td>
 
-							<?php if(!is_null($reservation->title)): ?>							
+							<?php if(!is_null($reservation->title)): ?>
 							<td>
 								<a href="<?= ROOT.'promo/'.$reservation->permalink.'/'.$reservation->promoid.'-'.Permalink($reservation->title) ?>" target="_blank"><?=$reservation->title?></a>
 							</td>
@@ -67,7 +67,7 @@
 							<?php endif; ?>
 
 							<td>
-								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>								
+								<a href="#" data-id="<?=$reservation->id?>" class="label bg-<?=$reservation->status_label?>"><?=$reservation->status_name?></a>
 							</td>
 							<td>
 								<?php if($reservation_sale = $Reservations->get_reservation_sale($reservation->id)): ?>

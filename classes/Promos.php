@@ -238,6 +238,7 @@ class Promos {
 		$sql = array(
 		'idclient'=>$idclient,
 		'idpromotype'=>Input::get('IDPromotype'),
+		'categoryid'=>empty(Input::get('CategoryID')) ? null : Input::get('CategoryID'),
 		'gift'=>Input::get('Gift'),
 		'sale'=>Input::get('Sale'),
 		'stores'=>implode(',',Input::get('Stores')),

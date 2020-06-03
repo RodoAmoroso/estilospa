@@ -15,7 +15,7 @@ class DB {
 		$this->_prefix = Config::get('mysql/prefix');
 		try{
 			$this->_pdo = new PDO('mysql:host='.Config::get('mysql/host').';dbname='.Config::get('mysql/dbname'),Config::get('mysql/user'),Config::get('mysql/pass'),array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
-			//$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e){
 			die($e->getMessage());
 		}
@@ -41,10 +41,11 @@ class DB {
 			}
 			if($this->_query->execute()){
 
-				//if(!preg_match('/(INSERT )\w/', $sql)){
-				$this->_count = $this->_query->rowCount();
-				$this->_results = $this->_query->fetchAll(PDO::FETCH_OBJ);
-				//}
+				if(!preg_match('/(INSERT)/', $sql) && !preg_match('/(UPDATE)/', $sql) && !preg_match('/(DELETE)/', $sql)){
+					$this->_count = $this->_query->rowCount();
+					$this->_query->setFetchMode(PDO::FETCH_OBJ);
+					$this->_results = $this->_query->fetchAll();
+				}
 				//}else{
 				//$this->_lastid = $this->_pdo->lastInsertId();
 				//}
@@ -58,7 +59,7 @@ class DB {
 	public function getquery(){
 		return $this->_query;
 	}
-	public function columnexists($table='',$column=''){
+	public function column_exists($table='',$column=''){
 		$this->query("SELECT * FROM information_schema.COLUMNS WHERE TABLE_NAME = ? AND COLUMN_NAME = ?",array($this->_prefix.$table,$column));
 		if(!$this->count()) return false;
 		return true;

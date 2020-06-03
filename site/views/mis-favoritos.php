@@ -1,22 +1,22 @@
 
 <section class="gral-section qualify">
 	<div class="container">
-		
+
 		<h1>Favoritos</h1>
 		<hr>
 
 
-		<h4>Promos</h4>
+		<h4>Experiencias</h4>
 		<div id="promos" class="well">
 
-			<?php 
+			<?php
 			if($Favs->getpromos($User->data()->id)):
-				foreach($Favs->data() as $fav):					
+				foreach($Favs->data() as $fav):
 					$img = json_decode($fav->gallery);
 			?>
 			<div data-id="<?= $fav->id ?>" class="mod-sales">
 				<div class="sale-header">
-					<div class="thumb-container">						
+					<div class="thumb-container">
 						<div class="thumb thumb-cover" style="background-image:url(<?= ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension ?>)" ></div>
 					</div>
 					<div class="caption">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 			<?php endforeach; else: ?>
-			<p>No tienes ninguna promo en tus favoritos</p>
+			<p>No tienes ninguna experiencia en tus favoritos</p>
 			<?php endif; ?>
 
 		</div>
@@ -51,26 +51,26 @@
 		<h4>Centros</h4>
 		<div id="clients" class="well">
 
-			<?php 
+			<?php
 			if($Favs->getclients($User->data()->id)):
-				foreach($Favs->data() as $fav):					
+				foreach($Favs->data() as $fav):
 					$img = json_decode($fav->logo);
 			?>
-			<div data-id="<?= $fav->id ?>" class="mod-sales">			
+			<div data-id="<?= $fav->id ?>" class="mod-sales">
 				<div class="sale-header">
-					<div class="thumb-container">						
+					<div class="thumb-container">
 						<div class="thumb thumb-cover" style="background-image:url(<?= ROOT.'img/clients/'.$img->photoname.'.'.$img->extension ?>)" ></div>
 					</div>
 					<div class="caption">
 						<h1 class="sz-16 fw-400"><a href="<?= ROOT.'centros/'.$fav->permalink ?>"><?= $fav->name ?> </a></h1>
 						<h2 class="sz-14"><?= $fav->subtitle ?></h2>
 						<?php if($Stores->get($fav->idclient)): ?>
-						<small> <i class="fa fa-map-marker"></i> 
+						<small> <i class="fa fa-map-marker"></i>
 						<?php foreach($Stores->data() as $ks=>$vs): ?>
 						<?= $vs->city.($ks==count($Stores->data())-1 ? '' : ' &bullet; ') ?>
 						<?php endforeach; ?>
 						</small>
-						<?php endif; ?>						
+						<?php endif; ?>
 						<div><?= Stars($Clients->rating($fav->idclient),'sz-7'); ?></div>
 					</div>
 					<div data-id="<?= $fav->id ?>" class="close delete">

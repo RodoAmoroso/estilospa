@@ -18,7 +18,7 @@ class Core {
 						$filters_multiple=array(),
 						$range=array(),
 						$group='',
-						$limit='0,500',
+						$limit='0,250',
 						$response='',
 						$userdata;
 
@@ -220,7 +220,7 @@ class Core {
 		}
 		if($this->_db->column_exists($this->table,'image')){
 			if($data->image !=''){
-				$img = json_decode($data->image);
+				$img = is_object($data->image) ? $data->image : json_decode($data->image);
 				foreach($this->sizes as $size){
 					if(file_exists(PATH.'img'.DS.$this->folder.DS.$img->f.$size.'.'.$img->e)){
 						unlink(PATH.'img'.DS.$this->folder.DS.$img->f.$size.'.'.$img->e);

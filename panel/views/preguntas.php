@@ -17,9 +17,9 @@
 					<label for="">Dónde</label>
 					<select onchange="this.form.submit()" data-toggle="filter" name="where" class="form-control input-sm">
 						<option value="">-- Todo el sitio --</option>
-						<option value="clients" <?= $_where=='clients' ? 'selected' : '' ?> >En mi centro</option>						
-						<option value="promos" <?= $_where=='promos' ? 'selected' : '' ?> >En mis promos</option>						
-						<option value="glossary" <?= $_where=='glossary' ? 'selected' : '' ?> >En etiquetas</option>						
+						<option value="clients" <?= $_where=='clients' ? 'selected' : '' ?> >En mi centro</option>
+						<option value="promos" <?= $_where=='promos' ? 'selected' : '' ?> >En mis experiencias</option>
+						<option value="glossary" <?= $_where=='glossary' ? 'selected' : '' ?> >En etiquetas</option>
 					</select>
 				</div>
 				<div class="col-xs-4">
@@ -34,13 +34,13 @@
 
 
 			<hr>
-			
 
-			<?php 
-			if($questions): 
-				foreach($questions as $question): 
+
+			<?php
+			if($questions):
+				foreach($questions as $question):
 					$response = $Questions->has_response($question->id,$_userdata->id);
-			?>					
+			?>
 
 			<div class="questions-wrapper">
 				<div class="question-box">
@@ -49,10 +49,10 @@
 					</div>
 					<div class="message">
 						<p data-content="message" class="caption"><?=$question->message?></p>
-						<small data-content="added">Enviada por <?=$question->user_name.' (<a href="mailto:'.$question->user_email.'">'.$question->user_email.'</a> '.($question->user_phone ? ' | '.$question->user_phone : '').')'?>: <?=$question->creado?> hs. 						
-							
+						<small data-content="added">Enviada por <?=$question->user_name.' (<a href="mailto:'.$question->user_email.'">'.$question->user_email.'</a> '.($question->user_phone ? ' | '.$question->user_phone : '').')'?>: <?=$question->creado?> hs.
+
 						<?php if($question->type=='promos'): ?>
-						a la promo <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
+						a la experiencia <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
 						<?php endif; ?>
 
 						<?php if($question->type=='clients'): ?>
@@ -62,7 +62,7 @@
 						<?php if($question->type=='glossary'): ?>
 						a la etiqueta <a href="<?= ROOT.'etiqueta/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->glossary->name?></a>
 						<?php endif; ?>
-						
+
 						</small>
 
 					</div>
@@ -75,7 +75,7 @@
 				</div>
 
 				<?php if($response): ?>
-				<!-- RESPONSES -->				
+				<!-- RESPONSES -->
 				<h5 class="response-title text-gray-50">Respuestas:</h5>
 				<div class="question-box response">
 					<div class="thumb thumb-cover" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>

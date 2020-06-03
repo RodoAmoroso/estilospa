@@ -71,7 +71,7 @@ $(function(){
 	});
 
 
-	$('#btn_sale').click(function(e){
+	$('[data-action="sale"]').click(function(e){
 		e.preventDefault();
 		if($('#modal_voucher').length==0){
 			GetMPLink(false,0);
@@ -170,7 +170,7 @@ $(function(){
 			case 'comprar':
 				if(islogged==1){
 
-					$('#btn_sale').trigger('click');
+					$('[data-action="sale"]').trigger('click');
 
 				}else{
 					$('#modal_not_logged').modal('show');

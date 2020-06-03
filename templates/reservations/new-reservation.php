@@ -1,6 +1,6 @@
 
 <?php if($obj->promo): ?>
-<h3>¡Hola <?=$obj->client->name?>, tenés una nueva solicitud de reserva de turno para la promo: <a href="<?=$obj->promo->promolink ?>"><?=$obj->promo->title?></a></h3>
+<h3>¡Hola <?=$obj->client->name?>, tenés una nueva solicitud de reserva de turno para la experiencia: <a href="<?=$obj->promo->promolink ?>"><?=$obj->promo->title?></a></h3>
 
 <?php else: ?>
 <h3>¡Hola <?=$obj->client->name?>, tenés una nueva solicitud de reserva</a></h3>

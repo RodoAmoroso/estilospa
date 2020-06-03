@@ -20,10 +20,10 @@
 				<p><?= $Blog->data()->shortdescription ?></p>
 			</div>
 
-			
+
 
 			<div class="gallery gallery-section bg-gray-10">
-				<?php 
+				<?php
 				if(count($bloggallery)):
 					foreach($bloggallery as $image):
 						$play = '';
@@ -36,27 +36,27 @@
 					?>
 					<div class="slide" style="background-image:url(<?= $img ?>);background-size:contain;background-repeat:no-repeat;"><?= $play ?></div>
 					<?php endforeach; endif; ?>
-					
-			</div>			
 
-			
+			</div>
+
+
 
 			<div class="blog-content bg-white">
 				<?= $Blog->data()->content ?>
 			</div>
 
-			<?php 
+			<?php
 			$arrtags = explode(',',$Blog->data()->glossary);
 			if(count($arrtags)):
-			?>	
+			?>
 			<div class="blog-content bg-white">
 				<ul class="button-menu">
-					<?php 
+					<?php
 					foreach($arrtags as $kt=>$vt):
 						if($Glossary->find($vt)):
 					?>
 					<li><a href="<?= ROOT.'busqueda/'.Permalink($Glossary->data()->name) ?>"><?= $Glossary->data()->name ?></a></li>
-					<?php endif; endforeach; 
+					<?php endif; endforeach;
 					?>
 				</ul>
 			</div>
@@ -68,7 +68,7 @@
 							<div class="box-user">
 								<div class="thumbnail thumb-cover" style="background-image:url(<?= ROOT.'img/users/user-default.png' ?>)">
 									<img src="<?= ROOT.'assets/blank-square.gif' ?>" class="wd-100" alt="">
-								</div>					
+								</div>
 							</div>
 							<div class="box-comment">
 								<div class="sz-12">USERNAME</div>
@@ -85,7 +85,7 @@
 		<!-- BLOG RELATED -->
 		<div class="blog-related">
 			<h1>Notas Relacionadas</h1>
-			<?php 
+			<?php
 			$Blog->limit = '0,6';
 			$Blog->arrglossary = $Blog->data()->glossary;
 			$Blog->exclude = $Blog->data()->id;
@@ -97,11 +97,11 @@
 				<p><?= $blog->shortdescription ?></p>
 			</a>
 			<?php endforeach; endif; ?>
-			
+
 		</div>
 
-		
-		
+
+
 	</div>
 </section>
 
@@ -111,7 +111,7 @@
 
 	<div class="container">
 
-		<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
+		<h3 class="title-bar"><i class="fa fa-shopping-bag"></i> Experiencias Relacionadas</h3>
 		<div class="promos-highlight">
 		<?php
 		$Promos->status = '1:1';
@@ -128,7 +128,7 @@
 					include 'mods/mod-promo.php';
 					echo '</div>';
 				else:
-					echo '<p>No se encontraron promociones vigentes</p>';
+					echo '<p>No se encontraron experiencias relacionadas</p>';
 				endif;
 			endforeach;
 		endif;
@@ -143,10 +143,10 @@
 <section class="gral-section">
 
 	<div class="container">
-		
+
 		<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Relacionados</h3>
 		<div id="clients_carousel" class="clients-carousel">
-		<?php 
+		<?php
 			$Clients->sort = 'rand';
 			$Clients->limit = '0,12';
 			$Clients->visible = 1;

@@ -10,7 +10,7 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<?= ROOT ?>">Home</a></li>
-			<li><a href="<?= ROOT.'busqueda' ?>">Promos</a></li>
+			<li><a href="<?= ROOT.'busqueda' ?>">Experiencias</a></li>
 			<li><a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>"><?= $Clients->data()->name ?></a></li>
 			<li><?= $Promos->data()->title ?></li>
 		</ul>
@@ -93,7 +93,7 @@
 						<?php if($showsalebuttons): ?>
 						<div class="highlight-button" >
 							<i class="fa fa-shopping-bag fa-fw"></i>
-							<span <?= $User->logged() && $showsalebuttons ? 'id="btn_sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
+							<span <?= $User->logged() && $showsalebuttons ? 'data-action="sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
 						</div>
 						<?php else: ?>
 						<div class="highlight-button" >
@@ -193,18 +193,49 @@
 		<div class="block-white">
 			<h4 class="title-bar">Validez</h4>
 			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
-			<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>
-			<p class="alert alert-danger"><b>CUARENTENA:</b> Se extienden las fechas de uso para luego de la cuarentena.</p>
+			<!--<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>-->
+			<p class="alert alert-danger"><b>COMPRA AHORA</b>, con total confianza, tendrás tiempo para usar tu voucher luego de la apertura.</p>
 		</div>
 
 		<?php if($Promos->data()->sale): ?>
 		<div class="block-white">
-			<h4 class="title-bar">Promociones de cuotas sin interés</h4>
-			<p>Podés pagar en cuotas sin interés. La financiación con tarjeta de crédito está a cargo de MercadoPago. Consultá condiciones <a href="https://www.mercadopago.com.ar/promociones" target="_blank">aquí</a>.</p>
+			<h4 class="title-bar">¿Como Comprar?</h4>
+			<p>Paga hasta en 12 cuotas. La financiación con tarjeta de crédito está a cargo de MercadoPago. Consultá condiciones <a href="https://www.mercadopago.com.ar/cuotas" target="_blank">aquí</a>.</p>
 		</div>
 
 		<?php endif; ?>
 
+
+		<div class="main-wrapper">
+			<div class="info-wrapper">
+
+				<!-- PRICE -->
+				<div class="pricing">
+					<!-- PRICING -->
+					<?php if($Promos->data()->sale): ?>
+						<?php if($Promos->data()->discount): ?>
+						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
+						<?php endif; ?>
+					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),2,',','.') ?></strong></div>
+					<!-- AMOUNT -->
+					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
+					<?php endif; ?>
+				</div>
+
+				<!-- SHOP -->
+				<div class="shop-action">
+
+					<?php if($showsalebuttons): ?>
+					<button class="btn btn-primary" >
+						<i class="fa fa-shopping-bag fa-fw"></i>
+						<span <?= $User->logged() && $showsalebuttons ? 'data-action="sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar Ahora!</span>
+					</button>
+					<?php endif; ?>
+
+				</div>
+
+			</div>
+		</div>
 
 
 		<!-- QUESTIONS -->
@@ -341,8 +372,8 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span></button>
-				<h3 class="modal-title">Regalar esta promo</h3>
-				<p>Completá los datos de la persona a la que quieres regalar esta promo.</p>
+				<h3 class="modal-title">Regalar esta experiencia</h3>
+				<p>Completá los datos de la persona a la que quieres regalar esta experiencia.</p>
 			</div>
 			<form class="modal-body">
 				<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
@@ -409,7 +440,7 @@ if($Vouchers->getpromo($Promos->data()->id)):
 
 					<div class="cl-fucsia-5">
 						<h2>Voucher de Descuento</h2>
-						<p class="sz-11">Si tienes un código para esta promo puedes aplicarlo para obtener un descuento en la compra de esta promoción.</p>
+						<p class="sz-11">Si tienes un código para esta experiencia puedes aplicarlo para obtener un descuento en la compra.</p>
 						<hr>
 
 						<form id="form_voucher_apply" class="form-group">
@@ -448,7 +479,7 @@ if($Promos->data()):
 <section>
 	<div class="title-bar">
 		<div class="container">
-			<h3 class="title"><i class="fa fa-shopping-bag"></i> Promos Relacionadas</h3>
+			<h3 class="title"><i class="fa fa-shopping-bag"></i> Experiencias Relacionadas</h3>
 		</div>
 	</div>
 
@@ -467,7 +498,7 @@ if($Promos->data()):
 					echo '</div>';
 					if(count($colorsequence)-1 == $nm){$nm = 0;}else{$nm++;}
 				else:
-					echo '<p>No se encontraron promociones vigentes</p>';
+					echo '<p>No se encontraron experiencias vigentes</p>';
 				endif;
 			endforeach;
 		?>

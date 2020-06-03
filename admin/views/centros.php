@@ -508,7 +508,7 @@
 						</div>
 						<div class="col-xs-12 col-sm-6">
 							<div class="form-group">
-								<label for="fd_plan_promos">Cant. de promos disponibles <i class="fa fa-question-circle cl-pink-3" title="Sólo aplica a las promos de venta online"></i></label>
+								<label for="fd_plan_promos">Cant. de experiencias disponibles <i class="fa fa-question-circle cl-pink-3" title="Sólo aplica a las promos de venta online"></i></label>
 								<input id="fd_plan_promos" type="number" min="0" max="1000" value="0" class="form-control">
 							</div>
 						</div>

@@ -1,6 +1,6 @@
 <h4>Hola <?=$obj->clientname?></h4>
 
-<p>¿<?= $obj->username.' ('.$obj->usermail.')' ?>  ya tomó el servicio de la promo <a href="<?= ROOT.'promo/'.$obj->permalink.'/'.$obj->idpromo.'-'.Permalink($obj->promotitle) ?>"><?=$obj->promotitle?></a>? </p>
+<p>¿<?= $obj->username.' ('.$obj->usermail.')' ?>  ya tomó el servicio de la experiencia <a href="<?= ROOT.'promo/'.$obj->permalink.'/'.$obj->idpromo.'-'.Permalink($obj->promotitle) ?>"><?=$obj->promotitle?></a>? </p>
 
 <p><b>Nro de Comprobante: <?= $obj->collection_id ?></b>.</p>
 

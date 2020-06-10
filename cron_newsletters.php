@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'config.php';
 
@@ -16,5 +16,9 @@ if($queue = $Newsletters->get($limite)){
 		}
 	}
 }
+
+
+$Cron = new Cron;
+$Cron->add_log('newsletters');
 
 http_response_code(200);

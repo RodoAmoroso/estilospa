@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -13,7 +12,7 @@ switch($_action){
 
 
 	case 'get':
-		$Vouchers->status = Input::get('status');		
+		$Vouchers->status = Input::get('status');
 		$Vouchers->idpromo = Input::get('idpromo');
 		$Vouchers->keywords = Input::get('keywords');
 		$Vouchers->get();
@@ -34,7 +33,7 @@ switch($_action){
 	case 'save':
 
 		if(!Input::check(array('Name','Value','Codes'))) die(Responses::response('required'));
-		
+
 		$arrcodes = explode(',',Input::get('Codes'));
 		if(count($arrcodes)==1 && !Input::get('ID')){
 			if($Vouchers->findcode($arrcodes[0])){
@@ -52,7 +51,7 @@ switch($_action){
 		echo Responses::response('ok');
 		break;
 
-	
+
 	default:
 		echo Responses::response('fail');
 		break;

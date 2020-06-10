@@ -63,7 +63,7 @@ var ajax = function ajax(url, obj) {
 	return new Promise(function (resolve, reject) {
 		$.ajax({
 			type: 'POST',
-			url: ROOT + 'ajax/' + url,
+			url: ROOT + 'ajax/index.php?uri=' + url,
 			data: obj,
 			dataType: 'json',
 			cache: false
@@ -229,7 +229,7 @@ var SearchSuggestions = function SearchSuggestions(FORM, PHP, MODE, FNCT) {
 			}
 			var ajx = $.ajax({
 				type: 'POST',
-				url: ROOT + 'ajax/' + PHP + (mode != '' ? '/' + mode : ''),
+				url: ROOT + 'ajax/index.php?uri=' + PHP + (mode != '' ? '/' + mode : ''),
 				data: {
 					keywords: input.val(),
 					search_mixed: 1,
@@ -303,14 +303,6 @@ var FormatDate = function FormatDate(date) {
 	if (seconds.length < 2) seconds = '0' + seconds;
 
 	return year.toString() + "-" + month + "-" + day + ' ' + hours + ':' + minutes + ':' + seconds;
-};
-var GetYoutubeApi = function GetYoutubeApi(ID, CALLBACK) {
-	var AJXLog = $.ajax({ type: 'GET', url: 'https://www.googleapis.com/youtube/v3/videos?id=' + ID + '&key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&part=snippet' });
-	AJXLog.done(function (data) {
-		if (CALLBACK) {
-			return CALLBACK(data);
-		}
-	});
 };
 var GetIDVideo = function GetIDVideo(INPUT, SITE) {
 	var arrURL = {};

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'config.php';
 
@@ -18,5 +18,9 @@ if($queue_n = $Notifications->get($limite)){
 		}
 	}
 }
+
+
+$Cron = new Cron;
+$Cron->add_log('notifications');
 
 http_response_code(200);

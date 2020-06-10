@@ -121,13 +121,12 @@
 				if(count($gallery)):
 					foreach($gallery as $kg=>$vg):
 						$play = '';
-						if(isset($vg->video)):
+						/*if(isset($vg->video)):
 							$ytapi = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/videos?id='.$vg->video.'&key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&part=snippet'));
 							$img = $ytapi->items[0]->snippet->thumbnails->high->url;
 							$play = '<div class="play" data-video="'.$vg->video.'" ><i class="fa fa-play-circle fa-5x"></i></div>';
-						else:
-							$img = ROOT.'img/clients/'.$vg->photoname.'-o.'.$vg->extension;
-						endif;
+						else:*/
+						$img = ROOT.'img/clients/'.$vg->photoname.'-o.'.$vg->extension;
 				?>
 				<div class="slide" style="background-image:url(<?= $img ?>);" ><?= $play ?></div>
 				<?php endforeach; endif; ?>
@@ -245,6 +244,15 @@
 		include 'questions.php';
 		?>
 
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+
+
+
+		<div class="text-center">
+			<a href="<?=View::url('categoria-centros')?>" class="btn btn-fucsia bnt-lg"><i class="fa fa-angle-right fa-fw"></i> Ver más centros</a>
+		</div>
+
 	</div>
 </section>
 
@@ -271,39 +279,9 @@
 </div>
 
 
-<!-- CENTROS -->
-<?php
-$Clients->sort = 'rand';
-$Clients->limit = '0,12';
-$Clients->visible = 1;
-$Clients->exclude = $clientdata->id;
-$Clients->get();
-$clients_related = $Clients->data();
-if($clients_related):
-?>
-<section class="gral-section">
-	<div class="container">
 
-		<h3 class="title-bar"><i class="fa fa-heart"></i> Centros Relacionados</h3>
-		<div id="clients_carousel" class="clients-carousel">
-		<?php
-			foreach($clients_related as $client){
-				$logo = json_decode($client->logo);
-				$clientlink = ROOT.'centros/'.$client->permalink;
-				$Stores->get($client->id);
-				include 'mods/mod-client.php';
-			}
-		?>
-		</div>
-
-	</div>
-
-</section>
-<?php endif; ?>
 
 <?php include 'mods/mod-socials.php' ?>
-
-
 
 
 

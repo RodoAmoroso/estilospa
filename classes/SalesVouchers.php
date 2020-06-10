@@ -72,22 +72,26 @@ class SalesVouchers extends Sales{
 
 		$this->_pdf->SetFont('ProximaNormal','',12);
 		$this->_pdf->SetTextColor(255,255,255);
-		$this->_pdf->SetXY(21,220.1);
+		$this->_pdf->SetXY(21,218);
 		$this->_pdf->Cell(180,6,utf8_decode('Voucher N° ').$voucher->sale->merchant_order_id.'-'.$voucher->id,0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',10);
-		$this->_pdf->SetXY(21,225.5);
+		$this->_pdf->SetXY(21,223.5);
 		$added = new DateTime($voucher->sale->added);
 		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 30 días a partir del ').$added->format('d/m/Y'),0,0,'L',false);
+
+		$this->_pdf->SetFont('ProximaNormal','',9);
+		$this->_pdf->SetXY(21,228);
+		$this->_pdf->Cell(180,6,utf8_decode('*El tiempo para utilizar tu voucher se aplicará luego de las aperturas de los centros post cuarentena.'),0,0,'L',false);
 
 
 
 		$this->_pdf->SetFont('ProximaNormal','',13);
-		$this->_pdf->SetXY(21, 232.5);
+		$this->_pdf->SetXY(21, 236.5);
 		$this->_pdf->Cell(180,6,utf8_decode($voucher->promo->clientname.' - '.$voucher->stores->address.' '.$voucher->stores->city),0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',11);
-		$this->_pdf->SetXY(21, 238);
+		$this->_pdf->SetXY(21, 242);
 		$this->_pdf->Cell(180,6,'Realizar la reserva del turno al '.(empty($voucher->stores->phones) ? '' : 'Tel: '.$voucher->stores->phones.' ').(empty($voucher->stores->whatsapp) ? '' : '- Whatsapp: '.$voucher->stores->whatsapp),0,0,'L',false);
 
 		//return $this->_pdf->Output('D','estilospa.com_voucher_'.$voucher->sale->collection_id.'.pdf');
@@ -127,22 +131,23 @@ class SalesVouchers extends Sales{
 		$this->_pdf->addPage();
 		$this->_pdf->useTemplate($tplidx,0,0,210,297,true);
 
-		$this->_pdf->SetFont('Oleo','',22);
-		$this->_pdf->SetTextColor(247,170,172);
+		//$this->_pdf->SetFont('Oleo','',22);
+		$this->_pdf->SetFont('ProximaNormal','',13);
+		$this->_pdf->SetTextColor(90,90,90);
 
 		/// To
-		$this->_pdf->SetXY(40,35);
-		$this->_pdf->Cell(150,10,utf8_decode($voucher->to_user),0,0,'L',false);
+		$this->_pdf->SetXY(18,48);
+		$this->_pdf->Cell(150,10,utf8_decode('Hola '.$voucher->to_user.'!'),0,0,'L',false);
 
 		/// From
-		$this->_pdf->SetXY(40,45);
-		$this->_pdf->Cell(150,10,utf8_decode($voucher->user->name.' '.$voucher->user->lastname),0,0,'L',false);
+		$this->_pdf->SetXY(18,54);
+		$this->_pdf->Cell(150,10,utf8_decode('Recibiste un Regalo de '.$voucher->user->name.' '.$voucher->user->lastname),0,0,'L',false);
 
 		/// Message
 		$this->_pdf->SetTextColor(90,90,90);
-		$this->_pdf->SetFont('ProximaNormal','',15);
-		$this->_pdf->SetXY(18,59);
-		$this->_pdf->MultiCell(180,6,utf8_decode($voucher->message),0,'L',false);
+		$this->_pdf->SetFont('ProximaNormal','',12);
+		$this->_pdf->SetXY(18,66);
+		$this->_pdf->MultiCell(180,6,utf8_decode('"'.$voucher->message.'"'),0,'L',false);
 		$this->_pdf->Ln();
 
 

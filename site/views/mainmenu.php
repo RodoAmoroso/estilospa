@@ -1,20 +1,19 @@
 
 <!-- MAIN MENU -->
-<nav>
+<nav class="main-nav">
 	<div class="container">
 
 		<i class="fa fa-bars fa-lg cl-white" ></i>
 
 		<ul id="main_menu" class="main-menu" >
-			<li class="highlight"><a href="<?= ROOT.'busqueda/' ?>">Experiencias</a></li>
-			<?php
-			$ClientTypes->keywords = '';
-			if($ClientTypes->get()):
-				foreach($ClientTypes->data() as $type):
-			?>
-			<li><a href="<?= ROOT.'busqueda/'.Permalink($type->name).'/' ?>"><?= $type->name ?></a></li>
+			<li class="highlight"><a href="<?= ROOT.'categoria/' ?>">Experiencias</a></li>
+
+			<?php if($menu_categories): foreach($menu_categories as $category_nav): ?>
+			<li><a href="<?= ROOT.'categoria/'.$category_nav->id.'-'.Permalink($category_nav->name).'/' ?>"><?= $category_nav->name ?></a></li>
 			<?php endforeach; endif; ?>
+
 			<li class="highlight"><a href="<?= ROOT.'regalos/' ?>">Para Regalar</a></li>
+			<li><a href="http://www.hotelespa.com.ar/" target="_blank">Hotel Spa</a></li>
 			<li><a href="<?= ROOT.'blog' ?>">Blog</a></li>
 			<li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li>
 		</ul>
@@ -24,10 +23,10 @@
 
 
 <!-- SEARCH -->
-<section id="search_bar" class="search-bar <?=$_section=='categoria'?'search-bar-category':'' ?>" >
+<section id="search_bar" class="search-bar <?=$_section=='categoria-centros'?'search-bar-category':'' ?>" >
 
 	<div class="container">
-		<?php if($_section=='categoria'): ?>
+		<?php if($_section=='categoria-centros'): ?>
 		<p class="sz-10">Buscá entre cientos de centros en todo el país</p>
 		<?php else: ?>
 		<p class="sz-10">Buscá tu servicio o tratamiento entre cientos de centros en todo el país</p>
@@ -50,8 +49,8 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-shopping-bag"></i></span>
 					<select name="type" id="" class="form-control">
-						<option value="busqueda" <?= $_section!='categoria' ? 'selected' : '' ?> >Experiencias</option>
-						<option value="categoria" <?= $_section=='categoria' ? 'selected' : '' ?> >Centros</option>
+						<option value="busqueda" <?= $_section!='categoria-centros' ? 'selected' : '' ?> >Experiencias</option>
+						<option value="categoria-centros" <?= $_section=='categoria-centros' ? 'selected' : '' ?> >Centros</option>
 					</select>
 				</div>
 			</div>

@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -16,7 +15,7 @@ switch($_action){
 	case 'get':
 		$Reservations->from = Input::get('from');
 		$Reservations->to = Input::get('to');
-		$reservations = $Reservations->get($User->data()->idclient);		
+		$reservations = $Reservations->get($User->data()->idclient);
 		echo Responses::response('ok','',array('results'=>$reservations));
 		break;
 
@@ -35,7 +34,7 @@ switch($_action){
 
 		$Mailing->cancel_reservation(Input::get('id'));
 		$Reservations->delete(Input::get('id'));
-		
+
 		echo Responses::response('ok','La reserva ha sido cancelada. Se envió aviso al usuario.');
 		break;
 
@@ -47,7 +46,7 @@ switch($_action){
 
 		$Reservations->confirm(Input::get('id'));
 		$Mailing->confirm_reservation(Input::get('id'));
-		
+
 		echo Responses::response('ok','La reserva ha sido confirmada exitosamente. Se envió aviso al usuario.');
 		break;
 

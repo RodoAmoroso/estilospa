@@ -187,6 +187,15 @@ var Promos = {
 			});
 			return false;
 		}
+
+		if(stores.length==0){
+			Swal.fire({
+				type:'warning',
+				text:'Debes elegir al menos una sucursal.'
+			});
+			return false;
+		}
+
 		if($('#fd_sale').hasClass('active')){
 			if($('#fd_includes').val() == '' || $('#fd_recomendations').val() == '' || $('#fd_reservation').val() == '' || $('#fd_duration').val() == '' || $('#fd_cancellation').val() == ''){
 				Swal.fire({
@@ -202,10 +211,10 @@ var Promos = {
 				});
 				return false;
 			}
-			if($('#fd_amount').val()==0){
+			if($('#fd_category').val()==''){
 				Swal.fire({
 					type:'warning',
-					text:'La cantidad disponible no puede estar en 0'
+					text:'Debes Elegir una Categoría para esta experiencia'
 				});
 				return false;
 			}
@@ -266,6 +275,9 @@ var Promos = {
 				$('#fd_reservation').val(obj.reservation);
 				$('#fd_duration').val(obj.duration);
 				$('#fd_cancellation').val(obj.cancellation);
+
+				$('#fd_label').val(obj.label)
+
 				if(obj.gift == 1){
 					$('#fd_gift').removeClass('active').trigger('click');
 				}else{

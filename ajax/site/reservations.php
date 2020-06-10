@@ -1,6 +1,5 @@
-<?php 
+<?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -36,7 +35,7 @@ switch($_action){
 			}else if(Input::get('action') == 'prev'){
 				$day = Input::get('firstday');
 			}else{
-				$day = '01';				
+				$day = '01';
 			}
 
 		$fecha = new DateTime(Input::get('year').'-'.Input::get('month').'-'.$day);
@@ -53,11 +52,11 @@ switch($_action){
 				$fecha->modify('-1 day');
 			}
 		}
-		
+
 		if(Input::get('action') == 'prev'){
 			$_arrdays = array_reverse($_arrdays);
 		}
-		
+
 		echo Responses::response('ok','',array(
 			'days'=>$_arrdays,
 			'month'=>$fecha->format('m'),
@@ -92,7 +91,7 @@ switch($_action){
 
 		if(!$User->logged()){
 			if(!$User->find(Input::get('email'))){
-				
+
 				if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
 
 				$hash = hash('sha256', uniqid());
@@ -118,12 +117,12 @@ switch($_action){
 				$userdata->name = Input::get('name');
 				$userdata->mail = Input::get('email');
 				$userdata->hash = $hash;
-				
+
 				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email.'));
 				//$User->login(Input::get('email'),$password);
 
 			}else{
-				$idu = $User->data()->id;				
+				$idu = $User->data()->id;
 			}
 		}else{
 			$idu = $User->data()->id;
@@ -156,7 +155,7 @@ switch($_action){
 		if(!$User->logged()) die(Responses::response('require_login'));
 		$Reservations->from = Input::get('from');
 		$Reservations->to = Input::get('to');
-		$reservations = $Reservations->get(null,$User->data()->id);		
+		$reservations = $Reservations->get(null,$User->data()->id);
 		echo Responses::response('ok','',array('results'=>$reservations));
 		break;
 
@@ -171,13 +170,13 @@ switch($_action){
 	case 'confirm':
 
 		if(!$User->logged()) die(Responses::response('require_login'));
-		
+
 		//$Promos->find(Input::get('promoid'));
 		//if(!$Promos->data()) die(Responses::response('fail'));
-		
+
 		$Reservations->confirm(Input::get('id'));
 		$Mailing->confirm_reservation_user(Input::get('id'),$User->data()->id);
-		
+
 		echo Responses::response('ok','La reserva ha sido confirmada exitosamente. Se envió un aviso al centro.');
 		break;
 
@@ -187,7 +186,7 @@ switch($_action){
 
 		if(!$Mailing->cancel_reservation_user(Input::get('id'),$User->data()->id)) die(Responses::response('fail'));
 		$Reservations->delete(Input::get('id'));
-		
+
 		echo Responses::response('ok','La reserva ha sido cancelada. Se envió aviso al centro.');
 		break;
 

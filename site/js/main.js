@@ -12,7 +12,7 @@ $(function(){
 	$(window).resize(function(){
 		if($(window).width()>767){
 			$('#main_menu').removeAttr('style').slideDown();
-		}	
+		}
 	});
 
 	$('[data-toggle=slide]').click(function(e){
@@ -74,7 +74,7 @@ $(function(){
 		ajax('site/forms/newsletter',post)
 			.then(function(data){
 				$('#form_newsletter input').val('');
-				Swal.fire({type:'success',html:data.message});				
+				Swal.fire({type:'success',html:data.message});
 			});
 	});
 

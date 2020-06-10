@@ -9,7 +9,7 @@
 			</div>
 		</div>
 		<div class="caption">
-			<h1></h1>
+			<h1 class="title"></h1>
 			<p class="description"></p>
 			<div class="foot">
 				<div class="selector clickable" data-value="0" data-toggle="selector"><small>Seleccionar</small> <i class="fa fa-circle-o"></i></div>

@@ -13,7 +13,8 @@ class Stores{
 					$searchmixed=0,
 					$limit='',
 					$group='',
-					$idprovince=0;
+					$idprovince=0,
+					$ids;
 
 	public function __construct(){
 		$this->_dbprefix = Config::get('mysql/prefix');
@@ -44,14 +45,25 @@ class Stores{
 			$search .= empty($search) ? "WHERE " : " AND ";
 			$search .= "s.idprovince={$this->idprovince}";
 		}
+
+		if($this->ids){
+			$search .= empty($search) ? "WHERE " : " AND ";
+			//$implode = implode(',', $this->ids)
+			$search .= "s.id IN({$this->ids})";
+		}
+
 		$this->_db->query(
-			"SELECT s.id, s.city, s.idclient, s.idprovince, p.name, (SELECT COUNT(*) FROM {stores} ss LEFT JOIN {clients} c ON c.id=ss.idclient WHERE ss.city=s.city AND c.visible=1) as countclients
+			"SELECT
+				s.id, s.city, s.idclient, s.idprovince,
+				p.name, (SELECT COUNT(*) FROM {stores} ss LEFT JOIN {clients} c ON c.id=ss.idclient WHERE ss.city=s.city AND c.visible=1) as countclients
 			FROM {stores} s
 			LEFT JOIN {provinces} p ON p.id=s.idprovince
 			{$search}
 			{$groupby}
 			{$limitby}");
+
 		//show_array($this->_db->getquery()->queryString);
+
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;

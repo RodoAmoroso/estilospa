@@ -113,6 +113,13 @@ var Promos = {
 				});
 				return false;
 			}
+			if($('#fd_category').val()==''){
+				Swal.fire({
+					type:'warning',
+					text:'Debes Elegir una Categoría para esta experiencia'
+				});
+				return false;
+			}
 		}
 		ajax('panel/promos/save',{
 			Title:$('#fd_title').val(),

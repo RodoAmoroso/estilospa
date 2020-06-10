@@ -1,107 +1,37 @@
+<?php if($banners): ?>
+<section class="slider-wide">
 
-<!-- MAIN SLIDER -->
-<section class="home-slider">
-	<div class="container-fluid">
-		<div class="row">
-
-			<div class="col-left col-xs-12 col-sm-4">
-
-				<div class="mod-slide">
-					<img src="<?= ROOT ?>assets/blank-square-2.gif" alt="" class="wd-100 blank">
-
-					<?php
-					$Banners->visible = 1;
-					$Banners->type = 'main';
-					$Banners->sort = 'position';
-					$Banners->limit = '0,1';
-					if($Banners->get()):
-						foreach($Banners->data() as $banner):
-							$img = json_decode($banner->image);
-							$link = json_decode($banner->link);
-							$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
-							$target = $link->blank ? '' : 'target="_blank"';
-					?>
-					<a <?= $href.' '.$target ?> class="slide" >
-						<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>" ></div>
-						<?php if(!empty($banner->title)): ?>
-						<div class="caption">
-							<h3><?= $banner->title ?></h3>
-							<p><?= $banner->caption ?></p>
-						</div>
-						<?php endif; ?>
-					</a>
-					<?php endforeach;	endif; ?>
+	<div class="sliders">
+		<?php foreach($banners as $banner): ?>
+		<div class="slide" style="background-image:url(<?= View::img('home',$banner->image->photoname.'-o.'.$banner->image->extension) ?>);background-position:<?= $banner->image->position ?>">
+			<!-- <img src="" alt="" class="w-100"> -->
+		</div>
+		<?php endforeach; ?>
+	</div>
+</section>
+<?php endif; ?>
 
 
-					<!-- <i class="fa fa-chevron-left prev"></i>
-					<i class="fa fa-chevron-right next"></i>
-					<div class="navigation"></div>-->
 
-				</div>
+<?php if($promo_categories): ?>
+<!-- CATEGORIES -->
+<section class="gral-section">
+	<div class="container">
+		<div class="categories">
 
-			</div>
-
-			<div class="col-left col-xs-12 col-sm-4">
-
-				<div class="mod-slide mod-slide-2">
-					<img src="<?= ROOT ?>assets/blank-square-2.gif" alt="" class="wd-100 blank">
-
-					<?php
-					$Banners->visible = 1;
-					$Banners->type = 'main';
-					$Banners->sort = 'position';
-					$Banners->limit = '1,1';
-					if($Banners->get()):
-						foreach($Banners->data() as $banner):
-							$img = json_decode($banner->image);
-							$link = json_decode($banner->link);
-							$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
-							$target = $link->blank ? '' : 'target="_blank"';
-					?>
-					<a <?= $href.' '.$target ?> class="slide" >
-						<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>" ></div>
-						<?php if(!empty($banner->title)): ?>
-						<div class="caption">
-							<h3><?= $banner->title ?></h3>
-							<p><?= $banner->caption ?></p>
-						</div>
-						<?php endif; ?>
-					</a>
-					<?php endforeach;	endif; ?>
-
-
-					<!-- <i class="fa fa-chevron-left prev"></i>
-					<i class="fa fa-chevron-right next"></i>
-					<div class="navigation"></div> -->
-
-				</div>
-
-			</div>
-
-			<div class="col-right col-xs-12 col-sm-4">
-				<?php
-				$Banners->visible = 1;
-				$Banners->type = 'side';
-				$Banners->sort = 'rand';
-				$Banners->limit = '0,2';
-				if($Banners->get()):
-					foreach($Banners->data() as $banner):
-						$img = json_decode($banner->image);
-						$link = json_decode($banner->link);
-						$href = empty($link->url) ? '' : 'href="'.$link->url.'"';
-						$target = $link->blank ? '' : 'target="_blank"';
-				?>
-				<a <?= $href.' '.$target ?> class="mod-slide ">
-					<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
-					<div class="overprint-absolute" style="background-image:url(<?= ROOT.'img/home/'.$img->photoname.'-o.'.$img->extension ?>);background-position:<?= $img->position ?>"></div>
+			<?php foreach($promo_categories as $category): ?>
+			<div class="category">
+				<a href="<?=ROOT.'categoria/'.$category->id.'-'.permalink($category->name) ?>" class="wrapper">
+					<div class="image" style="background-image:url(<?= $category->image->small ?>)"></div>
+					<div class="caption"><?=$category->name?></div>
 				</a>
-				<?php endforeach; endif; ?>
-
 			</div>
+			<?php endforeach; ?>
 
 		</div>
 	</div>
 </section>
+<?php endif; ?>
 
 
 <!-- PROMOS -->

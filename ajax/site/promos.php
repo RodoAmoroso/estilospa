@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $Promos = new Promos();
@@ -25,7 +24,7 @@ switch($_action){
 		if(!$Promos->find($idpromo)) die(Responses::response('fail'));
 		if(!$Promos->data()->statusstart || !$Promos->data()->statusfinish) die(Responses::response('fail','La promo ha finalizado'));
 		if($Promos->data()->amount<$amount) die(Responses::response('fail','La cantidad indicada es mayor que la cantidad de promos disponibles'));
-		
+
 		$MPConfig = new MPConfig();
 		if(!$MPConfig->find($Promos->data()->idclient)) die(Responses::response('fail'));
 		if(!$User->logged()) die(Responses::response('require_login'));
@@ -52,7 +51,7 @@ switch($_action){
 
 		$from_user = $User->data()->id;
 
-		
+
 		if(!$User->find(Input::get('email'))){
 
 			$hash = hash('sha256', uniqid());

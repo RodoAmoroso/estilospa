@@ -31,4 +31,9 @@ $(function(){
 			margin:10
 		});
 
+
+	var slider = new Slider({
+		container:'.sliders'
+	});
+
 });

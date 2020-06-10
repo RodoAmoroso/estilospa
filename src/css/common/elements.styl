@@ -8,8 +8,8 @@
 .dp-block
 	display block
 .dp-table
-	display table 
-	position relative	
+	display table
+	position relative
 	table-layout auto
 .dp-table-cell
 	display table-cell
@@ -20,7 +20,7 @@
 	align-items center
 	justify-content center
 .overprint-fixed,.overprint-absolute
-	background-position center center 
+	background-position center center
 	background-repeat no-repeat
 	background-size cover
 	height 100%
@@ -28,10 +28,10 @@
 	top 0
 	width 100%
 .overprint-fixed
-	position fixed 
+	position fixed
 .overprint-absolute
 	position absolute
-.parallax-mirror	
+.parallax-mirror
 	img
 		filter blur(2px)
 .relative
@@ -44,7 +44,7 @@
 	background-color gray(5)
 	border 2px dotted gray(20)
 	z-index 50
-#scrollUp 
+#scrollUp
 	top 10px
 	right 10px
 	padding 2px 10px
@@ -52,7 +52,12 @@
 	color #FFF
 	i
 		font-size 29px
-		
+
+
+.d-flex
+	display flex
+.flex-wrap
+	flex-wrap wrap
 
 .thumb-cover
 	background-size cover
@@ -92,7 +97,7 @@
 	width 400px
 .img-wide
 	width 100%
-	
+
 .fw-300
 	font-weight 300
 .fw-400
@@ -101,27 +106,27 @@
 	font-weight 600
 .fw-700
 	font-weight 700
-	
+
 .required
 	background-color rgba(255,0,0,0.025) !important
 	border 1px solid red !important
 .strikethrough
 	text-decoration line-through
-	
-.fa-toggle-on 
+
+.fa-toggle-on
 	color $green_3
 .fa-toggle-off
 	color red
-	
 
-.gral-section 
+
+.gral-section
 	padding-top 80px
 	padding-bottom 80px
 
 .gral-section-min
 	padding-top 40px
 	padding-bottom 40px
-	
+
 
 #loading
 	align-items center
@@ -131,8 +136,8 @@
 	justify-content center
 	height 100%
 	left 0
-	opacity 0	
-	position fixed 
+	opacity 0
+	position fixed
 	text-align center
 	transition all 600ms ease-out
 	top 0
@@ -140,19 +145,19 @@
 	z-index 9999
 	.loading-text
 		padding 16px
-#loading.active 
+#loading.active
 	visibility visible
 	opacity 1
 
-.title-bar 
+.title-bar
 	background-color $aqua_1
 	color $aqua_5
 	padding 8px 0
 	margin 16px 0 10px 0
 	text-align center
-	.title 
+	.title
 		margin 0
-		
+
 .block-white
 	background-color white
 	border 1px solid gray(10)
@@ -161,22 +166,22 @@
 	box-shadow 2px 2px 4px alpha(black,.05)
 	margin 8px 0
 	padding 26px
-	hr 
+	hr
 		margin 15px 0 15px 0
-	.title-bar 
+	.title-bar
 		margin -26px -26px 15px -26px
 		padding-left 26px
 		text-align left
-		
+
 
 .onoffswitch
 	position relative
-	user-select none	
+	user-select none
 	width 54px
-	.onoffswitch-checkbox 
+	.onoffswitch-checkbox
 		display none
-	.onoffswitch-checkbox:checked + 
-		.onoffswitch-label 
+	.onoffswitch-checkbox:checked +
+		.onoffswitch-label
 			border 2px solid $green_2
 			.onoffswitch-inner
 				margin-left 0
@@ -184,14 +189,14 @@
 				right 1px
 	.onoffswitch-label
 		overflow hidden
-		cursor pointer 
+		cursor pointer
 		border 2px solid gray(20)
 		border-radius 20px
 		width 100%
 		position relative
-		.onoffswitch-inner 
+		.onoffswitch-inner
 			margin-left 0
-			display block 
+			display block
 			width 200%
 			height 20px
 			margin-left -100%
@@ -214,31 +219,31 @@
 				font-family 'Ubuntu', sans-serif
 				font-style normal
 				font-size 1.2rem
-				font-weight bold				
+				font-weight bold
 				height 20px
 				line-height 1.15rem
 				padding 4px 6px 0 12px
 				width 50%
-		.onoffswitch-switch 
-			background-color white 
+		.onoffswitch-switch
+			background-color white
 			border-radius 100%
 			bottom 0
-			display block 
+			display block
 			margin 0
 			position absolute
 			right 29px
-			top 0 
+			top 0
 			transition all .3s $cubic
-			width 20px 
-			
+			width 20px
+
 
 .rounded
 	border-radius 8px
-	
+
 
 .btn-group-block
-	display flex 
-	.btn 
+	display flex
+	.btn
 		margin 2px
 		width 100%
 
@@ -260,7 +265,29 @@
 		.radio-label
 			font-size 1.5rem
 			font-style normal
-		.radio-icon 
-			&:before 
+		.radio-icon
+			&:before
 				content '\f096'
 				font-family 'FontAwesome'
+
+.number-list
+	padding 0
+	margin 0 !important
+	li
+		display flex
+		align-items center
+		margin .425rem 0
+		font-size 1.625rem
+		.number
+			align-items center
+			background-color $fucsia_3
+			background-color $cyan_3
+			border-radius 50%
+			display flex
+			color white
+			justify-content center
+			height 18px
+			margin-right 1rem
+			width 18px
+			font-size .975rem
+			font-weight 600

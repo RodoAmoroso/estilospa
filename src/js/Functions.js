@@ -14,12 +14,12 @@ Array.prototype.remove = function(value){
 }
 
 Number.prototype.numberFormat = function(c, d, t) {
-	var n = this, 
-	c = isNaN(c = Math.abs(c)) ? 2 : c, 
-	d = d == undefined ? "." : d, 
-	t = t == undefined ? "," : t, 
-	s = n < 0 ? "-" : "", 
-	i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+	var n = this,
+	c = isNaN(c = Math.abs(c)) ? 2 : c,
+	d = d == undefined ? "." : d,
+	t = t == undefined ? "," : t,
+	s = n < 0 ? "-" : "",
+	i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
 	j = (j = i.length) > 3 ? j % 3 : 0;
 	return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 }
@@ -55,11 +55,11 @@ let loading = obj => {
 }
 let ajax = (url,obj) => {
 	loading();
-	if(obj==undefined) obj = {}; 
+	if(obj==undefined) obj = {};
 	return new Promise((resolve,reject) => {
 		$.ajax({
 			type:'POST',
-			url:ROOT+'ajax/'+url,
+			url:ROOT+'ajax/index.php?uri='+url,
 			data:obj,
 			dataType:'json',
 			cache:false
@@ -69,7 +69,7 @@ let ajax = (url,obj) => {
 				console.log(response,url,obj);
 				Swal.fire({type:'error',html:response.message});
 				reject(response);
-			} 
+			}
 			resolve(response);
 		})
 		.always(response=>{
@@ -77,7 +77,7 @@ let ajax = (url,obj) => {
 		})
 		.fail(response => {
 			let error = response.responseText;
-			console.log(response.responseText);			
+			console.log(response.responseText);
 			reject(error);
 		});
 	});
@@ -153,7 +153,7 @@ let convertDates = obj => {
 		case 'mysql':
 			var f = obj.date.split(' ');
 			var d = f[0].split('-');
-			return d[2]+'/'+d[1]+'/'+d[0]+' '+(f[1]==undefined ? '00:00:00' : f[1]);	
+			return d[2]+'/'+d[1]+'/'+d[0]+' '+(f[1]==undefined ? '00:00:00' : f[1]);
 			break;
 		case 'regional':
 			var f = obj.date.split(' ');
@@ -231,7 +231,7 @@ var SearchSuggestions = function(FORM,PHP,MODE,FNCT){
 			}
 			var ajx = $.ajax({
 				type:'POST',
-				url:ROOT+'ajax/'+PHP+(mode!='' ? '/'+mode : ''),
+				url:ROOT+'ajax/index.php?uri='+PHP+(mode!='' ? '/'+mode : ''),
 				data:{
 					keywords:input.val(),
 					search_mixed:1,
@@ -262,7 +262,7 @@ var SearchSuggestions = function(FORM,PHP,MODE,FNCT){
 						if(!$(e.target).parent().hasClass('input-search-suggestions')){
 							input.parent().find('.input-search-suggestions').remove();
 						}
-					});					
+					});
 				}else{
 					input.parent().find('.input-search-suggestions').remove();
 					///console.log('nothing');
@@ -302,14 +302,6 @@ var FormatDate = function(date) {
 
 	return year.toString() + "-" + month + "-" + day+' '+hours+':'+minutes+':'+seconds;
 }
-var GetYoutubeApi = function(ID,CALLBACK){
-	var AJXLog = $.ajax({type:'GET',url:'https://www.googleapis.com/youtube/v3/videos?id='+ID+'&key=AIzaSyAq3a2AC4jXd9AVmt646ZP_45Vd3oLJn7g&part=snippet'});
-	AJXLog.done(function(data){
-		if(CALLBACK){
-			return CALLBACK(data);
-		}
-	});
-}
 var GetIDVideo = function(INPUT,SITE){
 	var arrURL = {};
 	var arrYT = {};
@@ -322,7 +314,7 @@ var GetIDVideo = function(INPUT,SITE){
 			break;
 		case 'youtube':
 			arrURL = INPUT.split("watch?v=");
-			if(arrURL.length==1){return false;}           
+			if(arrURL.length==1){return false;}
 			arrYT = arrURL[1].split("&");
 			idvideo = arrYT[0];
 			break;
@@ -331,7 +323,7 @@ var GetIDVideo = function(INPUT,SITE){
 }
 var DragImages = function(DIV){
 	$(DIV+' .th').css({left:0,top:0}).draggable({
-		drag:function(e,ui){			
+		drag:function(e,ui){
 			$(ui.helper.context).parent().css({backgroundPosition:ui.position.left+'px '+ui.position.top+'px'});
 		},
 		stop:function(e,ui){

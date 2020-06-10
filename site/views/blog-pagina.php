@@ -27,12 +27,11 @@
 				if(count($bloggallery)):
 					foreach($bloggallery as $image):
 						$play = '';
-						if(isset($image->video)):
+						/*if(isset($image->video)):
 							$img = YoutubeAPI($image->video);
 							$play = '<div class="play" data-video="'.$image->video.'" ><i class="fa fa-play-circle fa-5x"></i></div>';
-						else:
-							$img = ROOT.'img/blog/'.$image->photoname.'-o.'.$image->extension;
-						endif;
+						endif;*/
+						$img = ROOT.'img/blog/'.$image->photoname.'-o.'.$image->extension;
 					?>
 					<div class="slide" style="background-image:url(<?= $img ?>);background-size:contain;background-repeat:no-repeat;"><?= $play ?></div>
 					<?php endforeach; endif; ?>

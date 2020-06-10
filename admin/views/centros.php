@@ -344,7 +344,7 @@
 						</div>
 						<p class="sz-9">Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal del centro.</p>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<!-- <div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="fd_video">Agregar Video</label>
 							<div class="input-group">
@@ -355,7 +355,7 @@
 							</div>
 						</div>
 						<p class="sz-9">Agregar sólamente la URL del video de Youtube. Es la que figura en la barra de direcciones. Por ej: https://www.youtube.com/watch?v=puvKF8gmXUM</p>
-					</div>
+					</div> -->
 				</div>
 
 

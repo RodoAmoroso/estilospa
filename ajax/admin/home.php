@@ -19,7 +19,7 @@ switch($_action){
 		break;
 
 	case 'upside':
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(768,328,'-o'),array(580,248,'-t')),'',false);
@@ -28,21 +28,21 @@ switch($_action){
 
 	case 'save':
 
-		if(!empty(Input::get('Link')['url']) && !filter_var(Input::get('Link')['url'],FILTER_VALIDATE_URL)) die(Responses::response('url'));
+		if(!empty(Input::get('link')['url']) && !filter_var(Input::get('link')['url'],FILTER_VALIDATE_URL)) die(Responses::response('url'));
 
-		$Banners->save();
-		echo Responses::response('ok','',array('id'=>$Banners->getLastId()));
+		$bannerid = $Banners->save();
+		echo Responses::response('ok','',array('id'=>$bannerid));
 		break;
 
 	case 'get':
 		$Banners->sort = 'position';
-		$Banners->get();
-		echo Responses::response('ok','',array('results'=>$Banners->data()));
+		$banners = $Banners->get();
+		echo Responses::response('ok','',array('results'=>$banners));
 		break;
 
 	case 'find':
-		$Banners->find(Input::get('ID'));
-		echo Responses::response('ok','',array('result'=>$Banners->data()));
+		$banner = $Banners->find(Input::get('id'));
+		echo Responses::response('ok','',array('result'=>$banner));
 		break;
 
 	case 'delete':

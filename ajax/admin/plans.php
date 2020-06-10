@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -13,7 +12,7 @@ switch($_action){
 
 	case 'save':
 		$Plans->save();
-		echo Responses::response('ok','',array('id'=>$Plans->getLastId()));		
+		echo Responses::response('ok','',array('id'=>$Plans->getLastId()));
 		break;
 
 	case 'get':

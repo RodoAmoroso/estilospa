@@ -153,10 +153,11 @@ header.header
 					//height auto
 					//transform rotate3d(1,0,0,0deg)
 					transform matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,0,0,0,1)
-nav
+nav.main-nav
 	background-color $aqua_5
 	ul.main-menu
 		display flex
+		//justify-content center
 		margin 0
 		padding 0
 		li
@@ -173,7 +174,7 @@ nav
 				font-size 1.45rem
 				font-weight 300
 				//letter-spacing 0.1pt
-				padding 10px
+				padding 1rem 1.25rem
 			&:hover
 				background-color $aqua_3
 				a
@@ -267,7 +268,8 @@ footer
 				border-right 1px solid $aqua_2
 
 .home-slider
-	margin 0 0
+	margin 0
+	display none
 	.container-fluid
 		.row
 			.col-right,.col-left
@@ -315,6 +317,82 @@ footer
 				padding 4px 0 4px 0
 				.mod-slide:first-of-type
 					margin-bottom 4px
+
+.slider-wide
+	background-color gray(5)
+	.sliders
+		position relative
+		padding 15.35%
+		.slide
+			opacity 0
+			visibility 0
+			background-position left center
+			background-size cover
+			position absolute
+			left 0
+			top 0
+			height 100%
+			width 100%
+			transition all 900ms $cubic
+			img
+				width 100%
+
+		.slide.active
+			opacity 1
+			visibility 1
+
+		.dots
+			bottom 0
+			padding 1rem
+			left 0
+			position absolute
+			text-align center
+			width 100%
+			i
+				color white
+				font-size 9pt
+				cursor pointer
+				text-shadow 1px 1px 2px black
+				margin 0 4px
+				&:before
+					content '\f111'
+					font-family 'FontAwesome'
+			i.active
+				color $fucsia_3
+			i.active:before
+				font-family 'FontAwesome'
+		.prev,.next
+			align-items center
+			color white
+			cursor pointer
+			display flex
+			height 100%
+			padding 0 8px 0 8px
+			position absolute
+			top 0
+			i
+				font-size 5rem
+				text-shadow 1px 1px 2px black
+			&:before
+				content ''
+				height 100%
+				opacity 0
+				left 0
+				position absolute
+				transition opacity 300ms ease-out
+				width 100%
+			&:hover
+				&:before
+					opacity 1
+		.prev
+			left 0
+			&:before
+				background-image linear-gradient(left, rgba(0,0,0,0.6), rgba(0,0,0,0))
+		.next
+			right 0
+			&:before
+				background-image linear-gradient(right, rgba(0,0,0,0.6), rgba(0,0,0,0))
+
 .news-home
 	padding 36px 0
 .home-carousel
@@ -1690,6 +1768,54 @@ footer
 			background-color gray(10)
 	li.active
 		background-color gray(10)
+
+.categories
+	display flex
+	flex-wrap wrap
+	margin 0 -1rem
+	.category
+		padding 1rem
+		width (100/3)%
+		.wrapper
+			align-items flex-end
+			background-color black
+			display flex
+			height 280px
+			padding 1rem
+			position relative
+			justify-content center
+			overflow hidden
+			&:hover,&:focus
+				text-decoration none
+				.image
+					transform scale3d(1.1,1.1,1)
+				.caption
+					transform translateY(-50%)
+			.image
+				background-position center
+				background-size cover
+				position absolute
+				opacity .65
+				left 0
+				top 0
+				transition transform 900ms $cubic
+				height 100%
+				width 100%
+
+			.caption
+				color white
+				font-family 'Fira Sans Condensed', sans-serif
+				font-weight 400
+				font-size 3.5rem
+				transition transform 600ms $cubic
+				text-transform uppercase
+				position relative
+
+	@media screen and (max-width 991px)
+		.category
+			width 100%
+
+
 
 @import 'site/questions'
 

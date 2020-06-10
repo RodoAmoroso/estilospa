@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -14,7 +13,7 @@ if(!$User->logged() || $User->data()->idtype != 3) die(Responses::response('rest
 switch($_action){
 
 	case 'get':
-		if(!empty(Input::get('From')) && !empty(Input::get('To'))){			
+		if(!empty(Input::get('From')) && !empty(Input::get('To'))){
 			$from = explode('/',Input::get('From'));
 			$to = explode('/',Input::get('To'));
 			$Sales->range = true;
@@ -23,7 +22,7 @@ switch($_action){
 		}
 		$Sales->ordernumber = Input::get('OrderNumber');
 		$Sales->idclient = $User->data()->idclient;
-		
+
 		$Sales->get();
 		echo Responses::response('ok','',array('results'=>$Sales->data()));
 		break;

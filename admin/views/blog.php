@@ -24,7 +24,7 @@
 							<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 						</div>
 					</div>
-					
+
 				</form>
 
 
@@ -45,10 +45,10 @@
 				<button data-group="views" data-toggle="large" class="btn btn-sm btn-default active"><i class="fa fa-th-large"></i></button>
 				<button data-group="views" data-toggle="list" class="btn btn-sm btn-default"><i class="fa fa-th-list"></i></button>
 			</div>
-			
+
 		</div>
 
-		
+
 		<hr>
 
 		<div id="blog" class="well mod-container-lg"></div>
@@ -91,7 +91,7 @@
 							<label for="fd_subtitle">Subtítulo</label>
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
-					</div>					
+					</div>
 					<div class="col-xs-12 col-sm-4">
 						<div class="form-group">
 							<label for="fd_category">Categoría</label>
@@ -104,13 +104,13 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<label for="fd_shortdescription">Descripción Corta <i class="fa fa-question-circle cl-gray-60" title="Es el texto destacado de la noticia que se verá antes de entrar a la nota completa."></i></label>
 					<textarea id="fd_shortdescription" rows="4" class="form-control" maxlength="500"></textarea>
-					<p class="sz-9" style="margin-top:6px">Max. 500 caracteres. (Quedan: <shortchar>500</shortchar>)</p>					
+					<p class="sz-9" style="margin-top:6px">Max. 500 caracteres. (Quedan: <shortchar>500</shortchar>)</p>
 				</div>
-				
+
 				<div class="form-group">
 					<label for="fd_content">Contenido</label>
 					<textarea id="fd_content" rows="6" class="form-control"></textarea>
@@ -130,15 +130,15 @@
 				<hr>
 				<div class="buttons">
 					<a href="<?= ADMIN.'etiquetas' ?>" class="btn btn-xs btn-primary" title="Editar Listado" target="_blank" ><i class="fa fa-pencil"></i> Editar</a>
-					<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> | 
-					<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button> 
+					<button id="btn_refresh_glossary" class="btn btn-xs btn-success" title="Refrescar Listado" ><i class="fa fa-refresh"></i> Recargar</button> |
+					<button id="btn_collapse_glossary" data-collapse="false" class="btn btn-xs btn-white" ><i class="fa fa-caret-down"></i> Plegar/Desplegar Todos</button>
 					<button id="btn_check_glossary" data-check="true" class="btn btn-xs btn-white" ><i class="fa fa-check-square"></i> Marcar/Desmarcar Todos</button>
 				</div>
 				<hr>
 				<div id="glossary" class="well mod-container-lg"></div>
 			</div>
 
-			<!-- GALLERY --> 
+			<!-- GALLERY -->
 			<div id="tab_gallery" class="tab-panel">
 				<h4 class="fw-600">Galería</h4>
 				<hr>
@@ -155,7 +155,7 @@
 						</div>
 						<small>Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal de la nota.</small>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<!-- <div class="col-xs-12 col-sm-6">
 						<div class="form-group">
 							<label for="fd_video">Agregar Video</label>
 							<div class="input-group">
@@ -166,7 +166,7 @@
 							</div>
 						</div>
 						<p class="sz-9">Agregar sólamente la URL del video de Youtube. Es la que figura en la barra de direcciones. Por ej: https://www.youtube.com/watch?v=puvKF8gmXUM</p>
-					</div>
+					</div> -->
 				</div>
 				<div id="gallery" class="well admin-gallery mod-container-md"></div>
 				<p class="sz-9">Puedes arrastrar y cambiar de lugar las imágenes. </p>
@@ -193,7 +193,7 @@
 		<hr>
 		<div class="block-white">
 			<div class="row">
-				
+
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_category_name">Nombre</label>

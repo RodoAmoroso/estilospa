@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -38,17 +37,17 @@ switch($_action){
 		$Clients->save($User->data()->idclient);
 		/////////////////////////////////////////////////
 		echo Responses::response('ok','Los datos fueron guardados exitosamente!');
-		break;	
+		break;
 
 	case 'gallery':
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(1280,720,'-o'),array(600,600,'-t')), '', false);
 		echo json_encode($file);
 		break;
 	case 'logo':
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(600,600,'')), '', false);
@@ -57,7 +56,7 @@ switch($_action){
 
 	case 'unlink':
 		$MPConfig->unlink($User->data()->idclient);
-		echo Responses::response('ok');	
+		echo Responses::response('ok');
 		break;
 
 

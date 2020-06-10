@@ -1,66 +1,45 @@
-<?php 
+<?php
 
-$query = isset($_uri[1]) && !empty($_uri[1]) ? $_uri[1] : '-';
-$location = isset($_uri[2]) && !empty($_uri[2]) ? $_uri[2] : '-';
-$page = isset($_uri[3]) && !empty($_uri[3]) ? $_uri[3] : 1;
-$_SEARCH = new Search();
-
-
-$search_main = trim(str_replace('-',' ',$query)); 
-$search_locations = trim(str_replace('-',' ',$location));
-
-$Stats->add_search_word($search_main);
-$Stats->add_search_location($search_locations);
-
-
-$arrwordsmain = (array) $search_main;
-$arrwordslocations = (array) $search_locations;
-
-////////////// GLOSSARY ///////////////
-$Glossary->keywords = $arrwordsmain;
-$Glossary->searchmixed = 1;
-$arrglossary = array();
-if(!empty($search_main)){
-	if($Glossary->get()){
-		foreach($Glossary->data() as $glossary):
-			$arrglossary[] = $glossary->id;
-		endforeach;
-	}
+$category = false;
+if(!empty($_subsection)){
+	list($categoryid) = explode('-',$_subsection);
+	if(!$category = $PromosCategories->find($categoryid)) Redirect::to('404');
 }
-////////////// LOCATIONS ////////////////
-$Stores->keywords = $arrwordslocations;
-$Stores->searchmixed = 0;
-$arridclients = array();
-if(!empty($search_locations)){	
-	if($Stores->search()){
-		foreach($Stores->data() as $idclient):
-			$arridclients[] = $idclient->idclient;
-		endforeach;
-	}
+
+//show_array($category);
+
+$Experiences = new Experiences;
+$Experiences->filters = [
+	'active'=>1,
+	'gift'=>1
+];
+if($category){
+	$Experiences->filters['category'] = $category->id;
 }
-///print_r($arridclients);
-///echo '<br />';
-$page_results = 50;
-////////////// PROMOS ///////////////////
-$Promos->keywords = $search_main == ' ' ? '' : $search_main;
-$Promos->status = '1:1';
-$Promos->searchmixed = 1;
-///$Promos->isgift = true;
-$Promos->sort = 'position';
-$Promos->visible = true;
-//$Promos->arrpromotypes = $arrpromotypes;
-$Promos->arrglossary = $arrglossary;
-$Promos->arridclients = $arridclients;
+if($_idsection){
+	$Experiences->filters['city'] = $_idsection;
+}
 
-$Promos->filters = ['gift'=>1];
+$total_experiences = $Experiences->get();
+$limit = 50;
+$page = 0;
+$Experiences->limit = $page.','.$limit;
+$experiences = $Experiences->get();
 
-$Promos->get();
-$total_results = $Promos->data() ? count($Promos->data()) : 0;
 
-$Promos->limit = (($page*$page_results)-$page_results).','.$page_results;
-$Promos->get();
-///print_r($arridclients);
-//show_array($Promos->search);
-
-$MPConfig = new MPConfig();
-$Stores = new Stores();
+//// STORES
+$arr_stores = array();
+$stores = false;
+if($total_experiences){
+	foreach($total_experiences as $te){
+		$st = explode(',',$te->stores);
+		$arr_stores = array_merge($arr_stores,$st);
+	}
+	$arr_stores = array_unique($arr_stores);
+}
+if($arr_stores){
+	$Stores->group = 'city';
+	$Stores->ids = implode(',',$arr_stores);
+	$Stores->search();
+	$stores = $Stores->data();
+}

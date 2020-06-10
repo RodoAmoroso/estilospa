@@ -35,3 +35,10 @@ $MPConfig = new MPConfig();
 
 $Stats = new Stats();
 $Reservations = new Reservations();
+
+
+$PromosCategories = new PromosCategories;
+$PromosCategories->filters = ['visible'=>1];
+
+$PromosCategories->limit = "0,8";
+$menu_categories = $PromosCategories->get();

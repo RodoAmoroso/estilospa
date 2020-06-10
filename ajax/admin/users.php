@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -21,20 +20,20 @@ switch($_action){
 			array('email'=>Input::get('Mail'))
 		);
 		if(!$validate->status) die($validate->response);
-		
+
 		if(!Input::get('ID')){
 			$validate = Input::validate(
 				array('password'=>Input::get('Pass'))
 			);
 			if(!$validate->status) die($validate->response);
 			if($UserAdmin->find(Input::get('Mail'))) die(Responses::response('fail','Ya existe un usuario con ese email'));
-		}		
+		}
 
-		$UserAdmin->save();		
+		$UserAdmin->save();
 		$ID = $UserAdmin->getLastId();
 
 		if(Input::get('IDType')==3){
-			
+
 			$Assoc->idclient = Input::get('IDClient');
 			$Assoc->iduser = $ID;
 			$Assoc->client_user('save');
@@ -85,7 +84,7 @@ switch($_action){
 		break;
 
 	case 'upimage':
-		$Folder = '../'.Input::get('folder');	
+		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(600,600,'-o'),array(260,260,'-t')), '', false);

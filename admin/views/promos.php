@@ -84,7 +84,9 @@
 		<button class="btn btn-sm btn-info" data-toggle="move" data-value="moveup">Mover seleccionados arriba <i class="fa fa-caret-up"></i></button>
 		<hr>
 
-		<div class="well "><div id="promos" class="row"></div></div>
+		<div class="well ">
+			<div id="promos" class="row d-flex flex-wrap"></div>
+		</div>
 
 
 		<button class="btn btn-sm btn-info" data-toggle="move" data-value="moveup">Mover seleccionados arriba <i class="fa fa-caret-up"></i></button>

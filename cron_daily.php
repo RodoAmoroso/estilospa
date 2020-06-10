@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require 'config.php';
 
@@ -63,7 +63,7 @@ if($latest_favs){
 		if( $Newsletters->check_queue($fav->iduser) && $Newsletters->check_log($check) ){
 
 			$obj = new stdClass();
-			
+
 			$Promos->find($fav->idpromo);
 			$obj->promo = $Promos->data();
 
@@ -101,13 +101,13 @@ if($latest_question){
 
 		if( $Newsletters->check_queue($question->userid) && $Newsletters->check_log($check) ){
 
-			$obj = new stdClass();			
+			$obj = new stdClass();
 
 			switch ($question->type) {
 				case 'promos':
 					$Promos->find($question->rowid);
 					$obj->promo = $Promos->data();
-					
+
 					$Promos->exclude = $Promos->data()->id;
 
 					$Promos->get();
@@ -121,7 +121,7 @@ if($latest_question){
 						'contextid'=>$question->rowid
 					));
 					break;
-				
+
 				case 'clients':
 					$Clients->find($question->rowid);
 					$obj->client = $Clients->data();
@@ -215,5 +215,7 @@ if($latest_sales){
 	}
 }
 
+$Cron = new Cron;
+$Cron->add_log('daily');
 
 http_response_code(200);

@@ -26,8 +26,16 @@ var Promos = {
 					var mod = $('#mod_card').clone();
 					mod.removeAttr('id').removeClass('dp-none');
 					mod.attr('data-id',(v.id==undefined?0:v.id));
-					mod.find('h1').text(v.title);
-					mod.find('h1').after('<h2>'+v.name+'</h2>');
+					mod.find('.title').text(v.title);
+
+					var client = $('<h2>').clone();
+					var category = $('<h2 class="text-muted">').clone();
+					client.text(v.name);
+					category.text(v.category_name==null ? '' : v.category_name);
+
+					mod.find('h1').after(client);
+					client.after(category)
+
 					var status = '';
 					if(v.statusstart== 0){
 						status = '<span class="label label-warning">no inició</span>';

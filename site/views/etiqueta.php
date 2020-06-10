@@ -2,6 +2,42 @@
 <script>var IDGlossary = <?= $Glossary->data()->id ?>;</script>
 
 
+<?php $Promos->get(); if($Promos->data()): ?>
+<section class="bg-gray-5">
+
+	<div class="container">
+
+		<div class="block-white">
+			<h4 class="title">Experiencias con: <?= $Glossary->data()->name ?></h4>
+			<hr>
+
+			<div class="promos-highlight">
+			<?php
+			foreach($Promos->data() as $kp=>$promo):
+
+				if($Clients->find($promo->idclient)):
+				$imgpromo = json_decode($promo->gallery);
+				$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
+				$Stores->get($Clients->data()->id,$promo->stores);
+
+				echo '<div class="mod-promo mod-promo-4">';
+				include 'mods/mod-promo.php';
+				echo '</div>';
+
+				endif;
+			endforeach;
+			?>
+
+			</div>
+		</div>
+	</div>
+
+
+</section>
+<?php endif; ?>
+
+
+
 <section class="glossary-page bg-gray-5">
 
 	<div class="container">
@@ -49,39 +85,6 @@
 </section>
 
 
-
-<?php $Promos->get(); if($Promos->data()): ?>
-<section>
-	<div class="title-bar">
-		<div class="container">
-			<h3 class="title"><i class="fa fa-shopping-bag"></i> Experiencias con: <?= $Glossary->data()->name ?></h3>
-		</div>
-	</div>
-
-	<div class="container">
-
-		<div class="promos-highlight">
-		<?php
-		foreach($Promos->data() as $kp=>$promo):
-
-			if($Clients->find($promo->idclient)):
-			$imgpromo = json_decode($promo->gallery);
-			$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
-			$Stores->get($Clients->data()->id,$promo->stores);
-
-			echo '<div class="mod-promo mod-promo-4">';
-			include 'mods/mod-promo.php';
-			echo '</div>';
-
-			endif;
-		endforeach;
-		?>
-
-		</div>
-	</div>
-
-</section>
-<?php endif; ?>
 
 
 

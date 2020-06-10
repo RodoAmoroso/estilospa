@@ -15,7 +15,7 @@
 <!-- LIST -->
 <section id="list_main" class="admin-box">
 	<div class="container">
-		<div class="row">			
+		<div class="row">
 			<div class="col-xs-12 col-sm-6">
 				<h3>Banner Principal</h3>
 			</div>
@@ -24,7 +24,7 @@
 					<button id="btn_new_main" data-type="main" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Banner</button>
 				</div>
 			</div>
-		</div>		
+		</div>
 		<p class="sz-9">Puedes arrastrar los banners para cambiarlos de posición</p>
 		<hr>
 		<div id="main" class="well mod-container-lg"></div>
@@ -51,7 +51,7 @@
 						<input id="fd_title_main" type="text" class="form-control" >
 					</div>
 				</div>
-			</div>	
+			</div>
 			<div class="form-group">
 				<label for="fd_caption_main">Descripción (Opcional)</label>
 				<textarea id="fd_caption_main" rows="4" class="form-control"></textarea>
@@ -68,7 +68,7 @@
 
 			<div id="fd_visible_main" data-toggle="switch" class="clickable fw-600"><i class="fa fa-toggle-on"></i> Visible: <span>Si</span></div>
 			<hr>
-			
+
 			<div class="form-group">
 				<label for="btn_image_main">Imagen</label>
 
@@ -78,13 +78,10 @@
 				</div>
 
 			</div>
-			<p class="sz-9">Preferentemente imágenes de 960x960 píxeles.</p>
-			<div id="th_image_main" class="thumbnail thumb-cover thumb-400x400 bg-gray-5">
-				<img src="<?= ROOT ?>assets/blank-wide.gif" alt="" class="wd-100">
-				<img alt="" class="th" >
-			</div>
+			<p class="sz-9">Preferentemente imágenes de 1920x600 píxeles.</p>
+			<div id="th_image_main" class="thumbnail thumb-cover thumb-fullx380 bg-gray-5"></div>
 
-			<br />	
+			<br />
 
 			<div class="col-sm-12 col-md-6">
 				<label for="">Centrado Horizontal</label>
@@ -94,7 +91,7 @@
 				<label for="" >Centrado Vertical</label>
 				<div id="slider_v_main" data-type="main" class="slider-v"></div>
 			</div>
-			<br />		
+			<br />
 
 		</div>
 
@@ -112,9 +109,9 @@
 
 
 <!-- LIST SIDE -->
-<section id="list_side" class="admin-box">
+<section id="list_side" class="admin-box dp-none">
 	<div class="container">
-		<div class="row">			
+		<div class="row">
 			<div class="col-xs-12 col-sm-6">
 				<h3>Banner Laterales</h3>
 			</div>
@@ -123,23 +120,23 @@
 					<button id="btn_new_side" data-type="side" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Banner</button>
 				</div>
 			</div>
-		</div>		
+		</div>
 		<p class="sz-9">Debes subir al menos 2 banners para que se visualice bien en el sitio. Si subes más de dos, sólo se verán dos por vez de manera aleatoria.</p>
 		<hr>
 		<div id="side" class="well mod-container-lg"></div>
 	</div>
 </section>
-<!-- EDIT MAIN -->
+<!-- EDIT SIDE -->
 <section id="edit_side" class="admin-box bg-gray-5 dp-none">
 	<div class="container">
 		<div class="block-white">
 			<h3>Agregar / Editar Banner Lateral</h3>
-			<hr>			
+			<hr>
 			<div class="form-group">
 				<label for="fd_name_side">Nombre* <i class="fa fa-question-circle" title="De uso interno. No será visible en el sitio." ></i></label>
 				<input id="fd_name_side" type="text" class="form-control" >
-			</div>					
-			
+			</div>
+
 			<div class="form-group">
 				<label for="fd_url_side">URL</label>
 				<div class="input-group">
@@ -152,14 +149,14 @@
 
 			<div id="fd_visible_side" data-toggle="switch" class="clickable fw-600"><i class="fa fa-toggle-on"></i> Visible: <span>Si</span></div>
 			<hr>
-			
+
 			<div class="form-group">
 				<label for="btn_image_side">Imagen</label>
 				<div data-input="side">
 					<button class="btn btn-sm btn-primary">Examinar...</button>
 					<input type="file" class="d-none" accept="image/*">
 				</div>
-				
+
 			</div>
 			<p class="sz-9">Preferentemente imágenes de 768x328 píxeles.</p>
 			<div id="th_image_side" class="thumbnail thumb-cover bg-black" style="max-width:634px">

@@ -1,80 +1,9 @@
-/*var RenderMap = function(addresses) {
-	var map;
-	var elevator;
-	var myOptions = {
-		zoom:9,
-		center: new google.maps.LatLng(0, 0),
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-	map = new google.maps.Map($('#map')[0], myOptions);
-	var bounds = new google.maps.LatLngBounds();
-
-	$.each(addresses,function(k,v){
-		///for (var x=0; x<addresses.length; x++) {
-		$.getJSON('https://maps.googleapis.com/maps/api/geocode/json?address=' + addresses[k] + '&sensor=false&key=AIzaSyC2m93XcFMuCAPZSjBUNsZO24UJOSPSF1M', null, function(data){
-			if(data.status!= 'ZERO_RESULTS'){
-				var p = data.results[0].geometry.location;
-				var latlng = new google.maps.LatLng(p.lat, p.lng);
-				bounds.extend(latlng);
-				new google.maps.Marker({
-					position: latlng,
-					map: map,
-					zoom:9
-				});
-				map.fitBounds(bounds);
-			}else{
-				console.log(addresses[k]);
-			}
-		});
-	});
-
-}
-var geocodeResult = function(results, status) {
-	var map;
-	if (status == 'OK') {
-		// Si hay resultados encontrados, centramos y repintamos el mapa
-		// esto para eliminar cualquier pin antes puesto
-		var mapOptions = {
-			center: results[0].geometry.location,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-		map = new google.maps.Map($("#map").get(0), mapOptions);
-		// fitBounds acercará el mapa con el zoom adecuado de acuerdo a lo buscado
-		map.fitBounds(results[0].geometry.viewport);
-		// Dibujamos un marcador con la ubicación del primer resultado obtenido
-		var markerOptions = { position: results[0].geometry.location }
-		var marker = new google.maps.Marker(markerOptions);
-		marker.setMap(map);
-	}else{
-		console.log(status);
-	}
-}*/
-
-var mymap = L.map('map');
-var marker = L.marker([0,0]).addTo(mymap);
-
-var tileURL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
-//var tileURL = 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png';
-var tiles = L.tileLayer(tileURL, {attribution:'Open Street Map'});
-tiles.addTo(mymap);
-
-var RenderMap = function(address){
-	var url = 'https://nominatim.openstreetmap.org/search/'+address+'?format=json&addressdetails=1&limit=1&polygon_svg=1';
-	$.getJSON(url)
-		.then(function(data){
-			if(data.length==0) return false;
-			mymap.setView([data[0].lat,data[0].lon],15);
-			marker.setLatLng([data[0].lat,data[0].lon]);
-		});
-}
-
 $(function(){
 	var slider = new Slider({
 		container:'.overview-header .gallery'
 	});
 
 	char_count('#form_question [name=message]');
-
 
 	$('#form_reservation').submit(function(e){
 		e.preventDefault();

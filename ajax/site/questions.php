@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $Questions = new Questions();
@@ -22,13 +21,13 @@ switch($_action){
 		$total = $Questions->get_total(Input::get('type'),Input::get('rowid'));
 		echo Responses::response('ok','',array('results'=>$results,'total'=>$total));
 		break;
-		
+
 
 	case 'add':
 
 		if(!$User->logged()){
 			if(!$User->find(Input::get('email'))){
-				
+
 				if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
 
 				$hash = hash('sha256', uniqid());
@@ -50,7 +49,7 @@ switch($_action){
 				$userdata->id = $idu;
 				$userdata->name = Input::get('name');
 				$userdata->mail = Input::get('email');
-				$userdata->hash = $hash;				
+				$userdata->hash = $hash;
 				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email'));
 
 				//$User->login(Input::get('email'),$password);
@@ -60,7 +59,7 @@ switch($_action){
 				));*/
 
 			}else{
-				$idu = $User->data()->id;				
+				$idu = $User->data()->id;
 			}
 		}else{
 			$idu = $User->data()->id;
@@ -71,7 +70,7 @@ switch($_action){
 			'phone'=>Input::get('phone')
 		));
 
-		
+
 
 		$questionid = $Questions->add('questions',array(
 			'type'=>Input::get('type'),

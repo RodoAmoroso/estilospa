@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
@@ -11,12 +10,12 @@ if(!$User->logged() || $User->data()->idtype != 3) die(Responses::response('rest
 
 switch($_action){
 
-	case 'get':		
-		$Stores->get($User->data()->idclient);		
+	case 'get':
+		$Stores->get($User->data()->idclient);
 		echo Responses::response('ok','',array('results'=>$Stores->data()));
 		break;
 
-	case 'find':		
+	case 'find':
 		$Stores->find(Input::get('IDS'));
 		$today = $Stores->scheduleToday($Stores->data()->schedules);
 		$schedules = $Stores->schedulesList($Stores->data()->schedules);

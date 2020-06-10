@@ -199,8 +199,12 @@
 
 		<?php if($Promos->data()->sale): ?>
 		<div class="block-white">
-			<h4 class="title-bar">¿Como Comprar?</h4>
-			<p>Paga hasta en 12 cuotas. La financiación con tarjeta de crédito está a cargo de MercadoPago. Consultá condiciones <a href="https://www.mercadopago.com.ar/cuotas" target="_blank">aquí</a>.</p>
+			<h4 class="title-bar">¿Cómo Comprar?</h4>
+			<ul class="number-list">
+				<li><span class="number">1</span> <span>Click en el botón comprar</span></li>
+				<li><span class="number">2</span> <span>Ingresá con tu cuenta o Registrate</span></li>
+				<li><span class="number">3</span> <span>Pagás on line en forma rápida y segura con tarjeta de débito/crédito mediante Mercado Pago</span></li>
+			</ul>
 		</div>
 
 		<?php endif; ?>

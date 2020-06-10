@@ -17,7 +17,7 @@
 <section id="list_panel" class="admin-box">
 	<div class="container">
 
-		<form class="row">
+		<form class="row" method="POST">
 			<div class="col-lg-4">
 				<div class="form-group" autocomplete="off">
 					<label for="">Buscar por nombre</label>

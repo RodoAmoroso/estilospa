@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 //$_ARRSEARCH = explode('_-_',$_subsection);
 
@@ -16,27 +16,10 @@ $Stats->add_search_word($search_main);
 $Stats->add_search_location($search_locations);
 
 
-/*if(!empty($query)){
-	$searchtext = ucwords(str_replace('_',', ',$search_main));
-}
-if(!empty($location)){
-	if(!empty($query)): $searchtext .= ' en '; else: $searchtext = 'Centros y Promos en '; endif;
-	$searchtext .= ucwords(str_replace('_',', ',$search_locations));
-}*/
 $arrwordsmain = (array) $search_main;
 $arrwordslocations = (array) $search_locations;
 
-////////////// CLIENTTYPES //////////////
-/*$ClientTypes->keywords = $arrwordsmain;
-$ClientTypes->searchmixed = 1;
-$arrtypes = array();
-if(!empty($search_main)){
-	if($ClientTypes->get()){
-		foreach($ClientTypes->data() as $type):
-			$arrtypes[] = $type->id;
-		endforeach;
-	}
-}*/
+
 ////////////// GLOSSARY ///////////////
 $Glossary->keywords = $arrwordsmain;
 $Glossary->searchmixed = 1;
@@ -48,21 +31,12 @@ if(!empty($search_main)){
 		endforeach;
 	}
 }
-////////////// PROMO TYPES //////////
-/*$_PROMOTYPES = new PromoTypes();
-$_PROMOTYPES->keywords = $arrwordsmain;
-$_PROMOTYPES->searchmixed = 1;
-$arrpromotypes = array();
-if($_PROMOTYPES->get()){
-	foreach($_PROMOTYPES->data() as $promotype):
-		$arrpromotypes[] = $promotype->id;
-	endforeach;
-}*/
+
 ////////////// LOCATIONS ////////////////
 $Stores->keywords = $arrwordslocations;
 $Stores->searchmixed = 0;
 $arridclients = array();
-if(!empty($search_locations)){	
+if(!empty($search_locations)){
 	if($Stores->search()){
 		foreach($Stores->data() as $store):
 			$arridclients[] = $store->idclient;
@@ -98,28 +72,9 @@ $Promos->limit = (($page*$page_results)-$page_results).','.$page_results;
 $Promos->get();
 
 if(!$total_results){
-	Redirect::to('categoria/'.$query.'/'.$location);
+	Redirect::to('categoria-centros/'.$query.'/'.$location);
 }
-///show_array($Promos->limit);
 
-///////////// CLIENTS ///////////////////
-/*$Clients->keywords = $search_main == ' ' ? '' : $search_main;
-$Clients->sort = 'promocount';
-$Clients->searchmixed = 0;
-$Clients->visible = 1;
-$Clients->limit = '0,'.$totalresults;
-$Clients->arrtypes = $arrtypes;
-$Clients->arrglossary = $arrglossary;
-$Clients->arridclients = $arridclients;
-$Clients->get();
-$_QCLIENTS = array();
-if(!empty($query) || !empty($location)) $_QCLIENTS = $Clients->data();
-
-$Blog = new Blog();
-$Blog->limit = '0,'.$totalresults;
-$Blog->keywords = $search_main;
-$Blog->arrglossary = $arrglossary;
-if(!empty($query) || !empty($location)) $Blog->get();*/
 
 $MPConfig = new MPConfig();
 $Stores = new Stores();

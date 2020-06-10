@@ -183,10 +183,12 @@ class Promos {
 			SELECT
 				p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado,
 				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types,
-				t.name promotypename, DATEDIFF(p.finish, NOW()) dif
+				t.name promotypename, DATEDIFF(p.finish, NOW()) dif,
+				pc.name category_name
 				FROM {promos} p
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {promotypes} t ON t.id=p.idpromotype
+			LEFT JOIN {promos_categories} pc ON pc.id=p.categoryid
 			{$where}
 			{$sortby}
 			{$limitby}";

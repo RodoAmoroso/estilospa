@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require 'config.php';
 
@@ -41,7 +41,7 @@ if($reservations = $Reservations->get()){
 		));
 
 		if($Clients->find($reservation->clientid)){
-			
+
 			$client = $Clients->data();
 			$arrMails = str_replace(',', ';', $client->mail);
 			$arrMails = explode(';',$arrMails);
@@ -51,7 +51,7 @@ if($reservations = $Reservations->get()){
 			}else{
 				$log = 'Notificación de recordatorio de reserva enviada a '.$reservation->user_name.' ('.$reservation->user_email.') para <a href="'.ROOT.'centros/'.$reservation->permalink.'">'.$reservation->client_name.'</a>';
 			}
-			
+
 			$Notifications->add(array(
 				'name_from'=>$Mailing->get_email_name()->name,
 				'email_from'=>$Mailing->get_email_name()->email,
@@ -63,9 +63,14 @@ if($reservations = $Reservations->get()){
 				'type'=>'reminder',
 				'added'=>date('Y-m-d H:i:s'),
 			));
-			
+
 		}
 
 
 	}
 }
+
+$Cron = new Cron;
+$Cron->add_log('hourly');
+
+http_response_code(200);

@@ -1,6 +1,5 @@
 <?php
 
-require_once '../config.php';
 header("Content-Type: application/json; charset=utf-8", true);
 ///require 'templates-mail.php';
 ///require 'phpmailer/PHPMailerAutoload.php';
@@ -20,9 +19,9 @@ switch($_action):
 	case 'register':
 
 		$hash = hash('sha256', uniqid());
-		
+
 		if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
-		if($User->find(Input::get('email'))) die(Responses::response('user_exists'));		
+		if($User->find(Input::get('email'))) die(Responses::response('user_exists'));
 		if(strlen(Input::get('password'))<8) die(Responses::response('invalid_pass'));
 		if(Input::get('password') != Input::get('password_repeat')) die(Responses::response('password_match'));
 		/////////////////////////////////
@@ -37,7 +36,7 @@ switch($_action):
 				'idtype'=>2
 			)
 		)) die(Responses::response('fail'));
-		
+
 		///////// ENVIAR MAIL ///////////
 		$user = new stdClass();
 		$user->id = $idu;
@@ -53,11 +52,11 @@ switch($_action):
 		$password = Input::get('password');
 		if(!filter_var($email,FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
 
-	
+
 		if(!$User->find($email)) die(Responses::response('user_unexists'));
 		if(!$User->isActive($email)) die(Responses::response('user_inactive'));
 		if(!$User->login($email,$password)) die(Responses::response('login_fail'));
-		
+
 		echo Responses::response('ok');
 		break;
 	case 'logout':
@@ -72,7 +71,7 @@ switch($_action):
 		if(!$User->isActive($email)) die(Responses::response('user_inactive'));
 		if(!$newhash = $User->update_hash($User->data()->id)) die(Responses::response('fail'));
 		$User->data()->hash = $newhash;
-		if(!$Mailing->reset_password($User->data())) die(Responses::response('fail','ss'));
+		if(!$Mailing->reset_password($User->data())) die(Responses::response('fail','No pudimos enviarte el email para recuperar la contraseña. Intenta más de nuevo más tarde.'));
 
 		echo Responses::response('ok','En minutos llegará un mensaje con instrucciones para poder generar una contraseña nueva.');
 		break;
@@ -90,7 +89,7 @@ switch($_action):
 		break;
 	case 'resend':
 		$email = Input::get('email');
-		
+
 		if(!filter_var($email,FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
 		if(!$User->find($email)) die(Responses::response('user_unexists'));
 		if($User->isActive($email)) die(Responses::response('user_active'));
@@ -104,8 +103,8 @@ switch($_action):
 		break;
 	case 'upimage':
 		if(!$User->logged()) die(Responses::response('fail'));
-		
-		$folder = '../'.Input::get('folder');	
+
+		$folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$folder);
 		$upfile->MoveFile();
 		$file = $upfile->Resize(array(array(800,600,'-o'),array(260,260,'-t')), '', false);
@@ -121,7 +120,7 @@ switch($_action):
 		$Sales->iduser = $User->data()->id;
 		if(!$Sales->find(Input::get('idsale'))) die(Responses::response('fail'));
 		if(!is_null($Sales->data()->text)) die(Responses::response('fail'));
-		
+
 		if(!$Sales->qualify()) die(Responses::response('fail'));
 
 		echo Responses::response('ok','Gracias por compartir tu experiencia con EstiloSPA.com!!!<br>Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.');
@@ -139,7 +138,7 @@ switch($_action):
 		$Favs->delete(Input::get('id'));
 		echo Responses::response('ok');
 		break;
-	
+
 	case 'update':
 		if(!$User->logged()) die(Responses::response('restricted'));
 		if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
@@ -157,18 +156,18 @@ switch($_action):
 			'phone'=>Input::get('phone'),
 			'dni'=>Input::get('dni')
 		);
-		
+
 		$password = Input::get('password');
 		$password_new = Input::get('password_new');
 
-		if($Subscribers->verify(Input::get('email'))) $Subscribers->add(Input::get('email'));		
-		
+		if($Subscribers->verify(Input::get('email'))) $Subscribers->add(Input::get('email'));
+
 		if(!empty($password) && !empty($password_new)){
 			if(!password_verify($password,$User->data()->pass)) die(Responses::response('wrong_password'));
 			$values['pass'] = password_hash(Input::get('password_new'),PASSWORD_DEFAULT);
 		}
 		$User->update($User->data()->id,$values);
-		
+
 		echo Responses::response('ok','Los datos fueron guardados correctamente!');
 		break;
 

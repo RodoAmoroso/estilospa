@@ -1,133 +1,76 @@
-<?php 
+<?php
 
-class Banners {
+class Banners extends Core{
 
-	private $_db,
-					$_data,
-					$_dbprefix,
-					$_lastid;
-	public 	$visible=0,
-					$type='',
-					$sort='',
-					$limit='';
+	protected $table='banners',
+						$sizes=['small'=>'-t','big'=>'-o'],
+						$folder='home';
 
-	public function __construct(){
-		$this->_dbprefix = Config::get('mysql/prefix');
-		$this->_db = DB::getInstance();
-	}
 
 	public function save(){
-		$sql = array(
-			'name'=>Input::get('Name'),
-			'title'=>Input::get('Title'),
-			'caption'=>Input::get('Caption'),
-			'image'=>json_encode(Input::get('IMG')),
-			'link'=>json_encode(Input::get('Link')),
-			'visible'=>Input::get('Visible'),
-			'type'=>Input::get('Type')
+		$values = array(
+			'name'=>Input::get('name'),
+			'title'=>Input::get('title'),
+			'caption'=>Input::get('caption'),
+			'image'=>json_encode(Input::get('image')),
+			'link'=>json_encode(Input::get('link')),
+			'visible'=>Input::get('visible'),
+			'type'=>Input::get('type')
 		);
-		if(!Input::get('ID')){
-			$this->_db->query(
-				"UPDATE {banners} 
-				SET position=position+1 
-				WHERE type=?",
-				array(Input::get('Type')
-			));
-			$sql['position'] = 1;
-			$sql['added'] = date('Y-m-d H:s:i');
-			$this->_db->insert('banners',$sql);
-			$this->_lastid = $this->_db->getLastId();
-			return true;
-		}else{
-			$this->_db->update('banners',Input::get('ID'),$sql);
-			$this->_lastid = Input::get('ID');
-			return true;
-		}
-		return false;
-	}
 
-	public function getLastId(){
-		return $this->_lastid;
-	}
-
-	public function delete(){
-		if($this->find(Input::get('ID'))){
-			$img = json_decode($this->_data->image);
-			$pos = $this->_data->position;
-			$type = $this->_data->type;
-			if( $this->_db->delete('banners',array('id','=',Input::get('ID'))) ){
-				if(file_exists(PATH.'\img\home\\'.$img->photoname.'-o.'.$img->extension)) unlink(PATH.'\img\home\\'.$img->photoname.'-o.'.$img->extension);
-				if(file_exists(PATH.'\img\home\\'.$img->photoname.'-t.'.$img->extension)) unlink(PATH.'\img\home\\'.$img->photoname.'-t.'.$img->extension);
-				$this->_db->query("UPDATE {$this->_dbprefix}banners SET position=position-1 WHERE type=? AND position>?",array($type,$pos));
-				return true;
-			}
-		}		
-		return false;
-	}
-
-	public function get(){
-		$search = '';
-		if($this->visible) $search = "WHERE b.visible=1";
-		if(!empty($this->type)){
-			if(!empty($search)){
-				$search .= " AND";
-			}else{
-				$search = "WHERE";
-			}
-			$search .= " b.type='{$this->type}'";
-		}		
-		switch($this->sort){
-			case 'name':
-				$sort = "ORDER BY b.name ASC";
-				break;
-			case 'position':
-				$sort = "ORDER BY b.position ASC";
-				break;
-			case 'rand':
-				$sort = "ORDER BY RAND()";
-				break;
-			default:
-				$sort = "ORDER BY b.position ASC";
-				break;
-		}
-		$limitby = '';
-		if(!empty($this->limit)){
-			$limitby = "LIMIT {$this->limit}";
-		}
-		$this->_db->query("
-			SELECT b.*, DATE_FORMAT(b.added,'%d/%m/%Y') added
-			FROM {banners}  b
-			{$search} 
-			{$sort} 
-			{$limitby}"
-		);
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
-		}
-		return false;
-	}
-
-	public function find($id=0){
-		$this->_db->get('banners',array('id','=',$id));
-		if($this->_db->count()){
-			$this->_data = $this->_db->first();
-			return true;
-		}
-		return false;
-	}
-
-	public function reorder(){
-		$arrid = Input::get('ArrID');
-		if(count($arrid)):
-			foreach($arrid as $k=>$v):
-				$this->_db->update('banners',$v,array('position'=>$k+1));
-			endforeach;
-		endif;
+		if(!parent::core_save(Input::get('id'),$values)) return false;
 		return true;
 	}
 
-	public function data(){
-		return $this->_data;
+	public function delete($id=0){
+		if(!$id) return false;
+		if(!$data = $this->find($id)) return false;
+		if(!parent::core_delete($data)) return false;
+		return true;
 	}
+
+	public function get(){
+
+		$filters = parent::core_filters([
+			'filters'=>[
+				'id'=>"b.id=?",
+				'exclude'=>"b.id!=?",
+				'visible'=>"b.visible=?",
+				'type'=>"b.type=?"
+			],
+			'sort'=>[
+				'rand'=>"RAND()",
+				'default'=>"b.position ASC"
+			]
+		]);
+
+		$query =
+		"SELECT b.*
+		FROM {{$this->table}} b
+		{$filters->where}
+		{$filters->sort}
+		LIMIT {$this->limit}";
+
+		if(!$data = parent::core_get($query,$filters->values)) return false;
+		foreach($data as $k=>$row){
+			$data[$k]->image = json_decode($row->image);
+			$data[$k]->link = json_decode($row->link);
+		}
+
+		return $data;
+	}
+
+	public function find($id=0){
+		if(!$id) return false;
+		$this->filters = ['id'=>$id];
+		if(!$data = $this->get()) return false;
+		return $data[0];
+	}
+
+	public function reorder($arrids=array()){
+		if(!is_array($arrids)) return false;
+		if(!parent::core_reorder($arrids)) return false;
+		return true;
+	}
+
 }

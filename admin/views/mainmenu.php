@@ -22,7 +22,7 @@ $arrAdminMenu = array(
 
 
 <!-- MAIN MENU -->
-<nav>
+<nav class="main-nav">
 	<div class="container">
 
 		<i class="fa fa-bars fa-lg cl-white" ></i>

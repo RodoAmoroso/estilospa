@@ -15,4 +15,15 @@ $(function(){
 				});
 			});
 	});
+
+
+	$('#categories .row').sortable({
+		update:function(e,ui){
+			var arrids = [];
+			$.each($('#categories .mod-card'),function(){
+				arrids.push($(this).attr('data-id'));
+			});
+			ajax('admin/promos-categories/reorder',{arrids:arrids})
+		}
+	});
 });

@@ -5,32 +5,37 @@
 
 		<div class="search-container">
 
-			<div class="left-column hidden-xs hidden-sm">
+			<div class="left-column">
 				<?php if($category): ?>
 				<h3><?=$category->name?></h3>
 				<?php endif; ?>
 
 				<?php if($_idsection): ?>
-				<h4>en <?=$_idsection?></h4>
-				<?php endif; ?>
-
-
+				<a href="<?=ROOT.'categoria/'.($category ? $category->id.'-'.Permalink($category->name) : '-') ?>" class="tag"><span>en <?=$_idsection?></span> <span class="remove">x</span></a>
+				<?php else: ?>
 
 				<?php if($stores): ?>
 				<hr>
-				<ul id="list_zones" class="list collapse in">
-					<?php foreach($stores as $store): ?>
-					<li><a href="<?= ROOT.'categoria/'.($category ? $category->id.'-'.Permalink($category->name) : '-').'/'.urlencode($store->city) ?>"><?=$store->city?></a></li>
-					<?php endforeach; ?>
-				</ul>
-				<?php endif; ?>
+
+				<div class="title-zones">
+					<a href="#" data-toggle="collapse-zones" class="tag"><span>Zonas</span> <span class="remove"><i class="fa fa-angle-down"></i></span></a>
+				</div>
+
+				<div class="form-group">
+					<ul id="list_zones" class="list" >
+						<?php foreach($stores as $store): ?>
+						<li><a href="<?= ROOT.'categoria/'.($category ? $category->id.'-'.Permalink($category->name) : '-').'/'.urlencode($store->city) ?>"><?=$store->city?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+
+
+				<?php endif; endif; ?>
 
 			</div>
 
 
 			<div class="right-column">
-
-
 
 				<div class="promos-highlight">
 
@@ -54,6 +59,7 @@
 					<input type="hidden" name="limit" value="<?=$limit?>">
 					<input type="hidden" name="page" value="<?=$page?>">
 					<input type="hidden" name="categoryid" value="<?=$category ? $category->id : '' ?>">
+					<input type="hidden" name="city" value="<?=$_idsection ?>">
 				</form>
 				<p>&nbsp;</p>
 				<?php endif; ?>

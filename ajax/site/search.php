@@ -43,6 +43,10 @@ switch($_action){
 		if(Input::get('gift')){
 			$Experiences->filters['gift'] = 1;
 		}
+
+		if(Input::get('city')){
+			$Experiences->filters['city'] = Input::get('city');
+		}
 		$experiences = $Experiences->get();
 
 		$body = '';

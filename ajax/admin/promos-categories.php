@@ -39,6 +39,11 @@ switch($_action){
 		echo Responses::response('ok');
 		break;
 
+	case 'reorder':
+		$PromosCategories->reorder(Input::get('arrids'));
+		echo Responses::response('ok');
+		break;
+
 	default:
 		echo Responses::response('fail');
 		break;

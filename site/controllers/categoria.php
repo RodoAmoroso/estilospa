@@ -3,8 +3,13 @@
 $category = false;
 if(!empty($_subsection)){
 	list($categoryid) = explode('-',$_subsection);
-	if(!$category = $PromosCategories->find($categoryid)) Redirect::to('404');
+	if($categoryid){
+		if(!$category = $PromosCategories->find($categoryid)) Redirect::to('404');
+	}
 }
+
+$_arrjs[] = ['folder'=>'lib/','script'=>'select2.min'];
+$_arrcss[] = ['folder'=>'lib/','style'=>'select2.min'];
 
 //show_array($category);
 
@@ -18,6 +23,7 @@ if($category){
 if($_idsection){
 	$Experiences->filters['city'] = $_idsection;
 }
+
 
 $total_experiences = $Experiences->get();
 $limit = 50;
@@ -42,3 +48,5 @@ if($arr_stores){
 	$Stores->search();
 	$stores = $Stores->data();
 }
+
+//show_array($_POST);

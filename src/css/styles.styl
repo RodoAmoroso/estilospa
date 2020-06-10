@@ -317,7 +317,6 @@ footer
 				padding 4px 0 4px 0
 				.mod-slide:first-of-type
 					margin-bottom 4px
-
 .slider-wide
 	background-color gray(5)
 	.sliders
@@ -325,7 +324,7 @@ footer
 		padding 15.35%
 		.slide
 			opacity 0
-			visibility 0
+			visibility hidden
 			background-position left center
 			background-size cover
 			position absolute
@@ -339,7 +338,7 @@ footer
 
 		.slide.active
 			opacity 1
-			visibility 1
+			visibility visible
 
 		.dots
 			bottom 0
@@ -392,6 +391,14 @@ footer
 			right 0
 			&:before
 				background-image linear-gradient(right, rgba(0,0,0,0.6), rgba(0,0,0,0))
+
+	@media screen and (max-width 991px)
+		.sliders
+			padding 26%
+			.prev,.next
+				i
+					font-size 2rem
+
 
 .news-home
 	padding 36px 0
@@ -768,12 +775,44 @@ footer
 									margin 0 0 0 6px
 				.filters
 					margin 0 0 16px 0
+				.title-zones
+					display none
+					margin-bottom 1rem
+				.tag
+					background-color $cyan_2
+					display flex
+					justify-content space-between
+					color white
+					span
+						padding .365rem 1rem
+						display inline-block
+					&:hover,&:focus
+						background-color $cyan_3
+						text-decoration none
+						span.remove
+							background-color $cyan_4
+
 			.right-column
 				overflow hidden
 				padding-left 8px
 				width 100%
 				.filters
 					padding 8px 0
+
+		@media screen and (max-width 991px)
+			.search-container
+				flex-wrap wrap
+				.left-column
+					margin-bottom 1rem
+					width 100%
+					.title-zones
+						display block
+					ul.list
+						display none
+					ul.list.active
+						display block
+
+
 .header-overview
 	padding 8px 0 16px 0
 	.container

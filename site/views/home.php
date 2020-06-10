@@ -3,9 +3,9 @@
 
 	<div class="sliders">
 		<?php foreach($banners as $banner): ?>
-		<div class="slide" style="background-image:url(<?= View::img('home',$banner->image->photoname.'-o.'.$banner->image->extension) ?>);background-position:<?= $banner->image->position ?>">
+		<a href="<?= $banner->link->url ? $banner->link->url : '#' ?>" target="<?= $banner->link->blank ? '_self' : '_blank' ?>" class="slide" style="background-image:url(<?= View::img('home',$banner->image->photoname.'-o.'.$banner->image->extension) ?>);background-position:<?= $banner->image->position ?>">
 			<!-- <img src="" alt="" class="w-100"> -->
-		</div>
+		</a>
 		<?php endforeach; ?>
 	</div>
 </section>

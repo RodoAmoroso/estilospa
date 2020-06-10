@@ -38,7 +38,10 @@ var Actions = {
 	reset:function(type){
 		$('#fd_name_'+type+',#fd_caption_'+type+',#fd_title_'+type+',#fd_url_'+type).val('');
 		Actions.ID = 0;
-		$('#th_image_'+type).removeAttr('data-filename data-extension').find('.th').attr({src:''});
+		$('#th_image_'+type)
+			.removeAttr('data-filename data-extension')
+			.css({backgroundImage:''})
+			.find('.th').attr({src:''});
 	},
 	slide:function(mode,type){
 		if(mode == 'edit'){
@@ -91,7 +94,7 @@ var Actions = {
 						$.each($('#'+type+' .mod-card'),function(k,v){
 							arr.push($(this).attr('data-id'));
 						});
-						ajax('admin/home/reorder',{Type:type,ArrID:arr}).then(function(){});
+						ajax('admin/home/reorder',{type:type,arrids:arr}).then(function(){});
 					}
 				});
 

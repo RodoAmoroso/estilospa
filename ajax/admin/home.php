@@ -14,7 +14,7 @@ switch($_action){
 		$Folder = '../'.Input::get('folder');
 		$upfile = new File($_FILES['file'],$Folder);
 		$upfile->MoveFile();
-		$file = $upfile->Resize(array(array(960,960,'-o'),array(400,400,'-t')),'',false);
+		$file = $upfile->Resize(array(array(1920,600,'-o'),array(720,360,'-t')),'',false);
 		echo json_encode($file);
 		break;
 
@@ -51,7 +51,7 @@ switch($_action){
 		break;
 
 	case 'reorder':
-		$Banners->reorder();
+		$Banners->reorder(Input::get('arrids'));
 		echo Responses::response('ok');
 		break;
 

@@ -47,7 +47,7 @@
 
 			<div class="row">
 				<?php foreach($categories as $category): ?>
-				<div class="mod-card col-lg-4">
+				<div data-id="<?=$category->id?>" class="mod-card col-lg-4">
 					<div class="card-inner">
 						<div class="thumb thumb-cover thumb-fullx180" style="background-image:url(<?=$category->image->small?>)" >
 							<div class="buttons">
@@ -58,7 +58,14 @@
 						</div>
 						<div class="caption">
 							<h1><?=$category->name?></h1>
-							<p><span class="label label-success">visible</span></p>
+
+							<p>
+								<?php if($category->visible): ?>
+								<span class="label label-success">visible</span>
+								<?php else: ?>
+								<span class="label label-danger">oculto</span>
+								<?php endif; ?>
+							</p>
 							<p class="description text-muted">Total Experiencias: <?=$category->total_promos?></p>
 						</div>
 					</div>

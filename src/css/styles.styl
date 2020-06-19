@@ -17,6 +17,7 @@ body
 h1,h2,h3,h4
 	font-family 'Fira Sans', sans-serif
 	font-weight 300
+	line-height 1.25
 
 section,footer,header
 	position relative
@@ -139,6 +140,9 @@ header.header
 							margin-top 12px
 						li.separator
 							border-top 1px solid gray(10)
+						li.highlight
+							a
+								color $fucsia_3
 					.arrow
 						background-color white
 						border-top 1px solid gray(10)
@@ -1853,6 +1857,32 @@ footer
 	@media screen and (max-width 991px)
 		.category
 			width 100%
+
+
+.hotsale-bar
+	background-color black
+	background-color $fucsia_4
+	padding 4rem 1rem
+	position relative
+	color white
+	.bg
+		opacity .25
+	.title
+		font-weight 600
+
+.hotsale-landing
+	border-bottom 6px solid gray(5)
+	padding 4rem 1rem 10rem 1rem
+	.logo
+		max-width 100px
+		img
+			width 100%
+	.form-wrapper
+		background-color gray(80)
+		border-radius .75rem
+		padding 3rem
+		label,a
+			color white
 
 
 

@@ -7,7 +7,7 @@ $(function(){
 			url:ROOT+'js/lib/dataTables/spanish.json',
 		},
 		dom:'<"table-spacer-top"lf>t<"table-spacer-bottom"ip>',
-		responsive:true,		
+		responsive:true,
 		columns:[
 			{orderable:false},
 			{orderable:false},
@@ -17,10 +17,10 @@ $(function(){
 			null,
 			null,
 			null
-		]		
+		]
 	}
 
-	 $('#reservations').DataTable(datatable_options);
+	$('#reservations').DataTable(datatable_options);
 
 
 });

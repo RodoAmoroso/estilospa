@@ -414,41 +414,9 @@
 			color gray(40)
 
 
-table.dataTable
-	margin 26px 0 !important
-	thead
-		th,td
-			border-bottom 1px solid gray(10)
-table.dataTable.no-footer
-	border-bottom 1px solid gray(10)
-.dataTables_info
-	font-size 1.2rem
-.dataTables_wrapper .dataTables_length,
-.dataTables_wrapper .dataTables_filter,
-.dataTables_wrapper .dataTables_info,
-.dataTables_wrapper .dataTables_processing,
-.dataTables_wrapper .dataTables_paginate
-	color gray(60)
+@import 'common/datatables'
 
-.dataTables_wrapper
-	input,select
-		border 1px solid gray(10)
-		height 30px
-		line-height 30px
-		padding 5px 10px
-		font-size 12px
-		border-radius 3px
-	.dataTables_paginate
-		.paginate_button
-			border none !important
-			padding .25em .75em !important
-			background none !important
-			&:hover
-				color $pink_3 !important
-	.table-spacer-top
-		margin 16px 0
-		position relative
-		height 46px
+
 
 @import 'admin/queries'
 @import 'admin/users-questions'

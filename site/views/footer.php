@@ -1,4 +1,4 @@
-
+<?php if($_section!='hotsale'): ?>
 <!-- NEWSLETTER -->
 <section class="newsletter">
 	<!-- <div class="overprint-absolute" style="background-image:url(<?= ROOT ?>assets/bg-1.jpg)" ></div> -->
@@ -11,14 +11,14 @@
 
 		<form id="form_newsletter">
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">	
+				<div class="col-xs-12 col-sm-6">
 					<div class="input-group">
 						<span class="input-group-addon bg-aqua-3 cl-white"><i class="fa fa-at"></i></span>
 						<input name="email" type="email" class="form-control" placeholder="Email..." required>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">				
-					<button class="btn btn-default btn-block"><i class="fa fa-paper-plane"></i> SUBSCRIBIRME</button>				
+				<div class="col-xs-12 col-sm-6">
+					<button class="btn btn-default btn-block"><i class="fa fa-paper-plane"></i> SUBSCRIBIRME</button>
 				</div>
 			</div>
 			<div class="status"></div>
@@ -26,7 +26,7 @@
 
 	</div>
 </section>
-
+<?php endif; ?>
 
 <!-- INDICE -->
 <section class="gral-section dp-none">
@@ -35,8 +35,8 @@
 		<div class="row">
 
 			<?php if($Clients->get('','','0,12','',0,1)): foreach ($Clients->data() as $client): ?>
-			<div class="col col-xs-12 col-sm-2">				
-				<a href="<?= ROOT.'centros/'.$client->permalink ?>" class="dp-block"><?= $client->name ?></a>				
+			<div class="col col-xs-12 col-sm-2">
+				<a href="<?= ROOT.'centros/'.$client->permalink ?>" class="dp-block"><?= $client->name ?></a>
 			</div>
 			<?php endforeach; endif; ?>
 
@@ -46,25 +46,25 @@
 
 
 <!-- GLOSARIO -->
-<section class="gral-section glossary-list">
+<section class="glossary-list">
 	<div class="container">
 		<h3>Servicios y Tratamientos <a href="<?= ROOT.'etiquetas' ?>" class="sz-10">(ver todos)</a></h3>
 		<div class="row">
-			<?php 
+			<?php
 			$GlossaryGroups->limit = '0,6';
 			$GlossaryGroups->keywords = '';
-			if($GlossaryGroups->get()): 
-				foreach ($GlossaryGroups->data() as $group): 
+			if($GlossaryGroups->get()):
+				foreach ($GlossaryGroups->data() as $group):
 			?>
 			<div class="col col-xs-12 col-sm-2">
 				<h4 class="fw-400"><?= $group->name ?></h4>
-				<?php 
+				<?php
 				$Glossary->idgroup = $group->id;
 				$Glossary->limit = '0,10';
 				$Glossary->keywords = '';
 				$Glossary->sort = '';
 				if($Glossary->get()):
-					foreach ($Glossary->data() as $glossary): 
+					foreach ($Glossary->data() as $glossary):
 				?>
 				<a href="<?= ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name) ?>" class="dp-block"><?= $glossary->name ?></a>
 				<?php endforeach; endif; ?>
@@ -74,7 +74,6 @@
 	</div>
 </section>
 
-<hr>
 
 <!-- MEDIOS DE PAGO -->
 <section class="payment">
@@ -95,6 +94,8 @@
 		</a>
 	</div>
 </section>
+
+
 
 <!-- FOOTER -->
 <footer class="cl-white">
@@ -171,7 +172,7 @@
 
 <!-- LOADING -->
 <div id="loading" >
-	<div class="loading-wrapper" >		
+	<div class="loading-wrapper" >
 		<i class="fa fa-cog fa-spin fa-lg"></i>
 		<p class="loading-text">Trabajando...</p>
 	</div>

@@ -89,6 +89,13 @@
 								<span>Usuarios</span>
 							</a>
 						</li>
+
+						<li class="highlight">
+							<a href="<?= View::url('admin','hotsale') ?>">
+								<i class="fa fa-tag"></i>
+								<span>HOT SALE!!</span>
+							</a>
+						</li>
 						<li class="separator"></li>
 					<?php endif; ?>
 

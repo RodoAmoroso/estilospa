@@ -19,4 +19,10 @@ $(function(){
 			});
 	});
 
+
+	$('[data-toggle="collapse-zones"]').click(function(e){
+		e.preventDefault();
+		$('#list_zones').toggleClass('active');
+	});
+
 });

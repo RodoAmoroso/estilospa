@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once 'config.php';
 ///////////////////////////////////////////////////////////////
@@ -29,16 +29,16 @@ $_URLHEAD =  ROOT.(!empty($_section) ? $_section : '').(!empty($_subsection) ? '
 require 'views/head.php';
 $_sectionpath = View::loader('php','views');
 
-$nomenu = ['404','mantenimiento','restricted'];
+$nomenu = ['404','mantenimiento','restricted','hotsale-gracias'];
 
 if($_sectionpath){
 	if(!in_array($_section,$nomenu)){
 		include 'views/header.php';
 		include 'views/mainmenu.php';
 		include $_sectionpath;
-		require 'views/footer.php';		
+		require 'views/footer.php';
 	}else{
-		include $_sectionpath;		
+		include $_sectionpath;
 	}
 }else{
 	include 'views/404.php';

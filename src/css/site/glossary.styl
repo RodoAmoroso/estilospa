@@ -1,9 +1,13 @@
 .glossary-list
-	.col 
+	background-color gray(5)
+	padding 4rem 0
+	.row
+		background-color white
+	.col
 		margin 10px 0
 		h4
 			margin-bottom 4px
-		a 
+		a
 			font-size 1.3rem
 .glossary
 	display flex
@@ -15,16 +19,16 @@
 		margin 26px 26px 10px 0
 		min-width 240px
 		width 240px
-		.item 
+		.item
 			display block
 			color $aqua_5
 			padding 2px 0
-			&:hover 
+			&:hover
 				color $cyan_4
-.glossary-page 
-	padding 16px 0			
+.glossary-page
+	padding 16px 0
 	.page-content
-		background-color white 
+		background-color white
 		padding 26px
 		border-right 1px solid gray(10)
 		border-bottom 1px solid gray(10)
@@ -33,7 +37,7 @@
 		overflow hidden
 		position relative
 		transition all 400ms cubic-bezier(.32,1,.23,1)
-		.view-more 
+		.view-more
 			background-color white
 			//background-color red
 			left 0
@@ -42,12 +46,12 @@
 			position absolute
 			width 100%
 			//background-image linear-gradient(bottom,white,alpha(white,0))
-			&:after 
+			&:after
 				border-bottom 1px solid gray(10)
 				content ''
 				background-image linear-gradient(bottom,white,alpha(white,0))
 				left 0
 				top -40px
-				height 40px 
+				height 40px
 				position absolute
 				width 100%

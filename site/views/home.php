@@ -15,7 +15,7 @@
 
 <?php if($promo_categories): ?>
 <!-- CATEGORIES -->
-<section class="gral-section">
+<section class="gral-section" style="padding:1.5rem 0">
 	<div class="container">
 		<div class="categories">
 
@@ -32,6 +32,8 @@
 	</div>
 </section>
 <?php endif; ?>
+
+
 
 
 <!-- PROMOS -->
@@ -104,6 +106,7 @@
 
 </section>
 <p>&nbsp;</p>
+
 
 
 <!-- CENTROS -->

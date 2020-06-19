@@ -2,8 +2,10 @@
 
 header("Content-Type: application/json; charset=utf-8", true);
 
-$Subscribers = new Subscribers();
-$Mailing = new Mailing();
+$Subscribers = new Subscribers;
+$Mailing = new Mailing;
+
+$HotSale = new HotSale;
 
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 
@@ -43,6 +45,16 @@ switch($_action){
 
 		if(!$Mailing->contact()) die(Responses::response('fail'));
 		echo Responses::response('ok','El mensaje fue enviado correctamente! En breve nos comunicaremos con vos.');
+
+		break;
+
+
+	case 'hotsale':
+
+		if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
+
+		$HotSale->save();
+		echo Responses::response('ok');
 
 		break;
 

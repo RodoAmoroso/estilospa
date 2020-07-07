@@ -65,7 +65,7 @@
 						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
 						<?php endif; ?>
 
-					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),2,',','.') ?></strong></div>
+					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),0,',','.') ?></strong></div>
 
 					<!-- AMOUNT -->
 					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
@@ -220,7 +220,7 @@
 						<?php if($Promos->data()->discount): ?>
 						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
 						<?php endif; ?>
-					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),2,',','.') ?></strong></div>
+					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),0,',','.') ?></strong></div>
 					<!-- AMOUNT -->
 					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
 					<?php endif; ?>

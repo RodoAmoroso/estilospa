@@ -2,3 +2,13 @@
 [12-Jun-2020 09:01:06 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
 [14-Jun-2020 01:28:16 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
 [14-Jun-2020 01:28:16 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
+[17-Jun-2020 11:25:18 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
+[17-Jun-2020 11:25:18 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
+[18-Jun-2020 23:56:50 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
+[18-Jun-2020 23:56:50 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
+[27-Jun-2020 14:26:16 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
+[27-Jun-2020 14:26:16 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
+[27-Jun-2020 14:26:20 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
+[27-Jun-2020 14:26:20 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3
+[28-Jun-2020 00:07:33 UTC] PHP Warning:  require_once(config.php): failed to open stream: No such file or directory in /home/estilosp/public_html/site/index.php on line 3
+[28-Jun-2020 00:07:33 UTC] PHP Fatal error:  require_once(): Failed opening required 'config.php' (include_path='.:/opt/cpanel/ea-php72/root/usr/share/pear') in /home/estilosp/public_html/site/index.php on line 3

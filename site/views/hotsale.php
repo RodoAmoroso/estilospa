@@ -5,7 +5,7 @@
 
 		<h1 class="title">Hot Sale 2020</h1>
 		<h4>En Hot Sale vas a encontrar las mejores ofertas y descuentos en experiencias pensadas para vos.</h4>
-		<h4>Van a ser 3 días de precios increíbles los días 6, 7 y 8 de Julio.</h4>
+		<h4>Van a ser 3 días de precios increíbles los días 27, 28 y 29 de Julio.</h4>
 
 
 	</div>

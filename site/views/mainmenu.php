@@ -15,7 +15,7 @@
 			<li class="highlight"><a href="<?= ROOT.'regalos/' ?>">Para Regalar</a></li>
 			<li><a href="<?= ROOT.'busqueda/hotel-spa' ?>">Hotel Spa</a></li>
 			<li><a href="<?= ROOT.'blog' ?>">Blog</a></li>
-			<!-- <li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li> -->
+			<li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li>
 		</ul>
 
 	</div>
@@ -23,7 +23,7 @@
 
 
 <!-- SEARCH -->
-<section id="search_bar" class="search-bar dp-none <?=$_section=='categoria-centros'?'search-bar-category':'' ?>" >
+<section id="search_bar" class="search-bar <?=$_section=='categoria-centros'?'search-bar-category':'' ?>" style="display:none">
 
 	<div class="container">
 		<?php if($_section=='categoria-centros'): ?>

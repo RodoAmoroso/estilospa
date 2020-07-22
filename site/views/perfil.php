@@ -13,18 +13,18 @@
 
 			</div>
 			<div class="user-name">
-				<h1><?= $User->data()->name.' '.$User->data()->lastname; ?></h1>
+				<h1 class="name"><?= $User->data()->name.' '.$User->data()->lastname; ?></h1>
 				<p class="sz-14"><?= $User->data()->mail; ?></p>
 				<p class="sz-8">Usuario desde: <?= date('d/m/Y',strtotime($User->data()->created)) ?></p>
 			</div>
-			
+
 		</div>
 	</div>
 </section>
 
 
 <section class="profile-body gral-section">
-	<div class="container">		
+	<div class="container">
 
 		<h2>Perfil</h2>
 		<hr>
@@ -55,12 +55,12 @@
 						<label for="fd_birth">Fecha de Nacimiento</label><br />
 
 							<?php $arrDate = explode('-',$User->data()->birth); ?>
-						
+
 							<div class="col-xs-4" style="padding:0 4px 0 0">
 								<select name="birth_day" id="fd_day" class="form-control">
 									<option value="">--</option>
-									<?php 
-									for($i=1; $i<=31; $i++): 
+									<?php
+									for($i=1; $i<=31; $i++):
 										$sel = '';
 										if($i == intval($arrDate[2])):
 											$sel = 'selected';
@@ -73,7 +73,7 @@
 							<div class="col-xs-4" style="padding:0 4px 0 0">
 								<select name="birth_month" id="fd_month" class="form-control">
 									<option value="">--</option>
-									<?php 
+									<?php
 									$arrMonths = array('Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic');
 									foreach($arrMonths as $km=>$vm):
 										$sel = '';
@@ -88,7 +88,7 @@
 							<div class="col-xs-4" style="padding:0 4px 0 0">
 								<select name="birth_year" id="fd_year" class="form-control">
 									<option value="">--</option>
-									<?php 
+									<?php
 									for($i=date('Y'); $i>1900; $i--):
 										$sel = '';
 										if($i == intval($arrDate[0])):
@@ -100,7 +100,7 @@
 								</select>
 							</div>
 
-					</div>	
+					</div>
 				</div>
 
 				<div class="col-xs-12 col-sm-4">
@@ -137,7 +137,7 @@
 					<div class="form-group">
 						<label for="fd_provinces">Provincia</label>
 						<select name="idprovince" id="fd_provinces" class="form-control">
-							<?php 
+							<?php
 							$provinces = DB::getInstance()->get('provinces',array('id','!=',0));
 							if($provinces->count()):
 								foreach($provinces->results() as $province):
@@ -147,7 +147,7 @@
 									endif;
 							?>
 							<option value="<?= $province->id ?>" <?= $sel ?> ><?= $province->name ?></option>
-							<?php 
+							<?php
 								endforeach;
 							endif;
 							?>
@@ -163,7 +163,7 @@
 				<div class="col-xs-12 col-sm-6">
 					<div class="form-group">
 						<label for="fd_passnew">Cambiar Constraseña</label>
-						<input name="password_new" id="fd_passnew" type="password" class="form-control">		
+						<input name="password_new" id="fd_passnew" type="password" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
@@ -192,7 +192,7 @@
 
 			<hr>
 
-			<div class="text-right">				
+			<div class="text-right">
 				<button id="btn_save" class="btn btn-success"><i class="fa fa-save"></i> GUARDAR</button>
 			</div>
 

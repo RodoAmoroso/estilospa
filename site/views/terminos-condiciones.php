@@ -32,10 +32,10 @@
 		<p>3.11 La Empresa se reserva el derecho a modificar unilateralmente, la presentación y configuración de los Bienes y Servicios, así como las condiciones requeridas para utilizar los Bienes y Servicios, las cuales serán comunicadas a los Usuarios en la forma prescripta en la Cláusula 1.4</p>
 		<p>&nbsp;</p>
 
-		<h4 class="fw-400" >4. PROCEDIMIENTO PARA LA ADQUISICIÓN DE UNA PROMOCIONES </h4>
-		<p>4.1.El Usuario que desee adquirir la Promoción, deberá declarar su voluntad de compra, haciendo click sobre el botón “Comprar” de la Promoción, debiendo completar los datos que se le requieran durante el proceso de compra.</p>
-		<p>4.2. Durante el proceso de compra, si el Usuario compra una promoción para Regalar, deberá indicar Nombre y Corre electrónico del Beneficiario para la emisión del correspondiente Voucher Regalo</p>
-		<p>4.3. El Usuario será el único responsable de la información brindada durante el proceso de compra, no siendo la Empresa responsable por errores, omisiones y/o falsedad de la misma. </p>
+		<h4 class="fw-400" >4. PROCEDIMIENTO PARA LA ADQUISICIÓN DE UNA EXPERIENCIAS</h4>
+		<p>4.1. El Usuario que desee adquirir una experiencia, deberá declarar su voluntad de compra, haciendo click sobre el botón “Comprar” de la Promoción, debiendo completar los datos que se le requieran durante el proceso de compra.</p>
+		<p>4.2. Durante el proceso de compra, si el Usuario compra una promoción para Regalar, deberá indicar Nombre y Correo electrónico del Beneficiario para la emisión del correspondiente Voucher Regalo</p>
+		<p>4.3. El Usuario será el único responsable de la información brindada durante el proceso de compra, no siendo la Empresa responsable por errores, omisiones y/o falsedad de la misma.</p>
 		<p>4.4. El Método de Pago, será provisto por la plataforma Mercado Pago <a href="https://www.mercadopago.com" target="_target">www.mercadopago.com</a> y funciona bajo sus términos y condiciones</p>
 		<p>4.5. La Empresa no recibirá bajo ninguna circunstancia pago alguno por otro medio que no sea el Método de Pago.</p>
 		<p>4.7. Una vez culminado el proceso de Pago, el usuario recibirá vía correo electrónico el Voucher correspondiente a la compra, el cual contiene todos los datos para realizar la reserva del turno correspondiente al servicio adquirido</p>
@@ -56,10 +56,12 @@
 		<p>&nbsp;</p>
 
 		<h4 class="fw-400">7 CAMBIO/DEVOLUCION/CANCELACION.</h4>
-		<p>7.1. El usuario podrá arrepentirse de la compra y solicitar la devolución del dinero, siempre y cuando no haya reservado su voucher.</p>
-		<p>7.2. El usuario tiene hasta 10 días para solicitar la cancelación de la compra y su posterior devolución del dinero</p>
-		<p>7.3. El sitio no permite cambios de promociones, el usuario deberá cancelar y volver a comprar la otra promoción</p>
-		<p>7.4. El usuario que realice más de una cancelación no podrá volver a comprar en el sitio</p>
+		<p>7.1 El usuario podrá arrepentirse de la compra y solicitar la devolución del dinero, siempre y cuando no haya reservado su voucher.</p>
+		<p>7.2 El usuario tiene 72 hs para solicitar la cancelación de la compra y su posterior devolución del dinero. Pasadas las 72 hs de la compra el usuario no podrá cancelar la compra.</p>
+		<p>7.3 El sitio no permite cambios de promociones, el usuario deberá cancelar y volver a comprar la otra promoción.</p>
+		<p>7.4 El usuario que realice más de una cancelación no podrá volver a comprar en el sitio.</p>
+		<p>7.5 El usuario que desee cancelar su compra, deberá comunicarse excluyentemente con el prestador del servicio, indicando que desea solicitar la cancelación de la compra.</p>
+		<p>7.6 El proveedor / prestador del servicio deberá ingresar a su cuenta de Mercado Pago y realizar la acción de “Devolver Dinero”.</p>
 		<p>&nbsp;</p>
 
 		<h4 class="fw-400">8. CONDICIONES GENERALES DE LA UTILIZACIÓN DEL VOUCHER</h4>
@@ -87,8 +89,11 @@
 
 		<h4 class="fw-400">11. LIMITACIÓN DE RESPONSABILIDAD POR LOS SERVICIOS.</h4>
 
-		<p>11.1. La Empresa contrata su acceso a Internet y el de sus servidores con un tercero, proveedor de dicho servicio. El Proveedor y/o sus autorizados aceptan y reconocen que los Servicios pueden no siempre estar disponibles debido a dificultades técnicas o fallas de Internet, del proveedor, o por cualquier otro motivo ajeno a la Empresa. En consecuencia, la Empresa no garantiza la disponibilidad y continuidad del funcionamiento de los Servicios; como tampoco garantiza la utilidad de los Servicios para la realización de ninguna actividad en particular, ni su infalibilidad y, en particular, aunque no de modo exclusivo, que el Proveedores o los Usuarios puedan efectivamente utilizar los Servicios, o la totalidad de los mismos, o acceder a la totalidad de las secciones del sitio. La Empresa excluye cualquier responsabilidad por los daños y perjuicios de toda naturaleza que sean originados en forma directa, indirecta o remota, por la interrupción, suspensión, finalización, falta de disponibilidad o de continuidad del funcionamiento de los Servicios, por la defraudación de la utilidad, ingresos, ganancias o beneficios que el Proveedor o los Usuarios hubiere podido atribuir a la Empresa, a la falibilidad de los Servicios, y en particular, aunque no de modo exclusivo, por las fallas en el acceso a los Servicios. La Empresa no se responsabiliza por cualquier daño, perjuicio o pérdida en el o los equipos del Proveedor o los Usuarios y/o sus autorizados y/o terceros originados por fallas en el sistema, servidor o en Internet.</p>
-		<p>11.2. La Empresa se reserva el derecho de realizar todas las modificaciones que estime necesarias a efectos de poder mejorar la calidad y prestaciones de los Servicios sin que ello signifique un compromiso a cumplir fehacientemente.</p>
+		<p>11.1 La Empresa contrata su acceso a Internet y el de sus servidores con un tercero, proveedor de dicho servicio. El Proveedor y/o sus autorizados aceptan y reconocen que los Servicios pueden no siempre estar disponibles debido a dificultades técnicas o fallas de Internet, del proveedor, o por cualquier otro motivo ajeno a la Empresa. En consecuencia, la Empresa no garantiza la disponibilidad y continuidad del funcionamiento de los Servicios; como tampoco garantiza la utilidad de los Servicios para la realización de ninguna actividad en particular, ni su infalibilidad y, en particular, aunque no de modo exclusivo, que el Proveedores o los Usuarios puedan efectivamente utilizar los Servicios, o la totalidad de los mismos, o acceder a la totalidad de las secciones del sitio. La Empresa excluye cualquier responsabilidad por los daños y perjuicios de toda naturaleza que sean originados en forma directa, indirecta o remota, por la interrupción, suspensión, finalización, falta de disponibilidad o de continuidad del funcionamiento de los Servicios, por la defraudación de la utilidad, ingresos, ganancias o beneficios que el Proveedor o los Usuarios hubiere podido atribuir a la Empresa, a la falibilidad de los Servicios, y en particular, aunque no de modo exclusivo, por las fallas en el acceso a los Servicios. La Empresa no se responsabiliza por cualquier daño, perjuicio o pérdida en el o los equipos del Proveedor o los Usuarios y/o sus autorizados y/o terceros originados por fallas en el sistema, servidor o en Internet.</p>
+		<p>11.2 La Empresa se reserva el derecho de realizar todas las modificaciones que estime necesarias a efectos de poder mejorar la calidad y prestaciones de los Servicios sin que ello signifique un compromiso a cumplir fehacientemente.</p>
+		<p>11.3 Los proveedores aceptan las bases y condiciones, al publicar sus servicios en el sitio.</p>
+		<p>11.4 Los compradores aceptan las bases y condiciones, al comprar.</p>
+		<p>11.5 <a href="https://www.estilospa.com">www.EstiloSpa.com</a> es un medio publicitario, por el cual proveedores y compradores realizan un contacto comercial.</p>
 		<p>&nbsp;</p>
 
 		<h4 class="fw-400">12. SERVICIOS DE TERCEROS</h4>

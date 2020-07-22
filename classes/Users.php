@@ -45,7 +45,7 @@ class Users extends Core{
 		if(!$data = parent::core_get($query,$filters->values)) return false;
 
 		foreach($data as $k=>$row){
-			$data[$k]->promos_questions = $this->get_promos_questions($row->id);
+			///$data[$k]->promos_questions = $this->get_promos_questions($row->id);
 		}
 
 		return $data;

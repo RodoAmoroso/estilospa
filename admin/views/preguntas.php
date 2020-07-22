@@ -5,13 +5,11 @@
 		<hr>
 		<p>Visualiza todas las preguntas y sus respuestas formuladas en el sitio.</p>
 
-		<a href="<?=ADMIN.'preguntas-usuarios' ?>" class="btn btn-default"><i class="fa fa-comments fa-fw"></i> Ver Preguntas x Usuario</a>
 	</div>
 </section>
 
 <section class="admin-box bg-gray-5">
 	<div class="container">
-
 
 		<div class="block-white">
 			<form class="row" method="post">
@@ -34,9 +32,7 @@
 				</div>
 			</form>
 
-
 			<hr>
-
 
 			<?php if($questions): foreach($questions as $question): ?>
 
@@ -49,15 +45,15 @@
 						<p data-content="message" class="caption"><?=$question->message?></p>
 						<small data-content="added">Enviada por <?=$question->user_name.' (<a href="mailto:'.$question->user_email.'">'.$question->user_email.'</a> '.($question->user_phone ? ' | '.$question->user_phone : '').')'?>: <?=$question->creado?> hs.
 
-						<?php if($question->type=='promos'): ?>
+						<?php if($question->type=='promos' && $question->promo): ?>
 						a la experiencia <a href="<?= ROOT.'promo/'.$question->promo->permalink.'/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->promo->title?></a>
 						<?php endif; ?>
 
-						<?php if($question->type=='clients'): ?>
+						<?php if($question->type=='clients' && $question->client): ?>
 						al centro <a href="<?= ROOT.'centros/'.$question->client->permalink ?>" class="text-fucsia-3" target="_blank"><?=$question->client->name?></a>
 						<?php endif; ?>
 
-						<?php if($question->type=='glossary'): ?>
+						<?php if($question->type=='glossary' && $question->glossary): ?>
 						a la etiqueta <a href="<?= ROOT.'etiqueta/'.$question->rowid ?>" class="text-fucsia-3" target="_blank"><?=$question->glossary->name?></a>
 						<?php endif; ?>
 
@@ -79,7 +75,7 @@
 					<div class="message">
 						<a href="<?=ROOT.'centros/'.$response->client->permalink ?>" target="_blank"><?=$response->client->name?></a>
 						<p><?=$response->message?></p>
-						<small>Envidada: <?=$response->creado?> hs.</small>
+						<small>Enviada: <?=$response->creado?> hs.</small>
 					</div>
 					<div class="actions">
 						<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-response" data-id="<?=$response->id?>" title="borrar respuesta"><i class="fa fa-trash"></i></button>

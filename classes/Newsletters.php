@@ -1,25 +1,14 @@
-<?php 
+<?php
 
-class Newsletters {
-
-	private $_db,
-					$_data;
-
-	public 	$filters=array();
-
-
-	public function __construct(){
-		$this->_db = DB::getInstance();
-	}
-
+class Newsletters extends Core{
 
 	public function get($limit=50){
 		$this->_db->query(
-			"SELECT * 
-			FROM {newsletters_queue} 
+			"SELECT *
+			FROM {newsletters_queue}
 			ORDER BY added ASC
 			LIMIT 0,{$limit}"
-		); 
+		);
 		if(!$this->_db->count()) return false;
 		return $this->_db->results();
 	}
@@ -45,7 +34,7 @@ class Newsletters {
 	public function check_queue($userid=0){
 
 		$this->_db->query(
-			"SELECT * 
+			"SELECT *
 			FROM {newsletters_queue}
 			WHERE userid=?",
 			array($userid)
@@ -64,15 +53,15 @@ class Newsletters {
 		$obj = is_array($obj) ? (object) $obj : $obj;
 
 		$this->_db->query(
-			"SELECT * 
+			"SELECT *
 			FROM {newsletters_log}
-			WHERE ( DATEDIFF(NOW(),added) < 7 )  
+			WHERE ( DATEDIFF(NOW(),added) < 7 )
 			OR (userid=? AND contextid=? AND type=?)",
 			array($obj->userid,$obj->contextid,$obj->type)
 		);
 		//show_array($this->_db->getquery());
 
-		if($this->_db->count()) return false;		
+		if($this->_db->count()) return false;
 
 		return true;
 
@@ -103,6 +92,38 @@ class Newsletters {
 		return true;
 
 	}
+
+	public function get_log(){
+
+		$filters = parent::core_filters([
+			'filters'=>[
+				'id'=>"nl.id=?",
+				'user'=>"nl.userid=?",
+				'body'=>"nl.body $"
+			],
+			'sort'=>[
+				'default'=>"nl.added DESC"
+			]
+		]);
+
+		$query =
+		"SELECT nl.*
+		FROM {newsletters_log} nl
+		{$filters->where}
+		{$filters->sort}
+		LIMIT {$this->limit}";
+
+		if(!$data = parent::core_get($query,$filters->values)) return false;
+		return $data;
+
+	}
+	public function find_log($id=0){
+		if(!$id) return false;
+		$this->filters = ['id'=>$id];
+		if(!$data = $this->get_log()) return false;
+		return $data[0];
+	}
+
 
 
 }

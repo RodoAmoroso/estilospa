@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $Questions = new Questions();
 $Questions->limit = 100;

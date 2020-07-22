@@ -67,7 +67,6 @@
 					<div class="sale-user">
 						<div class="feedback">
 
-
 						<?php
 						$comment = $Sales->get_comment($sale->id,$_userdata->id);
 						if(!$comment): ?>

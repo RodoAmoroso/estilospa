@@ -11,6 +11,7 @@ class Session {
 	}
 
 	public static function get($name){
+		if(!self::exists($name)) return false;
 		return $_SESSION[$name];
 	}
 
@@ -22,7 +23,7 @@ class Session {
 
 	public static function flash($name, $string = ''){
 		if(self::exists($name)){
-			$session = self::get($name);			
+			$session = self::get($name);
 			self::delete($name);
 			return $session;
 		}else{

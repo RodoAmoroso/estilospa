@@ -207,6 +207,24 @@ class Sales {
 		$this->_data = $this->_db->results();
 		foreach($this->_data as $key=>$row){
 			$this->_data[$key]->sales_vouchers = $this->get_vouchers($row->id);
+
+
+			$this->_data[$key]->discountvoucher = 0;
+			$this->_data[$key]->vouchertext = '';
+			if(!is_null($row->voucher_id)){
+				$this->_data[$key]->vouchertext = ' - Usó Código: '.$row->voucher_code;
+				if($row->voucher_percent==1){
+					$this->_data[$key]->discountvoucher = $row->voucher_value*$row->price/100;
+					$this->_data[$key]->vouchertext .= ' ('.$row->voucher_value.'% Off)';
+				}else{
+					$this->_data[$key]->discountvoucher = $row->voucher_value;
+					$this->_data[$key]->vouchertext .= ' (-$'.$row->voucher_value.')';
+				}
+			}
+			$this->_data[$key]->total = ($row->price-$this->_data[$key]->discountvoucher)*$row->quantity;
+
+
+
 		}
 		return true;
 	}

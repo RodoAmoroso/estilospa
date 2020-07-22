@@ -3,7 +3,11 @@
 <section class="page-header">
 	<div class="container">
 		<h1>Usuarios</h1>
-		<p></p>
+		<hr>
+
+		<div class="form-group">
+			<button id="btn_new" class="btn btn-sm btn-fucsia"><i class="fa fa-plus"></i> Nuevo Usuario</button>
+		</div>
 
 	</div>
 </section>
@@ -11,45 +15,43 @@
 <!-- LIST -->
 <section id="list_panel" class="admin-box bg-gray-5">
 	<div class="container">
-		<div class="block-white">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<form id="form_search" class="form-group" autocomplete="off">
-						<div class="form-group">
-						<label for="fd_search">Buscar</label>
-							<div class="input-group">
-								<input id="fd_search" type="text" class="form-control">
-								<div class="input-group-btn">
-									<button class="btn btn-primary"><i class="fa fa-search"></i></button>
-								</div>
-							</div>						
-						</div>
-						<div class="form-group">
-							<label for="search_type">Filtrar por:</label>
-							<select id="search_type" type="text" class="form-control input-sm">
-								<option value="0">-- Todos --</option>
-								<?php 
-								$db = DB::getInstance();
-								if($db->get('usertypes',array('id','!=',0))){
-									foreach($db->results() as $type){
-										echo '<option value="'.$type->id.'">'.$type->name.'</option>';
-									}
-								}
-								?>
-							</select>
-						</div>
-					</form>
-				</div>
-				<div class="col-xs-12 col-sm-6">
-					<div class="form-group text-right">
-						<button id="btn_new" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Nuevo Usuario</button>
-					</div>
-				</div>
-			</div>		
-			<hr>
-			<div id="mod_users" class="well mod-container-lg"></div>
 
+		<div class="block-white">
+
+
+			<table id="table_users" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Email</th>
+						<th>Teléfono</th>
+						<th>Usuario Desde</th>
+						<th>Última Visita</th>
+						<th>Rol</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<?php if($users): foreach($users as $user): ?>
+					<tr>
+						<td><?= $user->fullname ?></td>
+						<td><?= $user->mail ?></td>
+						<td><?= $user->phone ?></td>
+						<td><?= $user->created ?></td>
+						<td><?= $user->logged ?></td>
+						<td><?= $user->type_name ?></td>
+						<td class="text-right">
+							<button data-id="<?=$user->id?>" class="btn btn-xs btn-success edit"><i class="fa fa-pencil"></i> Editar</button>
+							<a href="<?= ADMIN.'actividad-usuario/'.$user->id ?>" class="btn btn-xs btn-info"><i class="fa fa-line-chart"></i> Actividad</a>
+						</td>
+					</tr>
+					<?php endforeach; endif; ?>
+				</tbody>
+			</table>
 		</div>
+
+
 	</div>
 </section>
 
@@ -61,7 +63,7 @@
 		<h3 class="fw-600">Editar / Agregar Usuario</h3>
 		<hr>
 
-		
+
 		<div class="block-white">
 
 			<div class="row">
@@ -87,9 +89,9 @@
 					<div class="form-group">
 						<label for="fd_birth">Fecha de Nacimiento</label><br />
 
-			
+
 						<div class="row">
-						
+
 							<div class="col-xs-4" >
 								<input type="text" id="fd_day" class="form-control" placeholder="dd" >
 							</div>
@@ -101,7 +103,7 @@
 							</div>
 							</div>
 
-					</div>	
+					</div>
 				</div>
 
 				<div class="col-xs-12 col-sm-4">
@@ -138,13 +140,13 @@
 					<div class="form-group">
 						<label for="fd_provinces">Provincia/Zona</label>
 						<select id="fd_provinces" class="form-control">
-							<?php 
+							<?php
 							$provinces = DB::getInstance()->get('provinces',array('id','!=',0));
 							if($provinces->count()):
 								foreach($provinces->results() as $province):
 							?>
 							<option value="<?= $province->id ?>" ><?= $province->name ?></option>
-							<?php 
+							<?php
 								endforeach;
 							endif;
 							?>
@@ -170,21 +172,21 @@
 						<input id="fd_pass" type="text" class="form-control" >
 					</div>
 					<p class="sz-9">Si estás creando el usuario debes poner una contraseña. Si estás editando a un usuario ya creado y dejas el campo en blanco la contraseña no se cambiará.</p>
-				</div>				
+				</div>
 
 			</div>
 
 			<hr>
 
 			<div class="row">
-				
+
 				<div class="col-xs-12 col-sm-6">
 					<label for="">Imagen</label>
 					<div class="form-group">
 						<div data-input="image">
 							<button id="btn_image" class="btn btn-sm btn-primary">Examinar...</button>
 							<input type="file" accept="image/*" class="d-none">
-						</div>				
+						</div>
 					</div>
 					<div id="avatar" class="thumbnail bg-gray-10 thumb-cover thumb-200x200"></div>
 				</div>
@@ -193,7 +195,7 @@
 					<div class="form-group">
 						<label for="fd_types">Permitir editar centro:</label>
 						<select id="fd_types" class="form-control">
-							<?php 
+							<?php
 							$db = DB::getInstance();
 							if($db->get('usertypes',array('id','!=',0))){
 								foreach($db->results() as $type){
@@ -209,7 +211,7 @@
 						<label for="fd_clients">Vincular usuario a un centro</label>
 						<select id="fd_clients" class="form-control">
 							<option value="0">-- Elegir Centro --</option>
-							<?php 
+							<?php
 							$clients = new Clients();
 							if($clients->get()){
 								foreach ($clients->data() as $client){
@@ -220,7 +222,7 @@
 						</select>
 					</div>
 				</div>
-			</div>	
+			</div>
 
 			<hr>
 			<div id="fd_notify" class="clickable"><i class="fa fa-toggle-on"></i> Enviar un mail al usuario con los datos de la cuenta (aplica sólamente cuando se crea un usuario)</div>

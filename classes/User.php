@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class User {
 	private $_db,
@@ -19,18 +19,23 @@ class User {
 		$this->_sessionName = Config::get('session/session_name');
 		$this->_cookieName = Config::get('cookie/cookie_name');
 
-
 		if(!$user){
-			if(Session::exists($this->_sessionName)){
-				$user = Session::get($this->_sessionName);
-				if($this->find($user)){
-					$this->_logged = true;
+			if($hash = Cookie::get($this->_cookieName)){
+				if($user = $this->find_by_session($hash)){
+					$this->login();
+					return true;
+				}
+			}
+			if($hash = Session::get($this->_sessionName)){
+				if($user = $this->find_by_session($hash)){
+					$this->login();
+					return true;
 				}
 			}
 		}else{
 			if($this->find($user)){
-				Session::put($this->_sessionName,$this->data()->id);
-				$this->_logged = true;
+				$this->login();
+				return true;
 			}
 		}
 	}
@@ -43,54 +48,65 @@ class User {
 		}else{
 			return $this->_db->getLastId();
 		}*/
-	}	
+	}
 
 	public function update($userid=0,$array=array()){
 		if(!$this->_db->update('users',$userid,$array)) return false;
 		return true;
 	}
+	public function find_by_session($hash=''){
+		$this->_db->get('sessions',['hash','=',$hash]);
+		if(!$this->_db->count()) return false;
+		$this->find($this->_db->first()->iduser);
+		return $this->_db->first();
+	}
 
-	public function find($user=null){		
+	public function find($user=null,$hash=false){
 		$this->_data = null;
 
 		if(!$user) return false;
 
 		$field = is_numeric($user) ? 'u.id' : 'u.mail';
-		//$this->_db->get('users',array($field,'=',$user));
+		if($hash) $field = 'u.hash';
+
 		$this->_db->query("SELECT u.*, CONCAT(u.name,' ',u.lastname) fullname, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
-			FROM {users} u 
-			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id 
-			LEFT JOIN {clients} c ON c.id=a.idclient 
-			LEFT JOIN {clientplans} p ON p.id=c.idplan 
+			FROM {users} u
+			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id
+			LEFT JOIN {clients} c ON c.id=a.idclient
+			LEFT JOIN {clientplans} p ON p.id=c.idplan
 			WHERE {$field} = ?",
 			array($user)
 		);
-		
+
 		if(!$this->_db->count()) return false;
-		
+
 		$this->_data = $this->_db->first();
 		return true;
-	}		
+	}
 
 	public function login($user=null,$pass=null){
 
 		if(!$user && !$pass && $this->exists()){
-			Session::put($this->_sessionName, $this->data()->id);
+			Session::put($this->_sessionName, $this->data()->hash);
+			$this->_logged = true;
 		}else{
 			$user = $this->find($user);
 			if($user){
 				if(password_verify($pass,$this->data()->pass)){
-					Session::put($this->_sessionName,$this->data()->id);	
 					$hash = hash('sha256', uniqid());
-					$hashCheck = $this->_db->get('sessions',array('iduser','=',$this->data()->id));				
+					$hashCheck = $this->_db->get('sessions',array('iduser','=',$this->data()->id));
 					if(!$hashCheck->count()){
 						$this->_db->insert('sessions',array(
 							'iduser'=>$this->data()->id,
 							'hash'=>$hash
 						));
 					}else{
+						$this->_db->update('sessions',$hashCheck->first()->id,array(
+							'hash'=>$hash
+						));
 						$hash = $hashCheck->first()->hash;
 					}
+					Session::put($this->_sessionName,$hash);
 					Cookie::put($this->_cookieName,$hash);
 					$this->_logged = true;
 					return true;
@@ -131,8 +147,8 @@ class User {
 
 	public function activate($userid=0,$hash=''){
 		$this->_db->query("
-			SELECT id 
-			FROM {users} 
+			SELECT id
+			FROM {users}
 			WHERE id=? AND hash=?",
 			array($userid,$hash)
 		);
@@ -151,8 +167,8 @@ class User {
 
 	public function check_hash($userid=0,$hash=''){
 		$this->_db->query("
-			SELECT id 
-			FROM {users} 
+			SELECT id
+			FROM {users}
 			WHERE id=? AND hash=?",
 			array($userid,$hash)
 		);

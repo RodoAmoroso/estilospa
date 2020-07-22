@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Notifications {
 
@@ -19,14 +19,14 @@ class Notifications {
 		$this->_db->query(
 			"SELECT s.id idsale, s.iduser, s.idpromo, c.id idcomment, u.mail, CONCAT(u.name,' ',u.lastname) name, s.added, p.title promotitle, cl.permalink, s.collection_id
 			FROM {sales} s
-			LEFT JOIN {comments} c ON c.idsale=s.id 
+			LEFT JOIN {comments} c ON c.idsale=s.id
 			LEFT JOIN {users} u ON u.id=s.iduser
 			LEFT JOIN {promos} p ON p.id=s.idpromo
 			LEFT JOIN {clients} cl ON cl.id=p.idclient
-			WHERE c.id IS NULL 
-				AND p.id IS NOT NULL 
-				AND u.mail IS NOT NULL 
-				AND s.collection_status='approved' 
+			WHERE c.id IS NULL
+				AND p.id IS NOT NULL
+				AND u.mail IS NOT NULL
+				AND s.collection_status='approved'
 				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range));
 
@@ -52,14 +52,14 @@ class Notifications {
 		$this->_db->query(
 			"SELECT s.*, p.title promotitle, CONCAT(u.name,' ',u.lastname) username, u.mail usermail, c.name clientname, c.mail clientmail, c.permalink
 			FROM {sales} s
-			LEFT JOIN {promos} p ON p.id=s.idpromo 
+			LEFT JOIN {promos} p ON p.id=s.idpromo
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			LEFT JOIN {users} u ON u.id=s.iduser
 			LEFT JOIN {vouchers_usage} vu ON vu.idsale=s.id
-			WHERE s.status = 1 
-				AND p.id IS NOT NULL 
-				AND c.mail IS NOT NULL 
-				AND s.collection_status='approved' 
+			WHERE s.status = 1
+				AND p.id IS NOT NULL
+				AND c.mail IS NOT NULL
+				AND s.collection_status='approved'
 				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range)
 		);
@@ -100,7 +100,7 @@ class Notifications {
 			ORDER BY n.added ASC
 			LIMIT 0,{$limit}"
 		);
-		if(!$this->_db->count()) return false;		
+		if(!$this->_db->count()) return false;
 
 		$this->_data = $this->_db->results();
 		return $this->_data;
@@ -130,8 +130,8 @@ class Notifications {
 						$where .= empty($where) ? "WHERE " : " AND ";
 						$where .= "nl.type=?";
 						$values[] = $filter;
-						break;					
-					
+						break;
+
 				}
 			}
 		}
@@ -139,7 +139,7 @@ class Notifications {
 		$this->_db->query(
 			"SELECT nl.*
 			FROM {notifications_log} nl
-			{$where} 
+			{$where}
 			ORDER BY nl.added DESC
 			LIMIT {$this->limit}",
 			$values
@@ -151,5 +151,4 @@ class Notifications {
 	}
 
 
-	
 }

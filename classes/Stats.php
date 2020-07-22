@@ -1,16 +1,6 @@
-<?php 
+<?php
 
-class Stats {
-
-	private $_db,
-					$_data,
-					$_dbprefix,
-					$_lastid;
-
-	public function __construct(){
-		$this->_dbprefix = Config::get('mysql/prefix');
-		$this->_db = DB::getInstance();
-	}
+class Stats extends Core{
 
 	public function add_search_word($word=''){
 		if(empty($word) || strlen($word)<3) return false;
@@ -39,13 +29,31 @@ class Stats {
 		));
 		return true;
 	}
+	public function add_client_view($userid=0,$clientid=0){
+		if(!$userid && !$clientid) return false;
+		$this->_db->insert('client_views',array(
+			'clientid'=>$clientid,
+			'userid'=>$userid,
+			'added'=>date('Y-m-d H:i:s')
+		));
+		return true;
+	}
+	public function add_glossary_view($userid=0,$glossaryid=0){
+		if(!$userid && !$glossaryid) return false;
+		$this->_db->insert('glossary_views',array(
+			'glossaryid'=>$glossaryid,
+			'userid'=>$userid,
+			'added'=>date('Y-m-d H:i:s')
+		));
+		return true;
+	}
 
 	public function get_top_words(){
 		$this->_db->query("
 			SELECT word, COUNT(word) total
-			FROM {stats_search_words} 
+			FROM {stats_search_words}
 			GROUP BY word
-			ORDER BY total DESC 
+			ORDER BY total DESC
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
@@ -56,7 +64,7 @@ class Stats {
 			SELECT location, COUNT(location) total
 			FROM {stats_search_locations}
 			GROUP BY location
-			ORDER BY total DESC 
+			ORDER BY total DESC
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
@@ -75,7 +83,7 @@ class Stats {
 			FROM {promos} p
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			{$where}
-			ORDER BY views DESC 
+			ORDER BY views DESC
 			LIMIT 0,10",
 			$values
 		);
@@ -84,7 +92,7 @@ class Stats {
 	}
 
 	public function get_top_promos_questions($idclient=null){
-		
+
 		$where = "WHERE q.type=?";
 		$values = array('promos');
 		if(!is_null($idclient)){
@@ -93,12 +101,12 @@ class Stats {
 		}
 		$this->_db->query("
 			SELECT p.id, p.title, c.name, c.permalink, COUNT(*) total
-			FROM {questions} q 
+			FROM {questions} q
 			LEFT JOIN {promos} p ON p.id=q.rowid
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			{$where}
 			GROUP BY p.id
-			ORDER BY total DESC 
+			ORDER BY total DESC
 			LIMIT 0,10",
 			$values
 		);
@@ -106,7 +114,7 @@ class Stats {
 		return $this->_db->results();
 	}
 	public function get_top_clients_questions($idclient=null){
-		
+
 		$where = "WHERE q.type=?";
 		$values = array('clients');
 		if(!is_null($idclient)){
@@ -115,11 +123,11 @@ class Stats {
 		}
 		$this->_db->query("
 			SELECT c.name, c.permalink, COUNT(*) total
-			FROM {questions} q 
+			FROM {questions} q
 			LEFT JOIN {clients} c ON c.id=q.rowid
 			{$where}
 			GROUP BY c.id
-			ORDER BY total DESC 
+			ORDER BY total DESC
 			LIMIT 0,10",
 			$values
 		);
@@ -132,7 +140,7 @@ class Stats {
 		$this->_db->query("
 			SELECT id, name, views, permalink
 			FROM {clients}
-			ORDER BY views DESC 
+			ORDER BY views DESC
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
@@ -142,7 +150,7 @@ class Stats {
 		$this->_db->query("
 			SELECT id, name, views
 			FROM {glossary}
-			ORDER BY views DESC 
+			ORDER BY views DESC
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
@@ -152,7 +160,7 @@ class Stats {
 		$this->_db->query("
 			SELECT id, title, views
 			FROM {blog}
-			ORDER BY views DESC 
+			ORDER BY views DESC
 			LIMIT 0,10"
 		);
 		if(!$this->_db->count()) return false;
@@ -166,7 +174,7 @@ class Stats {
 		$this->_db->get('stats_events_reference',array('reference','=',$event));
 		if(!$this->_db->count()) return false;
 		$referenceid = $this->_db->first()->id;
-		
+
 		$this->_db->insert('stats_events',array(
 			'clientid'=>$clientid,
 			'referenceid'=>$referenceid
@@ -257,6 +265,100 @@ class Stats {
 		if(!$this->_db->first()->total) return false;
 
 		return $this->_db->results();
+	}
+
+	public function promo_user_views(){
+
+		$filters = parent::core_filters([
+			'filters'=>[
+				'user'=>"pv.userid=?",
+				'promo'=>"pv.promoid=?"
+			],
+			'sort'=>[
+				'default'=>"pv.added DESC"
+			]
+		]);
+
+		$query =
+		"SELECT
+			pv.added, pv.promoid,
+			p.title,
+			c.permalink, c.name
+		FROM {promo_views} pv
+		INNER JOIN {promos} p ON p.id=pv.promoid
+		INNER JOIN {clients} c ON c.id=p.idclient
+		{$filters->where}
+		{$filters->sort}
+		LIMIT {$this->limit}";
+
+		if(!$data = parent::core_get($query,$filters->values)) return false;
+		foreach($data as $k=>$row){
+			$data[$k]->link = ROOT.'promo/'.$row->permalink.'/'.$row->promoid.'-'.Permalink($row->title);
+			$data[$k]->client_link = ROOT.'centros/'.$row->permalink;
+			$data[$k]->type = 'promo';
+			$data[$k]->type_name = 'Experiencia';
+		}
+		return $data;
+	}
+	public function client_user_views(){
+
+		$filters = parent::core_filters([
+			'filters'=>[
+				'user'=>"cv.userid=?",
+				'client'=>"cv.clientid=?"
+			],
+			'sort'=>[
+				'default'=>"cv.added DESC"
+			]
+		]);
+
+		$query =
+		"SELECT
+			cv.added, cv.clientid,
+			c.permalink, c.name
+		FROM {client_views} cv
+		INNER JOIN {clients} c ON c.id=cv.clientid
+		{$filters->where}
+		{$filters->sort}
+		LIMIT {$this->limit}";
+
+		if(!$data = parent::core_get($query,$filters->values)) return false;
+		foreach($data as $k=>$row){
+			$data[$k]->link = ROOT.'centros/'.$row->permalink;
+			$data[$k]->type = 'client';
+			$data[$k]->type_name = 'Centro';
+		}
+		return $data;
+	}
+	public function glossary_user_views(){
+
+		$filters = parent::core_filters([
+			'filters'=>[
+				'user'=>"gv.userid=?",
+				'glossary'=>"gv.glossaryid=?"
+			],
+			'sort'=>[
+				'default'=>"gv.added DESC"
+			]
+		]);
+
+		$query =
+		"SELECT
+			gv.added, gv.glossaryid,
+			g.name
+		FROM {glossary_views} gv
+		INNER JOIN {glossary} g ON g.id=gv.glossaryid
+		{$filters->where}
+		{$filters->sort}
+		LIMIT {$this->limit}";
+
+		if(!$data = parent::core_get($query,$filters->values)) return false;
+		foreach($data as $k=>$row){
+			$data[$k]->link = ROOT.'etiqueta/'.$row->glossaryid.'-'.Permalink($row->name);
+			$data[$k]->type = 'glossary';
+			$data[$k]->type_name = 'Etiqueta';
+		}
+		return $data;
 	}
 
 }

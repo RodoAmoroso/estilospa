@@ -135,23 +135,21 @@
 		<div class="sale-user">
 			<div class="user">
 				<div class="item">
-					<div class="user-thumb thumb-cover"></div>
+					<div class="name">
+						<span data-tag="username" ></span> |
+						<a data-tag="mail" href="#" class="mail"></a> <span data-tag="phone" class="mail"></span>
+					</div>
+					<div class="feedback" >
+						<p data-tag="comment"><i>(El usuario aún no ha calificado)</i></p>
+						<span class="stars">
+							<i class="fa"></i>
+							<i class="fa"></i>
+							<i class="fa"></i>
+							<i class="fa"></i>
+							<i class="fa"></i>
+						</span>
+					</div>
 				</div>
-				<div class="item">
-					<div data-tag="username" class="name"></div>
-					<a data-tag="mail" href="#" class="mail"></a> <span data-tag="phone" class="mail"></span>
-
-				</div>
-			</div>
-			<div class="feedback" >
-				<p data-tag="comment"><i>(El usuario aún no ha calificado)</i></p>
-				<span class="stars">
-					<i class="fa"></i>
-					<i class="fa"></i>
-					<i class="fa"></i>
-					<i class="fa"></i>
-					<i class="fa"></i>
-				</span>
 			</div>
 		</div>
 	</div>

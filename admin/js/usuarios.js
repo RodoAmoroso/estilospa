@@ -17,13 +17,13 @@ var Users = {
 					mod.find('.caption').html('Registrado: '+v.creado+' | '+'Último acceso: '+(v.last_access == '00/00/0000 00:00' ? 'nunca' : v.last_access+' hs.' ));
 					$('#mod_users').append(mod);
 				});
-				
+
 			});
 	},
 	find:function(){
 		ajax('admin/users/find',{ID:Users.ID})
-			.then(function(DATA){			
-				var d = DATA.result;			
+			.then(function(DATA){
+				var d = DATA.result;
 				$('#fd_pass').val('');
 				$('#fd_mail').val(d.mail);
 				$('#fd_name').val(d.name);
@@ -65,7 +65,7 @@ var Users = {
 		}
 		var active = $('#fd_active i').hasClass('fa-toggle-on') ? 1 : 0;
 		var notify = $('#fd_notify i').hasClass('fa-toggle-on') ? 1 : 0;
-		
+
 		ajax('admin/users/save',{
 			Name:$('#fd_name').val(),
 			LastName:$('#fd_lastname').val(),
@@ -153,7 +153,7 @@ var Users = {
 						Users.delete();
 					}
 				});
-			
+
 		});
 		$('#search_type').change(function(){
 			Users.get();
@@ -165,17 +165,17 @@ var Users = {
 			folder:'img/users',
 			controller:'admin/users/upimage',
 			sufix:'-o'
-		});		
-		
+		});
+
 		SearchSuggestions('#form_search','admin/users/get','',Users.get);
 
-		$('#mod_users').on('click','.edit',function(){
+		$('#table_users').on('click','.edit',function(){
 			var id = $(this).attr('data-id');
 			Users.ID = id;
 			Users.find();
 			$('#btn_new').trigger('click');
 		});
-		$('#mod_users').on('click','.delete',function(){
+		/*$('#mod_users').on('click','.delete',function(){
 			var id = $(this).attr('data-id');
 			Swal.fire({
 				type:'warning',
@@ -189,8 +189,8 @@ var Users = {
 						Users.delete();
 					}
 				});
-			
-		});
+
+		});*/
 
 		$('#login_as').click(function(){
 			ajax('admin/users/login_as',{userid:Users.ID}).then(function(data){
@@ -198,7 +198,18 @@ var Users = {
 			});
 		});
 
-		Users.get();
+		datatable_options.buttons = [
+			{
+				extend:'excel',
+				title:'usuarios_estilospa',
+				text:'<i class="fa fa-file-excel-o fa-fw"></i> Exportar a Excel',
+				exportOptions:{
+					columns:[0,1,2]
+				}
+			}
+		];
+
+		$('#table_users').DataTable(datatable_options);
 
 
 	}

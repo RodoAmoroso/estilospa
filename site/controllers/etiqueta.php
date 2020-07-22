@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 $arrsection = explode('-',$_subsection);
@@ -7,7 +7,11 @@ if(!$Glossary->find($idglossary)) Redirect::javascript('404');
 
 ////////////////////// SEO ////////////////////////////////////////
 $_TITLE = $Glossary->data()->name.' - '.TITLE;
+
 $Glossary->addvisit($idglossary);
+if($User->logged()) $Stats->add_glossary_view($User->data()->id,$Glossary->data()->id);
+
+
 $_DESCRIPTION = substr(strip_tags($Glossary->data()->description),0,500);
 $imgjson = json_decode($Glossary->data()->image);
 $imgheader = '';

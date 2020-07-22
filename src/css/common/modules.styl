@@ -237,6 +237,7 @@
 	border-radius 8px
 	box-shadow 2px 2px 4px rgba(0,0,0,0.15)
 	margin 0 0 8px 0
+	//overflow hidden
 	.sale-header
 		display flex
 		padding 0
@@ -247,18 +248,18 @@
 				background-color gray(5)
 				border-top-left-radius 6px
 				height 100%
-				width 260px
+				width 200px
 		.caption
-			padding 10px
+			padding .465rem .775rem
 			flex-grow 1
 			h1,h2,h3,h4,h5,hr
-				margin 7px 0
+				margin .465rem 0
 			.title
 				font-size 1.9rem
 				font-weight 500
 				color $cyan_2
 			.subtitle
-				font-size 1.6rem
+				font-size 1.25rem
 				font-weight 400
 			.title-promo
 				font-size 1.4rem
@@ -275,9 +276,9 @@
 			padding 16px
 			width 60px
 		.status
-			margin 4px 0
+			margin .425rem 0
 			border-radius 6px
-			padding 10px
+			padding .465rem
 			align-items center
 			display flex
 			.payment-status
@@ -295,7 +296,7 @@
 		padding 0
 		.sale-user
 			background-color gray(3)
-			padding 12px
+			padding .465rem 1rem
 			overflow hidden
 			position relative
 			justify-content space-between
@@ -324,8 +325,8 @@
 						height 36px
 						width 36px
 				.item:last-of-type
-					flex-grow 1
-					padding 0 20px
+					width 100%
+					padding .465rem
 					.mail
 						color gray(40)
 						font-size 10pt
@@ -401,31 +402,36 @@
 
 .activity-wrapper
 	.mod-activity
+		border-bottom 1px solid gray(10)
 		.content
 			display flex
 			.date-wrapper
 				//border-top 1px solid gray(10)
 				min-width 116px
-				padding 16px 8px
+				padding .665rem 1rem
 				width 116px
 				text-align right
 				.dayname
 					color $cyan_2
 				.date
 					color $cyan_2
-					font-size 1.8rem
+					font-size 1.6rem
 				small
 					color gray(40)
 			.log-wrapper
 				//border-top 1px solid gray(10)
 				border-left 1px solid gray(10)
-				padding 16px 8px
+				padding .665rem 1rem
+
 				width 100%
 				.title
 					margin 0
 					color $aqua_4
 					font-weight 500
 					font-size 1.8rem
+					a
+						color $fucsia_3
+						font-weight 400
 				.log
 					a
 						color $fucsia_3

@@ -14,6 +14,7 @@ class Cookie{
 	}
 
 	public static function get($name){
+		if(!self::exists($name)) return false;
 		return $_COOKIE[$name];
 	}
 

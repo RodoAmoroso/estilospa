@@ -1,4 +1,4 @@
-<?php 
+<?php
 function Permalink($str) {
 	$clean = preg_replace("/ã|à|á|ä|â|Ã|À|Á|Ä|Â/", "a", $str);
 	$clean = preg_replace("/è|é|ë|ê|È|É|Ë|Ê/", "e", $clean);
@@ -17,7 +17,7 @@ function CryptMe($key, $string, $action){
 	$res = '';
 	if($action == 'decrypt'){
 		$string = base64_decode($string);
-	} 
+	}
 	for( $i = 0; $i < strlen($string); $i++){
 		$c = ord(substr($string, $i));
 		if($action == 'encrypt'){
@@ -30,7 +30,7 @@ function CryptMe($key, $string, $action){
 	}
 	if($action == 'encrypt'){
 		$res = base64_encode($res);
-	} 
+	}
 	return $res;
 }
 function MakeImage($MaxW, $MaxH, $sufijo, $forced, $trim, $Die){
@@ -64,7 +64,7 @@ function MakeImage($MaxW, $MaxH, $sufijo, $forced, $trim, $Die){
 		$newwidth=$width;
 
 	}else	if($width < $MaxW && $height < $MaxH){
-	
+
 		$newheight=$height;
 		$newwidth=$width;
 
@@ -127,10 +127,10 @@ function MakeImage($MaxW, $MaxH, $sufijo, $forced, $trim, $Die){
 		$size_th = getimagesize($filename);
 		$width_th = $size_th[0];
 		$height_th = $size_th[1];
-		$tmb_th = imagecreatetruecolor($MaxW,$MaxH); 
+		$tmb_th = imagecreatetruecolor($MaxW,$MaxH);
 
 		if($extension == 'gif'){
-			$src_th = imagecreatefromgif($filename);            
+			$src_th = imagecreatefromgif($filename);
 			$bg_th = imagecolorallocatealpha($tmb_th, 255, 255, 255, 0);
 		}else if($extension == 'png'){
 			$src_th = imagecreatefrompng($filename);
@@ -151,7 +151,7 @@ function MakeImage($MaxW, $MaxH, $sufijo, $forced, $trim, $Die){
 			imagepng($tmb_th, $newfilename, 0);
 		}else{
 			imagejpeg($tmb_th, $newfilename, 100);
-		}      
+		}
 
 		imagedestroy($src_th);
 		imagedestroy($tmb_th);
@@ -323,8 +323,8 @@ function SecondsToMinutes($NM){
 }
 function SetURL($text){
 	$text = html_entity_decode($text);
-	$text = " ".$text; 
-	$text = preg_replace("/(?<!\")(((f|ht){1}tps?:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/",'<a href="\\1" target=_blank>\\1</a>', $text);       
+	$text = " ".$text;
+	$text = preg_replace("/(?<!\")(((f|ht){1}tps?:\/\/)[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/",'<a href="\\1" target=_blank>\\1</a>', $text);
 	$text = preg_replace("/([[:space:]()[{}])(www.[-a-zA-Z0-9@:%_\+.~#?&\/\/=]+)/",'\\1<a href="http://\\2" target=_blank>\\2</a>', $text);
 	$text = preg_replace("/(?<!\")([_\.0-9a-z-]+@([0-9a-z][0-9a-z-]+\.)+[a-z]{2,3})/",'<a href="mailto:\\1" target=_blank>\\1</a>', $text);
 	return $text;
@@ -388,7 +388,7 @@ function BuildSearch($keywords='',$mixed=0,$arrfields=array(),$operator='like'){
 							if($kw==0){
 								$search .= "(";
 							}
-							
+
 							$search .= "{$field} LIKE '%{$vw}%'";
 
 							if($kw==count($keyword)-1){
@@ -436,10 +436,10 @@ function Stars($rate=0,$size=''){
 	for($i=1; $i<=floor($rate); $i++):
 		$leftover--;
 		$stars .= '<i class="fa fa-star '.$size.'"></i> ';
-	endfor;	
+	endfor;
 	if($rate-floor($rate)): $leftover--;
 		$stars .= '<i class="fa fa-star-half-o '.$size.'"></i> ';
-	endif; 
+	endif;
 	for($i=1; $i<=$leftover; $i++):
 		$stars .= '<i class="fa fa-star-o '.$size.'"></i> ';
 	endfor;
@@ -469,7 +469,7 @@ function Fav($promoid=0,$clientid=0){
 	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos" data-placement="bottom" >'.$fav.'</a>';
 }
 function show_array($obj){
-	echo '<pre>';	
+	echo '<pre>';
 	if(is_array($obj)):
 		print_r($obj);
 	elseif(is_object($obj)):
@@ -482,14 +482,14 @@ function show_array($obj){
 	echo '</pre>';
 }
 function curl_post($url,$data){
-	$ch = curl_init(); 
-	curl_setopt($ch, CURLOPT_URL, $url); 
-	curl_setopt($ch, CURLOPT_POST, 1); 
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); 
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 	curl_setopt($ch, CURLOPT_HTTPHEADER,  array("Accept: application/json",));
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	$output = new stdClass();
-	$output->response = curl_exec($ch); 
+	$output->response = curl_exec($ch);
 	$output->status = curl_getinfo($ch,CURLINFO_HTTP_CODE);
 	curl_close($ch);
 	return $output;
@@ -516,7 +516,7 @@ function reservation_labels($status){
 			$output->color = 'pink-3';
 			$output->text = 'No disponible';
 			break;
-		
+
 	endswitch;
 
 	return $output;
@@ -552,6 +552,28 @@ function status_payment($status=''){
 	$output->text = $text;
 	return $output;
 }
+function status_service($status=''){
+		$btn='';
+		$label='';
+		switch($status){
+			case 1:
+				$btn = 'warning';
+				$label = 'Pendiente';
+				break;
+			case 2:
+				$btn = 'success';
+				$label = 'Brindado';
+				break;
+			case 3:
+				$btn = 'danger';
+				$label = 'Cancelado';
+				break;
+		}
+		return (object) [
+			'btn'=>$btn,
+			'label'=>$label
+		];
+	}
 
 function is_hashsed($hash=''){
 	if(preg_match("/^([a-f0-9]{64})$/", $hash) == 1) return true;

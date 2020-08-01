@@ -10,7 +10,7 @@
 </section>
 
 
-<?php if($User->data()->idclient == null): ?>
+<?php if($_userdata->idclient == null): ?>
 <!-- EDIT -->
 <section class="admin-box bg-gray-5">
 	<div class="container">
@@ -29,6 +29,8 @@
 <section class="admin-box bg-gray-5">
 	<div class="container">
 
+
+		<?php if($_userdata->idtype==3): ?>
 
 		<div class="boxes">
 
@@ -107,81 +109,7 @@
 
 
 		</div>
-
-
-
-		<div class="row dp-none">
-
-			<!-- LEFT COLUMN -->
-			<div class="col-xs-12 col-sm-4">
-
-				<div class="block-box">
-					<div class="box-title">Ventas de este Mes</div>
-					<div class="box-content">
-						<?php
-						$Sales->period='thismonth';
-						$Sales->getOverall();
-						$thismonthquantity = $Sales->overall()->quantity;
-						?>
-						<h1 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h1>
-						<small class="cl-gray-40">Experiencias Vendidas: <?= $thismonthquantity ?></small>
-					</div>
-					<div class="alert alert-success">
-						<h4 class="fw-400">Comisiones de EstiloSPA: $ <?= number_format($Sales->overall()->neto,2,',','.') ?></h4>
-						<small>Calculado en base a los porcentajes de comisión según el plan elegido.</small>
-					</div>
-					<div class="box-footer">
-						<?php
-						$Sales->period='lastmonth';
-						$Sales->getOverall();
-						$lastmonthquantity = $Sales->overall()->quantity;
-						$difmonth = $thismonthquantity-$lastmonthquantity;
-						?>
-						<small>
-							<span class="text-<?= $difmonth < 0 ? 'danger' : 'success' ?> fw-700 ff-opensans"><?= ($difmonth < 0 ? '-' : '+').abs($difmonth) ?> <i class="fa fa-level-<?= $difmonth < 0 ? 'down' : 'up' ?>"></i></span> con respecto al mes anterior
-						</small>
-					</div>
-				</div>
-
-				<div class="block-box">
-					<div class="box-title">Total Vendido</div>
-					<div class="box-content">
-						<?php
-						$Sales->period='';
-						$Sales->getOverall();
-						?>
-						<h3 class="fw-400">$ <?= number_format($Sales->overall()->overall,2,',','.') ?></h3>
-						<small class="cl-gray-40">Experiencias Totales Vendidas: <?= $Sales->overall()->quantity ?></small>
-					</div>
-					<div class="box-footer">
-						<small class="cl-gray-40">Calculado desde el <?= date('d/m/Y', strtotime($User->data()->clientadded)) ?> hasta hoy</small>
-					</div>
-				</div>
-
-
-
-				<div class="block-box">
-					<div class="box-title">Datos de mi cuenta</div>
-					<div class="box-content">
-						<h3 class="fw-400">Tipo de Cuenta: <?= $User->data()->planname ?></h3>
-						<h4>Experiencias disponibles: 1/<?= $User->data()->cantpromos ?></h4>
-						<small>Comisión de venta online: <?= $User->data()->fee ?>%</small>
-					</div>
-					<div class="box-footer">
-						<button id="btn_change_plan" class="btn btn-primary btn-sm btn-block">Deseo cambiar mi plan</button>
-					</div>
-				</div>
-
-			</div>
-
-			<!-- RIGHT COLUMN -->
-			<div class="col-xs-12 col-sm-8">
-
-			</div>
-
-		</div>
-
-
+		<?php endif; ?>
 
 
 		<div class="block-white ">
@@ -190,7 +118,7 @@
 
 			<form id="fd_search" class="row" autocomplete="off">
 
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group">
 						<div class="row">
 							<div class="col-xs-6">
@@ -202,7 +130,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-lg-6">
 					<div class="form-group">
 						<div class="input-group">
 							<input id="fd_ordernumber" type="text" class="form-control" placeholder="nro. de orden o nro. de comprobante" >
@@ -212,6 +140,31 @@
 						</div>
 					</div>
 				</div>
+
+
+				<div class="col-lg-8">
+					<div class="form-group">
+						<label for="">Buscar por Nombre, apellido o email</label>
+						<div class="input-group">
+							<input id="fd_user" type="text" class="form-control" placeholder="" >
+							<div class="input-group-btn">
+								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label for="">Buscar por nro de voucher</label>
+						<div class="input-group">
+							<input id="fd_voucher" type="text" class="form-control" placeholder="" >
+							<div class="input-group-btn">
+								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</form>
 
 			<small>Listado de las últimas 100 Experiencias Vendidas - Total: <span data-tag="totalmods" >0</span></small>

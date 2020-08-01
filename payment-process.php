@@ -6,7 +6,7 @@ if($Sales->check($collection_id)){
 
 	$saleid = $Sales->data()->id;
 	if($Sales->data()->collection_status!=$collection_status){
-		$Sales->notified($_salesdata->id,0);
+		$Sales->notified($Sales->data()->id,0);
 	}
 
 	$Sales->update($saleid,array(

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /*$User = new User();
 if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
@@ -12,6 +12,21 @@ if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config:
 require PATH.'site/controllers/main.php';
 
 if(!$User->logged()) Redirect::to('login#panel');
-if($User->data()->idtype != 3) Redirect::to('restricted');
+if($_userdata->idtype != 3 && $_userdata->idtype != 4) Redirect::to('restricted');
+
+$arrAdminMenu = [
+	['name'=>'Inicio','permalink'=>''],
+	['name'=>'Mis Ventas','permalink'=>'mi-cuenta']
+];
+if($_userdata->idtype==3){
+	$arrAdminMenu = array_merge($arrAdminMenu,[
+		['name'=>'Mi Centro','permalink'=>'mi-centro'],
+		['name'=>'Experiencias','permalink'=>'promos'],
+		['name'=>'Reservas','permalink'=>'reservas'],
+		['name'=>'Calendario','permalink'=>'calendario'],
+		['name'=>'Preguntas','permalink'=>'preguntas'],
+		['name'=>'Vinculación con Mercado Pago','permalink'=>'mp']
+	]);
+}
 
 ////$_userdata = $User->data();

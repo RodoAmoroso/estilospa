@@ -22,6 +22,7 @@
 			<table id="table_users" class="table table-bordered table-striped">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>Nombre</th>
 						<th>Email</th>
 						<th>Teléfono</th>
@@ -35,15 +36,16 @@
 				<tbody>
 					<?php if($users): foreach($users as $user): ?>
 					<tr>
+						<td><?= $user->id ?></td>
 						<td><?= $user->fullname ?></td>
 						<td><?= $user->mail ?></td>
 						<td><?= $user->phone ?></td>
 						<td><?= $user->created ?></td>
 						<td><?= $user->logged ?></td>
 						<td><?= $user->type_name ?></td>
-						<td class="text-right">
+						<td class="text-right" style="width:160px">
 							<button data-id="<?=$user->id?>" class="btn btn-xs btn-success edit"><i class="fa fa-pencil"></i> Editar</button>
-							<a href="<?= ADMIN.'actividad-usuario/'.$user->id ?>" class="btn btn-xs btn-info"><i class="fa fa-line-chart"></i> Actividad</a>
+							<a href="<?= ADMIN.'actividad-usuario/'.$user->id ?>" class="btn btn-xs btn-info" target="_blank"><i class="fa fa-line-chart"></i> Actividad</a>
 						</td>
 					</tr>
 					<?php endforeach; endif; ?>

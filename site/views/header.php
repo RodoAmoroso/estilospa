@@ -146,6 +146,23 @@
 					<?php endif; ?>
 
 
+					<?php if($_userdata->idtype == 4): ?>
+						<li>
+							<a href="<?= View::url('panel') ?>">
+								<i class="fa fa-wrench"></i>
+								<span>Panel de Control</span></a>
+						</li>
+						<li>
+							<a href="<?= View::url('panel','mi-cuenta') ?>">
+								<i class="fa fa-shopping-bag"></i>
+								<span>Ventas</span>
+							</a>
+						</li>
+						<li class="separator"></li>
+					<?php endif; ?>
+
+
+
 						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
 						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
 						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>

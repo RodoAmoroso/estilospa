@@ -34,7 +34,9 @@ $promo_views = $Stats->promo_user_views();
 $client_views = $Stats->client_user_views();
 $glossary_views = $Stats->glossary_user_views();
 
-$all_views = array_merge($promo_views,$client_views,$glossary_views);
+///show_array($promo_views);
+
+$all_views = array_merge($promo_views ? $promo_views : [],$client_views ? $client_views : [],$glossary_views ? $glossary_views : []);
 $views = [];
 foreach($all_views as $vw){
 	$views[$vw->added_obj->format('YmdHis')] = (object) [

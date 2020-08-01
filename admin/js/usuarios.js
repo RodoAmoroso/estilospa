@@ -116,7 +116,7 @@ var Users = {
 			$(this).find('i').toggleClass('fa-toggle-on fa-toggle-off');
 		});
 		$('#fd_types').change(function(){
-			if($(this).val() == 3){
+			if($(this).val() == 3 || $(this).val()==4){
 				$('#clients_block').slideDown();
 			}else{
 				$('#clients_block').slideUp();
@@ -208,6 +208,7 @@ var Users = {
 				}
 			}
 		];
+		datatable_options.ordering = false;
 
 		$('#table_users').DataTable(datatable_options);
 

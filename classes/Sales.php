@@ -21,7 +21,8 @@ class Sales {
 						$range=false,
 						$from='',
 						$to='',
-						$status=false;
+						$status=false,
+						$sale_voucher;
 
 	public function __construct(){
 		$this->_dbprefix = Config::get('mysql/prefix');
@@ -171,6 +172,16 @@ class Sales {
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$where .= "s.collection_status=?";
 			$values[] = $this->status;
+		}
+
+		if($this->keywords){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$where .= "(u.name LIKE '%{$this->keywords}%' OR u.lastname LIKE '%{$this->keywords}%' OR u.mail LIKE '%{$this->keywords}%')";
+		}
+		if($this->sale_voucher){
+			$where .= empty($where) ? "WHERE " : " AND ";
+			$arr_voucher = explode('-',$this->sale_voucher);
+			$where .= "s.merchant_order_id LIKE '%{$arr_voucher[0]}%'";
 		}
 
 		$limitby = 'LIMIT 0,100';

@@ -74,7 +74,10 @@ sales = {
 			OrderNumber:$('#fd_ordernumber').val(),
 			From:$('#fd_from').val(),
 			To:$('#fd_to').val(),
-			IDClient:$('#fd_clients').val()
+			IDClient:$('#fd_clients').val(),
+
+			User:$('#fd_user').val(),
+			Voucher:$('#fd_voucher').val()
 		})
 			.then(function(DATA){
 				if(DATA.results == null){return false;}

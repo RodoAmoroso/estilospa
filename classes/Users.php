@@ -27,6 +27,7 @@ class Users extends Core{
 				'u.name','u.lastname','u.email'
 			],
 			'sort'=>[
+				'logged'=>"u.logged DESC",
 				'default'=>"u.created DESC"
 			]
 		]);

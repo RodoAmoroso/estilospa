@@ -8,7 +8,8 @@ $Mailing = new Mailing();
 
 
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
-if(!$User->logged() || $User->data()->idtype != 3) die(Responses::response('restricted'));
+if(!$User->logged()) die(Responses::response('restricted'));
+if($User->data()->idtype != 3 && $User->data()->idtype != 4) die(Responses::response('restricted'));
 
 switch($_action){
 
@@ -22,6 +23,8 @@ switch($_action){
 		}
 		$Sales->ordernumber = Input::get('OrderNumber');
 		$Sales->idclient = $User->data()->idclient;
+		$Sales->keywords = Input::get('User');
+		$Sales->sale_voucher = Input::get('Voucher');
 
 		$Sales->get();
 		echo Responses::response('ok','',array('results'=>$Sales->data()));

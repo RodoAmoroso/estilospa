@@ -20,13 +20,13 @@ class User {
 		$this->_cookieName = Config::get('cookie/cookie_name');
 
 		if(!$user){
-			if($hash = Cookie::get($this->_cookieName)){
+			if($hash = Session::get($this->_sessionName)){
 				if($user = $this->find_by_session($hash)){
 					$this->login();
 					return true;
 				}
 			}
-			if($hash = Session::get($this->_sessionName)){
+			if($hash = Cookie::get($this->_cookieName)){
 				if($user = $this->find_by_session($hash)){
 					$this->login();
 					return true;
@@ -84,10 +84,28 @@ class User {
 		return true;
 	}
 
+	public function get_session($userid=0){
+		$hashCheck = $this->_db->get('sessions',array('iduser','=',$userid));
+		$hash = hash('sha256', uniqid());
+		if(!$hashCheck->count()){
+			$this->_db->insert('sessions',array(
+				'iduser'=>$userid,
+				'hash'=>$hash
+			));
+		}else{
+			$hash = $hashCheck->first()->hash;
+			/*$this->_db->update('sessions',$hashCheck->first()->id,array(
+				'hash'=>$hash
+			));*/
+		}
+		return $hash;
+	}
+
 	public function login($user=null,$pass=null){
 
 		if(!$user && !$pass && $this->exists()){
 			Session::put($this->_sessionName, $this->data()->hash);
+			//Cookie::put($this->_cookieName,$this->data()->hash);
 			$this->_logged = true;
 		}else{
 			$user = $this->find($user);
@@ -101,10 +119,10 @@ class User {
 							'hash'=>$hash
 						));
 					}else{
+						$hash = $hashCheck->first()->hash;
 						$this->_db->update('sessions',$hashCheck->first()->id,array(
 							'hash'=>$hash
 						));
-						$hash = $hashCheck->first()->hash;
 					}
 					Session::put($this->_sessionName,$hash);
 					Cookie::put($this->_cookieName,$hash);

@@ -7,7 +7,6 @@ $UserAdmin = new UserAdmin();
 $Assoc = new Assoc();
 $Mailing = new Mailing();
 
-
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 if(!$User->logged() || $User->data()->idtype != 1) die(Responses::response('restricted'));
 
@@ -94,8 +93,12 @@ switch($_action){
 
 	case 'login_as':
 
-		$user = $User->find(Input::get('userid'));
-		$User->login();
+		if(!$user = $User->find(Input::get('userid'))) die(Responses::response('fail','Usuario no encontrado'));
+
+		$hash = $User->get_session(Input::get('userid'));
+
+		Cookie::put(Config::get('cookie/cookie_name'),$hash);
+		Session::put(Config::get('session/session_name'),$hash);
 
 		echo Responses::response('ok','',array('user'=>$User->data()));
 		break;

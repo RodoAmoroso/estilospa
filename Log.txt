@@ -22,6 +22,21 @@ port: 465
 user: webmaster@estilospa.com
 pass: TwaIdrnQBEO2
 
+[EMAIL]
+smtp: warao.lineadns.com
+port: 465
+user: noresponder@estilospa.com
+pass: hOFSVeoUC7mu
+
+[EMAIL]
+smtp: warao.lineadns.com
+port: 465
+user: noreply@estilospa.com
+pass: G6qAqJaMNSwC
+
+
+
+
 [BBDD]
 bbdd: estilosp_site
 user: estilosp_user

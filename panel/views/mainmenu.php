@@ -1,20 +1,4 @@
 
-<?php
-$arrAdminMenu = array(
-	//array('name'=>'Inicio','permalink'=>'inicio'),
-	array('name'=>'Inicio','permalink'=>''),
-	array('name'=>'Mi Centro','permalink'=>'mi-centro'),
-	array('name'=>'Experiencias','permalink'=>'promos'),
-	array('name'=>'Reservas','permalink'=>'reservas'),
-	array('name'=>'Calendario','permalink'=>'calendario'),
-	array('name'=>'Preguntas','permalink'=>'preguntas'),
-	array('name'=>'Mis Ventas','permalink'=>'mi-cuenta'),
-	array('name'=>'Vinculación con Mercado Pago','permalink'=>'mp')
-	//array('name'=>'Estadísticas','permalink'=>'estadisticas')
-);
-?>
-
-
 <!-- MAIN MENU -->
 <nav class="main-nav">
 	<div class="container">

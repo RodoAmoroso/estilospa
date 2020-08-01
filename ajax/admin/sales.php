@@ -21,6 +21,8 @@ switch($_action){
 		}
 		$Sales->ordernumber = Input::get('OrderNumber');
 		$Sales->idclient = $User->data()->idclient;
+		$Sales->keywords = Input::get('User');
+		$Sales->sale_voucher = Input::get('Voucher');
 		/*if($User->logged() && $User->data()->idtype==3){
 		}*/
 		if(Input::get('IDClient')){

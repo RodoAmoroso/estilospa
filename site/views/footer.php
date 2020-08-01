@@ -185,3 +185,8 @@
 	<div class="fa fa-times fa-2x hover-fucsia clickable"></div>
 </div>
 
+<div class="float-whatsapp">
+	<a href="https://api.whatsapp.com/send?phone=5491159441023" target="_blank" class="icon">
+		<i class="fa fa-whatsapp"></i>
+	</a>
+</div>

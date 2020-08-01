@@ -41,8 +41,8 @@ switch($_GET["topic"]) {
 		} catch (Exception $e) {
 			http_response_code(400);
 			return;
-		}	
-	
+		}
+
 		break;
 
 	case 'merchant_order':
@@ -51,8 +51,8 @@ switch($_GET["topic"]) {
 			$merchant_order = MercadoPago\MerchantOrder::find_by_id($_GET["id"]);
 			//$hash = $merchant_order['response']['external_reference'];
 			if(is_object($merchant_order->payments[0])){
-				//$payment_info = $merchant_order->payments[0];			
-				$payment_info = MercadoPago\Payment::find_by_id($merchant_order->payments[0]->id);	
+				//$payment_info = $merchant_order->payments[0];
+				$payment_info = MercadoPago\Payment::find_by_id($merchant_order->payments[0]->id);
 			}else{
 				http_response_code(400);
 			}
@@ -60,10 +60,10 @@ switch($_GET["topic"]) {
 			//show_array($e->getMessage());
 			http_response_code(400);
 			return false;
-		}		
+		}
 		//http_response_code($payment_info["status"]);
 		break;
-	
+
 	default:
 		http_response_code(400);
 		return false;

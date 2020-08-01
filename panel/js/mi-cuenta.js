@@ -73,8 +73,11 @@ sales = {
 		ajax('panel/sales/get',{
 			OrderNumber:$('#fd_ordernumber').val(),
 			From:$('#fd_from').val(),
-			To:$('#fd_to').val()}
-		)
+			To:$('#fd_to').val(),
+
+			User:$('#fd_user').val(),
+			Voucher:$('#fd_voucher').val()
+		})
 			.then(function(DATA){
 				if(DATA.results == null) return false;
 
@@ -258,6 +261,8 @@ var stats = {
 
 	},
 	init:function(){
+
+		if($('#evolution').length==0) return false;
 		this.evolution();
 	}
 }

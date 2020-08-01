@@ -16,17 +16,17 @@ class MPConfig {
 
 
 					//Producción
-					$notification_url = ROOT.'ipn.php',
+					/*$notification_url = ROOT.'ipn.php',
 					$app_id='7300466898804487',
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
 
 
 					//Test Localhost
-					///$notification_url = 'https://www.estilospa.com/test-ipn.php',
-					///$app_id='7030611358224519',
-					///$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					///$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+					$notification_url = 'https://www.estilospa.com/test-ipn.php',
+					$app_id='7030611358224519',
+					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
 
 					//Test Demo
 					//$notification_url = ROOT.'ipn.php',

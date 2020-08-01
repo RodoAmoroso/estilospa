@@ -88,7 +88,7 @@
 
 			<form id="fd_search" class="row" autocomplete="off">
 
-				<div class="col-md-4">
+				<div class="col-lg-4">
 					<label for="">Desde / Hasta</label>
 					<div class="form-group">
 						<div class="row">
@@ -101,7 +101,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-lg-4">
 					<div class="form-group">
 						<label for="">Nro. de orden/comprobante</label>
 						<div class="input-group">
@@ -112,7 +112,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-lg-4">
 					<label>Filtrar por centro</label>
 					<select id="fd_clients" class="form-control">
 						<option value="0">-- Todos los centros --</option>
@@ -127,6 +127,30 @@
 						?>
 					</select>
 				</div>
+
+				<div class="col-lg-8">
+					<div class="form-group">
+						<label for="">Buscar por Nombre, apellido o email</label>
+						<div class="input-group">
+							<input id="fd_user" type="text" class="form-control" placeholder="" >
+							<div class="input-group-btn">
+								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="form-group">
+						<label for="">Buscar por nro de voucher</label>
+						<div class="input-group">
+							<input id="fd_voucher" type="text" class="form-control" placeholder="" >
+							<div class="input-group-btn">
+								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</form>
 			<small>Listado de las últimas 100 Experiencias Vendidas</small>
 			<hr>

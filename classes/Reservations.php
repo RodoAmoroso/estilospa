@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Reservations {
 
@@ -23,7 +23,7 @@ class Reservations {
 	}
 
 	public function get($idclient=null,$iduser=null){
-		
+
 		$where = "";
 		$values = array();
 		if(!is_null($idclient)){
@@ -67,14 +67,14 @@ class Reservations {
 		}
 
 		$this->_db->query("
-			SELECT 
-				r.*, 
-				DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha, 
-				c.name client_name, c.permalink, 
-				CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone, 
-				p.title, p.subtitle, p.gallery, p.includes, (p.price-(p.price*p.discount/100)) price, 
+			SELECT
+				r.*,
+				DATE_FORMAT(r.book_date,'%d/%m/%Y %H:%i') fecha,
+				c.name client_name, c.permalink,
+				CONCAT(u.name,' ',u.lastname) user_name, u.mail user_email, u.phone user_phone,
+				p.title, p.subtitle, p.gallery, p.includes, (p.price-(p.price*p.discount/100)) price,
 				s.name status_name, s.label status_label
-			FROM {reservations} r 
+			FROM {reservations} r
 			LEFT JOIN {promos} p ON p.id=r.promoid
 			LEFT JOIN {users} u ON u.id=r.userid
 			LEFT JOIN {clients} c ON c.id=r.clientid
@@ -86,7 +86,7 @@ class Reservations {
 		);
 
 
-		if(!$this->_db->count()) return false;		
+		if(!$this->_db->count()) return false;
 		return $this->_db->results();
 	}
 
@@ -99,10 +99,10 @@ class Reservations {
 
 		$User = new User();
 		$User->find($output->userid);
-		
+
 		if(is_null($User->data())) return false;
 		$output->user = $User->data();
-		
+
 		$Clients = new Clients();
 		if(!$Clients->find($output->clientid)) return false;
 		$output->client = $Clients->data();
@@ -112,7 +112,7 @@ class Reservations {
 		$Promos = new Promos();
 		if($Promos->find($output->promoid)){
 			$output->promo = $Promos->data();
-			$output->promo->promolink = ROOT.'promo/'.$output->promo->permalink.'/'.$output->promo->id.'-'.Permalink($output->promo->title);	
+			$output->promo->promolink = ROOT.'promo/'.$output->promo->permalink.'/'.$output->promo->id.'-'.Permalink($output->promo->title);
 		}
 
 		$output->sale = false;
@@ -120,7 +120,7 @@ class Reservations {
 			$Sales = new Sales();
 			if($Sales->find($reservation_sale->saleid)) $output->sale = $Sales->data();
 		}
-		
+
 		return $output;
 	}
 
@@ -159,13 +159,13 @@ class Reservations {
 	public function taken_days($clientid=0,$date=''){
 		$this->_db->query("
 			SELECT r.*, MINUTE(r.book_date) minutos, HOUR(r.book_date) hora
-			FROM {reservations} r 
+			FROM {reservations} r
 			LEFT JOIN {clients} c ON c.id=r.clientid
 			WHERE c.id=? AND DATE(r.book_date)=?",
 			array($clientid,$date)
 		);
 
-		if(!$this->_db->count()) return false;		
+		if(!$this->_db->count()) return false;
 		return $this->_db->results();
 	}
 
@@ -176,13 +176,15 @@ class Reservations {
 
 	public function reservations_sales($reservationid=0,$hash=''){
 
+		if(!$reservationid) return false;
+
 		$Sales = new Sales();
 		if(!$Sales->find($hash)) return false;
 		$sale = $Sales->data();
 
 		$this->_db->query(
-			"SELECT * 
-			FROM {reservations_sales} 
+			"SELECT *
+			FROM {reservations_sales}
 			WHERE saleid=? AND reservationid=?",
 			array($sale->id,$reservationid)
 		);
@@ -199,7 +201,7 @@ class Reservations {
 	public function get_reservation_sale($reservationid=0){
 		//$this->_db->get('reservations_sales',array('reservationid','=',$reservationid));
 		$this->_db->query(
-			"SELECT rs.* 
+			"SELECT rs.*
 			FROM {reservations_sales} rs
 			LEFT JOIN {sales} s ON s.id=rs.saleid
 			WHERE rs.reservationid=? AND s.collection_status=?",

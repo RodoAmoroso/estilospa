@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	public 	$_mailer,
-					//$_email='rodosoft@hotmail.com',
-					$_email='estilospa.com@gmail.com',
+					$_email='rodosoft@hotmail.com',
+					//$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -21,11 +21,11 @@ class Mailing {
 		$this->_mailer->isSMTP();
 		$this->_mailer->Host = 'warao.lineadns.com';
 		$this->_mailer->SMTPAuth = true;
-		$this->_mailer->Username = 'webmaster@estilospa.com';
-		$this->_mailer->Password = 'TwaIdrnQBEO2';
+		$this->_mailer->Username = 'noresponder@estilospa.com';
+		$this->_mailer->Password = 'hOFSVeoUC7mu';
 		$this->_mailer->SMTPSecure = 'ssl';
 		$this->_mailer->Port = 465;
-		$this->_mailer->setFrom('webmaster@estilospa.com',$this->_fullname);
+		$this->_mailer->setFrom('noresponder@estilospa.com',$this->_fullname);
 		$this->_mailer->addReplyTo('consultas@estilospa.com',$this->_fullname);
 		$this->_mailer->isHTML(true);
 
@@ -430,6 +430,10 @@ class Mailing {
 
 	public function notifications($obj=null){
 		if(!is_object($obj)) return false;
+
+		$this->_mailer->Username = 'noreply@estilospa.com';
+		$this->_mailer->Password = 'G6qAqJaMNSwC';
+		$this->_mailer->setFrom('noreply@estilospa.com',$this->_fullname);
 
 		$this->_mailer->clearAllRecipients();
 		$this->_mailer->addAddress($obj->email_to, $obj->name_to);

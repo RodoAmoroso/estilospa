@@ -109,7 +109,7 @@
 
 				<div class="button-request btn-group-block">
 					<button data-toggle="scrollto" data-target="#form_question" class="btn btn-default"><i class="fa fa-envelope fa-fw"></i> Consultar</button>
-					<button data-toggle="modal" data-target="#modal_reservation" class="btn btn-default"><i class="fa fa-calendar fa-fw"></i> Reservar</button>
+					<!-- <button data-toggle="modal" data-target="#modal_reservation" class="btn btn-default"><i class="fa fa-calendar fa-fw"></i> Reservar</button> -->
 				</div>
 
 			</div>

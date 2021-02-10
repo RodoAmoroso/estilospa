@@ -113,7 +113,11 @@
 									<th>Experiencias</th>
 									<th>Vence el:</th>
 									<th>Quedan:</th>
+
+									<?php if($_userdata->idtype == 3): ?>
 									<th></th>
+									<?php endif; ?>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -125,7 +129,11 @@
 									</td>
 									<td><?= $promo->finish ?></td>
 									<td><label class="label label-<?=dif_labels($promo->dif)?>"><?= $promo->dif ?> días</label></td>
+
+									<?php if($_userdata->idtype == 3): ?>
 									<td><a href="<?= PANEL.'promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<?php endif; ?>
+
 								</tr>
 								<?php endforeach; ?>
 							</tbody>
@@ -154,7 +162,11 @@
 								<tr>
 									<th>Experiencia</th>
 									<th>Finalizó el:</th>
+
+									<?php if($_userdata->idtype == 3): ?>
 									<th></th>
+									<?php endif; ?>
+
 								</tr>
 							</thead>
 
@@ -163,7 +175,11 @@
 								<tr>
 									<td><?= $promo->title ?></td>
 									<td><?= $promo->finish ?></td>
+
+									<?php if($_userdata->idtype == 3): ?>
 									<td><a href="<?= PANEL.'promo/'.$promo->id ?>" target="_blank" title="editar" class="btn btn-default btn-xs"><i class="fa fa-pencil fa-fw"></i></a></td>
+									<?php endif; ?>
+
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

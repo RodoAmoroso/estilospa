@@ -9,6 +9,14 @@ var GetMPLink = function(GIFT,IDCode){
 	})
 		.then(function(data){
 
+			if(data.link == null){
+				Swal.fire({
+					type:'warning',
+					text:'No pudimos generar el link de pago. Intenta más tarde.'
+				});
+				return false;
+			}
+
 			if(GIFT){
 				var post = get_form('#modal_gift form');
 				post.hash = data.hash;

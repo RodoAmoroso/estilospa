@@ -10,8 +10,7 @@
 
 			<div class="col-xs-12 col-sm-4">
 				<h3>EstiloSpa.com</h3>
-				<p><i class="fa fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone=5491135956870">15 3595 6870</a></p>
-				<p><i class="fa fa-phone"></i> <a href="tel:01146430556">011 4643 0556</a></p>
+				<p><i class="fa fa-whatsapp"></i> <a href="https://api.whatsapp.com/send?phone=5491159441023">11 5944 1023</a></p>
 				<p><i class="fa fa-envelope"></i> <a href="mailto:estilospa.com@gmail.com">estilospa.com@gmail.com</a></p>
 			</div>
 

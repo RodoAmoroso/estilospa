@@ -16,17 +16,17 @@ class MPConfig {
 
 
 					//Producción
-					/*$notification_url = ROOT.'ipn.php',
+					$notification_url = ROOT.'ipn.php',
 					$app_id='7300466898804487',
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
 
 
 					//Test Localhost
-					$notification_url = 'https://www.estilospa.com/test-ipn.php',
+					/*$notification_url = 'https://www.estilospa.com/test-ipn.php',
 					$app_id='7030611358224519',
 					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';*/
 
 					//Test Demo
 					//$notification_url = ROOT.'ipn.php',
@@ -92,7 +92,7 @@ class MPConfig {
 		}
 
 
-		$this->_hash = hash('sha256', uniqid());
+		$this->_hash = hash('sha256', date('YmdHis').rand(1111,9999));
 		$promoprice = $PROMO->price-($PROMO->price*$PROMO->discount/100);
 		$discountvoucher = 0;
 		$img = json_decode($PROMO->gallery);
@@ -115,6 +115,7 @@ class MPConfig {
 		//$mp = new MP($this->_data->access_token); // seller access_token
 
 		//$mp = new MP('8912612574179921','mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46'); // seller access_token
+		//MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
 
 		$client_accesstoken = $this->get_access_token($CLIENTS->id);
 		MercadoPago\SDK::setAccessToken($client_accesstoken);
@@ -166,6 +167,7 @@ class MPConfig {
 		$preference->save();
 
 		$this->_mplink = $preference;
+		show_array($preference);
 
 
 

@@ -2,8 +2,8 @@
 <!-- PAGE HEADER -->
 <section class="page-header">
 	<div class="container">
-		<h1>Hot Sale</h1>
-		<p>Listado de usuarios registrados para el Hot Sale</p>
+		<h1>HotSale / CyberMonday</h1>
+		<p>Listado de usuarios registrados para el HotSale y CyberMonday</p>
 
 	</div>
 </section>

@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	public 	$_mailer,
-					$_email='rodosoft@hotmail.com',
-					//$_email='estilospa.com@gmail.com',
+					//$_email='rodosoft@hotmail.com',
+					$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,
@@ -464,6 +464,8 @@ class Mailing {
 	public function new_reservation($reservationid=0){
 		$Reservations = new Reservations();
 		if(!$reservation = $Reservations->find($reservationid)) return false;
+
+		$this->_mailer->clearAllRecipients();
 
 		$arrMails = str_replace(',', ';', $reservation->client->mail);
 		$arrMails = explode(';',$arrMails);

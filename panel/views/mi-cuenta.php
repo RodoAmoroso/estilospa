@@ -114,11 +114,11 @@
 
 		<div class="block-white ">
 
-			<h5 class="fw-400">Búsqueda</h5>
-
 			<form id="fd_search" class="row" autocomplete="off">
 
+				<?php if($_userdata->idtype==3): ?>
 				<div class="col-lg-6">
+					<label for="">Rango de Fechas</label>
 					<div class="form-group">
 						<div class="row">
 							<div class="col-xs-6">
@@ -130,7 +130,10 @@
 						</div>
 					</div>
 				</div>
+				<?php endif; ?>
+
 				<div class="col-lg-6">
+					<label for="">Buscar por nro. de comprobante</label>
 					<div class="form-group">
 						<div class="input-group">
 							<input id="fd_ordernumber" type="text" class="form-control" placeholder="nro. de orden o nro. de comprobante" >
@@ -142,7 +145,7 @@
 				</div>
 
 
-				<div class="col-lg-8">
+				<div class="col-lg-6">
 					<div class="form-group">
 						<label for="">Buscar por Nombre, apellido o email</label>
 						<div class="input-group">
@@ -153,7 +156,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 					<div class="form-group">
 						<label for="">Buscar por nro de voucher</label>
 						<div class="input-group">
@@ -167,7 +170,10 @@
 
 			</form>
 
+			<?php if($_userdata->idtype==3): ?>
 			<small>Listado de las últimas 100 Experiencias Vendidas - Total: <span data-tag="totalmods" >0</span></small>
+			<?php endif; ?>
+
 			<hr>
 
 			<div id="sales"></div>

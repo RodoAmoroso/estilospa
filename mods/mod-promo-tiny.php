@@ -4,14 +4,14 @@
 
 		<div class="content">
 			<a href="<?=$promolink?>" class="title"><?=$promo->title?></a>
-			<div class="subtitle dp-none"><?=$promo->subtitle?></div>		
+			<div class="subtitle dp-none"><?=$promo->subtitle?></div>
 			<a href="<?=ROOT.'busqueda/-/'.Permalink($Stores->data()[0]->city) ?>" class="location"><i class="fa fa-map-marker fa-fw"></i> <?= count($Stores->data())>1 ? 'Varias Sucursales' : (is_array($Stores->data()) ? $Stores->data()[0]->city.', '.$Provinces[$Stores->data()[0]->idprovince] : $Stores->data()->city.', '.$Provinces[$Stores->data()->idprovince]) ?></a>
-			
+
 		</div>
 	</div>
 	<div class="mod-footer">
 		<div class="actions">
-			
+
 			<div class="pricing">
 			<?php if($promo->sale): ?>
 				<div class="price <?= $promo->discount ? 'strikethrough' : ''?>">$ <?= number_format($promo->price,0,',','.') ?></div>
@@ -24,7 +24,7 @@
 
 			<div class="button promo-buttons">
 
-				<?php if($promo->sale): ?>				
+				<?php if($promo->sale): ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
@@ -35,7 +35,7 @@
 					<?php if($promo->sale): ?>
 					<li><i class="fa fa-gift fa-fw"></i> <a href="<?=$promolink?>#regalar">Regalar</a></li>
 					<?php endif; ?>
-					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
+					<!-- <li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li> -->
 				</ul>
 			</div>
 		</div>

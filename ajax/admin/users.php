@@ -31,7 +31,7 @@ switch($_action){
 		$UserAdmin->save();
 		$ID = $UserAdmin->getLastId();
 
-		if(Input::get('IDType')==3){
+		if(Input::get('IDType')==3 || Input::get('IDType')==4){
 
 			$Assoc->idclient = Input::get('IDClient');
 			$Assoc->iduser = $ID;

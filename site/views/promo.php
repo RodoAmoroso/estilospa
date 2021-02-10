@@ -109,7 +109,7 @@
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
 
 							<?php endif; ?>
-							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
+							<!-- <li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li> -->
 						</ul>
 
 
@@ -194,7 +194,7 @@
 			<h4 class="title-bar">Validez</h4>
 			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
 			<!--<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>-->
-			<p class="alert alert-danger"><b>COMPRA AHORA</b>, con total confianza, tendrás tiempo para usar tu voucher luego de la apertura.</p>
+			<p class="alert alert-success"><b>COMPRA AHORA</b>, vigencia garantizada extendida.</p>
 		</div>
 
 		<?php if($Promos->data()->sale): ?>
@@ -276,8 +276,8 @@
 								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
 							</div>
 							<div class="form-group">
-								<label for="fd_name">Apellido</label>
-								<input id="fd_name" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
+								<label for="fd_lastname">Apellido</label>
+								<input id="fd_lastname" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
 							</div>
 							<div class="form-group">
 								<label for="fd_phone">Teléfono</label>

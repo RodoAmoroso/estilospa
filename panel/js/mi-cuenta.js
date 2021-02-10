@@ -193,12 +193,14 @@ sales = {
 	init:function(){
 		$('#fd_search').submit(function(e){
 			e.preventDefault();
-			if(!DateFunctions.checkrange($('#fd_from').val(),$('#fd_to').val())){
-				Swal.fire({
-					type:'warning',
-					text:'La fecha inicial debe ser anterior a la final!'
-				});
-				return false;
+			if($('#fd_from').length!=0 || $('#fd_to').length!=0){
+				if(!DateFunctions.checkrange($('#fd_from').val(),$('#fd_to').val())){
+					Swal.fire({
+						type:'warning',
+						text:'La fecha inicial debe ser anterior a la final!'
+					});
+					return false;
+				}
 			}
 			sales.get();
 		});

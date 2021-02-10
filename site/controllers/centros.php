@@ -12,6 +12,7 @@ $_arrcss[] = ['folder'=>'lib/','style'=>'leaflet'];
 
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
 $clientdata = $Clients->data();
+if(!$clientdata->visible) Redirect::javascript('404');
 $Clients->addvisit($clientdata->id);
 if($User->logged()) $Stats->add_client_view($User->data()->id,$clientdata->id);
 

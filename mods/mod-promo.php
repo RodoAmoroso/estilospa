@@ -49,7 +49,7 @@
 
 				<ul id="btn_promo_<?=$kp?>" class="collapse">
 					<li><i class="fa fa-envelope fa-fw"></i> <a href="<?=$promolink?>#consultar">Consultar</a></li>
-					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
+					<!-- <li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li> -->
 				</ul>
 			</div>
 		</div>

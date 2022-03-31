@@ -78,7 +78,7 @@ class SalesVouchers extends Sales{
 		$this->_pdf->SetFont('ProximaNormal','',10);
 		$this->_pdf->SetXY(21,223.5);
 		$added = new DateTime($voucher->sale->added);
-		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 30 días a partir del ').$added->format('d/m/Y'),0,0,'L',false);
+		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 60 días a partir del ').$added->format('d/m/Y'),0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',9);
 		$this->_pdf->SetXY(21,228);

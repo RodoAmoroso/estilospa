@@ -30,3 +30,10 @@ if($_userdata->idtype==3){
 }
 
 ////$_userdata = $User->data();
+
+///show_array($_userdata);
+
+
+$Clients = new Clients;
+$Clients->find($_userdata->idclient);
+if(!$client = $Clients->data()) Redirect::to('restricted');

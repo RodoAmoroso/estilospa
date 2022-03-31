@@ -16,7 +16,11 @@ switch($status):
 
 		<?php if(is_null($sales_data->reservationid)): ?>
 		<p>Una vez confirmada, recordá comunicarte con el centro para poder reservar el día y el horario del turno.</p>
-		<!-- <a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a> -->
+
+		<?php if($client && $client->show_reservation): ?>
+		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
+		<?php endif; ?>
+
 		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 		<?php endif; endif;?>
 

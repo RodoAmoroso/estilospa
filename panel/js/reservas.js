@@ -22,7 +22,7 @@ $(function(){
 			url:ROOT+'js/lib/dataTables/spanish.json',
 		},
 		dom:'<"table-spacer-top"lf>t<"table-spacer-bottom"ip>',
-		//responsive:true,		
+		//responsive:true,
 		columns:[
 			{orderable:false},
 			{orderable:false},
@@ -31,7 +31,7 @@ $(function(){
 			null,
 			null,
 			null
-		]		
+		]
 	}
 
 	$('#reservations').DataTable(datatable_options);
@@ -59,7 +59,7 @@ $(function(){
 						$template.find('.price').html('$ '+(parseInt(data.promo.price).numberFormat(2,',','.')));
 						$template.find('.image').css({backgroundImage:'url('+data.promo.image+')'});
 					}else{
-						$template.find('.image').remove();						
+						$template.find('.image').remove();
 					}
 
 
@@ -84,7 +84,7 @@ $(function(){
 						$template.find('[data-btn="confirm"]').remove();
 						$template.find('[data-status]').removeClass().addClass('label bg-aqua-3').text('A confirmar por el usuario');
 						$template.find('[data-btn=change-date]').remove();
-						
+
 					}
 
 					$('#modal_event').find('.modal-body').html('');
@@ -115,6 +115,15 @@ $(function(){
 		var id = $(this).attr('data-id');
 		var promoid = $(this).attr('data-promoid');
 		calendar.confirm(id,promoid);
+	});
+
+
+	$('[data-toggle="enable-reservation"]').on('change','input[type="checkbox"]',function(){
+		var show_reservation = $(this).is(':checked') ? 1 : 0;
+		ajax('panel/clients/enable-reservations',{show_reservation:show_reservation})
+			.then(function(data){
+				toastr['success'](data.message);
+			});
 	});
 
 });

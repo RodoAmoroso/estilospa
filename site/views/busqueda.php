@@ -1,6 +1,6 @@
 <section class="search-page">
 	<div class="container-fluid">
-		
+
 		<div class="search-container">
 
 			<div class="left-column hidden-xs hidden-sm">
@@ -8,7 +8,7 @@
 				<h3>Resultados de la Búsqueda:</h3>
 
 				<ul class="button-menu">
-					<!-- WORDS --> 
+					<!-- WORDS -->
 					<?php foreach($arrwordsmain as $main): if(strlen($main)>2): ?>
 					<?php //if(!empty($search_main)): ?>
 					<li data-word="main"><a href="#" ><span><?= $main ?></span> <i class="fa fa-times"></i> </a></li>
@@ -21,10 +21,10 @@
 				</ul>
 				<hr>
 
-				<!-- PROVINCES --> 
+				<!-- PROVINCES -->
 				<h4 class="title-bar" data-toggle="collapse" href="#list_zones" >Zonas/Provincias <i class="fa fa-caret-down"></i></h4>
 				<ul id="list_zones" class="list collapse in">
-					<?php 
+					<?php
 					//$Stores->keywords = $searchtext;
 					$Stores->searchmixed = 1;
 					$Stores->group = 'province';
@@ -34,7 +34,7 @@
 					<li data-word="location" >
 						<a data-toggle="collapse" href="#zones_<?= $i ?>" ><span><?= $store->name ?></span> <i class="fa fa-caret-down"></i></a>
 						<ul id="zones_<?= $i ?>" class="collapse">
-							<?php 
+							<?php
 							$_stores = new Stores();
 							$_stores->group = 'city';
 							$_stores->idprovince = $store->idprovince;
@@ -49,19 +49,19 @@
 					<?php endforeach; endif; ?>
 				</ul>
 
-				<?php 
+				<?php
 					$GlossaryGroups->keywords = $search_main;
 					if($GlossaryGroups->get()):
 				?>
 
-				<!-- GLOSSARY --> 
+				<!-- GLOSSARY -->
 				<h4 class="title-bar" data-toggle="collapse" href="#list_glossary">Etiquetas <i class="fa fa-caret-down"></i></h4>
 				<ul id="list_glossary" class="list collapse in">
 					<?php foreach($GlossaryGroups->data() as $glossary): ?>
 					<li data-word="main" >
 						<a data-toggle="collapse" href="#labels_<?= $glossary->id ?>" ><span><?= $glossary->name ?></span> <i class="fa fa-caret-down"></i></a>
 						<ul id="labels_<?= $glossary->id ?>" class="collapse">
-							<?php 
+							<?php
 							$_glossary = new Glossary();
 							$_glossary->idgroup = $glossary->id;
 							$_glossary->get();
@@ -82,7 +82,7 @@
 			<div class="right-column">
 
 				<div class="promos-highlight">
-					<?php 
+					<?php
 					if($Promos->data()): foreach($Promos->data() as $kp=>$promo):
 					$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 					$clientlink = ROOT.'centros/'.$promo->permalink;
@@ -93,15 +93,15 @@
 					echo '<div class="mod-promo mod-promo-5">';
 					include 'mods/mod-promo.php';
 					echo '</div>';
-					endforeach; endif; ?>					
+					endforeach; endif; ?>
 				</div>
 
 				<?php if($total_results): ?>
 				<p>&nbsp;</p>
 				<ul class="pagination">
-					
+
 					<li class="page-item <?=$page==1 ? 'disabled' : ''?>"><a href="<?= ROOT.'busqueda/'.$query.'/'.$location.'/'.($page-1) ?>" class="page-link" ><i class="fa fa-angle-double-left"></i></a></li>
-					
+
 					<?php for($i=1; $i<=PageMaker($page_results,$total_results); $i++): ?>
 					<li class="page-item <?= $page == $i ? 'active' : '' ?>"><a href="<?=ROOT.'busqueda/'.$query.'/'.$location.'/'.$i ?>" class="page-link" ><?= $i ?></a></li>
 					<?php endfor; ?>
@@ -112,7 +112,7 @@
 
 				<?php endif; ?>
 
-				
+
 			</div>
 
 		</div>

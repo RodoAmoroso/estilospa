@@ -44,7 +44,7 @@ class Experiences extends Core{
 		"SELECT
 			p.*,
 			pc.name category_name,
-			c.permalink, c.name client_name
+			c.permalink, c.name client_name, c.show_reservation
 		FROM {{$this->table}} p
 		LEFT JOIN {promos_categories} pc ON p.categoryid=pc.id
 		LEFT JOIN {clients} c ON c.id=p.idclient

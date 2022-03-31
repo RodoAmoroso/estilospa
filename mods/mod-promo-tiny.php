@@ -35,7 +35,11 @@
 					<?php if($promo->sale): ?>
 					<li><i class="fa fa-gift fa-fw"></i> <a href="<?=$promolink?>#regalar">Regalar</a></li>
 					<?php endif; ?>
-					<!-- <li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li> -->
+
+					<?php if($promo->show_reservation): ?>
+					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
+					<?php endif; ?>
+
 				</ul>
 			</div>
 		</div>

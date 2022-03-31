@@ -1,4 +1,3 @@
-
 <div class="wrapper">
 	<div class="mod-body">
 		<div class="image-wrapper" >
@@ -49,7 +48,12 @@
 
 				<ul id="btn_promo_<?=$kp?>" class="collapse">
 					<li><i class="fa fa-envelope fa-fw"></i> <a href="<?=$promolink?>#consultar">Consultar</a></li>
-					<!-- <li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li> -->
+
+					<?php if($promo->show_reservation): ?>
+					<li><i class="fa fa-calendar fa-fw"></i> <a href="<?=$promolink?>#turno">Reservar</a></li>
+					<?php endif; ?>
+
+
 				</ul>
 			</div>
 		</div>

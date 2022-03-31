@@ -50,8 +50,8 @@
 					</div>
 					<?php endforeach; ?>
 
-
 				</div>
+				<p>&nbsp;</p>
 				<?php if(count($total_experiences)>count($experiences)): ?>
 				<hr>
 				<form id="load_more">

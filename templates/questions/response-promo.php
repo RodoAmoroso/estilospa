@@ -19,7 +19,9 @@
 <p>
 	<a href="<?=$obj->promo_link.'#form_question'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Hacer otra pregunta</a>
 
-	<!-- <a href="<?=$obj->promo_link.'#turno'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Reservar</a> -->
+	<?php if($obj->promo->show_reservation): ?>
+	<a href="<?=$obj->promo_link.'#turno'?>" style="background-color:#68bbce;padding:8px 16px;color:white;text-decoration:none;" >Reservar</a>
+	<?php endif; ?>
 
 	<?php if($obj->promo->sale): ?>
 	<a href="<?=$obj->promo_link.'#comprar'?>" style="background-color:#e7127c;padding:8px 16px;color:white;text-decoration:none;" >Comprar</a>

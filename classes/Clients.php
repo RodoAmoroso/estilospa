@@ -29,9 +29,9 @@ class Clients {
 	public function find($client=0){
 		$field = is_numeric($client) ? 'c.id' : 'c.permalink';
 		//$this->_db->get('clients',array($field,'=',$client));
-		$this->_db->query("SELECT c.*, p.fee, p.promos 
-			FROM {clients} c 
-			LEFT JOIN {clientplans} p ON p.id=c.idplan 
+		$this->_db->query("SELECT c.*, p.fee, p.promos
+			FROM {clients} c
+			LEFT JOIN {clientplans} p ON p.id=c.idplan
 			WHERE {$field}=?",
 			array($client)
 		);
@@ -69,7 +69,7 @@ class Clients {
 		return $data;
 	}
 
-	public function get_glossary($clientid){		
+	public function get_glossary($clientid){
 		$this->_db->get('clients_glossary_assignments',array('clientid','=',$clientid));
 		if(!$this->_db->count()) return false;
 		$arr = array();
@@ -78,7 +78,7 @@ class Clients {
 		}
 		return $arr;
 	}
-	public function get_types($clientid){		
+	public function get_types($clientid){
 		$this->_db->get('clients_types_assignments',array('clientid','=',$clientid));
 		if(!$this->_db->count()) return false;
 		$arr = array();
@@ -91,11 +91,11 @@ class Clients {
 	//(glossary LIKE '%,104' OR glossary LIKE '104,%' OR glossary LIKE '%,104,%' OR glossary = 104)
 
 	public function get(){
-		
+
 		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('c.name','c.subtitle'));
 		$search = empty($search_main) ? "" : "WHERE (".$search_main;
 
-		
+
 
 		$search .= empty($this->arrtypes) ? "" : (empty($search) ? "WHERE " : " OR ")." (SELECT COUNT(*) FROM {clients_types_assignments} ta WHERE ta.typeid IN (".implode(',',$this->arrtypes).") AND ta.clientid=c.id) > 0";
 
@@ -105,7 +105,7 @@ class Clients {
 		$search = !empty($search_main) ? $search.') ' : $search;
 
 		$search .= empty($this->arridclients) ? "" : (empty($search) ? "WHERE " : " AND ")." c.id IN (".implode(',',$this->arridclients).")";
-		
+
 
 
 		$sortby = '';
@@ -141,28 +141,28 @@ class Clients {
 			$search .= " c.visible=1";
 		}
 		$query = "SELECT c.*, DATE_FORMAT(c.added,'%d/%m/%Y') as creado, (SELECT COUNT(*) FROM {$this->_dbprefix}promos p WHERE p.idclient=c.id) promos
-			FROM {clients} c 
+			FROM {clients} c
 			{$search}
-			{$sortby} 
+			{$sortby}
 			{$limitby}";
-		$this->search = $search;	
+		$this->search = $search;
 		$this->_db->query($query);
 		//show_array( $this->_db->getquery()->queryString);
 
 
 		if(!$this->_db->count()) {
-			$this->_data = null; 
+			$this->_data = null;
 			return false;
 		}
 		$this->_data = $this->_db->results();
-		
+
 		return true;
 
 	}
 
 	public function rating($id=0){
 		$this->_db->query("SELECT AVG(cm.rate) rating
-		FROM spa_comments cm 
+		FROM spa_comments cm
 		LEFT JOIN spa_sales s ON s.id=cm.idsale
 		LEFT JOIN spa_promos p ON p.id=s.idpromo
 		LEFT JOIN spa_clients c ON c.id=p.idclient
@@ -189,7 +189,7 @@ class Clients {
 			$sql['idplan'] = Input::get('Plan');
 			//$sql['types'] = implode(',',Input::get('Types'));
 			//$sql['glossary'] = implode(',',Input::get('Glossary'));
-			$sql['visible'] = Input::get('Visible');			
+			$sql['visible'] = Input::get('Visible');
 		}
 		$_FEATURES = new Features();
 		if(!$clientid){
@@ -213,6 +213,11 @@ class Clients {
 			if(!$this->save_glossary()) return false;
 			if(!$this->save_types()) return false;
 		}
+		return true;
+	}
+	public function update($clientid,$values){
+		if(!$clientid || !$values) return false;
+		$this->_db->update('clients',$clientid,$values);
 		return true;
 	}
 
@@ -249,17 +254,17 @@ class Clients {
 
 		if(!$this->find($idclient)){
 			$this->_error = 'No se encontró el centro';
-			return false;			
+			return false;
 		}
 
 		$Promos = new Promos();
-		if(!$Promos->deleteAll($idclient)){			
+		if(!$Promos->deleteAll($idclient)){
 			$this->_error = 'No se pudieron borrar las promos';
 			return false;
 		}
 
 		$gallery = json_decode($this->_data->images);
-		$logo = json_decode($this->_data->logo);			
+		$logo = json_decode($this->_data->logo);
 
 		foreach($gallery as $kp=>$vp):
 			if(isset($vg->photoname)){
@@ -271,44 +276,44 @@ class Clients {
 			$lg = IMG.'clients'.DS.$logo->photoname.'.'.$logo->extension;
 			if(file_exists($lg)) unlink($lg);
 		endforeach;
-		
+
 		if(!$this->_db->delete('assoc_client_user',array('idclient','=',$idclient))){
 			$this->_error = 'No se pudo borrar la asignación al usuario';
-			return false;			
+			return false;
 		}
 
-		if(!$this->_db->delete('clients_glossary_assignments',array('clientid','=',$idclient))){			
+		if(!$this->_db->delete('clients_glossary_assignments',array('clientid','=',$idclient))){
 			$this->_error = 'No se pudo la asignación a etiquetas';
 			return false;
 		}
 
 		if(!$this->_db->delete('clients_types_assignments',array('clientid','=',$idclient))){
-			$this->_error = 'No se pudo borrar la asignación del tipo de centro'; 
-			return false;			
+			$this->_error = 'No se pudo borrar la asignación del tipo de centro';
+			return false;
 		}
-		
+
 		if(!$this->_db->delete('favs',array('idclient','=',$idclient))){
 			$this->_error = 'No se pudieron borrar los favoritos';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->delete('mp',array('idclient','=',$idclient))){
 			$this->_error = 'No se pudo borrar la integración con MercadoPago';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->query(
-			"DELETE FROM {newsletters_queue} 
+			"DELETE FROM {newsletters_queue}
 			WHERE type=? AND contextid=?",
 			array('clients',$idclient)
 		)){
 			$this->_error = 'No se pudo borrar la cola de envío del Newsletter';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->delete('questions_queue',array('clientid','=',$idclient))){
 			$this->_error = 'No se pudo borrar la cola de envío de las preguntas asociadas al centro';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->query(
@@ -327,22 +332,22 @@ class Clients {
 
 		if(!$this->_db->delete('stats_events',array('clientid','=',$idclient))){
 			$this->_error = 'No se pudieron borrar los eventos asociados al centro';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->delete('features',array('idclient','=',$idclient))){
 			$this->_error = 'No se pudieron borrar las características del centro';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->delete('stores',array('idclient','=',$idclient))){
 			$this->_error = 'No se pudieron borrar las sucursales';
-			return false;			
+			return false;
 		}
 
 		if(!$this->_db->delete('clients',array('id','=',$idclient))){
 			$this->_error = 'No se pudo borrar el centro';
-			return false;			
+			return false;
 		}
 
 		return true;
@@ -365,8 +370,8 @@ class Clients {
 	}
 	public function check_assoc($iduser=0,$idclient=0){
 		$this->_db->query(
-			"SELECT * 
-			FROM {assoc_client_user} 
+			"SELECT *
+			FROM {assoc_client_user}
 			WHERE iduser=? AND idclient=?",
 			array($iduser,$idclient)
 		);

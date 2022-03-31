@@ -59,6 +59,13 @@ switch($_action){
 		echo Responses::response('ok');
 		break;
 
+	case 'enable-reservations':
+		$Clients->update($User->data()->idclient,[
+			'show_reservation'=>Input::get('show_reservation')
+		]);
+		echo Responses::response('ok','Los datos fueron guardados exitosamente!');
+		break;
+
 
 	default:
 		echo Responses::response('fail');

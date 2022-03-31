@@ -3,6 +3,7 @@
 		<h1>Reservas</h1>
 		<hr>
 		<p>Visualiza todas las reservas hechas en las experiencias.</p>
+
 	</div>
 </section>
 
@@ -10,6 +11,20 @@
 
 <section class="admin-box bg-gray-5">
 	<div class="container">
+
+		<div class="block-white">
+			<div data-toggle="enable-reservation">
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" <?= $client->show_reservation ? 'checked' : '' ?>>
+						<b>Habilitar Reservas en las Experiencias</b>
+					</label>
+				</div>
+			</div>
+			<div class="small">Al habilitar esta opción les aparecerá a los usuarios la opción de efectuar una reserva en una experiencia.</div>
+
+		</div>
+
 
 
 		<div class="block-white">

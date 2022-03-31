@@ -109,7 +109,12 @@
 							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
 
 							<?php endif; ?>
-							<!-- <li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li> -->
+
+							<?php if($Clients->data()->show_reservation): ?>
+							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
+							<?php endif; ?>
+
+
 						</ul>
 
 

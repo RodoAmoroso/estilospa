@@ -36,7 +36,7 @@ class Promos {
 	public function find($id=null){
 		if(is_null($id)) return false;
 		$this->_db->query(
-			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname
+			"SELECT p.*, DATE_FORMAT(p.start, '%d/%m/%Y') inicio, DATE_FORMAT(p.finish, '%d/%m/%Y') fin, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, c.permalink, c.name clientname, c.show_reservation
 			FROM {promos} p
 			LEFT JOIN {clients} c ON c.id=p.idclient
 			WHERE p.id=?",
@@ -182,7 +182,7 @@ class Promos {
 		$query = "
 			SELECT
 				p.*, p.start<=NOW() statusstart, p.finish>=NOW() statusfinish, DATE_FORMAT(p.start, '%d/%m/%Y') start, DATE_FORMAT(p.finish, '%d/%m/%Y') finish, DATE_FORMAT(p.added, '%d/%m/%Y') creado,
-				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types,
+				c.permalink, c.name, c.subtitle clientsubtitle, c.glossary, c.types, c.show_reservation,
 				t.name promotypename, DATEDIFF(p.finish, NOW()) dif,
 				pc.name category_name
 				FROM {promos} p

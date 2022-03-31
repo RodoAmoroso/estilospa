@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 $status = $_subsection;
 $back_url = isset($_REQUEST['promourl']) ? $_REQUEST['promourl'] : ROOT;
@@ -12,3 +12,10 @@ $giftdata = $Sales->data();
 
 $Sales->find_temp($hash);
 $sales_data = $Sales->data();
+
+$client = false;
+if($sales_data){
+	$Clients = new Clients;
+	$Clients->find($sales_data->idclient);
+	$client = $Clients->data();
+}

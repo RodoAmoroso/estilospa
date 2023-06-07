@@ -22,13 +22,55 @@ class Input {
 		return empty($_POST) ? $_GET : $_POST;
 	}
 
-	public static function get($item){
+	public static function get($item,$type=''){
+		$input = '';
 		if(isset($_POST[$item])){
-			return $_POST[$item];
+			$input = $_POST[$item];
 		}else if(isset($_GET[$item])){
-			return $_GET[$item];
+			$input = $_GET[$item];
 		}
-		return '';
+		switch ($type) {
+			case 'float':
+				$input = (float) $input;
+				break;
+			case 'int':
+				$input = (int) preg_replace('/[^0-9]/', '', $input);
+				break;
+			case 'array':
+				$input = (array) $input;
+				break;
+			case 'object':
+				$input = (object) $input;
+				break;
+			case 'json':
+				$input = empty($input) ? '' : json_encode($input);
+				break;
+			case 'bool':
+				$input = (bool) $input;
+				break;
+			case 'date':
+				$input = DateTime::createFromFormat('d/m/Y',$input)->format('Y-m-d');
+				break;
+			case 'datetime':
+				$input = DateTime::createFromFormat('d/m/Y H:i:s',$input)->format('Y-m-d H:i:s');
+				break;
+			case 'string':
+				$input = htmlentities($input);
+				break;
+			case 'email':
+				$input = strtolower(filter_var($input, FILTER_SANITIZE_EMAIL));
+				break;
+			case 'nullable':
+				$input = empty($input) ? null : $input;
+				break;
+			case 'xss':
+				$input = addslashes(strip_tags($input));
+				break;
+			default:
+				$input = $input;
+				break;
+		}
+		return $input;
 	}
 
 	public static function set($item='',$value='',$type='post'){

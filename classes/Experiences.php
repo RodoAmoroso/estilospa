@@ -24,7 +24,8 @@ class Experiences extends Core{
 				'gift'=>"p.gift=?",
 
 				//'city'=>"(SELECT s.id FROM {stores} s WHERE s.id IN(p.stores) AND s.city=?) IS NOT NULL"
-				'city'=>"(SELECT s.id FROM {stores} s WHERE FIND_IN_SET(s.id,p.stores) AND s.city=? LIMIT 0,1) IS NOT NULL"
+				'city'=>"(SELECT s.id FROM {stores} s WHERE FIND_IN_SET(s.id,p.stores) AND s.city=? LIMIT 0,1) IS NOT NULL",
+				'visible'=>"c.visible=?"
 
 			],
 			'search'=>[

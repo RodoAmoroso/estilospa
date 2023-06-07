@@ -135,6 +135,7 @@ var Promos = {
 			Discount:$('#fd_discount').val(),
 			Amount:$('#fd_amount').val(),
 			Description:$('#fd_description').val(),
+			Valid:$('#fd_valid').val(),
 			Includes:$('#fd_includes').val(),
 			Recomendations:$('#fd_recomendations').val(),
 			Reservation:$('#fd_reservation').val(),
@@ -163,6 +164,7 @@ var Promos = {
 				Clients.IDStores = obj.stores.split(',');
 				Clients.get();
 				$('#fd_description').val(obj.description);
+				$('#fd_valid').val(obj.valid);
 				$('#fd_includes').val(obj.includes);
 				$('#fd_recomendations').val(obj.recomendations);
 				$('#fd_reservation').val(obj.reservation);

@@ -63,12 +63,11 @@ class Stores{
 			{$limitby}");
 
 		//show_array($this->_db->getquery()->queryString);
+		$this->_data = false;
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->results();
+		return true;
 
-		if($this->_db->count()){
-			$this->_data = $this->_db->results();
-			return true;
-		}
-		return false;
 	}
 
 	public function get($idclient=0,$ids=''){
@@ -92,9 +91,17 @@ class Stores{
 			array($idclient)
 		);
 		///show_array( $this->_db->getquery() );
+		$this->_data = false;
 		if(!$this->_db->count()) return true;
 
 		$this->_data = $this->_db->results();
+		foreach($this->_data as $k=>$row){
+			$this->_data[$k]->full_address = $row->address;
+			if(!empty($row->additional)) $this->_data[$k]->full_address .= ', '.$row->additional;
+			$this->_data[$k]->full_address .= ', '.$row->city;
+			$this->_data[$k]->full_address .= ', '.$row->name;
+		}
+
 		return true;
 	}
 

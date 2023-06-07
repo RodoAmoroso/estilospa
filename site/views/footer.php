@@ -170,6 +170,20 @@
 	</div>
 </div>
 
+
+
+<!-- POPS -->
+<div class="modal fade" id="popups" tabindex="-1" role="dialog" >
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body ff-futuralight" ></div>
+		</div>
+	</div>
+</div>
+
 <!-- LOADING -->
 <div id="loading" >
 	<div class="loading-wrapper" >
@@ -185,8 +199,10 @@
 	<div class="fa fa-times fa-2x hover-fucsia clickable"></div>
 </div>
 
+<?php if($_section!='promo' && $_section!='centros'): ?>
 <div class="float-whatsapp">
-	<a href="https://api.whatsapp.com/send?phone=5491159441023" target="_blank" class="icon">
+	<a href="https://api.whatsapp.com/send?phone=5491158314531" target="_blank" class="icon">
 		<i class="fa fa-whatsapp"></i>
 	</a>
 </div>
+<?php endif; ?>

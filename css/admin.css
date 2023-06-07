@@ -705,6 +705,12 @@
 .pad-0 {
   padding: 0px;
 }
+.mb-0 {
+  margin-bottom: 0px;
+}
+.mt-0 {
+  margin-top: 0px;
+}
 .sz-2 {
   font-size: 2pt;
 }
@@ -713,6 +719,12 @@
 }
 .pad-2 {
   padding: 2px;
+}
+.mb-2 {
+  margin-bottom: 2px;
+}
+.mt-2 {
+  margin-top: 2px;
 }
 .sz-4 {
   font-size: 4pt;
@@ -723,6 +735,12 @@
 .pad-4 {
   padding: 4px;
 }
+.mb-4 {
+  margin-bottom: 4px;
+}
+.mt-4 {
+  margin-top: 4px;
+}
 .sz-6 {
   font-size: 6pt;
 }
@@ -731,6 +749,12 @@
 }
 .pad-6 {
   padding: 6px;
+}
+.mb-6 {
+  margin-bottom: 6px;
+}
+.mt-6 {
+  margin-top: 6px;
 }
 .sz-7 {
   font-size: 7pt;
@@ -741,6 +765,12 @@
 .pad-7 {
   padding: 7px;
 }
+.mb-7 {
+  margin-bottom: 7px;
+}
+.mt-7 {
+  margin-top: 7px;
+}
 .sz-8 {
   font-size: 8pt;
 }
@@ -749,6 +779,12 @@
 }
 .pad-8 {
   padding: 8px;
+}
+.mb-8 {
+  margin-bottom: 8px;
+}
+.mt-8 {
+  margin-top: 8px;
 }
 .sz-9 {
   font-size: 9pt;
@@ -759,6 +795,12 @@
 .pad-9 {
   padding: 9px;
 }
+.mb-9 {
+  margin-bottom: 9px;
+}
+.mt-9 {
+  margin-top: 9px;
+}
 .sz-10 {
   font-size: 10pt;
 }
@@ -767,6 +809,12 @@
 }
 .pad-10 {
   padding: 10px;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mt-10 {
+  margin-top: 10px;
 }
 .sz-11 {
   font-size: 11pt;
@@ -777,6 +825,12 @@
 .pad-11 {
   padding: 11px;
 }
+.mb-11 {
+  margin-bottom: 11px;
+}
+.mt-11 {
+  margin-top: 11px;
+}
 .sz-12 {
   font-size: 12pt;
 }
@@ -785,6 +839,12 @@
 }
 .pad-12 {
   padding: 12px;
+}
+.mb-12 {
+  margin-bottom: 12px;
+}
+.mt-12 {
+  margin-top: 12px;
 }
 .sz-14 {
   font-size: 14pt;
@@ -795,6 +855,12 @@
 .pad-14 {
   padding: 14px;
 }
+.mb-14 {
+  margin-bottom: 14px;
+}
+.mt-14 {
+  margin-top: 14px;
+}
 .sz-16 {
   font-size: 16pt;
 }
@@ -803,6 +869,12 @@
 }
 .pad-16 {
   padding: 16px;
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mt-16 {
+  margin-top: 16px;
 }
 .sz-18 {
   font-size: 18pt;
@@ -813,6 +885,12 @@
 .pad-18 {
   padding: 18px;
 }
+.mb-18 {
+  margin-bottom: 18px;
+}
+.mt-18 {
+  margin-top: 18px;
+}
 .sz-20 {
   font-size: 20pt;
 }
@@ -821,6 +899,12 @@
 }
 .pad-20 {
   padding: 20px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mt-20 {
+  margin-top: 20px;
 }
 .sz-22 {
   font-size: 22pt;
@@ -831,6 +915,12 @@
 .pad-22 {
   padding: 22px;
 }
+.mb-22 {
+  margin-bottom: 22px;
+}
+.mt-22 {
+  margin-top: 22px;
+}
 .sz-24 {
   font-size: 24pt;
 }
@@ -839,6 +929,12 @@
 }
 .pad-24 {
   padding: 24px;
+}
+.mb-24 {
+  margin-bottom: 24px;
+}
+.mt-24 {
+  margin-top: 24px;
 }
 .sz-26 {
   font-size: 26pt;
@@ -849,6 +945,12 @@
 .pad-26 {
   padding: 26px;
 }
+.mb-26 {
+  margin-bottom: 26px;
+}
+.mt-26 {
+  margin-top: 26px;
+}
 .sz-28 {
   font-size: 28pt;
 }
@@ -857,6 +959,12 @@
 }
 .pad-28 {
   padding: 28px;
+}
+.mb-28 {
+  margin-bottom: 28px;
+}
+.mt-28 {
+  margin-top: 28px;
 }
 .sz-30 {
   font-size: 30pt;
@@ -867,6 +975,12 @@
 .pad-30 {
   padding: 30px;
 }
+.mb-30 {
+  margin-bottom: 30px;
+}
+.mt-30 {
+  margin-top: 30px;
+}
 .sz-36 {
   font-size: 36pt;
 }
@@ -875,6 +989,12 @@
 }
 .pad-36 {
   padding: 36px;
+}
+.mb-36 {
+  margin-bottom: 36px;
+}
+.mt-36 {
+  margin-top: 36px;
 }
 .sz-40 {
   font-size: 40pt;
@@ -885,6 +1005,12 @@
 .pad-40 {
   padding: 40px;
 }
+.mb-40 {
+  margin-bottom: 40px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
 .sz-46 {
   font-size: 46pt;
 }
@@ -893,6 +1019,12 @@
 }
 .pad-46 {
   padding: 46px;
+}
+.mb-46 {
+  margin-bottom: 46px;
+}
+.mt-46 {
+  margin-top: 46px;
 }
 .header-admin .logo {
   padding: 36px 10px;
@@ -1448,6 +1580,9 @@ table.dataTable.no-footer {
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
   color: #df3e3e !important;
+}
+.dataTables_wrapper .dataTables_paginate .current {
+  opacity: 0.25;
 }
 .dataTables_wrapper .table-spacer-top {
   margin: 0.665rem 0;

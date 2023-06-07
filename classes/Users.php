@@ -2,14 +2,14 @@
 
 class Users extends Core{
 
-	public 	$table='users',
-					$sizes=['small'=>'-t','big'=>'-o'],
-					$folder='users';
+	public 		$table='users',
+						$sizes=['small'=>'-t','big'=>'-o'],
+						$folder='users';
 
+	private 	$_filters;
 
-	public function get(){
-
-		$filters = parent::core_filters([
+	public function search_filters(){
+		$this->_filters = parent::core_filters([
 			'filters'=>[
 				'id'=>"u.id=?",
 				'active'=>"u.active=?",
@@ -24,14 +24,19 @@ class Users extends Core{
 					) > 0",
 			],
 			'search'=>[
-				'u.name','u.lastname','u.email'
+				'u.name','u.lastname','u.mail'
 			],
 			'sort'=>[
 				'logged'=>"u.logged DESC",
 				'default'=>"u.created DESC"
 			]
 		]);
+	}
 
+
+	public function get(){
+
+		$this->search_filters();
 
 		$query =
 		"SELECT
@@ -39,23 +44,34 @@ class Users extends Core{
 			ut.name type_name, ut.type type_reference
 		FROM {{$this->table}} u
 		LEFT JOIN {usertypes} ut ON ut.id=u.idtype
-		{$filters->where}
-		{$filters->sort}
+		{$this->_filters->where}
+		{$this->_filters->sort}
 		LIMIT {$this->limit}";
 
-		if(!$data = parent::core_get($query,$filters->values)) return false;
-
-		foreach($data as $k=>$row){
-			///$data[$k]->promos_questions = $this->get_promos_questions($row->id);
-		}
+		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
 
 		return $data;
+	}
+	public function get_total(){
+
+		$this->search_filters();
+
+		$query =
+		"SELECT COUNT(u.id) total
+		FROM {{$this->table}} u
+		{$this->_filters->where}
+		{$this->_filters->sort}
+		LIMIT {$this->limit}";
+		$this->_db->query($query,$this->_filters->values);
+		return $this->_db->first()->total;
+
 	}
 
 	public function find($id=null){
 		if(!$id) return false;
 		$this->filters = ['id'=>$id];
 		if(!$data = $this->get()) return false;
+		$data[0]->pass = '';
 		return $data[0];
 	}
 
@@ -67,10 +83,16 @@ class Users extends Core{
 		if(!parent::core_save(Input::get('id'),$values)) return false;
 		return true;
 	}
+	public function store(){
+		echo_json(Input::get_all(),true);
+		return true;
+	}
 
 	public function delete($id=null){
 		if(is_null($id)) return false;
 		if(!$data = $this->find($id)) return false;
+
+		if($data->blocked) die(Responses::response('fail','No puedes borrar este usuario'));
 		if(!parent::core_delete($data)) return false;
 		return true;
 	}

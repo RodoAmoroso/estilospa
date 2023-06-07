@@ -363,20 +363,27 @@ class Sales {
 
 
 
-	public function add_voucher(){
-		$values = array(
+	public function save_voucher(){
+		$values = [
 			'saleid'=>Input::get('saleid'),
 			'downloads'=>0,
 			'gift'=>Input::get('gift')
-		);
-		if(Input::get('gift')){
-			$values['to_user'] = Input::get('to_user');
-			$values['message'] = Input::get('message');
-			$values['image'] = empty(Input::get('image')) ? null : json_encode(Input::get('image'));
-		}
+		];
 
-		$this->_db->insert('sales_vouchers',$values);
-		return $this->_db->getLastId();
+		//$values['id'] = empty(Input::get('id')) ? null : Input::get('id');
+
+		$values['to_user'] = Input::get('gift') ? Input::get('to_user') : null;
+		$values['message'] = Input::get('gift') ? Input::get('message') : null;
+		$values['image'] = Input::get('gift') && !empty(Input::get('image')) ? json_encode(Input::get('image')) : null;
+
+		if(empty(Input::get('id'))){
+			$this->_db->insert('sales_vouchers',$values);
+			$voucherid = $this->_db->getLastId();
+		}else{
+			$voucherid = Input::get('id');
+			$this->_db->update('sales_vouchers',$voucherid,$values);
+		}
+		return $voucherid;
 	}
 
 
@@ -387,7 +394,18 @@ class Sales {
 	}
 
 	public function find_voucher($voucherid=0){
-		$this->_db->get('sales_vouchers',array('id','=',$voucherid));
+
+		if(!$voucherid) return false;
+
+		$this->_db->query("
+			SELECT
+				sv.*,
+				s.iduser
+			FROM {sales_vouchers} sv
+			LEFT JOIN {sales} s ON s.id=sv.saleid
+			WHERE sv.id=?",
+			[$voucherid]
+		);
 		if(!$this->_db->count()) return false;
 
 		$output = $this->_db->first();
@@ -398,6 +416,7 @@ class Sales {
 			$image->path = IMG.'gift/'.$img->f.'.'.$img->e;
 			$image->f = $img->f;
 			$image->e = $img->e;
+			$image->url = ROOT.'img/gift/'.$img->f.'.'.$img->e;
 			$output->image = $image;
 		}
 		return $this->_db->first();

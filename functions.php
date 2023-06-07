@@ -553,29 +553,43 @@ function status_payment($status=''){
 	return $output;
 }
 function status_service($status=''){
-		$btn='';
-		$label='';
-		switch($status){
-			case 1:
-				$btn = 'warning';
-				$label = 'Pendiente';
-				break;
-			case 2:
-				$btn = 'success';
-				$label = 'Brindado';
-				break;
-			case 3:
-				$btn = 'danger';
-				$label = 'Cancelado';
-				break;
-		}
-		return (object) [
-			'btn'=>$btn,
-			'label'=>$label
-		];
+	$btn='';
+	$label='';
+	switch($status){
+		case 1:
+			$btn = 'warning';
+			$label = 'Pendiente';
+			break;
+		case 2:
+			$btn = 'success';
+			$label = 'Brindado';
+			break;
+		case 3:
+			$btn = 'danger';
+			$label = 'Cancelado';
+			break;
 	}
+	return (object) [
+		'btn'=>$btn,
+		'label'=>$label
+	];
+}
 
 function is_hashsed($hash=''){
 	if(preg_match("/^([a-f0-9]{64})$/", $hash) == 1) return true;
 	return false;
+}
+function echo_json($obj,$exit=false){
+	header("Content-Type: application/json; charset=utf-8", true);
+	echo json_encode($obj);
+	if($exit) exit;
+}
+function obfuscate_email($email){
+	$em   = explode("@",$email);
+	$name = implode('@', array_slice($em, 0, count($em)-1));
+	$len  = floor(strlen($name)/2);
+	return substr($name,0, $len) . str_repeat('*', $len) . "@" . end($em);
+}
+function obfuscate_phone($phone){
+	return substr($phone, 0, 4) . '******' . substr($phone, -2);
 }

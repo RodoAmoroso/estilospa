@@ -131,6 +131,10 @@
 				<label for="fd_description">Descripción General</label>
 				<textarea id="fd_description" rows="8" class="form-control"></textarea>
 			</div>
+			<div class="form-group">
+				<label for="fd_valid">Validez *</label>
+				<input id="fd_valid" type="text" class="form-control" placeholder="Todos los días...">
+			</div>
 
 			<div class="row">
 				<div class="col-sm-12 col-md-6">

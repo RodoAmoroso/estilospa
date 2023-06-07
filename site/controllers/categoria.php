@@ -15,7 +15,8 @@ $_arrcss[] = ['folder'=>'lib/','style'=>'select2.min'];
 
 $Experiences = new Experiences;
 $Experiences->filters = [
-	'active'=>1
+	'active'=>1,
+	'visible'=>1
 ];
 if($category){
 	$Experiences->filters['category'] = $category->id;

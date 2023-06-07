@@ -1,0 +1,1 @@
+ALTER TABLE `spa_promos`  ADD `valid` VARCHAR(1000) NULL DEFAULT NULL  AFTER `description`;

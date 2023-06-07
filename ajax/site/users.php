@@ -152,7 +152,7 @@ switch($_action):
 			'addressobs'=>Input::get('addressObs'),
 			'zipcode'=>Input::get('zipcode'),
 			'city'=>Input::get('city'),
-			'idprovince'=>Input::get('idprovence'),
+			'idprovince'=>Input::get('idprovince'),
 			'phone'=>Input::get('phone'),
 			'dni'=>Input::get('dni')
 		);

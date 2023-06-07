@@ -18,12 +18,12 @@ class Glossary {
 	}
 
 	public function get(){
-		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('g.name','gg.name'));		
-		$search = empty($search_main) ? "" : "WHERE".$search_main;	
+		$search_main = BuildSearch($this->keywords,$this->searchmixed,array('g.name','gg.name'));
+		$search = empty($search_main) ? "" : "WHERE".$search_main;
 
-		///echo $search;	
+		///echo $search;
 		$sortby = '';
-		
+
 		switch($this->sort){
 			case 'name':
 				$sortby = "ORDER BY g.name ASC";
@@ -35,7 +35,7 @@ class Glossary {
 				$sortby = "ORDER BY g.position ASC";
 				break;
 		}
-			
+
 		if($this->idgroup){
 			if(empty($search)){$search = "WHERE";}else{$search .= " AND";}
 			$search .= " g.idgroup={$this->idgroup}";
@@ -46,10 +46,10 @@ class Glossary {
 		}
 		$query = "
 			SELECT g.*, gg.name groupname, (SELECT COUNT(*) FROM {$this->_dbprefix}clients c WHERE (c.glossary LIKE CONCAT('%',g.id,'%') OR c.glossary LIKE CONCAT(g.id,'%') OR c.glossary LIKE CONCAT('%',g.id) OR c.glossary=g.id) AND c.visible=1) as countclients
-			FROM {glossary} g 
-			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup 
-			{$search} 
-			{$sortby} 
+			FROM {glossary} g
+			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup
+			{$search}
+			{$sortby}
 			{$limitby}";
 
 		//show_array($query);
@@ -64,9 +64,9 @@ class Glossary {
 
 	public function find($id=0){
 		$this->_db->query(
-			"SELECT g.*, gg.name groupname 
-			FROM {glossary} g 
-			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup 
+			"SELECT g.*, gg.name groupname
+			FROM {glossary} g
+			LEFT JOIN {glossarygroups} gg ON gg.id=g.idgroup
 			WHERE g.id=?",
 			array($id)
 		);
@@ -140,8 +140,8 @@ class Glossary {
 			"SELECT c.id, c.name, c.mail, c.permalink
 			FROM {clients_glossary_assignments} cga
 			LEFT JOIN {clients} c ON c.id=cga.clientid
-			WHERE cga.glossaryid=?",
-			array($glossaryid)
+			WHERE cga.glossaryid=? AND c.visible=?",
+			array($glossaryid,1)
 		);
 		if(!$this->_db->count()) return false;
 
@@ -150,8 +150,8 @@ class Glossary {
 
 	public function check_assoc($clientid=0,$glossaryid=0){
 		$this->_db->query(
-			"SELECT * 
-			FROM {clients_glossary_assignments} 
+			"SELECT *
+			FROM {clients_glossary_assignments}
 			WHERE clientid=? AND glossaryid=?",
 			array($clientid,$glossaryid)
 		);

@@ -253,6 +253,7 @@ class Promos {
 		'subtitle'=>Input::get('Subtitle'),
 		'label'=>Input::get('Label'),
 		'description'=>Input::get('Description'),
+		'valid'=>Input::get('Valid'),
 		'includes'=>Input::get('Includes'),
 		'duration'=>Input::get('Duration'),
 		'recomendations'=>Input::get('Recomendations'),

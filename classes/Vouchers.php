@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Vouchers {
 
@@ -19,30 +19,54 @@ class Vouchers {
 	}
 
 	public function get(){
+
 		$where = "";
-		if(!empty($this->status)){			
+
+		if(!empty($this->status)){
 			$arrstatus = explode(':',$this->status);
-			if($arrstatus[0]){$start = "v.start<=NOW()";}else{$start = "v.start >= NOW()";}
-			if($arrstatus[1]){$finish = "v.finish>=NOW()";}else{$finish = "v.finish <= NOW()";}
+			if($arrstatus[0]){
+				$start = "v.start<=NOW()";
+			}else{
+				$start = "v.start >= NOW()";
+			}
+			if($arrstatus[1]){
+				$finish = "v.finish>=NOW()";
+			}else{
+				$finish = "v.finish <= NOW()";
+			}
 			$where = "WHERE {$start} AND {$finish}";
 		}
+
 		if($this->idpromo){
-			if(empty($where)){$where = "WHERE";}else{$where .= " AND";}
-			$where .= " a.idpromo={$this->idpromo}";
+			///if(empty($where)){$where = "WHERE";}else{$where .= " AND";}
+			$where .= empty($where) ? "WHERE" : " AND ";
+			$where .= "a.idpromo={$this->idpromo}";
 		}
+
 		if(!empty($this->keywords)){
-			if(empty($where)){$where = "WHERE";}else{$where .= " AND";}
-			$where .= " (c.code LIKE '%{$this->keywords}%' OR v.name LIKE '%{$this->keywords}%')";
+			///if(empty($where)){$where = "WHERE";}else{$where .= " AND";}
+			$where .= empty($where) ? "WHERE" : " AND ";
+			///$where .= "(c.code LIKE '%{$this->keywords}%' OR )";
+			$where .= "v.id IN (
+				SELECT vc.idvoucher
+				FROM {vouchers_codes} vc
+				WHERE vc.code LIKE '%{$this->keywords}%'
+			) OR v.name LIKE '%{$this->keywords}%'";
 		}
 		#(SELECT COUNT(*) FROM {$this->_dbprefix}vouchers_codes vc WHERE vc.idvoucher=a.idvoucher) as totcodes
 		$this->_db->query(
-			"SELECT DISTINCT v.*, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish, DATE_FORMAT(v.added, '%d/%m/%Y') creado, (SELECT COUNT(*) FROM {vouchers_assoc} va WHERE va.idvoucher=a.idvoucher) as totpromos, c.code
-			FROM {vouchers_assoc} a
-			LEFT JOIN {vouchers} v ON v.id=a.idvoucher
-			LEFT JOIN {vouchers_codes} c ON v.id=c.idvoucher
-			{$where} 
-			GROUP BY a.idvoucher, c.idvoucher
-			ORDER BY v.added DESC");
+			"SELECT DISTINCT
+				v.*, v.start<=NOW() statusstart, v.finish>=NOW() statusfinish, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish, DATE_FORMAT(v.added, '%d/%m/%Y') creado,
+				(
+					SELECT COUNT(*)
+					FROM {vouchers_assoc} va
+					WHERE va.idvoucher=v.id
+				) as totpromos
+			FROM {vouchers} v
+			{$where}
+			ORDER BY v.added DESC"
+		);
+		//LEFT JOIN {vouchers_codes} c ON v.id=c.idvoucher
 		//GROUP BY a.idvoucher, c.idvoucher
 		//show_array($this->_db->getquery()->queryString);
 		if($this->_db->count()){
@@ -53,7 +77,11 @@ class Vouchers {
 	}
 
 	public function find($id=0){
-		$this->_db->query("SELECT v.id, v.name, v.isunique, v.ispercent, v.value, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish FROM {$this->_dbprefix}vouchers v WHERE v.id=?",array($id));
+		$this->_db->query("
+			SELECT v.id, v.name, v.isunique, v.ispercent, v.value, DATE_FORMAT(v.start, '%d/%m/%Y') start, DATE_FORMAT(v.finish, '%d/%m/%Y') finish FROM {vouchers} v
+			WHERE v.id=?",
+			[$id]
+		);
 		if($this->_db->count()){
 			$this->_data = $this->_db->first();
 			return true;
@@ -98,7 +126,7 @@ class Vouchers {
 
 	public function getpromo($idpromo=0){
 		$where = "WHERE idpromo=?";
-		if(!empty($this->status)){			
+		if(!empty($this->status)){
 			$arrstatus = explode(':',$this->status);
 			if($arrstatus[0]){$start = "v.start<=NOW()";}else{$start = "v.start >= NOW()";}
 			if($arrstatus[1]){$finish = "v.finish>=NOW()";}else{$finish = "v.finish <= NOW()";}
@@ -109,7 +137,7 @@ class Vouchers {
 			FROM {vouchers_assoc} a
 			LEFT JOIN {vouchers} v ON v.id=a.idvoucher
 			{$where}
-			ORDER BY v.finish ASC 
+			ORDER BY v.finish ASC
 			LIMIT 0,1",
 			array($idpromo)
 		);
@@ -125,7 +153,7 @@ class Vouchers {
 	}
 
 	public function validate($idpromo=0,$code='',$iduser=0){
-		
+
 		/////// Check Promo ////////////////////////
 		$promo = new Promos();
 		if($promo->find($idpromo)){
@@ -135,7 +163,7 @@ class Vouchers {
 			}
 		}else{
 			$this->_errors = 'No se encontró la promo seleccionada.';
-			return false;			
+			return false;
 		}
 		///////// End Check Promo ///////////////////
 
@@ -150,7 +178,7 @@ class Vouchers {
 				$arrvalues[] = $iduser;
 			}
 			$this->_db->query("SELECT u.id
-				FROM {vouchers_usage} u 
+				FROM {vouchers_usage} u
 				LEFT JOIN {vouchers_codes} c ON c.id=u.idcode
 				LEFT JOIN {vouchers} v ON v.id=u.idvoucher
 				{$where}",
@@ -202,7 +230,9 @@ class Vouchers {
 			'start'=>Input::get('Start'),
 			'finish'=>Input::get('Finish')
 		);
-		
+
+		echo_json(Input::get_all());
+
 		if(Input::get('ID')){ #update
 			if($this->_db->update('vouchers',Input::get('ID'),$sql)){
 				$this->_lastid = Input::get('ID');
@@ -234,7 +264,7 @@ class Vouchers {
 				return true;
 			}
 		}
-		
+
 
 		return false;
 	}

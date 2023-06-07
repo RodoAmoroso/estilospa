@@ -7,7 +7,7 @@
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" >
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" >
-	
+
 	<meta name="description" content="<?= isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION ?>" >
 	<meta name="keywords" content="<?= isset($_KEYWORDS) ? $_KEYWORDS : KEYWORDS ?>" >
 
@@ -22,17 +22,17 @@
 	<link rel="stylesheet" href="<?= CSS ?>lib/toastr.min.css" >
 
 	<?php if(isset($_arrcss)): foreach ($_arrcss as $css): ?>
-	<link rel="<?= isset($css['rel']) ? $css['rel'] : 'stylesheet' ?>" href="<?= CSS.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> > 
+	<link rel="<?= isset($css['rel']) ? $css['rel'] : 'stylesheet' ?>" href="<?= CSS.$css['folder'].$css['style'].'.css?id='.rand(1111,9999) ?>" <?= isset($css['media']) ? 'media="'.$css['media'].'"' : '' ?> >
 	<?php endforeach; endif; ?>
-	
+
 	<link rel="stylesheet" href="<?= CSS.'styles.css?id='.rand(1111,9999) ?>" >
 	<link rel="stylesheet" href="<?= CSS.'admin.css?id='.rand(1111,9999) ?>" >
 
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 
-	<?php 
-		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? ROOT.$_IMGFACEBOOK : ROOT.'assets/logo.jpg';
-		$_IMGSIZE = getimagesize($_IMGFACEBOOK);
+	<?php
+		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : 'assets/logo-400x400.jpg';
+		$_IMGSIZE = getimagesize(PATH.$_IMGFACEBOOK);
 		$_URLHEAD = isset($_URLHEAD) ? $_URLHEAD : ROOT;
 		$_DESCRIPTION = isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION;
 		$_TITLE = isset($_TITLE) ? $_TITLE : TITLE;
@@ -46,8 +46,8 @@
 	<meta property="og:type" content="website"/>
 	<meta property="og:title" content="<?= $_TITLE ?>" />
 	<meta property="og:description" content="<?= $_DESCRIPTION ?>" />
-	<meta property="og:image" content="<?= $_IMGFACEBOOK ?>" />
-	<meta property="og:image:width" content="<?= $_IMGSIZE[0] ?>" /> 
+	<meta property="og:image" content="<?= ROOT.$_IMGFACEBOOK ?>" />
+	<meta property="og:image:width" content="<?= $_IMGSIZE[0] ?>" />
 	<meta property="og:image:height" content="<?= $_IMGSIZE[1] ?>" />
 
 	<meta property="og:locale" content="es_ES" />
@@ -64,7 +64,7 @@
 		var MAXFILES = '<?= MAXFILES ?>';
 		var _section = '<?= $_section ?>';
 		var _subsection = '<?= $_subsection ?>';
-	</script>	
+	</script>
 
 	<!-- Google Analytics -->
 	<script>

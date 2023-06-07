@@ -11,7 +11,8 @@ if(!empty($_subsection)){
 $Experiences = new Experiences;
 $Experiences->filters = [
 	'active'=>1,
-	'gift'=>1
+	'gift'=>1,
+	'visible'=>1
 ];
 if($category){
 	$Experiences->filters['category'] = $category->id;

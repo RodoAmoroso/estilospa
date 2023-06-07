@@ -21,6 +21,10 @@ class MPConfig {
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
 					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
 
+					//$app_id='389403748152273',
+					//$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj',
+					//$access_token='APP_USR-389403748152273-070520-b122d212b2a6631e8f0e7818e651dae0__LD_LC__-263157583';
+
 
 					//Test Localhost
 					/*$notification_url = 'https://www.estilospa.com/test-ipn.php',

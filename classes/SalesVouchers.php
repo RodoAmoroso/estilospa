@@ -32,6 +32,9 @@ class SalesVouchers extends Sales{
 		$voucher->promo->gallery = json_decode($voucher->promo->gallery);
 
 
+		//echo_json($voucher->promo,true);
+
+
 		$Stores = new Stores();
 		if(!$Stores->get($voucher->sale->idclient)) return false;
 		$voucher->stores = $Stores->data()[0];
@@ -80,19 +83,24 @@ class SalesVouchers extends Sales{
 		$added = new DateTime($voucher->sale->added);
 		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 60 días a partir del ').$added->format('d/m/Y'),0,0,'L',false);
 
-		$this->_pdf->SetFont('ProximaNormal','',9);
-		$this->_pdf->SetXY(21,228);
-		$this->_pdf->Cell(180,6,utf8_decode('*El tiempo para utilizar tu voucher se aplicará luego de las aperturas de los centros post cuarentena.'),0,0,'L',false);
+		//$this->_pdf->SetFont('ProximaNormal','',9);
+		//$this->_pdf->SetXY(21,228);
+		//$this->_pdf->Cell(180,6,utf8_decode('*El tiempo para utilizar tu voucher se aplicará luego de las aperturas de los centros post cuarentena.'),0,0,'L',false);
 
 
 
 		$this->_pdf->SetFont('ProximaNormal','',13);
-		$this->_pdf->SetXY(21, 236.5);
+		$this->_pdf->SetXY(21, 231.5);
 		$this->_pdf->Cell(180,6,utf8_decode($voucher->promo->clientname.' - '.$voucher->stores->address.' '.$voucher->stores->city),0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',11);
-		$this->_pdf->SetXY(21, 242);
+		$this->_pdf->SetXY(21, 236);
 		$this->_pdf->Cell(180,6,'Realizar la reserva del turno al '.(empty($voucher->stores->phones) ? '' : 'Tel: '.$voucher->stores->phones.' ').(empty($voucher->stores->whatsapp) ? '' : '- Whatsapp: '.$voucher->stores->whatsapp),0,0,'L',false);
+
+
+		$this->_pdf->SetFont('ProximaNormal','',8);
+		$this->_pdf->SetXY(21,243);
+		$this->_pdf->Cell(180,6,utf8_decode('Política de cancelación: '.$voucher->promo->cancellation),0,0,'L',false);
 
 		//return $this->_pdf->Output('D','estilospa.com_voucher_'.$voucher->sale->collection_id.'.pdf');
 		return $this->_pdf->Output();

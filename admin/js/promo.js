@@ -235,6 +235,7 @@ var Promos = {
 			Discount:$('#fd_discount').val(),
 			Amount:$('#fd_amount').val(),
 			Description:$('#fd_description').val(),
+			Valid:$('#fd_valid').val(),
 			Includes:$('#fd_includes').val(),
 			Recomendations:$('#fd_recomendations').val(),
 			Reservation:$('#fd_reservation').val(),
@@ -270,6 +271,7 @@ var Promos = {
 				Clients.IDStores = obj.stores.split(',');
 				$('#fd_clients').trigger('change');
 				$('#fd_description').val(obj.description);
+				$('#fd_valid').val(obj.valid);
 				$('#fd_includes').val(obj.includes);
 				$('#fd_recomendations').val(obj.recomendations);
 				$('#fd_reservation').val(obj.reservation);
@@ -346,7 +348,7 @@ var Promos = {
 		$('#fd_start,#fd_finish').datepicker();
 
 		$('#btn_save').click(function(){
-			CheckFields(['#fd_title','#fd_subtitle','#fd_start','#fd_finish','#fd_description'],function(){
+			CheckFields(['#fd_title','#fd_subtitle','#fd_start','#fd_finish','#fd_description','#fd_valid'],function(){
 				Promos.save();
 			});
 		});

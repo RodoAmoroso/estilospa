@@ -25,7 +25,7 @@
 				if(count($Stores->data())>1){
 					echo 'Varias sucursales';
 				}else{
-					echo $Stores->data()[0]->city;
+					echo $Stores->data()[0]->full_address;
 				}
 				?>
 
@@ -169,6 +169,12 @@
 			<p><?= nl2br($Promos->data()->includes) ?></p>
 			<?php endif; ?>
 
+			<?php if(!is_null($Promos->data()->valid)): ?>
+			<hr>
+			<h5 class="fw-700">Válido para:</h5>
+			<p><?= nl2br($Promos->data()->valid) ?></p>
+			<?php endif; ?>
+
 			<?php if(!empty($Promos->data()->recomendations)): ?>
 			<hr>
 			<h5 class="fw-700">¿Que recomendamos que lleve?</h5>
@@ -195,7 +201,7 @@
 
 		</div>
 
-		<div class="block-white">
+		<div class="block-white d-none">
 			<h4 class="title-bar">Validez</h4>
 			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
 			<!--<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>-->
@@ -208,7 +214,7 @@
 			<ul class="number-list">
 				<li><span class="number">1</span> <span>Click en el botón comprar</span></li>
 				<li><span class="number">2</span> <span>Ingresá con tu cuenta o Registrate</span></li>
-				<li><span class="number">3</span> <span>Pagás on line en forma rápida y segura con tarjeta de débito/crédito mediante Mercado Pago</span></li>
+				<li><span class="number">3</span> <span>Pagás on line mediante Mercado Pago</span></li>
 			</ul>
 		</div>
 

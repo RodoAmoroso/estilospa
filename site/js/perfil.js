@@ -8,7 +8,7 @@ $(function(){
 		scope:'site',
 		sufix:'-o'
 	});
-	
+
 
 	$('#fd_newsletter,[for="fd_newsletter"]').click(function(){
 		$('#fd_newsletter').toggleClass('fa-check-square fa-square');

@@ -13,7 +13,7 @@
 			<?php endforeach; endif; ?>
 
 			<li class="highlight"><a href="<?= ROOT.'regalos/' ?>">Para Regalar</a></li>
-			<li><a href="<?= ROOT.'busqueda/hotel-spa' ?>">Hotel Spa</a></li>
+
 			<li><a href="<?= ROOT.'blog' ?>">Blog</a></li>
 			<li><a id="btn_search_bar" class="clickable" ><i class="fa fa-search"></i></a></li>
 		</ul>

@@ -9,13 +9,13 @@
 		<?php if($_glossary): ?>
 		<h4>Pregunta sobre: <a href="<?=View::url('etiqueta',$_glossary->id.'-'.Permalink($_glossary->name))?>" target="_blank"><?=$_glossary->name?></a></h4>
 		<?php endif; ?>
-		
+
 		<hr>
 
 		<div class="alert alert-info">
 			<h5>Pregunta:</h5>
 			<p><?=$_question->message?></p>
-			<small>Enviada por <?=$_user->name?> (<?=$_user->mail?>) el <?=$_question->creado?> hs.</small>
+			<small>Enviada por <?=$_user->name?> (<?=obfuscate_email($_user->mail)?>) el <?=$_question->creado?> hs.</small>
 		</div>
 
 		<?php if(!$response = $Questions->has_response($_question->id,$_userdata->id)): ?>

@@ -77,20 +77,6 @@
 	</script>
 
 
-	<?php if(!isset($hidechat)): ?>
-	<!--Start of Zendesk Chat Script-->
-	<script type="text/javascript">
-	window.$zopim||(function(d,s){var z=$zopim=function(c){
-	z._.push(c)},$=z.s=
-	d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-	_.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-	$.src='https://v2.zopim.com/?56ncKckSqrDwpWB5lauqt3zXx88wusTi';z.t=+new Date;$.
-	type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
-	</script>
-	<!--End of Zendesk Chat Script-->
-	<?php endif; ?>
-
-
 	<!-- Facebook Pixel Code -->
 	<script>
 	!function(f,b,e,v,n,t,s)
@@ -108,16 +94,6 @@
 	src="https://www.facebook.com/tr?id=2625780054142690&ev=PageView&noscript=1"
 	/></noscript>
 	<!-- End Facebook Pixel Code -->
-
-
-	<script type='text/javascript'>
-	window.smartlook||(function(d) {
-	var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
-	var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
-	c.charset='utf-8';c.src='https://rec.smartlook.com/recorder.js';h.appendChild(c);
-	})(document);
-	smartlook('init', 'f35e81d9a595ba4f4b4ada6fbf70927e2e628869');
-	</script>
 
 
 	<meta name="google-site-verification" content="hHQNIXKcIha1J4C82llTavEIvXLE2DC2mINd-LL0vzc" />

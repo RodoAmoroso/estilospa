@@ -7,6 +7,8 @@ $UserAdmin = new UserAdmin();
 $Assoc = new Assoc();
 $Mailing = new Mailing();
 
+$Users = new Users;
+
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 if(!$User->logged() || $User->data()->idtype != 1) die(Responses::response('restricted'));
 
@@ -16,36 +18,36 @@ switch($_action){
 	case 'save':
 
 		$validate = Input::validate(
-			array('email'=>Input::get('Mail'))
+			array('email'=>Input::get('mail'))
 		);
 		if(!$validate->status) die($validate->response);
 
-		if(!Input::get('ID')){
+		if(!Input::get('id')){
 			$validate = Input::validate(
-				array('password'=>Input::get('Pass'))
+				array('password'=>Input::get('pass'))
 			);
 			if(!$validate->status) die($validate->response);
-			if($UserAdmin->find(Input::get('Mail'))) die(Responses::response('fail','Ya existe un usuario con ese email'));
+			if($UserAdmin->find(Input::get('mail'))) die(Responses::response('fail','Ya existe un usuario con ese email'));
 		}
 
 		$UserAdmin->save();
 		$ID = $UserAdmin->getLastId();
 
-		if(Input::get('IDType')==3 || Input::get('IDType')==4){
+		if(Input::get('idtype')==3 || Input::get('idtype')==4){
 
-			$Assoc->idclient = Input::get('IDClient');
+			$Assoc->idclient = Input::get('idclient');
 			$Assoc->iduser = $ID;
 			$Assoc->client_user('save');
 
-			if(!Input::get('ID') && Input::get('Notify')){
+			if(!Input::get('id') && Input::get('notify')){
 				$UserAdmin->find($ID);
 				$userdata = $UserAdmin->data();
-				$userdata->password = Input::get('Pass');
+				$userdata->password = Input::get('pass');
 				if(!$Mailing->new_user($userdata)) die(Responses::response('fail','No se pudo enviar el email de notificación al usuario'));
 			}
 		}
 
-		echo Responses::response('ok');
+		echo Responses::response('ok','Los datos fueron guardados correctamente');
 		break;
 
 
@@ -55,6 +57,40 @@ switch($_action){
 		$UserAdmin->limit = '';
 		$UserAdmin->get();
 		echo Responses::response('ok','',array('results'=>$UserAdmin->data()));
+		break;
+
+	case 'get-datatable':
+
+		$Users->search = Input::get('search')['value'];
+		$Users->filters = Input::get('filters');
+		$Users->limit = '0,50000';
+
+		$total = $Users->get_total();
+
+		$response = [
+			'draw'=>Input::get('draw','int'),
+			'recordsTotal'=>(int) $total,
+			'recordsFiltered'=>(int) $total,
+			'data'=>[],
+			'request'=>Input::get_all()
+		];
+
+		$Users->limit = Input::get('start','int').','.Input::get('length','int');
+		/*if(Input::get('order')){
+			$sort = Input::get('columns')[Input::get('order')[0]['column']]['data'].'_'.Input::get('order')[0]['dir'];
+			$Users->sort = $sort;
+		}*/
+		if($results = $Users->get()){
+			if( method_exists($Users, 'datatable') ){
+				foreach($results as $result){
+					$response['data'][] = $Users->datatable($result);
+				}
+			}else{
+				$response['data'] = $results;
+			}
+		}
+
+		echo Responses::response('ok','',$response);
 		break;
 
 	case 'getbytype':
@@ -76,10 +112,16 @@ switch($_action){
 		break;
 
 	case 'find':
-		$UserAdmin->find(Input::get('ID'));
+
 		$Assoc->iduser = Input::get('ID');
 		$Assoc->client_user('get');
-		echo Responses::response('ok','',array('result'=>$UserAdmin->data(),'assoc'=>$Assoc->data()) );
+
+		$UserAdmin->find(Input::get('ID'));
+		echo Responses::response('ok','',[
+			'result'=>$UserAdmin->data(),
+			'assoc'=>$Assoc->data(),
+			'request'=>Input::get_all()
+		]);
 		break;
 
 	case 'upimage':

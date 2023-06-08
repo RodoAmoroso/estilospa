@@ -116,15 +116,24 @@ var Vouchers = {
 				if(DATA.results == null){return false;}
 				$.each(DATA.results,function(k,v){
 					var mod = Templates.mod_list();
-					mod.find('h4').addClass('title-med').text(v.name+' - '+(v.isunique==1 ? v.code : 'Múltiples códigos'));
+					mod.find('h4').addClass('title-med').text(v.name);
 					var discount = (v.ispercent==1 ? '' : '$')+v.value+(v.ispercent==0 ? '' : '%');
 					mod.find('p').append('Disponible en '+v.totpromos+' promos &bullet; Creado: ',v.creado,' &bullet; Descuento: ',discount,' &bullet; ',StatusLabel(v.statusstart,v.statusfinish));
 					mod.find('.edit,.delete').attr('data-id',v.id);
+
 					var btn = Templates.a.clone().attr({href:ROOT+'vouchers/'+v.name.permalink()+'/'+v.id,target:'_blank'}).addClass('btn btn-xs btn-primary link').append(Templates.i.clone().addClass('fa fa-link fa-fw'));
 					mod.find('.buttons').prepend(btn,' ');
-					$('#vouchers').append(mod);				
+
+					var btn_export = Templates.a.clone().attr({
+						href:`${ADMIN}exportar-codigos?id=${v.id}`,
+						target:'_blank'
+					}).addClass('btn btn-xs btn-primary')
+					btn_export.append(Templates.i.clone().addClass('fa fa-download fa-fw'),' ','Exportar Códigos')
+					mod.find('.buttons').append(' ',btn_export);
+
+					$('#vouchers').append(mod);
 				});
-				
+
 			});
 	},
 	find:function(){
@@ -156,6 +165,7 @@ var Vouchers = {
 			});
 	},
 	save:function(){
+
 		if($('#fd_start').datepicker('getDate') > $('#fd_finish').datepicker('getDate')){
 			Swal.fire({
 				type:'warning',
@@ -163,6 +173,7 @@ var Vouchers = {
 			});
 			return false;
 		}
+
 		var codes = [];
 		if($('input[value="unique"]').parent().hasClass('active')){
 			if($('#fd_code').val().length<4){
@@ -174,17 +185,19 @@ var Vouchers = {
 			}
 			codes.push($('#fd_code').val());
 		}else{
-			if($('#code_list .list-group-item').length==0){				
+			codes = Vouchers.ArrCodes
+			if(codes.length==0){
 				Swal.fire({
 					type:'warning',
 					text:'Debes ingresar un código'
 				});
 				return false;
 			}
-			$.each($('#code_list .list-group-item'),function(k,v){
+			/*$.each($('#code_list .list-group-item'),function(k,v){
 				codes.push($(this).find('span:first-of-type').text());
-			});
+			});*/
 		}
+
 		var promos = [];
 		if($('#promos_selected .list-group-item').length == 0 ){
 			Swal.fire({
@@ -196,6 +209,8 @@ var Vouchers = {
 		$.each($('#promos_selected .list-group-item'),function(k,v){
 			promos.push($(this).attr('data-id'));
 		});
+
+
 		ajax('admin/vouchers/save',{
 			Name:$('#fd_name').val(),
 			IsUnique:$('input[value="unique"]').parent().hasClass('active') ? 1 : 0,
@@ -228,19 +243,22 @@ var Vouchers = {
 		Promos.get('block',$('#fd_filter_client_assoc').val(),$('#fd_filter_status_assoc').val());
 		$('#fd_filter_client_assoc option[value="0"],#fd_filter_status_assoc option[value="0"]').prop('selected',true);
 		$('#fd_code_quantity,#btn_generate,#fd_code').prop('disabled',false);
-	},	
+		//$('#code_list').html('')
+	},
 	generatecodes:function(COD){
 		var code = COD == undefined ? random_letters(4).toUpperCase()+random(1111,9999) : COD;
-		var mod = Templates.list_group_item();
+
+		/*var mod = Templates.list_group_item();
 		mod.find('span:first-of-type').addClass('fw-600').text(code);
 		mod.find('.label').attr('data-edit','true').append('<i class="fa fa-pencil"></i>');
-		$('#code_list').append(mod);
-		Vouchers.ArrCodes.push(code);	
+		$('#code_list').append(mod);*/
+		Vouchers.ArrCodes.push(code);
 		//}
 		$('[name="codes"]').attr('value',Vouchers.ArrCodes);
 	},
 	init:function(){
-		$('#code_list').on('click','.label',function(){
+
+		/*$('#code_list').on('click','.label',function(){
 			$(this).toggleClass('label-success label-primary');
 			var indx = $(this).parent().index();
 			if($(this).attr('data-edit')=='true'){
@@ -254,7 +272,8 @@ var Vouchers = {
 				$(this).prev().html(code);
 				$(this).attr('data-edit','true').html('<i class="fa fa-pencil"></i>');
 			}
-		});
+		});*/
+
 		$('[name="group_code_type"]').change(function(){
 			var type = $(this).val();
 			var typehide = type == 'unique' ? 'multiple' : 'unique';
@@ -262,7 +281,9 @@ var Vouchers = {
 			$('#block_'+type).slideDown({duration:900,easing:'easeInOutCubic'});
 		});
 		$('#btn_generate').click(function(){
-			$('#code_list').html('');
+
+			//$('#code_list').html('');
+
 			if($('#fd_code_quantity').val()>0){
 				Vouchers.ArrCodes = [];
 				for(var i=1; i<=$('#fd_code_quantity').val(); i++){
@@ -279,7 +300,7 @@ var Vouchers = {
 		$('#btn_new').click(function(){
 			$('#block_list').slideUp({duration:900,easing:'easeInOutCubic'});
 			$('#block_edit').slideDown({duration:900,easing:'easeInOutCubic'});
-		});	
+		});
 		$('#btn_cancel').click(function(){
 			$('#block_list').slideDown({duration:900,easing:'easeInOutCubic'});
 			$('#block_edit').slideUp({duration:900,easing:'easeInOutCubic'});

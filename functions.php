@@ -579,7 +579,7 @@ function is_hashsed($hash=''){
 	if(preg_match("/^([a-f0-9]{64})$/", $hash) == 1) return true;
 	return false;
 }
-function echo_json($obj,$exit=false){
+function echo_json($obj,$exit=true){
 	header("Content-Type: application/json; charset=utf-8", true);
 	echo json_encode($obj);
 	if($exit) exit;

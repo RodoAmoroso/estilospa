@@ -1,12 +1,10 @@
-<?php 
+<?php
 
-$codes = isset($_POST['codes']) ? $_POST['codes'] : '';
+$voucherid = Input::get('id','int');
+$Vouchers = new Vouchers;
+$codes = $Vouchers->getcodes($voucherid);
+echo_json($codes);
 
-$codes = explode(',',$codes);
-
-/*echo '<pre>';
-print_r(array_count_values($codes));
-echo '</pre>';*/
 $salida =
 
 '<!DOCTYPE html>
@@ -25,7 +23,7 @@ $salida =
 		</tr>
 	</thead>
 	<tbody>';
-		
+
 		if(count($codes)){
 			foreach($codes as $k=>$code){
 				$salida .= '<tr>';
@@ -56,4 +54,3 @@ if(is_file("codestemp.xls")){
 }else{
 	echo '<p >Hubo un error al procesar su solicitud. <br />Inténtalo nuevamente en unos minutos. <br /><br />Si el problema persiste contacta con el administrador del sitio.</p>';
 }
-?>

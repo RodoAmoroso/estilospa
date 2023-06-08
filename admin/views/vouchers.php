@@ -144,6 +144,7 @@
 
 					<!-- MULTIPLE -->
 					<div id="block_multiple" class="dp-none">
+
 						<div class="form-group">
 							<label for="">Cantidad</label>
 							<div class="input-group">
@@ -154,14 +155,14 @@
 							</div>
 						</div>
 
-						<div id="code_list" class="well list-group mod-container-sm"></div>
+						<!-- <div id="code_list" class="well list-group mod-container-sm"></div> -->
+						<input type="text" name="codes" value="" class="form-control" >
 
-						<form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
+						<!-- <form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
 							<button class="btn btn-xs btn-success"><i class="fa fa-download fa-fw"></i> Exportar códigos</button>
-							<input type="hidden" name="codes" value="[]" >
-						</form>
+						</form> -->
 
-						<p class="sz-9">Una vez establecido el/los códigos no podrán cambiarse al editar el voucher.</p>
+						<p class="sz-9">Una vez establecido el/los códigos no podrán cambiarse al editar el voucher. Se podrán exportar luego de haber creado el voucher.</p>
 
 					</div>
 

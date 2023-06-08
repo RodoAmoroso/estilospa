@@ -222,6 +222,7 @@ class Vouchers {
 	}
 
 	public function save(){
+
 		$sql = array(
 			'isunique'=>Input::get('IsUnique'),
 			'name'=>Input::get('Name'),
@@ -231,42 +232,74 @@ class Vouchers {
 			'finish'=>Input::get('Finish')
 		);
 
-		echo_json(Input::get_all());
 
 		if(Input::get('ID')){ #update
-			if($this->_db->update('vouchers',Input::get('ID'),$sql)){
-				$this->_lastid = Input::get('ID');
-				///////////////////////////////////////////////////////////////////////
-				$this->_db->delete('vouchers_assoc',array('idvoucher','=',$this->_lastid));
-				if(count(Input::get('Promos'))){
+
+			if(!$this->_db->update('vouchers',Input::get('ID'),$sql)) return false;
+
+				$voucherid = Input::get('ID');
+				$this->_db->delete('vouchers_assoc',['idvoucher','=',$voucherid]);
+
+				if(is_array(Input::get('Promos'))){
+					$promo_values = [];
 					foreach(Input::get('Promos') as $promo){
-						$this->_db->insert('vouchers_assoc',array('idpromo'=>$promo,'idvoucher'=>$this->_lastid));
+						$promo_values[] = [
+							$promo,$voucherid
+						];
+					}
+					$this->_db->insertmultiple('vouchers_assoc',[
+						'idpromo','idvoucher'
+					],$promo_values);
+				}
+
+				if(is_array(Input::get('Promos'))){
+					foreach(Input::get('Promos') as $promo){
+						$this->_db->insert('vouchers_assoc',array('idpromo'=>$promo,'idvoucher'=>$voucherid));
 					}
 				}
-				///////////////////////////////////////////////////////////////////////
-				return true;
-			}
 		}else{ #insert
+
 			$sql['added'] = date('Y-m-d H:i:s');
-			if($this->_db->insert('vouchers',$sql)){
-				$this->_lastid = $this->_db->getLastId();
-				$arrcodes = explode(',',Input::get('Codes'));
-				if(count($arrcodes)){
-					foreach($arrcodes as $code){
-						$this->_db->insert('vouchers_codes',array('code'=>$code,'idvoucher'=>$this->_lastid));
-					}
+			if(!$this->_db->insert('vouchers',$sql)) return false;
+
+			$voucherid = $this->_db->getLastId();
+			$arrcodes = explode(',',Input::get('Codes'));
+
+			if(is_array($arrcodes)){
+				$code_values = [];
+				foreach($arrcodes as $code){
+					$code_values[] = [
+						$code,$voucherid
+					];
 				}
-				if(count(Input::get('Promos'))){
-					foreach(Input::get('Promos') as $promo){
-						$this->_db->insert('vouchers_assoc',array('idpromo'=>$promo,'idvoucher'=>$this->_lastid));
-					}
-				}
-				return true;
+
+				$this->_db->insertmultiple('vouchers_codes',[
+					'code','idvoucher'
+				],$code_values);
+
 			}
+
+			/*if(count($arrcodes)){
+				foreach($arrcodes as $code){
+					$this->_db->insert('vouchers_codes',array('code'=>$code,'idvoucher'=>$this->_lastid));
+				}
+			}*/
+			if(is_array(Input::get('Promos'))){
+				$promo_values = [];
+				foreach(Input::get('Promos') as $promo){
+					///$this->_db->insert('vouchers_assoc',array('idpromo'=>$promo,'idvoucher'=>$this->_lastid));
+					$promo_values[] = [
+						$promo,$voucherid
+					];
+				}
+				$this->_db->insertmultiple('vouchers_assoc',[
+					'idpromo','idvoucher'
+				],$promo_values);
+			}
+
 		}
 
-
-		return false;
+		return $voucherid;
 	}
 
 	public function getLastId(){

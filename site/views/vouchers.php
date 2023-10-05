@@ -1,5 +1,3 @@
-
-
 <section class="search-page bg-gray-5">
 	<div class="container">
 
@@ -17,11 +15,11 @@
 			<div class="promos-highlight">
 				<?php
 
-
 					if($Vouchers->data()): foreach($Vouchers->data() as $kp=>$voucher):
 
 						$Promos->find($voucher->idpromo);
 						$promo = $Promos->data();
+						if(!$promo->active) continue;
 
 						$promolink = ROOT.'promo/'.$promo->permalink.'/'.$promo->id.'-'.Permalink($promo->title);
 						$clientlink = ROOT.'centros/'.$promo->permalink;

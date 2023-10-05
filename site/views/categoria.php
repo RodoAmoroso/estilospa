@@ -76,7 +76,7 @@
 
 <section class="gral-section">
 	<div class="container text-center">
-		<h3>No pudimos encontrar experiencias que coincidan con <?= $category->name ?></h3>
+		<h3>No pudimos encontrar experiencias por el momento.</h3>
 	</div>
 </section>
 <?php endif; ?>

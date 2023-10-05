@@ -1,14 +1,24 @@
 <?php
 
-class MPConfig {
+require PATH.'/vendor/autoload.php';
 
-	private $_db,
-					$_data,
-					$_dbprefix,
-					$_lastid,
-					$_mplink,
-					$_hash,
-					$_error;
+class MPConfig extends Core{
+
+	/*
+	Mastercard	5031755734530604	123	11/25
+	Visa	4509953566233704 123	11/25
+	American Express	371180303257522 1234	11/25
+
+	APRO	Pago aprobado	(DNI) 12345678
+	OTHE	Rechazado por error general	(DNI) 12345678
+	CONT	Pendiente de pago	-
+	CALL	Rechazado con validación para autorizar	-
+	FUND	Rechazado por importe insuficiente	-
+	SECU	Rechazado por código de seguridad inválido	-
+	EXPI	Rechazado debido a un problema de fecha de vencimiento	-
+	FORM	Rechazado debido a un error de formulario
+	*/
+
 
 	public 	$arrfields=array(),
 					$idclient=0,
@@ -16,10 +26,12 @@ class MPConfig {
 
 
 					//Producción
-					$notification_url = ROOT.'ipn.php',
-					$app_id='7300466898804487',
+					/*$app_id='7300466898804487',
 					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';
+					$notification_url = ROOT.'ipn.php',
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
+
+
 
 					//$app_id='389403748152273',
 					//$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj',
@@ -27,10 +39,13 @@ class MPConfig {
 
 
 					//Test Localhost
-					/*$notification_url = 'https://www.estilospa.com/test-ipn.php',
+
+					$notification_url = 'https://webhook.site/799eeee2-b1cd-4cbf-8e64-4abfaccb5bf8',
+					$access_token='TEST-389403748152273-070520-1890d82af8a41b80904fb788b903ccdd__LD_LB__-263157583',
+					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
 					$app_id='7030611358224519',
-					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';*/
+					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN';
+
 
 					//Test Demo
 					//$notification_url = ROOT.'ipn.php',
@@ -44,9 +59,17 @@ class MPConfig {
 					//$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838';
 
 
-	public function __construct(){
-		$this->_dbprefix = Config::get('mysql/prefix');
-		$this->_db = DB::getInstance();
+	public function __construct($access_token=false){
+		//$this->_dbprefix = Config::get('mysql/prefix');
+		//$this->_db = DB::getInstance();
+
+		///
+		if(!$access_token) MercadoPago\SDK::setAccessToken($this->access_token);
+
+		$this->Promos = new Promos;
+		$this->Clients = new Clients;
+		$this->set_hash();
+		parent::__construct();
 	}
 
 	public function find($idclient=0){
@@ -114,7 +137,7 @@ class MPConfig {
 				}
 			}
 		}
-		require PATH.'/vendor/autoload.php';
+
 
 		//$mp = new MP($this->_data->access_token); // seller access_token
 
@@ -206,6 +229,9 @@ class MPConfig {
 		return $this->_mplink;
 	}
 
+	public function set_hash(){
+		$this->_hash = hash('sha256', date('YmdHis').rand(1111,9999));
+	}
 	public function hash(){
 		return $this->_hash;
 	}
@@ -220,6 +246,7 @@ class MPConfig {
 	public function data(){
 		return $this->_data;
 	}
+
 
 	public function renewtoken($idclient=0){
 
@@ -319,6 +346,157 @@ class MPConfig {
 			}
 		}
 		return $output;
+	}
+
+
+	///new methods
+	public function create_preference(){
+
+		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
+		// Crear un objeto de preferencia
+
+		$this->Promos->find(Input::get('promoid'));
+		if(!$promo = $this->Promos->data()) return false;
+		$client_access_token = $this->get_access_token($promo->idclient);
+		if(!$client_access_token){
+			MercadoPago\SDK::setAccessToken($client_access_token);
+		}
+		//echo_json($integration);
+
+		// Crear un elemento en la preferencia
+		$item = new MercadoPago\Item();
+		$item->id = $promo->id;
+		$item->title = $promo->title." - ".$promo->clientname;
+		$item->quantity = Input::get('amount','int');
+		$item->currency_id = "ARS";
+		$item->unit_price = Input::get('amount','float');
+		$item->category_id = 'services';
+
+		$preference = new MercadoPago\Preference();
+		$preference->items = array($item);
+		// el $preference->purpose = 'wallet_purchase'; solo permite pagos registrados
+		// para permitir pagos de guests, puede omitir esta propiedad
+		$preference->purpose = 'wallet_purchase';
+
+
+		/// Crear vencimiento para el pago
+		$now = new DateTimeImmutable;
+		$preference->expires = true;
+		$preference->expiration_date_from = $now->format('c');
+		$preference->expiration_date_to = $now->modify('+1 hours')->format('c');
+
+
+		//$preference->notification_url = ROOT.'ipn.php';
+		$preference->notification_url = $this->notification_url.'?idclient='.$promo->idclient;
+		$preference->external_reference = $this->_hash;
+		$preference->back_urls = array(
+			'success'=>ROOT.'pago-status/success/'.$this->_hash,
+			'failure'=>ROOT.'pago-status/failure/'.$this->_hash,
+			'pending'=>ROOT.'pago-status/pending/'.$this->_hash
+		);
+		$preference->auto_return = "approved";
+
+		$preference->save();
+		///echo_json($preference);
+
+		return [
+			'id'=>$preference->id,
+			'external_reference'=>$this->_hash,
+		];
+
+	}
+	public function create_payment(){
+
+		global $User;
+		if(!$User->logged()) return false;
+		$userdata = $User->data();
+
+
+		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
+		$this->Promos->find(Input::get('promoid'));
+		if(!$promo = $this->Promos->data()) return false;
+		$client_access_token = $this->get_access_token($promo->idclient);
+		if(!$client_access_token){
+			MercadoPago\SDK::setAccessToken($client_access_token);
+		}
+
+		$hash = Input::get('preference')['external_reference'];
+
+		$payment = new MercadoPago\Payment();
+		$payment->transaction_amount = (float) Input::get('formData')['transaction_amount'];
+		$payment->token = Input::get('formData')['token'];
+		$payment->installments = (int) Input::get('formData')['installments'];
+		$payment->payment_method_id = Input::get('formData')['payment_method_id'];
+		$payment->issuer_id = Input::get('formData')['issuer_id'];
+
+		$payment->external_reference = $hash;
+		$payment->description = $promo->title." - ".$promo->clientname;
+
+		$payer = new MercadoPago\Payer();
+		$payer->email = Input::get('formData')['payer']['email'];
+		$payer->identification = array(
+		  "type" => Input::get('formData')['payer']['identification']['type'],
+		  "number" => Input::get('formData')['payer']['identification']['number']
+		);
+
+		$payment->payer = $payer;
+
+		///echo_json(Input::get_all());
+
+		try {
+			$payment->save();
+		} catch (Exception $e) {
+			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
+			return false;
+		}
+
+		if($payment->Error()){
+			$this->response = $payment->Error()->message;
+			return false;
+		}
+
+		///echo_json($payment->status);
+
+		if($payment->status!='approved' && $payment->status!='in_process'){
+			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
+			$this->response .= '<p><b>'.$payment->status.'</b> '.$payment->Error().'</p>';
+			return false;
+		}
+		if($payment->status=='in_process'){
+			return [
+				'status'=>$payment->status,
+				'status_detail'=>$payment->status_detail,
+				'id'=>$payment->id,
+				'url_thanks'=>ROOT.'pago-status/pending/'.$hash
+			];
+		}
+
+
+		$Sales = new Sales();
+		if(!$Sales->create_temp(array(
+			'iduser'=>$userdata->id,
+			'idclient'=>$promo->idclient,
+			'idpromo'=>$promo->id,
+			'idcode'=>Input::get('voucher')!=='false' ? Input::get('voucher')['codeid'] : null,
+			//'reservationid'=>Input::get('reservationid'),
+			'quantity'=>Input::get('amount'),
+			'price'=>$promo->price_w_discount,
+			'hash'=>$hash,
+			'added'=>date('Y-m-d H:i:s')
+		))) return false;
+
+
+		return [
+			'status'=>$payment->status,
+			'status_detail'=>$payment->status_detail,
+			'id'=>$payment->id,
+			'hash'=>$payment->external_reference,
+			'url_thanks'=>ROOT.'pago-status/success/'.$hash
+		];
+
+	}
+	public function get_response(){
+		return $this->response;
 	}
 
 

@@ -30,7 +30,7 @@
 
 						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small>
 
-						<?php if($sale->collection_status=='approved'): ?>
+						<?php if($sale->collection_status=='approved' && $sale->status!=3): ?>
 						<a href="<?=View::url('compra',$sale->id)?>" class="text-fucsia btn-xs "><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 						<?php endif; ?>
 

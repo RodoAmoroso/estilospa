@@ -50,18 +50,12 @@ class Manager
         $this->_entityConfiguration[$className] = $this->_metadataReader->getMetaData($entity);
         return $this->_entityConfiguration[$className];
     }
-    
-    /** 
-     * @param string $method
-     * @param null   $parameters
-     *
-     * @return mixed
-     */
-    public function simple_execute($method)
+
+    protected function _updateEntityConfiguration($entity, $new_configuration)
     {
-      
+        $className = $this->_getEntityClassName($entity);
+        $this->_entityConfiguration[$className] = $new_configuration;
     }
-      
       
     public function addCustomTrackingParam($key, $value)
     {
@@ -75,8 +69,9 @@ class Manager
      *
      * @return mixed
      */
-    public function execute($entity, $method = 'get')
+    public function execute($entity, $method = 'get', $options = [])
     {
+
         $configuration = $this->_getEntityConfiguration($entity);
 
         if ($method != 'get'){
@@ -85,16 +80,25 @@ class Manager
             } 
         }
 
+        $this->processOptions($options, $configuration);
+
         $this->_setDefaultHeaders($configuration->query);
         $this->_setCustomHeaders($entity, $configuration->query);
         //$this->_setIdempotencyHeader($configuration->query, $configuration, $method);
         $this->setQueryParams($entity);
-
-        
-        
         
         return $this->_client->{$method}($configuration->url, $configuration->query);
     }
+
+    public function processOptions($options, $configuration)
+    { 
+        $configuration_vars = $this->_config->all();
+
+        foreach($options as $option => $value) {
+            $configuration->query["url_query"][$option] = $value;
+        }
+    }
+
     public function validateAttribute($entity, $attribute, array $properties, $value = null)
     {
         $configuration = $this->_getEntityConfiguration($entity);
@@ -135,16 +139,20 @@ class Manager
         $url = $this->_entityConfiguration[$className]->methods[$ormMethod]['resource'];
         $matches = [];
         preg_match_all('/\\:\\w+/', $url, $matches);
+
+        $configuration_vars = $this->_config->all();
         
         foreach ($matches[0] as $match) {
           $key = substr($match, 1);
 
             if (array_key_exists($key, $params)) {
                 $url = str_replace($match, $params[$key], $url);
+            } elseif (array_key_exists(strtoupper($key), $configuration_vars)) {
+                $url = str_replace($match, $configuration_vars[strtoupper($key)], $url);
             } elseif (!empty($entity->$key)) {
                 $url = str_replace($match, $entity->$key, $url);
             } else {
-                $url = str_replace($match, $entity->{$key}, $url);
+                $url = str_replace($match, $entity->{$key} ?? '', $url);
             }
         }
         $this->_entityConfiguration[$className]->url = $url;
@@ -210,6 +218,7 @@ class Manager
         $this->_attributesToJson($entity, $result, $this->_entityConfiguration[$className]);
         $this->_entityConfiguration[$className]->query['json_data'] = json_encode($result);
     }
+
     public function setRawQueryJsonData($entity, $data)
     {
       $className = $this->_getEntityClassName($entity);
@@ -255,22 +264,20 @@ class Manager
     public function setQueryParams($entity, $urlParams = [])
     {
         $configuration = $this->_getEntityConfiguration($entity);
-        $params = [];
 
-        
-        
         if (!isset($configuration->query) || !isset($configuration->query['url_query'])) {
-            $configuration->query['url_query'] = $params;
+            $configuration->query['url_query'] = [];
         }
+
+        $params = [];
         if (isset($configuration->params)) {
             foreach ($configuration->params as $value) {
                 $params[$value] = $this->_config->get(strtoupper($value));
             }
-            if (count($params) > 0) {
-                $arrayMerge = array_merge($urlParams, $params, $configuration->query['url_query']);
-                $configuration->query['url_query'] = $arrayMerge;
-            }
         }
+
+        $arrayMerge = array_merge($urlParams, $params, $configuration->query['url_query']);
+        $configuration->query['url_query'] = $arrayMerge;
     }
     /**
      * @param $entity
@@ -280,7 +287,9 @@ class Manager
     protected function _attributesToJson($entity, &$result)
     {
       if (is_array($entity)) {             
-          $attributes = array_filter($entity); 
+          $attributes = array_filter($entity, function($entity) {
+              return ($entity !== null && $entity !== false && $entity !== '');
+          });
       } else { 
           $attributes = $entity->toArray();
       }
@@ -289,7 +298,7 @@ class Manager
            if ($value instanceof Entity || is_array($value)) {
                $this->_attributesToJson($value, $result[$key]);
            } else {
-             if ($value != null){
+             if ($value != null || is_bool($value) || is_numeric($value)){
                $result[$key] = $value;
              } 
            } 
@@ -297,33 +306,24 @@ class Manager
     }
 
     protected function _arrayDiffRecursive($firstArray, $secondArray)
-    { 
+    {
         $difference = [];
-        foreach ($firstArray as $firstKey => $firstValue) {
-            
-            if ($firstValue instanceof Entity){
-                $firstValue = $firstValue->toArray();
+
+        foreach (array_keys($secondArray) as $key) {
+            $secondArray[$key] = $secondArray[$key] instanceof MercadoPagoEntity ? $secondArray[$key]->toArray() : $secondArray[$key];
+            if (array_key_exists($key, $firstArray) && $firstArray[$key] instanceof MercadoPagoEntity){
+                $firstArray[$key] = $firstArray[$key]->toArray();
             }
-            
-            if (is_array($firstValue)) {
-                if (!array_key_exists($firstKey, $secondArray) || !is_array($secondArray[$firstKey])) {
-                    
-                } else {
-                    $secondValue = $secondArray[$firstKey];
-                    if ($secondValue instanceof Entity){
-                        $secondValue = $secondValue->toArray();
-                    }
-                    $newDiff = $this->_arrayDiffRecursive($firstValue, $secondValue);
-                    if (!empty($newDiff)) {
-                        $difference[$firstKey] = $newDiff;
-                    }
+
+            if (!array_key_exists($key, $firstArray)){
+                $difference[$key] = $secondArray[$key];
+            }elseif (is_array($firstArray[$key]) && is_array($secondArray[$key])) {
+                $newDiff = $this->_arrayDiffRecursive($firstArray[$key], $secondArray[$key]);
+                if (!empty($newDiff)) {
+                    $difference[$key] = $newDiff;
                 }
-            } else {
-                if (!array_key_exists($firstKey, $secondArray) || $secondArray[$firstKey] != $firstValue) {
-                    if ($firstKey != "_last") {
-                        $difference[$firstKey] = $secondArray[$firstKey];
-                    }
-                }
+            }elseif ($firstArray[$key] !== $secondArray[$key]){
+                $difference[$key] = $secondArray[$key];
             }
         }
         return $difference;
@@ -397,7 +397,9 @@ class Manager
     {
         $query['headers']['Accept'] = 'application/json';
         $query['headers']['Content-Type'] = 'application/json';
-        $query['headers']['User-Agent'] = 'Mercado Pago Php SDK v' . Version::$_VERSION;
+        $query['headers']['User-Agent'] = 'MercadoPago DX-PHP SDK/ v'. Version::$_VERSION;
+        $query['headers']['x-product-id'] = 'BC32A7RU643001OI3940';
+        $query['headers']['x-tracking-id'] = 'platform:' . PHP_MAJOR_VERSION .'|' . PHP_VERSION . ',type:SDK' . Version::$_VERSION . ',so;';
         foreach ($this->_customTrackingParams as $key => $value){ 
             $query['headers'][$key] = $value;
         }

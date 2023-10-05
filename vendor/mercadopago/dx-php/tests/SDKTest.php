@@ -44,4 +44,15 @@ class ConfigTest extends TestCase
         $this->assertNotNull(MercadoPago\SDK::getAccessToken());
     }
 
+    public function testSetMultipleAT(){
+        MercadoPago\SDK::setMultipleCredentials(
+            array(
+                "mla" => "MLA_AT",
+                "mlb" => "MLB_AT"
+            )
+        );
+        $this->assertNotNull(MercadoPago\SDK::config()->getData()['mla']);
+        $this->assertNotNull(MercadoPago\SDK::config()->getData()['mlb']);
+    }
+
 }

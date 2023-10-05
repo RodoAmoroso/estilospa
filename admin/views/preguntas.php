@@ -61,8 +61,9 @@
 						</small>
 
 					</div>
-					<div class="buttons">
-						<button class="btn btn-xs btn-white text-pink-3" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash"></i></button>
+					<div class="buttons btn-group btn-group-xs" style="width:80px;">
+						<button class="btn btn-danger" data-btn="delete-question" data-id="<?=$question->id?>" title="borrar pregunta"><i class="fa fa-trash fa-fw"></i></button>
+						<button class="btn btn-primary" data-btn="reply-question" data-id="<?=$question->id?>" title="responder pregunta"><i class="fa fa-comments fa-fw"></i></button>
 					</div>
 				</div>
 
@@ -71,9 +72,20 @@
 				<h5 class="response-title text-gray-50">Respuestas:</h5>
 				<?php foreach($question->responses as $response): ?>
 				<div class="question-box response">
-					<div class="thumb thumb-cover" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>
+
+					<?php if($response->client): ?>
+					<div class="thumb thumb-contain" style="background-image:url(<?=$response->client->imagery->logo?>)"></div>
+					<?php else: ?>
+					<div class="thumb thumb-contain" style="background-image:url(<?= View::assets('estilospa-logo-square.jpg'); ?>)"></div>
+					<?php endif; ?>
+
 					<div class="message">
+						<?php if($response->client): ?>
 						<a href="<?=ROOT.'centros/'.$response->client->permalink ?>" target="_blank"><?=$response->client->name?></a>
+						<?php else: ?>
+						<div>EstiloSpa</div>
+						<?php endif; ?>
+
 						<p><?=$response->message?></p>
 						<small>Enviada: <?=$response->creado?> hs.</small>
 					</div>

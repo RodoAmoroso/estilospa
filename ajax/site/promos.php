@@ -7,11 +7,13 @@ $User = new User();
 $Sales = new Sales();
 $Mailing = new Mailing();
 
+$MPConfig = new MPConfig;
+
 if(!Input::check(Input::get('required'))) die(Responses::response('required'));
 
 switch($_action){
 
-	case 'getmplink':
+	case 'getmplinkx':
 
 		$idpromo = intval(Input::get('idpromo'));
 		$amount = intval(Input::get('amount'));
@@ -82,6 +84,30 @@ switch($_action){
 			'added'=>date('Y-m-d H:i:s')
 		));
 		echo Responses::response('ok');
+		break;
+
+
+
+	case 'get-mp-preference':
+
+		if(!$User->logged()) die(Responses::response('restricted'));
+		if(!$preference = $MPConfig->create_preference()) die(Responses::response('fail'));
+
+		echo Responses::response('ok','',[
+			'preference'=>$preference,
+			'user'=>[
+				'email'=>$User->data()->mail,
+				'id'=>$User->data()->id,
+				'fullname'=>$User->data()->fullname,
+				'name'=>$User->data()->name,
+				'lastname'=>$User->data()->lastname
+			]
+		]);
+		break;
+	case 'checkout-mp':
+		if(!$User->logged()) die(Responses::response('restricted'));
+		if(!$response = $MPConfig->create_payment()) die(Responses::response('fail'));
+		echo Responses::response('ok','',['response'=>$response]);
 		break;
 
 

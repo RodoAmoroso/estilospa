@@ -1,8 +1,8 @@
 var reservation = {
 	delete:function(){
-		var post = get_form('#form_reservation');
+		var post = get_form('[data-form="cancel-reservation"]');
 		ajax('site/reservations/delete',post)
-			.then(function(data){				
+			.then(function(data){
 				Swal.fire({
 					type:'success',
 					text:message,

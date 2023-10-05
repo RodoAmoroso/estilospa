@@ -27,6 +27,7 @@ class Clients {
 	}
 
 	public function find($client=0){
+		if(!$client) return false;
 		$field = is_numeric($client) ? 'c.id' : 'c.permalink';
 		//$this->_db->get('clients',array($field,'=',$client));
 		$this->_db->query("SELECT c.*, p.fee, p.promos

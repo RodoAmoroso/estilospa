@@ -48,6 +48,10 @@ class Promos {
 		$this->_data->glossary = $this->get_glossary($id);
 		$this->_data->image = $this->get_image($this->_data->gallery);
 		$this->_data->url = ROOT.'promo/'.$this->_data->permalink.'/'.$this->_data->id.'-'.Permalink($this->_data->title);
+
+		$this->_data->price_w_discount = $this->_data->price-($this->_data->price*$this->_data->discount/100);
+
+		$this->_data->active = (bool) $this->_data->statusstart && $this->_data->statusfinish;
 		return true;
 
 	}

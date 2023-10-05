@@ -19,7 +19,7 @@ class Mailing {
 		$this->_mailer->SMTPDebug = false;
 		$this->_mailer->CharSet = 'UTF-8';
 		$this->_mailer->isSMTP();
-		$this->_mailer->Host = 'warao.lineadns.com';
+		$this->_mailer->Host = 'mail.estilospa.com';
 		$this->_mailer->SMTPAuth = true;
 		$this->_mailer->Username = 'noresponder@estilospa.com';
 		$this->_mailer->Password = 'hOFSVeoUC7mu';
@@ -130,6 +130,7 @@ class Mailing {
 		$obj->question = $question->message;
 		$obj->questionid = $questionid;
 		$obj->question_date = $question->creado;
+
 
 		switch ($question->type) {
 
@@ -250,14 +251,25 @@ class Mailing {
 		$obj->response = $response->message;
 		$obj->response_date = $response->creado;
 
+		/// RESPUESTA DEL CENTRO
 		switch ($question->type) {
 			case 'promos':
-				if(!$Promos->find($question->rowid)) return false;
+				if(!$Promos->find($question->rowid)) {
+					$this->response = 'No se pudo encontrar la promo.';
+					return false;
+				}
 				$promo = $Promos->data();
-				if(!$Clients->find($promo->idclient)) return false;
+				if(!$Clients->find($promo->idclient)){
+					$this->response = 'No se pudo encontrar el cliente.';
+					return false;
+				}
 				$client = $Clients->data();
 
 				$obj->client = $client;
+
+				if($response->client){
+
+				}
 				$obj->promo = $promo;
 
 				$obj->client_link = ROOT.'centros/'.$client->permalink;
@@ -299,11 +311,19 @@ class Mailing {
 
 				$Assoc->iduser = $response->userid;
 				$Assoc->client_user('get');
-				if(!$assoc = $Assoc->data()) return false;
-				if(!$Clients->find($assoc[0]->idclient)) return false;
-				$obj->client = $Clients->data();
+				$obj->client = new stdClass;
+				if($assoc = $Assoc->data()) {
+					return false;
+					if(!$Clients->find($assoc[0]->idclient)) return false;
+					$obj->client = $Clients->data();
+					$obj->client_link = ROOT.'centros/'.$obj->client->permalink;
+				}else{
+					$obj->client = (object) [
+						'client_link'=>ROOT,
+						'name'=>'EstiloSPA'
+					];
+				}
 
-				$obj->client_link = ROOT.'centros/'.$obj->client->permalink;
 
 				$body = Templates::template('questions/response-glossary',$obj);
 

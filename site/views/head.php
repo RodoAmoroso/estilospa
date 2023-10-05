@@ -57,6 +57,8 @@
 	<meta name="twitter:description" content="<?= $_DESCRIPTION ?>" />
 	<meta name="twitter:image:src" content="<?= ROOT.$_IMGFACEBOOK ?>" />
 
+	<meta name="facebook-domain-verification" content="l2zx8db4sq2njoo49xdot3gj0wteep" />
+
 	<script>
 		var ROOT = '<?= ROOT ?>';
 		var PAGENAME = '<?= PAGENAME ?>';
@@ -76,6 +78,15 @@
 	ga('send', 'pageview');
 	</script>
 
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-124Y0RV7PH"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', 'G-124Y0RV7PH');
+	</script>
+
 
 	<!-- Facebook Pixel Code -->
 	<script>
@@ -87,11 +98,11 @@
 	t.src=v;s=b.getElementsByTagName(e)[0];
 	s.parentNode.insertBefore(t,s)}(window, document,'script',
 	'https://connect.facebook.net/en_US/fbevents.js');
-	fbq('init', '2625780054142690');
+	fbq('init', '594316039509446');
 	fbq('track', 'PageView');
 	</script>
 	<noscript><img height="1" width="1" style="display:none"
-	src="https://www.facebook.com/tr?id=2625780054142690&ev=PageView&noscript=1"
+	src="https://www.facebook.com/tr?id=594316039509446&ev=PageView&noscript=1"
 	/></noscript>
 	<!-- End Facebook Pixel Code -->
 

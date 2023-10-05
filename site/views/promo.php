@@ -2,6 +2,7 @@
 	var IDPromo = <?= $Promos->data()->id ?>;
 	var IDClient = <?= $Promos->data()->idclient ?>;
 	var islogged = <?= $User->logged() ? 1 : 0 ?>;
+	var hasVoucher = <?= $has_voucher ? 1 : 0 ?>;
 </script>
 
 <section class="promo">
@@ -55,72 +56,64 @@
 				<hr>
 
 
-				<!-- PRICE -->
-				<div class="pricing">
+				<div class="row d-flex align-items-center flex-wrap">
+					<div class="col-lg-6">
 
-					<!-- PRICING -->
-					<?php if($Promos->data()->sale): ?>
+						<!-- PRICE -->
+						<div class="pricing">
 
-						<?php if($Promos->data()->discount): ?>
-						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
-						<?php endif; ?>
+							<!-- PRICING -->
+							<?php if($Promos->data()->sale): ?>
 
-					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),0,',','.') ?></strong></div>
+								<?php if($Promos->data()->discount): ?>
+								<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
+								<?php endif; ?>
 
-					<!-- AMOUNT -->
-					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
+							<div class="promo-price" data-toggle="price" data-value="<?= $Promos->data()->price_w_discount ?>" >$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),0,',','.') ?></div>
 
-					<?php endif; ?>
-
-
-				</div>
-
-
-				<!-- SHOP -->
-				<div class="shop-action">
-
-					<?php if($showsalebuttons): ?>
-					<div class="amount">
-						<select id="select_amount" type="text" class="form-control">
-							<?php for($i=1; $i<=15; $i++): ?>
-							<option value="<?= $i ?>"><?= $i ?></option>
-							<?php endfor; ?>
-						</select>
-					</div>
-					<?php endif; ?>
-
-					<div class="button-action">
-						<?php if($showsalebuttons): ?>
-						<div class="highlight-button" >
-							<i class="fa fa-shopping-bag fa-fw"></i>
-							<span <?= $User->logged() && $showsalebuttons ? 'data-action="sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar!</span> <i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
-						</div>
-						<?php else: ?>
-						<div class="highlight-button" >
-							<i class="fa fa-envelope fa-fw"></i>
-							<span data-toggle="scrollto" data-target="#form_question">Consultar!</span>
-							<i class="fa fa-caret-down" data-toggle="collapse" data-target="#btn_list" ></i>
-						</div>
-						<?php endif; ?>
-
-						<ul id="btn_list" class="btn-list collapse">
-							<?php if($showsalebuttons): ?>
-
-							<li data-toggle="scrollto" data-target="#form_question" ><i class="fa fa-envelope fa-fw"></i> <span>Consultar</span></li>
+							<!-- AMOUNT -->
+							<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
 
 							<?php endif; ?>
 
-							<?php if($Clients->data()->show_reservation): ?>
-							<li data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> <span>Reservar</span></li>
-							<?php endif; ?>
 
-
-						</ul>
-
-
+						</div>
 					</div>
+					<div class="col-lg-6">
 
+						<!-- SHOP -->
+						<div class="shop-action">
+
+							<div class="button-action d-flex align-items-center justify-space-between flex-wrap wd-100">
+
+								<?php if($showsalebuttons): ?>
+
+								<?php if($User->logged()): ?>
+								<a href="<?= View::url('comprar-experiencia-mp',$Promos->data()->id) ?>" class="btn btn-primary btn-lg btn-block"><i class="fa fa-shopping-bag fa-fw"></i> Comprar Ahora!</a>
+								<?php else: ?>
+								<button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#modal_not_logged"><i class="fa fa-shopping-bag fa-fw"></i> Comprar Ahora!</button>
+								<?php endif; ?>
+
+								<?php endif; ?>
+
+
+								<button class="btn btn-default btn-block" data-toggle="scrollto" data-target="#form_question"><i class="fa fa-comments fa-fw"></i> Consultar</button>
+
+								<?php if($Clients->data()->show_reservation): ?>
+								<button class="btn btn-default btn-block" data-toggle="modal" data-target="#modal_reservation"><i class="fa fa-calendar fa-fw"></i> Reservar</button>
+								<?php endif; ?>
+
+							</div>
+
+
+
+						</div>
+					</div>
 				</div>
+
+
+
+
 
 				<hr>
 
@@ -201,13 +194,6 @@
 
 		</div>
 
-		<div class="block-white d-none">
-			<h4 class="title-bar">Validez</h4>
-			<p class="stores"><i class="fa fa-calendar fa-fw"></i> Disponible online hasta <?= $Promos->data()->fin ?></p>
-			<!--<p>La promo tiene una duración de 30 días a partir de la fecha de compra.</p>-->
-			<p class="alert alert-success"><b>COMPRA AHORA</b>, vigencia garantizada extendida.</p>
-		</div>
-
 		<?php if($Promos->data()->sale): ?>
 		<div class="block-white">
 			<h4 class="title-bar">¿Cómo Comprar?</h4>
@@ -219,38 +205,6 @@
 		</div>
 
 		<?php endif; ?>
-
-
-		<div class="main-wrapper">
-			<div class="info-wrapper">
-
-				<!-- PRICE -->
-				<div class="pricing">
-					<!-- PRICING -->
-					<?php if($Promos->data()->sale): ?>
-						<?php if($Promos->data()->discount): ?>
-						<div class="promo-discount"><span class="strikethrough">$ <?= number_format($Promos->data()->price,0,',','.') ?></span> - <span class="sz-11"><?= $Promos->data()->discount ?>% Off</span></div>
-						<?php endif; ?>
-					<div class="promo-price"><strong>$ <?= number_format($Promos->data()->price-($Promos->data()->price*$Promos->data()->discount/100),0,',','.') ?></strong></div>
-					<!-- AMOUNT -->
-					<div class="stock"><small><?= $Promos->data()->amount ? $Promos->data()->amount.' disponibles' : 'Lo sentimos, ya no hay más disponibles' ?></small></div>
-					<?php endif; ?>
-				</div>
-
-				<!-- SHOP -->
-				<div class="shop-action">
-
-					<?php if($showsalebuttons): ?>
-					<button class="btn btn-primary" >
-						<i class="fa fa-shopping-bag fa-fw"></i>
-						<span <?= $User->logged() && $showsalebuttons ? 'data-action="sale"' : '' ?> data-toggle="modal" data-target="<?= $User->logged() ? '' : '#modal_not_logged' ?>" >Comprar Ahora!</span>
-					</button>
-					<?php endif; ?>
-
-				</div>
-
-			</div>
-		</div>
 
 
 		<!-- QUESTIONS -->
@@ -277,7 +231,7 @@
 			</div>
 			<div class="modal-body ff-futuralight" >
 
-				<form id="form_reservation">
+				<form data-form="reservation">
 
 					<div class="row">
 						<div class="col-md-6">
@@ -441,8 +395,8 @@
 
 
 <?php
-$Vouchers->status = '1:1';
-if($Vouchers->getpromo($Promos->data()->id)):
+
+if($has_voucher):
 ?>
 <!-- MODAL VOUCHER -->
 <div id="modal_voucher" class="modal fade">
@@ -458,7 +412,7 @@ if($Vouchers->getpromo($Promos->data()->id)):
 						<p class="sz-11">Si tienes un código para esta experiencia puedes aplicarlo para obtener un descuento en la compra.</p>
 						<hr>
 
-						<form id="form_voucher_apply" class="form-group">
+						<form data-form="apply-voucher" class="form-group">
 							<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
 							<label for="fd_voucher_code">Ingresar código</label>
 							<div class="input-group">

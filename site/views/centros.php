@@ -300,7 +300,7 @@
 			</div>
 			<div class="modal-body ff-futuralight" >
 
-				<form id="form_reservation">
+				<form data-form="reservation">
 
 					<div class="row">
 						<div class="col-md-6">

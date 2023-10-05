@@ -146,7 +146,6 @@ switch($_action):
 		$values = array(
 			'name'=>Input::get('name'),
 			'lastname'=>Input::get('lastname'),
-			'birth'=>Input::get('birth_year').'-'.Input::get('birth_month').'-'.Input::get('birth_day'),
 			'newsletter'=>Input::get('newsletter'),
 			'address'=>Input::get('address'),
 			'addressobs'=>Input::get('addressObs'),
@@ -156,6 +155,10 @@ switch($_action):
 			'phone'=>Input::get('phone'),
 			'dni'=>Input::get('dni')
 		);
+
+		if(Input::get('birth_year') && Input::get('birth_month') && Input::get('birth_day')){
+			$values['birth'] = Input::get('birth_year').'-'.Input::get('birth_month').'-'.Input::get('birth_day');
+		}
 
 		$password = Input::get('password');
 		$password_new = Input::get('password_new');

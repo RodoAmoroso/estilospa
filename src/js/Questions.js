@@ -6,7 +6,7 @@ class Questions {
 	}
 
 	paginate(){
-		if(this.results == false) return false;		
+		if(this.results == false) return false;
 		$(this.container).append('<div class="load-more"><a href="#" data-page="'+this.page+'">Cargar más</a></div>');
 	}
 
@@ -14,7 +14,7 @@ class Questions {
 	get(){
 
 		if(this.page==1) $(this.container).html('');
-	
+
 		ajax('site/questions/get',{
 			rowid:$(this.form).find('[name=rowid]').val(),
 			type:$(this.form).find('[name=type]').val(),
@@ -31,7 +31,7 @@ class Questions {
 				.then(templates=>{
 
 					if(data.results == false){
-						$(this.container).html('<p>Aún no se han hecho preguntas</p>'); 
+						$(this.container).html('<p>Aún no se han hecho preguntas</p>');
 						return false;
 					}
 					//console.log(data.results);
@@ -43,14 +43,22 @@ class Questions {
 						$module.find('[data-content=message]').html(v.message);
 						$module.find('[data-content=added]').text('Enviada: '+v.creado+' hs.');
 						if(v.responses!=false){
-							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>');							
+							$module.append('<h5 class="response-title text-gray-50">Respuestas:</h5>');
 							$.each(v.responses,(kr,vr)=>{
 								let $mod_response = $(templates[1]);
-								$mod_response.find('[data-content=client]').text(vr.client.name);
-								$mod_response.find('[data-content=client]').attr({href:ROOT+'centros/'+vr.client.permalink});
-								$mod_response.find('[data-content=thumb]').css({backgroundImage:'url('+vr.client.imagery.logo+')'});
+
+								if(vr.client){
+									$mod_response.find('[data-content=client]').text(vr.client.name);
+									$mod_response.find('[data-content=client]').attr({href:`${ROOT}centros/${vr.client.permalink}`});
+									$mod_response.find('[data-content=thumb]').css({backgroundImage:`url(${vr.client.imagery.logo})`});
+								}else{
+									$mod_response.find('[data-content=client]').text('EstiloSpa');
+									$mod_response.find('[data-content=client]').attr({href:`#`});
+									$mod_response.find('[data-content=thumb]').css({backgroundImage:`url(${ROOT}assets/estilospa-logo-square.jpg)`});
+								}
+
 								$mod_response.find('[data-content=response]').html(vr.message);
-								$mod_response.find('[data-content=added]').text('Enviada: '+vr.creado+' hs.');
+								$mod_response.find('[data-content=added]').text(`Enviada: ${vr.creado} hs.`);
 								$module.append($mod_response);
 							});
 
@@ -65,12 +73,12 @@ class Questions {
 						if(this.total_loaded < parseInt(data.total)){
 							this.paginate();
 						}
-						
+
 					});
 
 				});
 
-				
+
 			});
 	}
 
@@ -111,7 +119,7 @@ class Questions {
 		this.form = 'form' in this ? this.form : '#form_null';
 		this.form_response = 'form_response' in this ? this.form_response : '#form_null';
 		this.container = 'container' in this ? this.container : '#container_null';
-		
+
 		$(this.container).on('click','.load-more a', e => {
 			e.preventDefault();
 			var page = parseInt($(e.currentTarget).attr('data-page'));

@@ -1,7 +1,7 @@
 <?php
 
 $Questions = new Questions();
-$Questions->limit = 100;
+$Questions->limit = 250;
 
 $_where = Input::get('where');
 $_status = Input::get('status');

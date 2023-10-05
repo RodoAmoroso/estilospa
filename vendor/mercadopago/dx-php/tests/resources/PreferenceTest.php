@@ -11,15 +11,12 @@ class PreferenceTest extends \PHPUnit\Framework\TestCase
 
     public static function setUpBeforeClass()
     {
-        MercadoPago\SDK::cleanCredentials();
-
         if (file_exists(__DIR__ . '/../../.env')) {
             $dotenv = new Dotenv\Dotenv(__DIR__, '../../.env');
             $dotenv->load();
         }
-        
-        MercadoPago\SDK::setClientId(getenv('CLIENT_ID'));
-        MercadoPago\SDK::setClientSecret(getenv('CLIENT_SECRET')); 
+
+        MercadoPago\SDK::setAccessToken(getenv('ACCESS_TOKEN'));
 
     }
 
@@ -30,10 +27,9 @@ class PreferenceTest extends \PHPUnit\Framework\TestCase
 
         # Building an item
         $item = new MercadoPago\Item();
-        $item->id = "00001";
-        $item->title = "item"; 
+        $item->title = "item";
         $item->quantity = 1;
-        $item->unit_price = 100;
+        $item->unit_price = 100; 
 
         $preference->items = array($item);
         $preference->expiration_date_to = new DateTime('tomorrow');

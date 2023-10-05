@@ -286,6 +286,9 @@ let char_count = field => {
 		charcount.text('-'+chars);
 	});
 }
+var dom = function(el,classes=''){
+	return $('<'+el+'>').clone().addClass(classes);
+}
 var FormatDate = function(date) {
 	var month = String(date.getMonth() + 1);
 	var day = String(date.getDate());

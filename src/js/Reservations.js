@@ -9,7 +9,7 @@ class Reservations {
 	get_hours(){
 
 		$(this.container).find('.schedule .hours').html('');
-		
+
 		let activeday = $(this.container).find('.week .day[data-dayname].active').attr('data-dayname');
 		let day = $(this.container).find('.week .day[data-day].active').attr('data-day');
 		let month = $(this.container).find('[data-month]').attr('data-month');
@@ -24,11 +24,11 @@ class Reservations {
 			get_template('reservations/module-hour')
 		])
 			.then(promises=>{
-				
+
 				let data = promises[0];
 
 				if(data.hours.length == 0) return false;
-		
+
 				let min = '09:00';
 				let max = '21:00';
 				$.each(data.hours,(kk,vv)=>{
@@ -44,7 +44,7 @@ class Reservations {
 				let hourminmax = max.split(':');
 
 				for(let i=parseInt(hourminmin[0]); i<=parseInt(hourminmax[0]); i++){
-					
+
 					let $template = $(promises[1]);
 					$template.attr('data-hour',i+':00').find('.number').text(i+':00 hs.');
 					$(this.container).find('.schedule .hours').append($template);
@@ -52,13 +52,13 @@ class Reservations {
 					if(i<parseInt(hourminmax[0])){
 						$template = $(promises[1]);
 						$template.attr('data-hour',i+':30').find('.number').text(i+':30 hs.');
-						$(this.container).find('.schedule .hours').append($template);						
+						$(this.container).find('.schedule .hours').append($template);
 					}
-					
+
 				}
 
 				$.each(data.taken_days,(kk,vv)=>{
-					$(this.container).find('.schedule .hours .hour[data-hour="'+vv.hora+':'+(vv.minutos==0 ? '00' : vv.minutos)+'"]').addClass('disabled');					
+					$(this.container).find('.schedule .hours .hour[data-hour="'+vv.hora+':'+(vv.minutos==0 ? '00' : vv.minutos)+'"]').addClass('disabled');
 				});
 
 				let today = new Date();
@@ -73,12 +73,12 @@ class Reservations {
 						if(parseInt(arrtime[0]) <= today.getHours()+3){
 							$(this).addClass('disabled');
 						}
-					});					
+					});
 				}
 				if(selected_date.getTime()<today_date.getTime()){
 					$(this.container).find('.schedule .hours .hour').addClass('disabled');
 				}
-				
+
 
 
 			});
@@ -133,7 +133,7 @@ class Reservations {
 
 		$(this.container).on('click','.hours .hour:not(.disabled) .btn',btn => {
 			$('.calendar-promo .hours .btn').removeClass('active');
-			
+
 			$(btn.currentTarget).addClass('active');
 
 			let day = $(this.container).find('.week .day[data-day].active');
@@ -148,7 +148,30 @@ class Reservations {
 
 			if('callback' in this){
 				this.callback(this.datetime);
-			}			
+			}
+
+		});
+
+
+		$('[data-form="reservation"]').submit(function(e){
+			e.preventDefault();
+			var post = get_form(this);
+			if(post.date == ''){
+				Swal.fire({
+					type:'warning',
+					text:'Te falta seleccionar un día y un horario'
+				});
+				return false;
+			}
+			ajax('site/reservations/book',post)
+				.then(function(data){
+
+					$('#modal_reservation').modal('hide');
+					Swal.fire({
+						type:'success',
+						html:data.message
+					});
+				});
 
 		});
 

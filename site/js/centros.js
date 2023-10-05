@@ -5,7 +5,7 @@ $(function(){
 
 	char_count('#form_question [name=message]');
 
-	$('#form_reservation').submit(function(e){
+	/*$('#form_reservation').submit(function(e){
 		e.preventDefault();
 		var post = get_form(this);
 		if(post.date == ''){
@@ -25,13 +25,13 @@ $(function(){
 				});
 			});
 
-	});
+	});*/
 	var reservations = new Reservations({
 		idclient:$('#form_reservation [name="clientid"]').val(),
 		container:'.calendar-promo',
 		callback:function(data){
 			$('#selected_schedule').text(data.text);
-			$('#form_reservation [name="date"]').val(data.date);
+			$('[data-form="reservation"] [name="date"]').val(data.date);
 		}
 	});
 

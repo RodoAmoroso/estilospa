@@ -32,7 +32,9 @@ class SalesVouchers extends Sales{
 		$voucher->promo->gallery = json_decode($voucher->promo->gallery);
 
 
-		//echo_json($voucher->promo,true);
+		///$file_info = pathinfo($voucher->image->path);
+		///$mime = mime_content_type($voucher->image->path);
+		///echo_json($mime,true);
 
 
 		$Stores = new Stores();

@@ -1,10 +1,5 @@
 <?php
 
-$_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
-$_arrjs[] = ['folder'=>'site/','script'=>'questions'];
-$_arrjs[] = ['folder'=>'site/','script'=>'reservations'];
-
-
 if(!$Clients->find($_subsection)) Redirect::javascript('home');
 if(!$Clients->data()->visible) Redirect::javascript('404');
 if($_idsection == '') Redirect::javascript('home');
@@ -50,7 +45,6 @@ if($Promos->data()->amount && $Promos->data()->sale && $mp){
 	$showsalebuttons = true;
 }
 
-$Vouchers = new Vouchers();
 
 $_today = new DateTime();
 
@@ -63,3 +57,16 @@ for($i=1; $i<=4; $i++){
 	);
 	$_today->modify('+1 day');
 }
+
+
+
+
+$Vouchers = new Vouchers;
+$Vouchers->status = '1:1';
+$has_voucher = $Vouchers->getpromo($Promos->data()->id);
+
+
+
+$_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
+$_arrjs[] = ['folder'=>'site/','script'=>'questions'];
+$_arrjs[] = ['folder'=>'site/','script'=>'reservations'];

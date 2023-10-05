@@ -99,7 +99,10 @@ class Vouchers {
 	}
 
 	public function getpromos($idvoucher=0){
-		$this->_db->get('vouchers_assoc',array('idvoucher','=',$idvoucher));
+		//$this->_db->get('vouchers_assoc',array('idvoucher','=',$idvoucher));
+
+		$this->_db->query("SELECT * FROM {vouchers_assoc} WHERE idvoucher=? GROUP BY idpromo",[$idvoucher]);
+
 		if($this->_db->count()){
 			$this->_data = $this->_db->results();
 			return true;
@@ -190,11 +193,11 @@ class Vouchers {
 			}
 			#Finally get voucher info
 			$this->_db->query(
-				"SELECT c.id, v.ispercent, v.value, v.isunique, p.price, p.discount
+				"SELECT c.id codeid, c.code, v.*
 				FROM {vouchers_codes} c
 				LEFT JOIN {vouchers} v ON v.id=c.idvoucher
 				LEFT JOIN {vouchers_assoc} a ON a.idvoucher=v.id
-				LEFT JOIN {promos} p ON p.id=a.idpromo
+				INNER JOIN {promos} p ON p.id=a.idpromo
 				WHERE c.code=? AND a.idpromo=?",
 				array($code,$idpromo)
 			);

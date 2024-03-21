@@ -36,17 +36,27 @@
 					<?php endif; ?>
 
 					<!-- Phones -->
-					<?php if(!empty($StoresClient->data()[0]->phones)): ?><div class="phones sz-12"><i class="fa fa-phone fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$clientdata->id.'-phone/?redirect=tel:'.str_replace(' ', '', $StoresClient->data()[0]->phones)?>" target="_blank"><?= $StoresClient->data()[0]->phones ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->phones)): ?>
+						<div class="phones sz-12">
+							<i class="fa fa-phone fa-fw icon"></i>
+							<a data-toggle="tracker" data-event="phone" href="#"><?= $StoresClient->data()[0]->phones ?></a>
+						</div>
+					<?php endif; ?>
 
 					<!-- WhatsApp -->
-					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?><div class="whatsapp sz-12"><i class="fa fa-whatsapp fa-fw icon"></i> <a href="<?=ROOT.'tracker/'.$clientdata->id.'-whatsapp/?redirect='.urlencode('https://api.whatsapp.com/send?phone=549'.str_replace(' ', '', $StoresClient->data()[0]->whatsapp).'&text=Mensaje Enviado desde EstiloSPA') ?>" target="_blank"><?= $StoresClient->data()[0]->whatsapp ?></a></div> <?php endif; ?>
+					<?php if(!empty($StoresClient->data()[0]->whatsapp)): ?>
+						<div class="whatsapp sz-12">
+							<i class="fa fa-whatsapp fa-fw icon"></i>
+							<a data-toggle="tracker" data-event="whatsapp" href="#"><?= $StoresClient->data()[0]->whatsapp ?></a>
+						</div>
+					<?php endif; ?>
 
 					<!-- Web -->
-					<?php
-					if(!empty($clientdata->web)):
-						$linkweb = preg_match('((http|https)\:\/\/)',$clientdata->web) ? $clientdata->web : 'http://'.$clientdata->web;
-					?>
-					<div class="web sz-11"><i class="fa fa-link fa-fw icon"></i> <a href="<?= ROOT.'tracker/'.$clientdata->id.'-web/?redirect='.$linkweb ?>" target="_blank" ><?= $clientdata->web ?></a></div>
+					<?php if(!empty($clientdata->web)): ?>
+					<div class="web sz-11">
+						<i class="fa fa-link fa-fw icon"></i>
+						<a data-toggle="tracker" data-event="web" href="#"><?= $clientdata->web ?></a>
+					</div>
 					<?php endif; ?>
 
 					<!-- Schedules -->
@@ -98,7 +108,7 @@
 						if($socials):
 							foreach($socials as	$social):
 						?>
-						<a href="<?= ROOT.'tracker/'.$clientdata->id.'-'.$social->social.'/?redirect='.$social->link ?>" target="_blank" class="fa-stack">
+						<a href="#" data-toggle="tracker" data-event="<?= $social->social ?>" target="_blank" class="fa-stack">
 							<i class="fa fa-circle fa-stack-2x"></i>
 							<i class="fa fa-<?= $social->social ?> fa-stack-1x fa-inverse"></i>
 						</a>
@@ -382,3 +392,8 @@
 		</div>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+var clientid = '<?= $clientdata->id ?>'
+</script>

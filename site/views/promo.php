@@ -220,6 +220,7 @@
 </section>
 
 
+<?php if($Clients->data()->show_reservation): ?>
 <!-- RESERVA -->
 <div class="modal fade" id="modal_reservation" tabindex="-1" role="dialog" >
 	<div class="modal-dialog modal-lg" role="document">
@@ -313,7 +314,7 @@
 		</div>
 	</div>
 </div>
-
+<?php endif; ?>
 
 <!-- LOGIN OR REGISTER -->
 <div class="modal fade" id="modal_not_logged" tabindex="-1" role="dialog" >

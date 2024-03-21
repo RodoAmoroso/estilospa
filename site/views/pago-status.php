@@ -14,12 +14,10 @@ switch($status):
 
 		<?php else: ?>
 
-		<?php if(is_null($sales_data->reservationid)): ?>
+		<?php if(is_null($sale_temp->reservationid)): ?>
 		<p>Una vez confirmada, recordá comunicarte con el centro para poder reservar el día y el horario del turno.</p>
 
-		<?php if($client && $client->show_reservation): ?>
-		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
-		<?php endif; ?>
+
 
 		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
 		<?php endif; endif;?>
@@ -49,16 +47,18 @@ switch($status):
 
 		<?php if($giftdata): ?>
 		<h4>Tu regalo ha sido enviado con éxito a: <?=$giftdata->to_user->fullname.' ('.$giftdata->to_user->mail.')'?></h4>
-		<p>En unos minutos le estará llegando un email con los detalles de la experiencia.</p>
 		<?php else: ?>
+		<p>En unos minutos le estará llegando un email con los detalles de la experiencia.</p>
+		<?php endif; ?>
 
-		<?php if(is_null($sales_data->reservationid)): ?>
-		<p>Reservá tu turno ahora con el centro ahora para asegurarte el día y horario de tu experiencia.</p>
-		<a href="<?=Input::get('promourl').'/'.Input::get('hash').'#turno' ?>" class="btn btn-fucsia"><i class="fa fa-calendar fa-fw"></i> Reservar turno ahora</a>
 
+		<?php if($sale): ?>
+		<a href="<?= View::url('compra',$sale->id) ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
+		<?php else: ?>
 		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
+		<?php endif; ?>
+
 		<hr>
-		<?php endif; endif; ?>
 
 		<a href="<?=ROOT?>" class="btn btn-primary btn-sm"><i class="fa fa-home fa-fw"></i> Volver al inicio</a>
 
@@ -81,7 +81,7 @@ switch($status):
 		<hr>
 		<p>El proceso de compra ha sido cancelado. Intentalo más tarde.</p>
 		<p>&nbsp;</p>
-		<a href="<?=$back_url?>" class="btn btn-primary">Volver</a>
+		<a href="<?= ROOT ?>" class="btn btn-primary">Volver</a>
 	</div>
 </section>
 

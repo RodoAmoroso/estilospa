@@ -29,8 +29,14 @@ class DB {
 	}
 
 	public function query($sql, $params=array()){
+
 		$this->_error = false;
+		$this->_results = false;
+		$this->_count = 0;
+
 		$query = preg_replace('/{(.*?)}/', $this->_prefix.'$1', $sql);
+
+		$this->_queries[] = $query;
 		if($this->_query = $this->_pdo->prepare($query)){
 			if(count($params)){
 				$nm = 1;
@@ -39,19 +45,20 @@ class DB {
 					$nm++;
 				}
 			}
-			if($this->_query->execute()){
+			try{
 
-				if(!preg_match('/(INSERT)/', $sql) && !preg_match('/(UPDATE)/', $sql) && !preg_match('/(DELETE)/', $sql)){
+				$this->_query->execute();
+
+				if(!preg_match('/(INSERT )\w/', $sql) && !preg_match('/(UPDATE)/', $sql) && !preg_match('/(DELETE)/', $sql) && !preg_match('/(SET )/', $sql)){
 					$this->_count = $this->_query->rowCount();
 					$this->_query->setFetchMode(PDO::FETCH_OBJ);
 					$this->_results = $this->_query->fetchAll();
 				}
-				//}else{
-				//$this->_lastid = $this->_pdo->lastInsertId();
-				//}
 
-			}else{
-				$this->_error = true;
+			}catch(PDOException $e){
+				$this->_error = $e->getMessage();
+				echo_json([$e,'message'=>Responses::get_message('fail')],true);
+				exit;
 			}
 		}
 		return $this;

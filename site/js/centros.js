@@ -128,4 +128,18 @@ $(function(){
 		}
 	}
 
+
+
+	$('[data-toggle="tracker"]').click(async btn=>{
+		btn.preventDefault()
+		const event = $(btn.currentTarget).attr('data-event')
+
+		const response = await ajax('site/clients/tracker',{
+			clientid:clientid,
+			event:event
+		})
+		if(response.redirect==false) return false
+		window.open(response.redirect)
+	})
+
 });

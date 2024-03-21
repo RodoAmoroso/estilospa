@@ -40,7 +40,7 @@
 
 			<div class="button promo-buttons">
 
-				<?php if($promo->sale && $MPConfig->find($promo->idclient)): ?>
+				<?php if($promo->sale): ?>
 				<div class="main-button" ><i class="fa fa-shopping-bag fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
 				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>

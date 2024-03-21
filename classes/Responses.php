@@ -1,10 +1,10 @@
-<?php 
+<?php
 
 class Responses {
 
 	private static	$_arrout=array();
 
-	public static function response($status='',$message='',$array=array()){
+	public static function response($status='',$message='',$array=array(),$enc_out=true){
 		self::$_arrout['status'] = $status;
 		switch ($status) {
 			case 'ok':
@@ -29,7 +29,7 @@ class Responses {
 				$custommessage = 'La constraseña ingresada es incorrecta.';
 				break;
 			case 'password_match':
-				$custommessage = 'Ambas constraseñas deben coincidir.';
+				$custommessage = 'Ambas contraseñas deben coincidir.';
 				break;
 			case 'invalid_pass':
 				$custommessage = 'La contraseña ingresada no es válida. Debe contener al menos 8 caracteres';
@@ -52,7 +52,7 @@ class Responses {
 			case 'subscriber_exists':
 				$custommessage = 'El email ingresado ya forma parte de la lista de subscripciones. Gracias.';
 				break;
-			
+
 			case 'max_size':
 				$custommessage = 'El tamaño del archivo no debe superar '.ini_get('upload_max_filesize').'';
 				break;
@@ -76,7 +76,13 @@ class Responses {
 		if(!empty($array)){
 			self::$_arrout = array_merge(self::$_arrout,$array);
 		}
-		return json_encode(self::$_arrout);
+		if($enc_out) return json_encode(self::$_arrout);
+		return self::$_arrout;
+	}
+
+	public static function get_message($status){
+		self::response($status);
+		return self::$_arrout['message'];
 	}
 
 

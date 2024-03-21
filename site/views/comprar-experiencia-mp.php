@@ -1,4 +1,3 @@
-
 <section class="gral-section qualify">
 	<div class="container">
 
@@ -28,17 +27,30 @@
 									<div class="input-group-addon">
 										<span class="input-group-text">Cantidad</span>
 									</div>
-									<select name="amount" class="form-control">
-										<?php for($i=1; $i<=15; $i++): ?>
-										<option value="<?= $i ?>"><?= $i ?></option>
+									<select name="quantity" class="form-control">
+										<?php for($i=1; $i<=($promo->amount>15 ? 15 : $promo->amount); $i++): ?>
+										<option value="<?= $i ?>" <?= $sale_temp && $sale_temp->quantity==$i ? 'selected' : '' ?>><?= $i ?></option>
 										<?php endfor; ?>
 									</select>
 								</div>
 
 							</div>
 
+							<?php if($sale_temp && $sale_temp->idcode): ?>
+							<!-- APPLIED VOUCHER -->
+							<div class="box-footer alert-success">
+								<h5><b><?= $sale_temp->voucher->name ?></b></h5>
+								<?php if($sale_temp->voucher->ispercent): ?>
+								<h3><?= $sale_temp->voucher->value ?>% off</h3>
+								<?php else: ?>
+								<h3>$ <?= number_format($sale_temp->voucher->value,2,',','.') ?> off</h3>
+								<?php endif; ?>
+
+								<div class="small">sobre el valor total de cada experiencia.</div>
+							</div>
+							<?php elseif($voucher): ?>
+							<!-- HAS VOUCHER -->
 							<div data-content="voucher" class="box-footer alert-warning">
-								<!-- VOUCHER -->
 								<h5>Voucher de Descuento</h5>
 								<form data-form="voucher" class="input-group">
 									<input type="hidden" name="idpromo" value="<?= $promo->id ?>">
@@ -48,14 +60,20 @@
 									</div>
 								</form>
 								<div class="small text-muted"><i>Si tienes un código para esta experiencia puedes aplicarlo para obtener un descuento en la compra.</i></div>
-
 							</div>
+							<?php endif; ?>
+
+
+
+
 							<div class="box-footer">
-								<h3>Total: $ <span data-content="total">0</span></h3>
+								<h3>Total: $ <span data-content="total"><?= number_format( $sale_temp ? $sale_temp->total : $promo->price_w_discount,2,',','.') ?></span></h3>
 							</div>
 
 							<div class="box-footer">
-								<a href="#" class="btn btn-primary" ><i class="fa fa-angle-double-left fa-fw"></i> Volver</a>
+								<a href="<?= $promo->url ?>" class="btn btn-primary" >
+									<i class="fa fa-angle-double-left fa-fw"></i> Volver
+								</a>
 							</div>
 						</div>
 

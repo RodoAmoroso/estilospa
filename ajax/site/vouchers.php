@@ -15,9 +15,19 @@ switch($_action){
 
 	case 'validate':
 		if(!$User->logged()) die(Responses::response('require_login'));
-		if(!$Vouchers->validate( Input::get('idpromo'),Input::get('code'), $User->data()->id )) die(Responses::response('fail',$Vouchers->errors()));
+		if(!$Vouchers->validate( Input::get('idpromo'), Input::get('code'), $User->data()->id )) die(Responses::response('fail',$Vouchers->errors()));
 
-		echo Responses::response('ok','',array('result'=>$Vouchers->data()));
+		$voucher = $Vouchers->data();
+
+		if(!$Sales->find_temp(Cookie::get('sale_hash'))) die(Responses::response('fail'));
+		$Sales->update_temp($Sales->data()->id,[
+			'idcode'=>$voucher->codeid,
+			'modified'=>date('Y-m-d H:i:s')
+		]);
+
+		echo Responses::response('ok','',[
+			'result'=>$voucher
+		]);
 		break;
 
 	case 'free':

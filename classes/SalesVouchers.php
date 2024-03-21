@@ -156,7 +156,7 @@ class SalesVouchers extends Sales{
 		/// Message
 		$this->_pdf->SetTextColor(90,90,90);
 		$this->_pdf->SetFont('ProximaNormal','',12);
-		$this->_pdf->SetXY(18,66);
+		$this->_pdf->SetXY(18,64);
 		$this->_pdf->MultiCell(180,6,utf8_decode('"'.$voucher->message.'"'),0,'L',false);
 		$this->_pdf->Ln();
 

@@ -5,37 +5,15 @@ class PromoPaymentMP {
 	}
 
 
-	async calculate(){
-
-		this.amount = parseInt($('[name="amount"]').val())
-
-
-		this.total = this.unit_price*this.amount
-
-
-		if(this.voucher){
-			if(this.voucher.ispercent=='1'){
-				this.total = this.total-(this.total*this.voucher.value/100)
-			}else{
-				this.total = this.total-this.voucher.value
-			}
-		}
-
-		const total_formatted = new Intl.NumberFormat('es-ES',{minimumFractionDigits:2}).format(this.total)
-
-		$('[data-content="total"]').text(total_formatted)
-
+	async create_preference(){
 
 		const response = await ajax('site/promos/get-mp-preference',{
-			promoid:this.promoid,
-			amount:this.amount,
-			total:this.total
+			promoid:this.promoid
 		})
 		this.preference = response.preference
-		//console.log(response.preference)
-		this.user = response.user
+		///return console.log(response)
 		this.mp_render()
-		//console.log(amount,unit_price,this.total)
+
 	}
 
 
@@ -46,10 +24,10 @@ class PromoPaymentMP {
 
 		const mp_settings = {
 			initialization: {
-				amount: this.total, // monto a ser pago
+				amount: this.preference.sale.price*this.preference.sale.quantity, // monto a ser pago
 				preferenceId: this.preference.id,
 				payer: {
-					email:this.user.email
+					email:this.preference.user.mail
 				},
 				marketplace:true //????
 			},
@@ -75,8 +53,7 @@ class PromoPaymentMP {
 
 					cardFormData.preference = this.preference
 					cardFormData.promoid = this.promoid
-					cardFormData.voucher = this.voucher
-					cardFormData.amount = this.amount
+					cardFormData.quantity = this.quantity
 
 					const response = await ajax('site/promos/checkout-mp',cardFormData)
 					///return console.log(response)
@@ -92,60 +69,58 @@ class PromoPaymentMP {
 				}
 			}
 		}
-
-		// TEST
-		const mp = new MercadoPago('TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',{
+		const mp = new MercadoPago(this.preference.public_key,{
 			locale:'es-AR'
 		})
-		// PROD
-		/*const mp = new MercadoPago('APP_USR-1474aace-f3a2-4f25-aecb-45c16d766c92',{
-			locale:'es-AR'
-		})*/
 		const bricksBuilder = mp.bricks()
 		const cardPaymentBrickController = await bricksBuilder.create('payment', 'paymentBrick_container', mp_settings)
-			///.then(response=>this.cardPaymentBrickController)
+	}
 
+	async update_sale(){
+		const response = await ajax('site/promos/update-sale',{
+			quantity:$('[name="quantity"]').val()
+		})
+		window.location.reload()
 	}
 
 	init(){
 		console.log('comprar.experiencia')
 
 		this.voucher = false
-		this.total = 0
+		this.subtotal = 0
+		this.quantity = parseInt($('[name="quantity"]').val())
 		this.promoid = _subsection
 		this.unit_price = parseFloat($('[data-content="unit-price"]').attr('data-value'))
 
-		$('[name="amount"]').change(select=>{
-			this.calculate()
+		$('[name="quantity"]').change(select=>{
+			this.update_sale()
 		})
-		$('[name="amount"]').trigger('change')
+		///$('[name="quantity"]').trigger('change')
+		this.create_preference()
 
 
 		//voucher
 		$('[data-form="voucher"]').submit(async form=>{
 			form.preventDefault()
 			const post = get_form(form.currentTarget)
-			const promise = await Promise.all([
-				ajax('site/vouchers/validate',post),
-				get_template('site/voucher-applied')
-			])
-			this.voucher = promise[0].result
-			const template = $(promise[1])
+
+			const response = await ajax('site/vouchers/validate',post)
+			window.location.reload()
+			return console.log(response)
+			/*const template = $(promise[1])
 			template.find('[data-content="name"]').html(`${this.voucher.name}`)
 			if(this.voucher.ispercent=='1'){
 				template.find('[data-content="discount"]').text(`${this.voucher.value}% off`)
 			}else{
-				template.find('[data-content="discount"]').text(`$ -${parseFloat(this.voucher.value).toLocaleString('es-AR',{minimumFractionDigits:2})}`)
+				template.find('[data-content="discount"]').text(`$ -${parseFloat(this.voucher.value).toLocaleString('es-AR',{
+					minimumFractionDigits:2
+				})}`)
 			}
-
-			//console.log(this.voucher)
-
-			$('[data-content="voucher"]').html(template).removeClass('alert-warning').addClass('alert-success')
-			this.calculate()
+			$('[data-content="voucher"]').html(template).removeClass('alert-warning').addClass('alert-success')*/
+			//this.calculate()
 		})
 
 	}
 
 }
-
 new PromoPaymentMP

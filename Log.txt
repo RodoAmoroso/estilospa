@@ -1,7 +1,38 @@
+[HOSTINGER]
+u: franmapublicidad@gmail.com
+p: 05P@guito13
+
+
+
+[BBDD]
+b: u901150762_site
+u: u901150762_rodo
+p: hFlQF0ZW69
+
+
+[FTP]
+h: ftp://195.35.41.180
+u: u901150762
+p: 05P@guito13
+
+
+
+
+
+
+0	*	*	*	* /usr/local/bin/php /home/estilosp/public_html/cron_hourly.php >/dev/null 2>&1
+40	*	*	*	* /usr/local/bin/php /home/estilosp/public_html/cron_newsletters.php >/dev/null 2>&1
+15	0	*	*	* /usr/local/bin/php /home/estilosp/public_html/cron_daily.php >/dev/null 2>&1
+20	*	*	*	* wget -q -O /dev/null https://www.estilospa.com/cron_notifications.php
+
+
+
+
 NEOLO
 
 andrea@estilospa.com
-28luci@10
+-------28luci@10
+16S@fia08
 
 [CPANEL]
 

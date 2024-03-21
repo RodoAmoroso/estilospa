@@ -18,7 +18,7 @@ $GLOBALS['config'] = array(
 		'token_name'=>'token'
 	),
 	'paths'=>array(
-		'root'=>'estilospa',
+		'root'=>'',
 		'admin'=>'admin',
 		'site'=>'site',
 		'panel'=>'panel',

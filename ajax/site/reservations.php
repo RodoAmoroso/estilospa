@@ -69,7 +69,7 @@ switch($_action){
 
 		$Stores->get(Input::get('idclient'));
 		//$Stores->get(112);
-		if(!$Stores->data()) die(Responses::response('fail'));
+		if(!$Stores->data()) die(Responses::response('ok','',['hours'=>false]));
 
 		$schedules = json_decode($Stores->data()[0]->schedules);
 		$hours = array();

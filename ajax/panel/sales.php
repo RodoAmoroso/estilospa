@@ -26,12 +26,12 @@ switch($_action){
 		$Sales->keywords = Input::get('User');
 		$Sales->sale_voucher = Input::get('Voucher');
 
+
 		if($User->data()->idtype == 4){
 			if(empty(Input::get('OrderNumber')) && empty(Input::get('User')) && empty(Input::get('Voucher'))){
 				die( Responses::response('ok','',array('results'=>null)) );
 			}
 		}
-
 
 		$Sales->get();
 		echo Responses::response('ok','',array('results'=>$Sales->data()));

@@ -39,9 +39,9 @@ if($Promos->data()->gallery != ''){
 }
 
 
-$mp = $MPConfig->find($Promos->data()->idclient);
+///$mp = $MPConfig->find($Promos->data()->idclient);
 $showsalebuttons = false;
-if($Promos->data()->amount && $Promos->data()->sale && $mp){
+if($Promos->data()->amount && $Promos->data()->sale){
 	$showsalebuttons = true;
 }
 

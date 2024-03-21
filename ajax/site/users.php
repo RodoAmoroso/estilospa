@@ -55,6 +55,7 @@ switch($_action):
 
 		if(!$User->find($email)) die(Responses::response('user_unexists'));
 		if(!$User->isActive($email)) die(Responses::response('user_inactive'));
+		///if($User->data()->blocked) die(Responses::response('unauthorized'));
 		if(!$User->login($email,$password)) die(Responses::response('login_fail'));
 
 		echo Responses::response('ok');

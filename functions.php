@@ -468,7 +468,7 @@ function Fav($promoid=0,$clientid=0){
 	}
 	return '<a href="#" '.$favprop.' class="heart" data-clientid="'.$clientid.'" data-promoid="'.$promoid.'" title="Agregar/Quitar de mis favoritos" data-placement="bottom" >'.$fav.'</a>';
 }
-function show_array($obj){
+function show_array($obj,$exit=false){
 	echo '<pre>';
 	if(is_array($obj)):
 		print_r($obj);
@@ -480,6 +480,8 @@ function show_array($obj){
 		echo $obj;
 	endif;
 	echo '</pre>';
+
+	if($exit) exit;
 }
 function curl_post($url,$data){
 	$ch = curl_init();
@@ -592,4 +594,7 @@ function obfuscate_email($email){
 }
 function obfuscate_phone($phone){
 	return substr($phone, 0, 4) . '******' . substr($phone, -2);
+}
+function set_hash(){
+	return hash('sha256', date('YmdHis').rand(11111,99999));
 }

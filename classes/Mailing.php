@@ -19,10 +19,10 @@ class Mailing {
 		$this->_mailer->SMTPDebug = false;
 		$this->_mailer->CharSet = 'UTF-8';
 		$this->_mailer->isSMTP();
-		$this->_mailer->Host = 'mail.estilospa.com';
+		$this->_mailer->Host = 'smtp.hostinger.com';
 		$this->_mailer->SMTPAuth = true;
 		$this->_mailer->Username = 'noresponder@estilospa.com';
-		$this->_mailer->Password = 'hOFSVeoUC7mu';
+		$this->_mailer->Password = 'hOFSVeoUC7mu!';
 		$this->_mailer->SMTPSecure = 'ssl';
 		$this->_mailer->Port = 465;
 		$this->_mailer->setFrom('noresponder@estilospa.com',$this->_fullname);
@@ -451,9 +451,9 @@ class Mailing {
 	public function notifications($obj=null){
 		if(!is_object($obj)) return false;
 
-		$this->_mailer->Username = 'noreply@estilospa.com';
-		$this->_mailer->Password = 'G6qAqJaMNSwC';
-		$this->_mailer->setFrom('noreply@estilospa.com',$this->_fullname);
+		//$this->_mailer->Username = 'noresponder@estilospa.com';
+		//$this->_mailer->Password = 'G6qAqJaMNSwC';
+		//$this->_mailer->setFrom('noresponder@estilospa.com',$this->_fullname);
 
 		$this->_mailer->clearAllRecipients();
 		$this->_mailer->addAddress($obj->email_to, $obj->name_to);

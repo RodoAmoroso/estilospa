@@ -106,11 +106,11 @@ class Stores{
 	}
 
 	public function find($id=0){
-		if($this->_db->get('stores',array('id','=',$id))){
-			$this->_data = $this->_db->first();
-			return true;
-		}
-		return false;
+		if(!$id) return false;
+		$this->_db->get('stores',array('id','=',$id));
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
+		return true;
 	}
 
 	public function updateclient($idclient=0,$ids=array()){

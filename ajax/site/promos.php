@@ -2,10 +2,10 @@
 
 header("Content-Type: application/json; charset=utf-8", true);
 
-$Promos = new Promos();
-$User = new User();
-$Sales = new Sales();
-$Mailing = new Mailing();
+$Promos = new Promos;
+$User = new User;
+$Sales = new Sales;
+$Mailing = new Mailing;
 
 $MPConfig = new MPConfig;
 
@@ -94,20 +94,23 @@ switch($_action){
 		if(!$preference = $MPConfig->create_preference()) die(Responses::response('fail'));
 
 		echo Responses::response('ok','',[
-			'preference'=>$preference,
-			'user'=>[
-				'email'=>$User->data()->mail,
-				'id'=>$User->data()->id,
-				'fullname'=>$User->data()->fullname,
-				'name'=>$User->data()->name,
-				'lastname'=>$User->data()->lastname
-			]
+			'preference'=>$preference
 		]);
 		break;
 	case 'checkout-mp':
 		if(!$User->logged()) die(Responses::response('restricted'));
-		if(!$response = $MPConfig->create_payment()) die(Responses::response('fail'));
+		if(!$response = $MPConfig->create_payment()) die(Responses::response('fail',$MPConfig->get_response()));
 		echo Responses::response('ok','',['response'=>$response]);
+		break;
+
+	case 'update-sale':
+
+		if(!$Sales->find_temp(Cookie::get('sale_hash'))) die(Responses::response('fail'));
+		$Sales->update_temp($Sales->data()->id,[
+			'quantity'=>Input::get('quantity','int'),
+			'modified'=>date('Y-m-d H:i:s')
+		]);
+		echo Responses::response('ok');
 		break;
 
 

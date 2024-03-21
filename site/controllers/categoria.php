@@ -11,7 +11,6 @@ if(!empty($_subsection)){
 $_arrjs[] = ['folder'=>'lib/','script'=>'select2.min'];
 $_arrcss[] = ['folder'=>'lib/','style'=>'select2.min'];
 
-//show_array($category);
 
 $Experiences = new Experiences;
 $Experiences->filters = [
@@ -24,6 +23,7 @@ if($category){
 if($_idsection){
 	$Experiences->filters['city'] = $_idsection;
 }
+//show_array($_idsection);
 
 
 $total_experiences = $Experiences->get();

@@ -80,25 +80,39 @@ class Sales {
 
 	}
 
+
+
+	/// TEMP
 	public function find_temp($hash=''){
+		if(!$hash) return false;
 		$this->_db->get('sales_temp',array('hash','=',$hash));
-		if($this->_db->count()){
-			$this->_data = $this->_db->first();
-			return true;
-		}
-		return false;
-	}
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
+		$this->_data->subtotal = (float) $this->_data->price;
 
-	public function create_temp($array=array()){
+		$this->_data->voucher = false;
+
+		if($this->_data->idcode){
+			$Vouchers = new Vouchers;
+			$Vouchers->findcode($this->_data->idcode);
+			if($this->_data->voucher = $Vouchers->data()){
+				$this->_data->subtotal = $this->_data->price-($this->_data->voucher->ispercent ? $this->_data->price*$this->_data->voucher->value/100 : $this->_data->voucher->value);
+			}else{
+				$this->_data->idcode = null;
+			}
+
+		}
+
+		$this->_data->total = (float) $this->_data->subtotal*$this->_data->quantity;
+		return $this->_data;
+	}
+	public function create_temp($array=[]){
 		if(!$this->_db->insert('sales_temp',$array)) return false;
-		return true;
+		return $this->_db->getLastId();
 	}
-
 	public function delete_temp($hash=''){
-		if($this->_db->delete('sales_temp',array('hash','=',$hash))){
-			return true;
-		}
-		return false;
+		if(!$this->_db->delete('sales_temp',['hash','=',$hash])) return false;
+		return true;
 	}
 	public function clean_temp(){
 		$this->_db->query(
@@ -108,6 +122,144 @@ class Sales {
 
 		return true;
 	}
+	public function update_temp($id,$values=[]){
+		if(!$id) return false;
+		if(!$this->_db->update('sales_temp',$id,$values)) return false;
+		return true;
+	}
+	public function init_temp($promo){
+		if(!$promo) return false;
+
+		$hash = Cookie::get('sale_hash');
+
+		if($sale_temp = $this->find_temp($hash)){
+
+			$sales_values = [
+				'idpromo'=>$promo->id,
+				'iduser'=>$promo->user->id,
+				'idclient'=>$promo->client->id,
+				//'quantity'=>1,
+				'price'=>$promo->price_w_discount,
+				'modified'=>date('Y-m-d H:i:s'),
+			];
+			if(!$promo->has_voucher){
+				$sales_values['idcode'] = null;
+			}
+			if($promo->id != $sale_temp->idpromo){
+				$sales_values['idcode'] = null;
+				$sales_values['quantity'] = 1;
+			}
+			$this->update_temp($sale_temp->id,$sales_values);
+
+
+			return $this->find_temp($sale_temp->hash);
+
+		}else{
+
+			$hash = set_hash();
+			Cookie::put('sale_hash',$hash);
+			$sale_temp = [
+				'iduser'=>$promo->user->id,
+				'idclient'=>$promo->client->id,
+				'idpromo'=>$promo->id,
+				'quantity'=>1,
+				'price'=>$promo->price_w_discount,
+				'hash'=>$hash,
+				'added'=>date('Y-m-d H:i:s')
+			];
+			$this->create_temp($sale_temp);
+
+		}
+		return false;
+	}
+	/// TEMP
+
+
+	public function process_sale($data){
+		//echo_json($data);
+
+		$sale_values = [
+			'iduser'=>$data->user->id,
+			'idclient'=>$data->client->id,
+			'idpromo'=>$data->promo->id,
+
+			'collection_id'=>$data->payment->id,
+			'collection_status'=>$data->payment->status,
+			'preference_id'=>'',
+			'external_reference'=>$data->payment->external_reference,
+			'payment_type'=>$data->payment->payment_type_id,
+			//'merchant_order_id'=>$merchant_order_id,
+
+			'price'=>$data->payment->transaction_amount,
+			//'application_fee'=>isset($fees) ? $fees->application_fee : 0,
+			//'mercadopago_fee'=>isset($fees) ? $fees->mercadopago_fee : 0,
+
+			'added'=>date('Y-m-d H:i:s'),
+			'quantity'=>$data->sale_temp->quantity,
+			'hash'=>$data->sale_temp->hash
+		];
+		if($data->payment->fee_details){
+			foreach ($data->payment->fee_details as $fee) {
+				if($fee->type=='mercadopago_fee') $sale_values['mercadopago_fee'] = $fee->amount;
+				if($fee->type=='application_fee') $sale_values['application_fee'] = $fee->amount;
+			}
+		}
+
+		$this->save($sale_values);
+
+		$saleid = $this->getLastId();
+
+		///Reservations ???
+
+		if($data->sale_temp->voucher){
+			$sqlvoucher = [
+				'idvoucher'=>$data->sale_temp->voucher->idvoucher,
+				'idcode'=>$data->sale_temp->voucher->id,
+				'iduser'=>$data->user->id,
+				'idsale'=>$saleid,
+				'ispercent'=>$data->sale_temp->voucher->ispercent,
+				'value'=>$data->sale_temp->voucher->value,
+				'added'=>date('Y-m-d H:i:s')
+			];
+			$this->_db->insert('vouchers_usage',$sqlvoucher);
+		}
+
+		$Promos = new Promos;
+		$Promos->take_amount($data->promo->id,$data->sale_temp->quantity);
+
+
+		//Mailing
+		$this->find($saleid);
+		$sale = $this->data();
+		$sale->promolink = $data->promo->url;
+
+		$Stores = new Stores;
+		$Stores->get($data->client->id);
+		$sale->stores = '<ul style="padding:0 16px">';
+		if($Stores->data()){
+			foreach($Stores->data() as $store){
+				$sale->stores .= '<li>'.$store->address.', '.$store->city.' - '.$store->name.' '.(!empty($store->phones) ? ' - Tel: '.$store->phones : '' ).(!empty($store->whatsapp) ? ' - Celular: '.$store->whatsapp : '' ).'</li>';
+			}
+		}
+		$sale->stores .= '</ul>';
+
+		$sale->gift = null;
+		$sale->image = $data->promo->image;
+		$sale->price = $sale->total;
+
+		$Mailing = new Mailing;
+		$Mailing->sales_success_user($sale);
+		$Mailing->sales_success_client($sale);
+		$this->notified($sale->id,1);
+
+		$this->delete_temp($data->sale_temp->hash);
+
+		return true;
+
+	}
+
+
+
 
 	public function qualify(){
 		$sql = array(
@@ -160,7 +312,7 @@ class Sales {
 		}
 		if(!empty($this->ordernumber)){
 			$where .= empty($where) ? "WHERE " : " AND ";
-			$where .= "s.merchant_order_id LIKE '%{$this->ordernumber}%' OR s.collection_id LIKE '%{$this->ordernumber}%'";
+			$where .= "(s.merchant_order_id LIKE '%{$this->ordernumber}%' OR s.collection_id LIKE '%{$this->ordernumber}%')";
 		}
 		if($this->range){
 			$where .= empty($where) ? "WHERE " : " AND ";
@@ -188,6 +340,7 @@ class Sales {
 		if(!empty($this->limit)){
 			$limitby = "LIMIT {$this->limit}";
 		}
+
 		$this->_db->query(
 			"SELECT s.*, DATE_FORMAT(s.added, '%d/%m/%Y %H:%i:%s') fecha,
 			ss.name statusname,

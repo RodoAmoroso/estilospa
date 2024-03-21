@@ -11,12 +11,14 @@ $giftdata = $Sales->data();
 
 
 $Sales->find_temp($hash);
-$sales_data = $Sales->data();
-///echo_json($sales_data);
+$sale_temp = $Sales->data();
 
-$client = false;
-if($sales_data){
+$Sales->find($hash);
+$sale = $Sales->data();
+///echo_json($sale);
+/*$client = false;
+if($sale_temp){
 	$Clients = new Clients;
-	$Clients->find($sales_data->idclient);
+	$Clients->find($sale_temp->idclient);
 	$client = $Clients->data();
-}
+}*/

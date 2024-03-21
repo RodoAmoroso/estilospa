@@ -53,8 +53,8 @@ let loading = obj => {
 		if(obj.callback){obj.callback();}
 	}
 }
-let ajax = (url,obj) => {
-	loading();
+let ajax = (url,obj,loader=true) => {
+	if(loader) loading();
 	if(obj==undefined) obj = {};
 	return new Promise((resolve,reject) => {
 		$.ajax({
@@ -65,6 +65,7 @@ let ajax = (url,obj) => {
 			cache:false
 		})
 		.done(response => {
+			if(loader) loading({show:false});
 			if(response.status!='ok'){
 				console.log(response,url,obj);
 				Swal.fire({type:'error',html:response.message});

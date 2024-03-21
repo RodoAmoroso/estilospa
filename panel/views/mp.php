@@ -37,12 +37,12 @@ else:
 
 				<p>El proceso es fácil:</p>
 				<ul class="number-list">
-					<li>Te pagan</li>
-					<li>Tus clientes usan su medio de pago preferido.</li>
-					<li>El dinero se acredita</li>
-					<li>Lo recibís en tu cuenta de Mercado Pago.</li>
-					<li>Lo tenés disponible</li>
-					<li>Unos días después, podrás transferirlo gratis a tu cuenta bancaria.</li>
+					<li><span class="number">1</span> Te pagan</li>
+					<li><span class="number">2</span> Tus clientes usan su medio de pago preferido.</li>
+					<li><span class="number">3</span> El dinero se acredita</li>
+					<li><span class="number">4</span> Lo recibís en tu cuenta de Mercado Pago.</li>
+					<li><span class="number">5</span> Lo tenés disponible</li>
+					<li><span class="number">6</span> Unos días después, podrás transferirlo gratis a tu cuenta bancaria.</li>
 				</ul>
 
 				<hr>

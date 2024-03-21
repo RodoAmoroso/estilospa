@@ -73,9 +73,9 @@ switch($_action){
 
 
 		$questionid = $Questions->add('questions',array(
-			'type'=>Input::get('type'),
-			'rowid'=>Input::get('rowid'),
-			'message'=>strip_tags(Input::get('message')),
+			'type'=>Input::get('type','xss'),
+			'rowid'=>Input::get('rowid','int'),
+			'message'=>Input::get('message','xss'),
 			'userid'=>$idu,
 			'added'=>date('Y-m-d H:i:s')
 		));

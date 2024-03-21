@@ -23,7 +23,7 @@
 						<div class="thumb thumb-cover" style="background-image:url(<?= $imgpromo ?>)"></div>
 					</div>
 					<div class="caption">
-						<h1 class="title">Orden Nro.: <?= $sale->merchant_order_id ?></h1>
+						<h1 class="title">Orden Nro.: <?= $sale->collection_id ?></h1>
 						<h2 class="subtitle">Precio Unit.: $ <?= number_format($sale->price,2,',','.') ?> | Cantidad: <?= $sale->quantity ?> | <span class="subtitle" >Total: $ <?= number_format($sale->price*$sale->quantity,2,',','.') ?></span></h2>
 
 						<h2 class="title-promo"><?= $titlepromo ?></h2>

@@ -20,31 +20,59 @@ class MPConfig extends Core{
 	*/
 
 
+
+	/*
+	COMPRADOR
+	TESTUSER1954123393
+	trhzv6Fbyb
+
+
+	VENDEDOR
+	TESTUSER145336738
+	T2oLL5dzk2
+
+
+	TEST USER MAIN
+	{
+    "id": 1734170887,
+    "email": "test_user_1259780165@testuser.com",
+    "nickname": "TESTUSER1259780165",
+    "site_status": "active",
+    "password": "PM5I7vfe1D"
+	}
+
+	TEST USER CLIENT
+	{
+    "id": 1734172367,
+    "email": "test_user_1938095197@testuser.com",
+    "nickname": "TESTUSER1938095197",
+    "site_status": "active",
+    "password": "69pqC3D0NP"
+}
+
+	*/
+
+
 	public 	$arrfields=array(),
 					$idclient=0,
 					$redirect_uri=ROOT.'mp',
 
 
 					//Producción
-					/*$app_id='7300466898804487',
-					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K',
-					$notification_url = ROOT.'ipn.php',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583';*/
+					/*$notification_url = ROOT.'ipn.php',
+					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583',
+					$app_id='7300466898804487',
+					$public_key='APP_USR-43830fea-2de3-4976-86ca-08ed0494b311',
+					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';*/
 
 
 
-					//$app_id='389403748152273',
-					//$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj',
-					//$access_token='APP_USR-389403748152273-070520-b122d212b2a6631e8f0e7818e651dae0__LD_LC__-263157583';
-
-
-					//Test Localhost
-
-					$notification_url = 'https://webhook.site/799eeee2-b1cd-4cbf-8e64-4abfaccb5bf8',
+					//Test Localhost Bricks
+					$notification_url = 'https://webhook.site/ac7e8e07-282a-4a04-a792-13d8ec40eb8b',
 					$access_token='TEST-389403748152273-070520-1890d82af8a41b80904fb788b903ccdd__LD_LB__-263157583',
 					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
-					$app_id='7030611358224519',
-					$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN';
+					$app_id='389403748152273',
+					$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj';
 
 
 					//Test Demo
@@ -68,7 +96,9 @@ class MPConfig extends Core{
 
 		$this->Promos = new Promos;
 		$this->Clients = new Clients;
-		$this->set_hash();
+		$this->Sales = new Sales;
+		$this->Users = new Users;
+		///$this->set_hash();
 		parent::__construct();
 	}
 
@@ -194,7 +224,7 @@ class MPConfig extends Core{
 		$preference->save();
 
 		$this->_mplink = $preference;
-		show_array($preference);
+		//show_array($preference);
 
 
 
@@ -229,9 +259,7 @@ class MPConfig extends Core{
 		return $this->_mplink;
 	}
 
-	public function set_hash(){
-		$this->_hash = hash('sha256', date('YmdHis').rand(1111,9999));
-	}
+
 	public function hash(){
 		return $this->_hash;
 	}
@@ -349,27 +377,47 @@ class MPConfig extends Core{
 	}
 
 
+
+
+
 	///new methods
 	public function create_preference(){
 
-		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
-		// Crear un objeto de preferencia
+		global $User;
 
-		$this->Promos->find(Input::get('promoid'));
-		if(!$promo = $this->Promos->data()) return false;
-		$client_access_token = $this->get_access_token($promo->idclient);
-		if(!$client_access_token){
+		// Crear un objeto de preferencia
+		$sale_temp = false;
+		if(!$sale_temp = $this->Sales->find_temp(Cookie::get('sale_hash'))) return false;
+		$this->_hash = $sale_temp->hash;
+
+
+		if(!$this->Promos->find(Input::get('promoid'))) return false;
+		$promo = $this->Promos->data();
+
+		if(!$this->Clients->find($promo->idclient)) return false;
+		$client = $this->Clients->data();
+
+
+		if(!$user = $this->Users->find($User->data()->id)) return false;
+
+		unset($user->pass);
+
+
+		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
+
+		if($client_access_token = $this->get_access_token($promo->idclient)){
 			MercadoPago\SDK::setAccessToken($client_access_token);
 		}
-		//echo_json($integration);
+
+		//$total_price = Input::get('subtotal','float')*Input::get('quantity','int');
 
 		// Crear un elemento en la preferencia
 		$item = new MercadoPago\Item();
 		$item->id = $promo->id;
 		$item->title = $promo->title." - ".$promo->clientname;
-		$item->quantity = Input::get('amount','int');
+		$item->quantity = $sale_temp ? $sale_temp->quantity : 1;
 		$item->currency_id = "ARS";
-		$item->unit_price = Input::get('amount','float');
+		$item->unit_price = $sale_temp ? $sale_temp->subtotal : $promo->price_w_discount;
 		$item->category_id = 'services';
 
 		$preference = new MercadoPago\Preference();
@@ -385,6 +433,10 @@ class MPConfig extends Core{
 		$preference->expiration_date_from = $now->format('c');
 		$preference->expiration_date_to = $now->modify('+1 hours')->format('c');
 
+		if($client_access_token){
+			$preference->marketplace_fee = (float) $client->fee*($sale_temp ? $sale_temp->subtotal : $promo->price_w_discount)/100;
+		}
+
 
 		//$preference->notification_url = ROOT.'ipn.php';
 		$preference->notification_url = $this->notification_url.'?idclient='.$promo->idclient;
@@ -397,30 +449,54 @@ class MPConfig extends Core{
 		$preference->auto_return = "approved";
 
 		$preference->save();
-		///echo_json($preference);
 
 		return [
 			'id'=>$preference->id,
 			'external_reference'=>$this->_hash,
+			'promo'=>$promo,
+			'user'=>$user,
+			'sale'=>$sale_temp,
+			'public_key'=>$this->public_key
 		];
 
 	}
 	public function create_payment(){
 
 		global $User;
-		if(!$User->logged()) return false;
+		if(!$User->logged()) {
+			$this->response = Responses::get_message('require_login');
+			return false;
+		}
 		$userdata = $User->data();
+
+		if(!$this->Promos->find(Input::get('promoid'))){
+			$this->response = 'No se ha encontrado la experiencia.';
+			return false;
+		}
+		$promo = $this->Promos->data();
+
+		if(!$this->Clients->find($promo->idclient)) {
+			$this->response = 'No se ha encontrado el centro.';
+			return false;
+		}
+		$client = $this->Clients->data();
+
+		$hash = Input::get('preference')['external_reference'];
+		if(!$this->Sales->find_temp($hash)) {
+			$this->response = 'No se ha podido procesar el pago. Intenta nuevamente.';
+			return false;
+		}
+		$sale_temp = $this->Sales->data();
 
 
 		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
-		$this->Promos->find(Input::get('promoid'));
-		if(!$promo = $this->Promos->data()) return false;
-		$client_access_token = $this->get_access_token($promo->idclient);
-		if(!$client_access_token){
+
+		if($client_access_token = $this->get_access_token($promo->idclient)){
 			MercadoPago\SDK::setAccessToken($client_access_token);
 		}
 
-		$hash = Input::get('preference')['external_reference'];
+		////echo_json(Input::get('formData'));
+
 
 		$payment = new MercadoPago\Payment();
 		$payment->transaction_amount = (float) Input::get('formData')['transaction_amount'];
@@ -452,6 +528,7 @@ class MPConfig extends Core{
 
 		if($payment->Error()){
 			$this->response = $payment->Error()->message;
+			///echo_json($payment->Error());
 			return false;
 		}
 
@@ -472,21 +549,9 @@ class MPConfig extends Core{
 		}
 
 
-		$Sales = new Sales();
-		if(!$Sales->create_temp(array(
-			'iduser'=>$userdata->id,
-			'idclient'=>$promo->idclient,
-			'idpromo'=>$promo->id,
-			'idcode'=>Input::get('voucher')!=='false' ? Input::get('voucher')['codeid'] : null,
-			//'reservationid'=>Input::get('reservationid'),
-			'quantity'=>Input::get('amount'),
-			'price'=>$promo->price_w_discount,
-			'hash'=>$hash,
-			'added'=>date('Y-m-d H:i:s')
-		))) return false;
+		// APPROVED
 
-
-		return [
+		$output = [
 			'status'=>$payment->status,
 			'status_detail'=>$payment->status_detail,
 			'id'=>$payment->id,
@@ -494,10 +559,21 @@ class MPConfig extends Core{
 			'url_thanks'=>ROOT.'pago-status/success/'.$hash
 		];
 
+		$this->Sales->process_sale((object) [
+			'payment'=>$payment,
+			'promo'=>$promo,
+			'user'=>$userdata,
+			'client'=>$client,
+			'sale_temp'=>$sale_temp
+		]);
+		return $output;
+
 	}
 	public function get_response(){
 		return $this->response;
 	}
+
+
 
 
 }

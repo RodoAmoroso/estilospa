@@ -24,7 +24,13 @@ class Experiences extends Core{
 				'gift'=>"p.gift=?",
 
 				//'city'=>"(SELECT s.id FROM {stores} s WHERE s.id IN(p.stores) AND s.city=?) IS NOT NULL"
-				'city'=>"(SELECT s.id FROM {stores} s WHERE FIND_IN_SET(s.id,p.stores) AND s.city=? LIMIT 0,1) IS NOT NULL",
+				'city'=>"(
+					SELECT s.id
+					FROM {stores} s
+					WHERE FIND_IN_SET(s.id,p.stores) AND s.city=?
+					LIMIT 0,1
+				) IS NOT NULL",
+
 				'visible'=>"c.visible=?"
 
 			],
@@ -54,6 +60,8 @@ class Experiences extends Core{
 		LIMIT {$this->limit}";
 
 		if(!$data = parent::core_get($query,$filters->values)) return false;
+		///parent::core_get($query,$filters->values);
+		///show_array(parent::core_query(),true);
 		foreach($data as $k=>$row){
 			$data[$k]->image = json_decode($row->gallery);
 			$data[$k]->link = ROOT.'promo/'.$row->permalink.'/'.$row->id.'-'.Permalink($row->title);

@@ -181,6 +181,34 @@ class Stats extends Core{
 		));
 		return true;
 	}
+	public function tracker_redirect($client,$event){
+		$redirect = false;
+		switch ($event) {
+			case 'phone':
+				if(!$client->store) return false;
+				$redirect = 'tel:'.$client->store->phones;
+				break;
+			case 'whatsapp':
+				if(!$client->store) return false;
+				$redirect = 'https://api.whatsapp.com/send?phone=549'.str_replace(' ', '', $client->store->whatsapp).'&text=Mensaje Enviado desde EstiloSPA';
+				break;
+			case 'web':
+				$redirect = preg_match('((http|https)\:\/\/)',$client->web) ? $client->web : 'http://'.$client->web;
+				break;
+			case 'facebook':
+			case 'instagram':
+			case 'linkedin':
+			case 'pinterest':
+				if(!$socials = json_decode($client->socials)) return false;
+				$social_link = false;
+				foreach($socials as $sc){
+					if($sc->social==$event) $social_link = $sc->link;
+				}
+				$redirect = $social_link;
+				break;
+		}
+		return $redirect;
+	}
 
 	public function get_total_client_views($idclient=0){
 

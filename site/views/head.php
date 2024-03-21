@@ -66,6 +66,8 @@
 		var _section = '<?= $_section ?>';
 		var _subsection = '<?= $_subsection ?>';
 		var _vars = '<?= $_vars ?>';
+
+		var TOKEN = '<?= TOKEN ?>';
 	</script>
 
 	<!-- Google Analytics -->

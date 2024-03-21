@@ -11,6 +11,7 @@ class UpFile {
 		dataForm.append('node',this.node);
 		dataForm.append('folder',this.folder+'/');
 		dataForm.append('mode',this.mode);
+		dataForm.append('token',TOKEN);
 
 		if(this.node == 0){
 			loading({message:'<p>Subiendo archivo(s). <br />Esta operación puede durar varios minutos dependiendo del tamaño del/los archivo(s) y de la conexión.</p><p><span class="label label-success">...</span></p>'});
@@ -20,7 +21,7 @@ class UpFile {
 
 		 $.ajax({
 				type:'POST',
-				url:ROOT+'ajax/'+this.controller,
+				url:`${ROOT}ajax/${this.controller}`,
 				data:dataForm,
 				cache:false,
 				processData:false,
@@ -73,7 +74,7 @@ class UpFile {
 		}).
 		catch(data=>{
 			console.log(data);
-		});		
+		});
 	}
 
 

@@ -26,6 +26,7 @@ class Tables{
 			type:'POST',
 			data:d=>{
 				$.extend(d,this.set_filters())
+				d.token = TOKEN
 				loading()
 			}
 		}

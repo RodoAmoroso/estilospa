@@ -25,7 +25,9 @@ switch($_action){
 
 	case 'add':
 
-		if(!$User->logged()){
+		if(!$User->logged()) die(Responses::response('require_login'));
+
+		/*if(!$User->logged()){
 			if(!$User->find(Input::get('email'))){
 
 				if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
@@ -52,18 +54,11 @@ switch($_action){
 				$userdata->hash = $hash;
 				if(!$Mailing->register($userdata)) die(Responses::response('fail','No se pudo enviar el email'));
 
-				//$User->login(Input::get('email'),$password);
-
-				/*$User->update($idu,array(
-					'name'=>Input::get('name')
-				));*/
-
 			}else{
 				$idu = $User->data()->id;
 			}
-		}else{
-			$idu = $User->data()->id;
-		}
+		}*/
+		$idu = $User->data()->id;
 
 
 		$User->update($idu, array(

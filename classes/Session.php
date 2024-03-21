@@ -30,4 +30,9 @@ class Session {
 			self::put($name, $string);
 		}
 	}
+
+	public static function session_hashed(){
+		return hash('sha256',session_id().Config::get('session/salt'));
+	}
+
 }

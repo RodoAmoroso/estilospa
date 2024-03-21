@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require_once '../config.php';
 
@@ -8,5 +8,8 @@ $_scope = !empty($_uri[0]) ? $_uri[0] : '';
 $_controller = isset($_uri[1]) && !empty($_uri[1]) ? $_uri[1] : '';
 $_action = isset($_uri[2]) && !empty($_uri[2]) ? $_uri[2] : '';
 $_id = isset($_uri[3]) && !empty($_uri[3]) ? $_uri[3] : '';
+
+//echo_json(Input::get_all());
+if(Input::get('token') != Session::session_hashed()) die(Responses::response('restricted','',Input::get_all()));
 
 include $_scope.'/'.$_controller.'.php';

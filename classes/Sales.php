@@ -190,7 +190,7 @@ class Sales {
 			'payment_type'=>$data->payment->payment_type_id,
 			//'merchant_order_id'=>$merchant_order_id,
 
-			'price'=>$data->payment->transaction_amount,
+			'price'=>$data->sale_temp->price, //unit price
 			//'application_fee'=>isset($fees) ? $fees->application_fee : 0,
 			//'mercadopago_fee'=>isset($fees) ? $fees->mercadopago_fee : 0,
 

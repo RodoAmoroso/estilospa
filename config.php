@@ -15,7 +15,8 @@ $GLOBALS['config'] = array(
 	),
 	'session'=>array(
 		'session_name'=>'user',
-		'token_name'=>'token'
+		'token_name'=>'token',
+		'salt'=>'We are the colors of the prism, shining light into the darkness'
 	),
 	'paths'=>array(
 		'root'=>'',
@@ -54,7 +55,7 @@ define('CSS',ROOT.Config::get('paths/styles').'/');
 define('JS',ROOT.Config::get('paths/scripts').'/');
 
 
-
+define('TOKEN',Session::session_hashed());
 
 define('IPUSER',$_SERVER['REMOTE_ADDR']);
 

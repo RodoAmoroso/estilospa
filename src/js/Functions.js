@@ -53,28 +53,30 @@ let loading = obj => {
 		if(obj.callback){obj.callback();}
 	}
 }
-let ajax = (url,obj,loader=true) => {
+let ajax = (url,obj={},loader=true) => {
 	if(loader) loading();
 	if(obj==undefined) obj = {};
+	obj.token = TOKEN
 	return new Promise((resolve,reject) => {
 		$.ajax({
 			type:'POST',
-			url:ROOT+'ajax/index.php?uri='+url,
+			url:`${ROOT}ajax/index.php?uri=${url}`,
 			data:obj,
 			dataType:'json',
 			cache:false
 		})
-		.done(response => {
+		.then(response => {
 			if(loader) loading({show:false});
 			if(response.status!='ok'){
-				console.log(response,url,obj);
 				Swal.fire({type:'error',html:response.message});
+				if(typeof response === 'object') response.ajax_url = url
+				console.log(response,url,obj);
 				reject(response);
 			}
 			resolve(response);
 		})
 		.always(response=>{
-			loading({show:false});
+			if(loader) loading({show:false});
 		})
 		.fail(response => {
 			let error = response.responseText;
@@ -103,10 +105,12 @@ let get_form = f => {
 	return d;
 }
 let logout = () => {
-	ajax('site/users/logout',{})
-	.then(data => {
-		window.location.href = ROOT;
-	});
+	ajax('site/users/logout',{
+		token:TOKEN
+	})
+		.then(data => {
+			window.location.href = ROOT;
+		})
 }
 let toggle_button = function(el,status){
 	if(status==1){
@@ -131,13 +135,13 @@ let get_template = template => {
 	return new Promise((resolve,reject)=>{
 		var ajax = $.ajax({
 			type:'GET',
-			url:ROOT+'templates/'+template+'.php',
+			url:`${ROOT}templates/${template}.php`,
 			cache:false
 		})
-		.done((data)=>{
+		.done(data=>{
 			resolve(data);
 		})
-		.fail((data)=>{
+		.fail(data=>{
 			reject(data);
 		});
 	});
@@ -230,13 +234,15 @@ var SearchSuggestions = function(FORM,PHP,MODE,FNCT){
 				}
 				return false;
 			}
+			ajxmode = mode!='' ? '/'+mode : ''
 			var ajx = $.ajax({
 				type:'POST',
-				url:ROOT+'ajax/index.php?uri='+PHP+(mode!='' ? '/'+mode : ''),
+				url:`${ROOT}ajax/index.php?uri=${PHP}${ajxmode}`,
 				data:{
 					keywords:input.val(),
 					search_mixed:1,
-					mode:mode
+					mode:mode,
+					token:TOKEN
 				},
 				dataType:'json',
 				cache:true

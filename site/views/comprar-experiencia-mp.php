@@ -54,7 +54,7 @@
 								<h5>Voucher de Descuento</h5>
 								<form data-form="voucher" class="input-group">
 									<input type="hidden" name="idpromo" value="<?= $promo->id ?>">
-									<input name="code" type="text" class="form-control" value="mamaspa" required>
+									<input name="code" type="text" class="form-control" value="" required>
 									<div class="input-group-btn">
 										<button data-toggle="validate-voucher" class="btn btn-primary">Validar</button>
 									</div>

@@ -169,25 +169,29 @@ class Sales {
 			];
 			$this->create_temp($sale_temp);
 
+			return $this->find_temp($hash);
+
 		}
+
+
 		return false;
 	}
 	/// TEMP
 
 
 	public function process_sale($data){
-		//echo_json($data);
+		///echo_json($data->sale_temp->voucher);
 
 		$sale_values = [
 			'iduser'=>$data->user->id,
 			'idclient'=>$data->client->id,
 			'idpromo'=>$data->promo->id,
 
-			'collection_id'=>$data->payment->id,
-			'collection_status'=>$data->payment->status,
-			'preference_id'=>'',
-			'external_reference'=>$data->payment->external_reference,
-			'payment_type'=>$data->payment->payment_type_id,
+			///'collection_id'=>$data->payment->id,
+			///'collection_status'=>$data->payment->status,
+			///'preference_id'=>'',
+			///'external_reference'=>$data->payment->external_reference,
+			///'payment_type'=>$data->payment->payment_type_id,
 			//'merchant_order_id'=>$merchant_order_id,
 
 			'price'=>$data->sale_temp->price, //unit price
@@ -196,13 +200,25 @@ class Sales {
 
 			'added'=>date('Y-m-d H:i:s'),
 			'quantity'=>$data->sale_temp->quantity,
-			'hash'=>$data->sale_temp->hash
+			'hash'=>$data->sale_temp->hash,
+
+			//'marketplace_owner'=>$data->payment->marketplace_owner
 		];
-		if($data->payment->fee_details){
-			foreach ($data->payment->fee_details as $fee) {
-				if($fee->type=='mercadopago_fee') $sale_values['mercadopago_fee'] = $fee->amount;
-				if($fee->type=='application_fee') $sale_values['application_fee'] = $fee->amount;
+		if($data->payment){
+
+			$sale_values['collection_id'] = $data->payment->id;
+			$sale_values['collection_status'] = $data->payment->status;
+			$sale_values['preference_id'] = '';
+			$sale_values['external_reference'] = $data->payment->external_reference;
+			$sale_values['payment_type'] = $data->payment->payment_type_id;
+
+			if(property_exists($data->payment, 'fee_details')){
+				foreach ($data->payment->fee_details as $fee) {
+					if($fee->type=='mercadopago_fee') $sale_values['mercadopago_fee'] = $fee->amount;
+					if($fee->type=='application_fee') $sale_values['application_fee'] = $fee->amount;
+				}
 			}
+
 		}
 
 		$this->save($sale_values);

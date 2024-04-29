@@ -122,10 +122,21 @@ sales = {
 						.text('Orden Nro.: '+v.collection_id+' - $ '+(total.numberFormat(2,',','.')));
 
 					mod.find('[data-tag="price"]')
-						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
+						.html(`<span>Precio Unit.: $ ${(v.price-discountvoucher).numberFormat(2,',','.')}</span> | <span>Cant.: ${v.quantity}</span>`);
+
+					if(v.application_fee!=null){
+						//<span class="label label-danger">Ingreso en Cuenta</span>
+						mod.find('[data-tag="sale-estilospa"]').remove()
+					}else{
+						if(v.marketplace_owner==null){
+							mod.find('[data-tag="sale-estilospa"]').text('Ingreso sin comisión a EstiloSPA')
+						}
+					}
+					if(v.collection_status!='approved') mod.find('[data-tag="sale-estilospa"]').remove()
 
 					mod.find('[data-tag="date"]')
-						.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+						//.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+						.html(`${v.application_fee==null ? '' : 'Comisión EstiloSPA.com: $ '+(parseFloat(v.application_fee).numberFormat(2,',','.')+' | ')}   Comisión MercadoPago: $ ${parseFloat(v.mercadopago_fee).numberFormat(2,',','.')}  | Fecha de compra: ${v.fecha} hs. ${vouchertext}`);
 
 
 					mod.find('.status')
@@ -138,7 +149,7 @@ sales = {
 
 					if(v.status=='rejected') mod.find('.sale-actions').remove();
 
-					if(v.gallery != null){
+					if(v.gallery != null && v.gallery !='' ){
 						var img = $.parseJSON(v.gallery);
 						mod.find('.thumb')
 							.css({backgroundImage:'url('+ROOT+'img/promos/'+img[0].photoname+'-t.'+img[0].extension+')'});

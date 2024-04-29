@@ -168,8 +168,8 @@ MakeColors(transparent,'transparent')
 .dp-block
 	display block
 .dp-table
-	display table 
-	position relative	
+	display table
+	position relative
 	table-layout auto
 .dp-table-cell
 	display table-cell
@@ -180,7 +180,7 @@ MakeColors(transparent,'transparent')
 	align-items center
 	justify-content center
 .overprint-fixed,.overprint-absolute
-	background-position center center 
+	background-position center center
 	background-repeat no-repeat
 	background-size cover
 	height 100%
@@ -188,10 +188,10 @@ MakeColors(transparent,'transparent')
 	top 0
 	width 100%
 .overprint-fixed
-	position fixed 
+	position fixed
 .overprint-absolute
 	position absolute
-.parallax-mirror	
+.parallax-mirror
 	img
 		Filter(blur(2px))
 .relative
@@ -204,7 +204,7 @@ MakeColors(transparent,'transparent')
 	background-color Gray(5)
 	border 2px dotted Gray(20)
 	z-index 50
-#scrollUp 
+#scrollUp
 	top 10px
 	right 10px
 	padding 2px 10px
@@ -213,7 +213,7 @@ MakeColors(transparent,'transparent')
 	i
 		font-size 29px
 for sz in 0 2 4 6 7 8 9 10 11 12 14 16 18 20 22 24 26 28 30 36 40 46
-	.sz-{sz} 
+	.sz-{sz}
 		font-size 1pt * sz
 	.lnhg-{sz}
 		line-height 1pt * sz
@@ -275,7 +275,7 @@ for pc in 0 .. 100
 .ff-opensans
 	font-family 'Open Sans', sans-serif
 .ff-lora
-	font-family 'Lora', sans-serif	
+	font-family 'Lora', sans-serif
 .fw-300
 	font-weight 300
 .fw-400
@@ -292,7 +292,7 @@ for pc in 0 .. 100
 /*--------------------------------------*/
 /*------------- STYLES -----------------*/
 /*--------------------------------------*/
-body 
+body
 	font-family 'Raleway', sans-serif
 	//font-family 'Fira Sans', sans-serif
 	//font-family 'Roboto', sans-serif
@@ -305,7 +305,7 @@ h1,h2,h3,h4
 	//font-style italic
 	font-family 'Fira Sans Condensed', sans-serif
 	font-weight 300
-.title-bar 
+.title-bar
 	background-color aqua_3
 	background-color aqua_1
 	color aqua_5
@@ -313,25 +313,25 @@ h1,h2,h3,h4
 	padding 8px 0
 	margin 16px 0 10px 0
 	text-align center
-	.title 
+	.title
 		margin 0
 section,footer,header
 	position relative
-	.container 
+	.container
 		position relative
-a 
+a
 	color Gray(60)
 	Transition(color 300ms ease-out)
-label 
-	span 
+label
+	span
 		font-weight 300
 		font-style italic
 .section-header
 	padding 80px 0
-		&:hover 
+		&:hover
 			color white
 			text-decoration none
-.gral-section 
+.gral-section
 	padding-top 50px
 	padding-bottom 50px
 .btn-fucsia
@@ -365,7 +365,7 @@ label
 	background-color transparent
 	border 1px solid Gray(10)
 	color Gray(60)
-	&:hover 
+	&:hover
 		background-color yellow_1
 		color yellow_4
 .btn-primary
@@ -380,15 +380,15 @@ label
 		border-color aqua_4
 		color white
 .btn-success
-	background-color green_2	
-.fa-toggle-on 
+	background-color green_2
+.fa-toggle-on
 	color green_3
 .fa-toggle-off
 	color red
 .thumbnail
 	overflow hidden
 	position relative
-	img.th 
+	img.th
 		cursor grab
 		left 0
 		position absolute
@@ -401,7 +401,7 @@ label
 		position absolute
 		top 10%
 		width 80%
-	.fa-times 
+	.fa-times
 		position absolute
 		right 5%
 		top 5%
@@ -412,20 +412,20 @@ label
 		ul
 			margin 0
 			padding 0
-			li 
+			li
 				display inline-block
-				vertical-align top 
-				a 
+				vertical-align top
+				a
 					color aqua_5
 					display block
 					font-size 7pt
 					font-weight 600
 					padding 5px 0 4px 0
-				&:hover 
+				&:hover
 					a
 						color black
 						text-decoration none
-		ul.right-menu 
+		ul.right-menu
 			display flex
 			position absolute
 			right 10px
@@ -434,11 +434,11 @@ label
 				border-left 1px solid aqua_2
 				padding 0
 				margin 0
-				a					
+				a
 					padding 6px 10px 4px 10px
-					i 
-						font-size 9pt						
-				a:hover 
+					i
+						font-size 9pt
+				a:hover
 					background-color white
 			li:last-of-type
 				border-right 1px solid aqua_2
@@ -446,17 +446,17 @@ label
 	z-index 11
 
 header
-	.container 
+	.container
 		.header-inner
 			align-items center
-			display flex 
+			display flex
 			justify-content space-between
 			.logo
-				img 
+				img
 					padding 16px 0
 					max-width 220px
 					width 100%
-			.user 
+			.user
 				min-width 180px
 				padding 16px 0
 				position relative
@@ -467,21 +467,21 @@ header
 					li
 						display inline-block
 						vertical-align top
-						a 
-							display block 
+						a
+							display block
 							font-size 10pt
 							padding 0 10px 0 0
 						&:hover
 							a
 								color fucsia_2
-								text-decoration none 
+								text-decoration none
 					.separator
 						padding 0 10px 0 0
 			.user-logged
 				align-items center
 				display flex
 				justify-content flex-end
-				.avatar 
+				.avatar
 					background-color Gray(10)
 					height 40px
 					min-width 40px
@@ -496,7 +496,7 @@ header
 					position relative
 					a
 						display block
-						i 
+						i
 							margin 0 6px
 						&:hover,&:focus
 							color fucsia_3
@@ -514,16 +514,16 @@ header
 					z-index 10
 					ul.menu-user
 						background-color white
-						border 1px solid Gray(10)						
+						border 1px solid Gray(10)
 						padding 0
 						Radius(2px)
-						Shadow(2px 2px 4px rgba(0,0,0,0.4))						
+						Shadow(2px 2px 4px rgba(0,0,0,0.4))
 						text-align left
-						width 100%						
+						width 100%
 						li
 							display block
 							a
-								display block 
+								display block
 								font-size 10pt
 								color Gray(80)
 								margin 0
@@ -531,7 +531,7 @@ header
 								transition background-color 300ms ease-out
 								i
 									width 18px
-								&:hover 
+								&:hover
 									background-color fucsia_3
 									text-decoration none
 									color white
@@ -553,7 +553,7 @@ header
 					//height auto
 					//transform rotate3d(1,0,0,0deg)
 					transform matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,0,0,0,1)
-nav 
+nav
 	//border-bottom 1px solid black
 	//background-color hsla(0,100%,0,1)
 	background-color aqua_3
@@ -569,19 +569,19 @@ nav
 			text-align center
 			transition background-color 300ms ease-out
 			list-style-type none
-			a 
+			a
 				color white
 				display block
 				font-family 'Fira Sans Condensed', sans-serif
 				font-size 11pt
 				font-weight 300
 				letter-spacing 0.1pt
-				padding 10px 12px				
-			&:hover 
+				padding 10px 12px
+			&:hover
 				background-color aqua_3
 				a
 					color white
-					text-decoration none 
+					text-decoration none
 		.active
 			background-color aqua_3
 		.highlight
@@ -590,7 +590,7 @@ nav
 			background-color aqua_2
 			a
 				color cyan_4
-	.fa-bars 
+	.fa-bars
 		display none
 		padding 16px
 .home-slider
@@ -599,7 +599,7 @@ nav
 		.row
 			.col-right,.col-left
 				margin 0
-				.mod-slide					
+				.mod-slide
 					display block
 					position relative
 					.next,.prev
@@ -610,14 +610,14 @@ nav
 						position absolute
 						top 44%
 						transition padding 300ms cubic-bezier(0.23, 1, 0.32, 1)
-						&:hover 
+						&:hover
 							padding 10px 16px
 					.next
 						right 0
-					.prev 
+					.prev
 						left 0
 					.slide
-						.caption 
+						.caption
 							background-color rgba(33,86,99,0.85)
 							color white
 							bottom 0
@@ -632,9 +632,9 @@ nav
 						position absolute
 						right 10px
 						top 10px
-						i 
+						i
 							color aqua_2
-						i.active 
+						i.active
 							color fucsia_3
 			.col-left
 				padding 4px 4px 4px 0
@@ -645,7 +645,7 @@ nav
 .news-home
 	padding 36px 0
 .home-carousel
-	margin 0 
+	margin 0
 .carousel
 	padding 16px 0
 .search-bar,.newsletter
@@ -678,22 +678,22 @@ nav
 		&:hover
 			background-color green_2
 			border-color green_2
-footer 
+footer
 	padding 66px 0
-	.bg 
+	.bg
 		//filter grayscale(100%)
 		//mix-blend-mode multiply
 		opacity 1
-	.container 
-		.logo 
-			max-width 240px	
-		.socials 
+	.container
+		.logo
+			max-width 240px
+		.socials
 			justify-content flex-start
-			.icon 
+			.icon
 				color white
 				border-color white
-		ul 
-			li 
+		ul
+			li
 				display block
 				a
 					color white
@@ -709,7 +709,7 @@ footer
 .payment
 	padding 16px 0
 	.cards
-		img 
+		img
 			Filter(grayscale(100%))
 			height 30px
 			margin 6px
@@ -717,7 +717,7 @@ footer
 		position absolute
 		right 0
 		bottom 0
-		img 
+		img
 			max-width 40px
 .bg-gradient
 	Background-Gradient(top, fucsia_3, cyan_3)
@@ -742,14 +742,14 @@ footer
 					padding 4px 10px
 					margin 0 0 6px 0
 					text-align left
-					i 
+					i
 						float right
 				ul.list
 					margin 0 0 26px 0
 					padding 0
-					li 						
+					li
 						display block
-						a 
+						a
 							border-bottom 1px solid Gray(5)
 							display block
 							font-size 9pt
@@ -761,70 +761,70 @@ footer
 							.badge
 								background-color Gray(20)
 								right 8px
-								position absolute 
+								position absolute
 								top 8px
-							i 
+							i
 								right 12px
-								position absolute 
+								position absolute
 								top 8px
 							&:hover
 								background-color Gray(5)
 								text-decoration none
 								color cyan_2
-						ul 
+						ul
 							margin 0
 							padding 0
-							li 
-								a 
+							li
+								a
 									margin 0 0 0 6px
 				.filters
-					margin 0 0 16px 0					
+					margin 0 0 16px 0
 			.right-column
 				overflow hidden
 				padding-left 8px
 				width 100%
-				.filters 
+				.filters
 					padding 8px 0
 .header-overview
 	padding 8px 0 16px 0
-	.container		
-		hr 
+	.container
+		hr
 			margin 8px 0
 		.row
 			.contact-info
 				line-height 20pt
-				i 
+				i
 					width 14px
 					text-align center
 					margin-right 4px
 .overview
 	background-color Gray(5)
-	padding-bottom 46px	
-	.breadcrumb 
+	padding-bottom 46px
+	.breadcrumb
 		background-color white
 		margin 10px 0 6px 0
 		Radius(0)
 		Shadow(0 2px 6px Gray(8))
-	.title 
+	.title
 		text-align left
 		padding-left 16px
 	.overview-header,.overview-promos,.overview-info,.overview-comments,.overview-tags
 		background-color white
 		Shadow(0 2px 6px Gray(8))
-		margin-bottom 6px	
+		margin-bottom 6px
 	.overview-header
 		background-color white
 		display flex
 		min-height 360px
 		.info,.gallery
 			position relative
-		.gallery 
-			background-color white 
+		.gallery
+			background-color white
 			border-left 1px solid Gray(10)
 			width 100%
-			.navigation 
+			.navigation
 				i
-					font-size 1rem 
+					font-size 1rem
 					margin 0
 		.info
 			padding 16px
@@ -837,15 +837,15 @@ footer
 					color white
 			h1
 				margin 0
-			hr 
+			hr
 				margin 0
 			.header-info
 				align-items flex-start
 				display flex
 				text-align left
 				padding 10px 0
-				margin-bottom 6px	
-				.logo 				
+				margin-bottom 6px
+				.logo
 					border 1px solid Gray(20)
 					background-color white
 					min-width 120px
@@ -863,42 +863,42 @@ footer
 				margin 0
 				.address,.more-stores,.phones,.whatsapp,.web,.schedules
 					padding 6px 0
-				i.icon 
+				i.icon
 					float left
 					color aqua_3
 					margin 2px 6px 0 0
-					width 14px				
+					width 14px
 			.box-icons
 				//text-align center
 				padding 16px 0
 				margin 0
 				width 100%
-				.item					
+				.item
 					//border-bottom 1px solid Gray(5)
 					padding 6px 0
 					margin 0
-					.outer				
-						display flex				
+					.outer
+						display flex
 						justify-content space-between
 						height 100%
-						.inner 
+						.inner
 							//align-items center
 							display flex
 							.rating
 								.punctuation
 									font-size 10pt
 									font-weight 200
-							.fa 
+							.fa
 								color aqua_3
-							.fa-inverse 
+							.fa-inverse
 								color white
-							.fa-stack:hover 
+							.fa-stack:hover
 								.fa-circle
 									color black
 							.fa-heart-o,.fa-heart
 								cursor pointer
 								font-size 20pt
-							.active 
+							.active
 								color fucsia_3
 							.fa-eye
 								font-size 20pt
@@ -908,16 +908,16 @@ footer
 		padding 16px
 	.overview-info
 		padding 16px
-		.main-title 
+		.main-title
 			margin 0 0 8px 0
 			font-weight 600
-		.tab-content			
+		.tab-content
 			border-right 1px solid Gray(15)
 			border-left 1px solid Gray(15)
 			border-bottom 1px solid Gray(15)
 			min-height 320px
 			padding 16px
-		.map 
+		.map
 			background-color Gray(10)
 			position relative
 			height 536px
@@ -944,14 +944,14 @@ footer
 				h4
 					font-weight bold
 					margin 0
-				ol 
+				ol
 					margin 0
 					padding 4px 0
-					li 
+					li
 						display block
 						padding 6px 0
 						font-size 10pt
-.schedules 
+.schedules
 	cursor pointer
 	position relative
 	.schedules-block
@@ -966,35 +966,35 @@ footer
 		transition transform 400ms cubic-bezier(0.23,1,0.32,1)
 		border 1px solid Gray(20)
 		z-index 10
-		p 
+		p
 			font-size 9pt
 			margin 6px 0
-	.schedules-block.active 
+	.schedules-block.active
 		transform matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,0,0,0,1)
-.comments	
+.comments
 	background-color white
-	margin-bottom 6px	
+	margin-bottom 6px
 	padding 10px
 	Shadow(0 2px 6px Gray(8))
 	.mod-comment
 		Flex()
 		border 1px solid Gray(5)
-		padding 16px	
-		margin 4px 0	
+		padding 16px
+		margin 4px 0
 		.box-user
 			margin-right 16px
 			min-width 100px
 			.thumbnail
 				margin-bottom 2px
-		.box-comment 
+		.box-comment
 			padding 16px
-			position relative			
+			position relative
 			p,div,hr
 				position relative
 				z-index 1
-			hr 
+			hr
 				margin 8px 0
-			&:before,&:after				
+			&:before,&:after
 				color Gray(5)
 				font-family 'FontAwesome'
 				font-size 90pt
@@ -1011,12 +1011,12 @@ footer
 				bottom -50px
 			.comment-actions
 				Flex()
-				.item 
+				.item
 					padding 4px 10px
 					margin-right 4px
 					color white
 
-.promo 	
+.promo
 	background-color Gray(5)
 	.breadcrumb
 		//display none
@@ -1027,34 +1027,34 @@ footer
 	.block-white
 		background-color white
 		///padding 0
-	.main-wrapper	
+	.main-wrapper
 		background-color white
-		display flex 
-		.gallery 
+		display flex
+		.gallery
 			min-width 560px
 			min-height 360px
 			width 560px
-			.navigation 
-				i 
+			.navigation
+				i
 					font-size .875rem
 					margin 0
 		.info-wrapper
 			padding 25px
 			width 100%
-			.promo-title 
+			.promo-title
 				color aqua_5
 				font-weight 600
 				margin 0 0 8px 0
 			.shop-action
-				display flex 
+				display flex
 				.amount
 					min-width 60px
 					width 60px
-					select 
+					select
 						border 1px solid aqua_4
 						border-radius 0
 						height auto
-						color cyan_4					
+						color cyan_4
 				.button-action
 					padding 0
 					position relative
@@ -1073,13 +1073,13 @@ footer
 						text-transform uppercase
 						//height 34px
 						width 200px
-						span 
+						span
 							padding 6px 16px
 							margin 0
-						i 
+						i
 							padding 9px 16px
 							margin 0
-						span 
+						span
 							cursor pointer
 						i:last-of-type
 							background-color aqua_5
@@ -1094,7 +1094,7 @@ footer
 						z-index 9
 						text-align left
 						width 100%
-						li 
+						li
 							display block
 							cursor pointer
 							color white
@@ -1103,27 +1103,27 @@ footer
 							text-transform uppercase
 							span
 								margin-left 10px
-							&:hover 
+							&:hover
 								background-color aqua_3
-			.box-icons 
+			.box-icons
 				display flex
 				justify-content space-between
 				padding 15px 0
 				//align-items center
 				.item
 					padding 0
-					i 
+					i
 						color cyan_2
 						color Gray(40)
 						font-size 2rem
-					.active 
+					.active
 						color fucsia_3
 			.pricing
 				margin 15px 0 15px 0
 				padding 15px 0
-				.promo-discount 
+				.promo-discount
 					color Gray(40)
-				.promo-price 
+				.promo-price
 					font-weight 600
 					font-size 2rem
 	.client-wrapper
@@ -1137,13 +1137,13 @@ footer
 		padding 15px
 		&:hover,&:focus
 			text-decoration none
-		.logo 
+		.logo
 			background-color white
 			border 2px solid white
 			height 80px
 			min-width 80px
 			width 80px
-		.client-info 
+		.client-info
 			padding 0 18px
 			.client-name
 				font-size 1.6rem
@@ -1152,39 +1152,39 @@ footer
 			.client-location
 				font-size 1.3rem
 				margin 0
-			.stars 
-				i 
+			.stars
+				i
 					font-size .875rem
 @media screen and (max-width 967px)
-	.promo 
-		.main-wrapper	
-			flex-wrap wrap 
-			.gallery 
+	.promo
+		.main-wrapper
+			flex-wrap wrap
+			.gallery
 				order 2
 				min-width 0
 				min-height 360px
 				width 100%
-			.info-wrapper 
+			.info-wrapper
 				order 1
 
 .blog-page
 	background-color Gray(0)
 	padding-bottom 16px
-	.container 
+	.container
 		display flex
 		.blog-container
 			width 100%
-			.breadcrumb 
+			.breadcrumb
 				background-color white
 				margin 16px 0 4px 0
 				Radius(0)
-			.title 
+			.title
 				padding 16px
 				position relative
 				text-align left
 				.bg
 					mix-blend-mode multiply
-				a 
+				a
 					color white
 				h1,h2,h3,h4
 					color white
@@ -1200,7 +1200,7 @@ footer
 				background-color white
 				padding 16px
 				margin-bottom 8px
-				img 
+				img
 					max-width 100%
 		.blog-related
 			background-color white
@@ -1209,7 +1209,7 @@ footer
 			min-width 360px
 			padding 8px 16px
 			width 360px
-			h1 
+			h1
 				font-size 14pt
 				margin 0
 			.mod-related
@@ -1217,7 +1217,7 @@ footer
 				display block
 				margin 4px 0
 				padding 10px 0
-				&:hover 
+				&:hover
 					color cyan_2
 					text-decoration none
 				h1
@@ -1226,7 +1226,7 @@ footer
 					margin 8px 0
 				p
 					font-size 8pt
-.blog 
+.blog
 	background-color Gray(5)
 	padding-bottom 16px
 
@@ -1237,16 +1237,16 @@ footer
 	li.page-item
 		a.page-link
 			color aqua_4
-	li.active 
+	li.active
 		a.page-link
 			border-color aqua_3
 			background-color aqua_2
 			color white
-			
+
 .button-menu
 	margin 0
 	padding 0
-	li 
+	li
 		display inline-block
 		margin 4px 0
 		a
@@ -1260,7 +1260,7 @@ footer
 			font-weight 400
 			padding 4px 8px
 			///text-transform uppercase
-			i 
+			i
 				font-size 1rem
 				margin-left 4px
 			&:hover,&:focus
@@ -1268,20 +1268,20 @@ footer
 				//border 1px solid transparent
 				color white
 				text-decoration none
-	li.active 
-		a 
+	li.active
+		a
 			background-color fucsia_3
 			color white
-.simple-list 
+.simple-list
 	margin 0
 	padding 0
 	li
 		display block
 		padding 4px 0
 .number-list
-	margin 15px 0 26px 15px 
+	margin 15px 0 26px 15px
 	padding 0
-	li 
+	li
 		padding 6px 0
 .gallery-section
 	align-items center
@@ -1295,7 +1295,7 @@ footer
 		padding 16px 6px
 		position relative
 		transition all 300ms cubic-bezier(0.23, 1, 0.32, 1)
-		&:hover 
+		&:hover
 			padding 16px 20px
 	.navigation
 		bottom 0
@@ -1303,19 +1303,19 @@ footer
 		position absolute
 		text-align center
 		width 100%
-		i 
+		i
 			color fucsia_3
 			cursor pointer
 			margin 0 4px
-			&:hover 
+			&:hover
 				color white
-		i.active 
+		i.active
 			color white
-	.play 
+	.play
 		align-items center
 		background-color rgba(200,10,120,0.35)
 		cursor pointer
-		display flex 
+		display flex
 		height 100%
 		justify-content center
 		left 0
@@ -1323,42 +1323,42 @@ footer
 		top 0
 		transition background-color 300ms ease-out
 		width 100%
-		i 
+		i
 			color black
-		&:hover 
+		&:hover
 			background-color rgba(200,10,120,0.75)
-			i 
+			i
 				color white
-	.video 
-		background-color black 
+	.video
+		background-color black
 		height 100%
 		left 0
-		padding 36px 
+		padding 36px
 		position absolute
 		top 0
 		width 100%
 		i
 			color fucsia_2
 			cursor pointer
-			font-size 16pt 
+			font-size 16pt
 			position absolute
 			right 13px
 			top 13px
 			transition transform 300ms cubic-bezier(0.23,1,0.32,1)
-			&:hover 
+			&:hover
 				color white
 				transform rotate3d(0,0,1,360deg)
-		iframe 
+		iframe
 			position relative
 			border 1px solid fucsia_4
 .social-tab
-	background-color black	
+	background-color black
 	position fixed
 	top 42%
 	left 0
 	width 36px
 	z-index 99
-	.icon-social:hover 
+	.icon-social:hover
 		i
 			padding 10px 20px
 .icon-social
@@ -1375,21 +1375,21 @@ footer
 		text-decoration none
 	i.fa-facebook:hover
 		background-color #3b5998
-	i.fa-google-plus:hover 
+	i.fa-google-plus:hover
 		background-color #db4437
-	i.fa-twitter:hover 
+	i.fa-twitter:hover
 		background-color #1da1f2
-	i.fa-pinterest:hover 
+	i.fa-pinterest:hover
 		background-color #bd081c
 	i.fa-linkedin:hover
 		background-color #0077B5
-	i.fa-whatsapp:hover 
+	i.fa-whatsapp:hover
 		background-color #009846
 .registro
 	.btn-facebook,.btn-twitter
 		display block
 		margin 16px 0
-		i 
+		i
 			margin-right 10px
 	.btn-facebook
 		background-color #3b5998
@@ -1397,7 +1397,7 @@ footer
 		background-color #1da1f2
 		border-color #1da1f2
 .profile-header
-	padding 46px 0 26px 0	
+	padding 46px 0 26px 0
 	.container
 		.profile-columns
 			display flex
@@ -1409,17 +1409,17 @@ footer
 					min-width 160px
 					Radius(6px)
 					width 160px
-				button 
+				button
 					margin-bottom 16px
 			.user-name
 				h1
 					margin 0
-					font-weight 700		
-.profile-body 
+					font-weight 700
+.profile-body
 	.container
 		.form-group
 			margin 16px 0
-.mod-highlight-panels	
+.mod-highlight-panels
 	align-items center
 	//border 1px solid Gray(20)
 	display flex
@@ -1429,28 +1429,28 @@ footer
 	//Shadow(2px 2px 10px rgba(0,0,0,0.2))
 	.item
 		//padding 26px 20px
-		h1 
+		h1
 			font-weight 700
 			margin 0
-		p 
+		p
 			font-size 9pt
 .section-header
 	color white
 	padding 100px 0 10px 0
 	position relative
-	h1 
+	h1
 		font-weight 700
 	.bg
 		opacity .65
 		mix-blend-mode multiply
-	a 
+	a
 		color white
 .glossary-list
-	.col 
+	.col
 		margin 10px 0
 		h4
 			margin-bottom 4px
-		a 
+		a
 			font-size 1.3rem
 .glossary
 	display flex
@@ -1462,16 +1462,16 @@ footer
 		margin 26px 26px 10px 0
 		min-width 240px
 		width 240px
-		.item 
+		.item
 			display block
 			color aqua_5
 			padding 2px 0
-			&:hover 
+			&:hover
 				color cyan_4
-.glossary-page 
-	padding 16px 0			
+.glossary-page
+	padding 16px 0
 	.page-content
-		background-color white 
+		background-color white
 		padding 26px
 		border-right 1px solid Gray(10)
 		border-bottom 1px solid Gray(10)
@@ -1480,7 +1480,7 @@ footer
 		overflow hidden
 		position relative
 		transition all 400ms cubic-bezier(.32,1,.23,1)
-		.view-more 
+		.view-more
 			background-color white
 			//background-color red
 			left 0
@@ -1489,34 +1489,34 @@ footer
 			position absolute
 			width 100%
 			//background-image linear-gradient(bottom,white,alpha(white,0))
-			&:after 
+			&:after
 				border-bottom 1px solid Gray(10)
 				content ''
 				background-image linear-gradient(bottom,white,alpha(white,0))
 				left 0
 				top -40px
-				height 40px 
+				height 40px
 				position absolute
 				width 100%
 @media screen and (max-width 767px)
 	.glossary-page
-		.page-content			
+		.page-content
 			.view-more
-				.btn 
+				.btn
 					width 100%
 					height auto
 					white-space normal
 				.btn:first-of-type
-					margin-bottom 10px				
-					
-.page-item.disabled 
+					margin-bottom 10px
+
+.page-item.disabled
 	.page-link
 		color #6c757d
 		pointer-events none
 		opacity .65
-	
+
 .qualify
-	.stars 
+	.stars
 		display flex
 		align-items top
 		.stars-wrapper
@@ -1533,35 +1533,35 @@ footer
 				color fucsia_3
 				content '\f005'
 		.star-text-wrapper
-			span 
+			span
 				display none
 				font-size 18pt
 				font-weight 300
 				margin 0 0 0 16px
-			span.visible 
+			span.visible
 				display inline
-			span.active 
+			span.active
 				display inline
 #modal_mp
-	iframe 
+	iframe
 		height 550px
 		width 100%
-		
+
 .blank-page
 	align-items center
 	display flex
 	justify-content center
 	height 100vh
-	min-height 480px 
+	min-height 480px
 	text-align center
-	.logo 
+	.logo
 		max-width 320px
 .socials
 	display flex
 	justify-content center
 	padding 16px 0
-	.icon 
-		align-items center 
+	.icon
+		align-items center
 		border 1px solid Gray(50)
 		border-radius 50%
 		display flex
@@ -1571,13 +1571,13 @@ footer
 		transition all 300ms ease-out
 		min-width 40px
 		width 40px
-		i 
+		i
 			font-size 2rem
 		&:hover,&:focus
 			border-color fucsia_3
 			text-decoration none
 			transform translateY(-5px)
-			color fucsia_3					
+			color fucsia_3
 /*--------------------------------------*/
 /*--------------- SEARCH -----------------*/
 /*--------------------------------------*/
@@ -1590,7 +1590,7 @@ footer
 		margin 0
 		padding 0 8px 8px 0
 		width (100/3)%
-		.wrapper 
+		.wrapper
 			border 1px solid Gray(10)
 			box-shadow 2px 2px 4px alpha(black,.05)
 			background-color white
@@ -1598,11 +1598,11 @@ footer
 			height 100%
 			padding 10px
 			margin 0
-			.client 
+			.client
 				margin 0 0 4px 0
 				display flex
-				.logo 
-					background-color white 
+				.logo
+					background-color white
 					border 1px solid alpha(cyan_1,.75)
 					display block
 					height 120px
@@ -1611,17 +1611,17 @@ footer
 				.client-data
 					padding 10px
 					width 100%
-					.title 
+					.title
 						font-weight bold
 						font-size 12pt
-					.address 
+					.address
 						font-size 9pt
 						margin 4px 0
-				.button 
+				.button
 					min-width 80px
 					text-align right
 					width 80px
-					a 
+					a
 						margin 0 0 4px 0
 			.promos
 				width 100%
@@ -1629,29 +1629,29 @@ footer
 					background-color white
 					background-color alpha(cyan_0,.2)
 					border 1px solid alpha(cyan_1,.75)
-					display flex 
+					display flex
 					padding 10px
 					margin 0 0 4px 0
-					.promo-info 
+					.promo-info
 						padding 0 16px 0 0
 						color Gray(60)
 						width 100%
-						.title 
+						.title
 							font-weight bold
 							color cyan_4
 							display block
 							margin-bottom 4px
 							font-size 11pt
-						.subtitle 
+						.subtitle
 							color cyan_3
 							font-size 9pt
-						.price 
+						.price
 							color cyan_4
 							margin 4px 0 0 0
 							font-weight bold
 							font-size 12pt
 						.price-discount
-							font-size 10pt 
+							font-size 10pt
 							font-weight 400
 					.buttons
 						position relative
@@ -1660,7 +1660,7 @@ footer
 	display flex
 	flex-wrap wrap
 	margin 0 -8px 0 -8px
-	.mod-promo 
+	.mod-promo
 		min-height 160px
 		padding 0 8px 16px 8px
 		width (100/2)%
@@ -1671,22 +1671,22 @@ footer
 			//border-radius 4px
 			box-shadow 2px 2px 4px alpha(black,.05)
 			padding 0
-			display flex 
-			.thumb 
+			display flex
+			.thumb
 				background-color Gray(10)
 				min-width 140px
 				//border-bottom-left-radius 4px
 				//border-top-left-radius 4px
 				width 140px
-			.data 
-				display flex 
+			.data
+				display flex
 				align-content space-between
 				flex-wrap wrap
 				width 100%
 				.data-body
 					padding 10px 16px
 					width 100%
-					.title 
+					.title
 						color cyan_4
 						font-size 13pt
 						font-weight 600
@@ -1695,7 +1695,7 @@ footer
 						color Gray(50)
 						font-size 10pt
 						margin 10px 0
-				.data-footer 
+				.data-footer
 					padding 8px 16px
 					//background-color alpha(cyan_0,.4)
 					//background-color Gray(3)
@@ -1703,16 +1703,16 @@ footer
 					color Gray(50)
 					font-size 9pt
 					width 100%
-			.actions 
+			.actions
 				border-left 1px solid Gray(5)
-				display flex 
+				display flex
 				flex-wrap wrap
-				align-items center 
+				align-items center
 				justify-content center
 				padding 10px 16px
 				min-width 172px
 				width 172px
-				.price 
+				.price
 					color cyan_4
 					font-weight 500
 					font-size 14pt
@@ -1721,7 +1721,7 @@ footer
 				.buttons
 					position relative
 					width 140px
-.client-container 
+.client-container
 	display flex
 	flex-wrap wrap
 	margin 0 -8px 0 -8px
@@ -1730,50 +1730,50 @@ footer
 		width (100/6)%
 		&:hover,&:focus
 			text-decoration none
-			.wrapper 
+			.wrapper
 				border 1px solid cyan_2
 				box-shadow 5px 5px 6px alpha(black,.1)
 				opacity .85
 				//transform translateY(-1px) translateX(-1px)
-		.wrapper 
+		.wrapper
 			align-content space-between
 			background-color white
 			border 1px solid Gray(10)
 			box-shadow 2px 2px 4px alpha(black,.05)
-			display flex 
-			flex-wrap wrap 
+			display flex
+			flex-wrap wrap
 			height 100%
 			transition 300ms all ease-out
-			.thumb 
+			.thumb
 				background-color white
 				border-bottom 1px solid Gray(5)
 				width 100%
 				position relative
-				.fav 
+				.fav
 					right 8px
 					color Gray(15)
 					cursor pointer
 					position absolute
 					top 6px
 					font-size 2.5rem
-					&:hover 
+					&:hover
 						color fucsia_3
-					.active 
+					.active
 						color fucsia_3
-			.data 
+			.data
 				padding 8px 16px
 				width 100%
 				.title
 					font-size 13pt
 					font-weight 600
 					line-height 1.8rem
-				.subtitle 
+				.subtitle
 					font-size 10pt
 					color Gray(50)
 					margin 10px 0
 			.location
 				background-color Gray(3)
-				font-size 9pt 
+				font-size 9pt
 				padding 6px 16px
 				width 100%
 /*--------------------------------------*/
@@ -1787,12 +1787,12 @@ footer
 	margin-bottom 26px
 	Shadow(3px 3px 4px Gray(5))
 	Transition(all 200ms linear)
-	&:hover 
+	&:hover
 		border 1px solid Gray(5)
 		Shadow(0 0px 4px Gray(5))
 		text-decoration none
 		color Gray(40)
-	.caption 
+	.caption
 		.dp-flexbox
 			padding 6px 0 0 0
 			.flexbox-item
@@ -1804,7 +1804,7 @@ footer
 				text-align center
 				&:last-of-type
 					border-right none
-.mod-news 
+.mod-news
 	background-color white
 	border 1px solid Gray(10)
 	display block
@@ -1815,9 +1815,9 @@ footer
 		height 200px
 		padding 10px
 		position relative
-		i 
+		i
 			font-size 9pt
-		p 
+		p
 			font-size 8pt
 			margin-top 6px
 		h3,h4
@@ -1831,7 +1831,7 @@ footer
 			position absolute
 			width 100%
 	&:hover
-		opacity 0.75		
+		opacity 0.75
 		text-decoration none
 .mod-tile-2
 	BoxSizing()
@@ -1845,7 +1845,7 @@ footer
 	.icons
 		background-color white
 		position relative
-	.caption 
+	.caption
 		background-color rgba(231,20,123,0.85)
 		color white
 		bottom 0
@@ -1855,7 +1855,7 @@ footer
 		Transition(background-color 300ms ease-out)
 		width 100%
 		h1,h2,h3,h4
-			margin 4px 0	
+			margin 4px 0
 	.sale-tag
 		position absolute
 		top 10%
@@ -1871,13 +1871,13 @@ footer
 			position absolute
 			left -5px
 			width 0
-		span 
+		span
 			background-color rgba(231,20,123,1)
 			color #fff
 			font-size 9pt
 			padding 6px 10px
 			position relative
-	&:hover 
+	&:hover
 		.caption
 			background-color rgba(0,0,0,0.85)
 		.dp-flexbox
@@ -1889,15 +1889,15 @@ footer
 	margin 10px 0
 	position relative
 	transition opacity 300ms linear
-	&:hover 
+	&:hover
 		text-decoration none
 		opacity 0.75
-	.thumb-cover 
+	.thumb-cover
 		position relative
 		overflow hidden
 		p
 			font-size 0.9em
-	.caption			
+	.caption
 		background-color fucsia_3
 		color white
 		padding 4px 16px
@@ -1913,22 +1913,22 @@ footer
 			width 100px
 		h3
 			margin 0 0 4px 0
-			height 28px			
+			height 28px
 		h4
 			margin 4px 0
-		p 
+		p
 			margin 0
-	.icons 
+	.icons
 		background-color Gray(60)
 		background-color aqua_6
 		color white
 		display flex
 		justify-content space-between
 		padding 4px 16px
-		.col 
+		.col
 			padding 0
 			text-align center
-			i 
+			i
 				font-size 9pt
 	.sale-tag
 		position absolute
@@ -1945,7 +1945,7 @@ footer
 			position absolute
 			left -5px
 			width 0
-		span 
+		span
 			background-color fucsia_3
 			color #fff
 			font-size 7.5pt
@@ -1960,14 +1960,14 @@ footer
 	padding 16px
 	.content
 		width 100%
-		.title 
+		.title
 			margin 0 0 8px 0
 			padding 0
 			font-weight 600
 			color black
 		.caption
 			margin 0 0 8px 0
-		small 
+		small
 			color Gray(40)
 	.action
 		border-left 1px solid Gray(10)
@@ -1975,7 +1975,7 @@ footer
 		width 140px
 		.btn-group
 			margin 10px 0
-		.price 
+		.price
 			font-size 14pt
 			font-weight 600
 .mod-mosaic
@@ -2000,65 +2000,65 @@ footer
 		text-align center
 		transition all 1200ms cubic-bezier(0.23,1,0.32,1)
 		width 100%
-		h4 
+		h4
 			margin 0
 			font-size 14pt
 			font-weight 400
 			//text-transform uppercase
 	&:hover
-		.caption 
+		.caption
 			background-color rgba(231,18,124,.75)
 			color white
-		.bg 
+		.bg
 			transform scale3d(1.2,1.2,1)
 #glossary_carousel
 	padding 6px 0 2px 0
 	margin 0
 .clients-carousel
-	padding 16px 10px	
+	padding 16px 10px
 	display flex
 	flex-wrap wrap
 	.owl-carousel
 		display flex
-	.mod-client 
+	.mod-client
 		background-color white
 		border 1px solid #dfdfdf
 		display block
 		transition 300ms all ease-out
 		height 100%
-		&:hover 
+		&:hover
 			border 1px solid cyan_2
 			box-shadow 5px 5px 6px alpha(black,.1)
 			//transform translateY(-1px) translateX(-1px)
 			opacity .85
-			text-decoration none			
-		.wrapper 
+			text-decoration none
+		.wrapper
 			//background-color yellow
 			height 100%
 			position relative
-			.thumb 
-				position relative 
-				.fav 
+			.thumb
+				position relative
+				.fav
 					right 8px
 					color Gray(15)
 					cursor pointer
 					position absolute
 					top 6px
 					font-size 2.5rem
-					&:hover 
+					&:hover
 						color fucsia_3
-					.active 
+					.active
 						color fucsia_3
 			.data
 				border-top 1px solid #dfdfdf
 				//height 100px
 				margin-bottom 20px
 				padding 10px
-				.title 
+				.title
 					color black
 					font-weight 500
 					line-height 1.15
-				.subtitle 
+				.subtitle
 					margin-top 10px
 					color Gray(50)
 					font-size 1.15rem
@@ -2083,16 +2083,16 @@ footer
 					width 100%
 .promos-highlight
 	padding 0
-	display flex 
+	display flex
 	flex-wrap wrap
 	position relative
-	.mod-promo 		
+	.mod-promo
 		padding 0 15px 15px 0
 		//background-color white
 		position relative
 		display block
-		width 100%		
-		&:hover 
+		width 100%
+		&:hover
 			text-decoration none
 			.wrapper
 				box-shadow 0px 0px 6px alpha(black,.35)
@@ -2116,7 +2116,7 @@ footer
 						top 8px
 						left -5px
 						//padding 2px 16px
-						span 							
+						span
 							background-color aqua_3
 							font-weight 500
 							color #fff
@@ -2134,22 +2134,22 @@ footer
 							position absolute
 							left -5px
 							width 0
-					.fav 
+					.fav
 						right 8px
 						color Gray(15)
 						cursor pointer
 						position absolute
 						top 6px
 						font-size 2.5rem
-						&:hover 
+						&:hover
 							color fucsia_3
-						.active 
+						.active
 							color fucsia_3
-				.content 
+				.content
 					//height 120px
 					padding 8px
 					width 100%
-					.title 
+					.title
 						color aqua_5
 						display block
 						font-weight 500
@@ -2165,43 +2165,43 @@ footer
 						margin 6px 0
 						font-size 1.125rem
 						line-height 1.4
-					.location 
+					.location
 						display block
 						color Gray(45)
 						margin-top 0
 						margin 6px 0
 						font-size 1.10rem
 						line-height 1.2
-						i 
+						i
 							margin-right 4px
-						
-			.mod-footer 
+
+			.mod-footer
 				padding 0
 				background-color Gray(0)
-				position relative 
-				//display flex 
+				position relative
+				//display flex
 				//align-items flex-end
 				//justify-content space-between
 				height 60px
 				bottom 0
 				width 100%
 				.actions
-					height 100% 
-					margin 0					
-					display flex 
+					height 100%
+					margin 0
+					display flex
 					justify-content space-between
 					align-items flex-end
 					padding 10px
 					.pricing
 						width 50%
-						.price 
+						.price
 							color Gray(80)
 							font-weight 500
 							font-size 1.8rem
 						.strikethrough
 							color Gray(40)
 							font-size 1.2rem
-					.promo-buttons 
+					.promo-buttons
 						width 50%
 	.mod-promo-6
 		width (100/6)%
@@ -2219,7 +2219,7 @@ footer
 		.wrapper
 			.mod-body
 				.content
-					.title 
+					.title
 						height auto
 .promo-buttons
 	position relative
@@ -2227,34 +2227,34 @@ footer
 	.main-button
 		background-color aqua_3
 		display flex
-		justify-content space-between		
+		justify-content space-between
 		&:hover,&:focus
 			background-color aqua_4
-			a 
+			a
 				text-decoration none
 		a
-			color white 
+			color white
 			padding 2px 8px
 			display block
 			font-size 1.3rem
 			font-family 'Fira Sans Condensed'
 			width 100%
 		i.icon
-			min-width 32px 
+			min-width 32px
 			width 32px
-			color white 
+			color white
 			padding 3px 10px
 			font-size 1.4rem
 		i.arrow
-			min-width 24px 
+			min-width 24px
 			width 24px
 			background-color aqua_5
 			cursor pointer
 			color white
 			padding 4px 8px
-			&:hover 
+			&:hover
 				background-color aqua_6
-	ul 
+	ul
 		border 1px solid cyan_1
 		box-shadow 2px 2px 6px alpha(black,.07)
 		margin 0
@@ -2267,30 +2267,30 @@ footer
 			background-color white
 			font-size 1.325rem
 			display flex
-			a 
-				color aqua_5				
-				font-family 'Fira Sans Condensed' 
+			a
+				color aqua_5
+				font-family 'Fira Sans Condensed'
 				padding 6px 16px
 			&:hover,&:focus
 				background-color aqua_5
-				i 
+				i
 					color white
 				a
 					color white
 					text-decoration none
-			i 
+			i
 				color aqua_5
 				padding 6px 10px
 /*--------------------------------------*/
 /*------------ RESPONSIVE --------------*/
 /*--------------------------------------*/
 @media screen and (max-width 1600px)
-	.client-container 
-		.mod-client 
+	.client-container
+		.mod-client
 			width (100/5)%
-			
+
 	.promos-highlight
-		.mod-promo 
+		.mod-promo
 			width (100/4)%
 @media screen and (max-width 1440px)
 	.client-promo-container
@@ -2298,8 +2298,8 @@ footer
 			///margin 0
 			//padding 0 0 8px 0
 			width (100/2)%
-	.client-container 
-		.mod-client 
+	.client-container
+		.mod-client
 			width (100/4)%
 	.promo-container
 		.mod-promo
@@ -2307,7 +2307,7 @@ footer
 				justify-content space-between
 				flex-wrap wrap
 				align-content flex-start
-				.thumb 
+				.thumb
 					height 120px
 					flex-grow 1
 					order 1
@@ -2320,13 +2320,13 @@ footer
 					width 180px
 @media screen and (max-width 1200px)
 	.promos-highlight
-		.mod-promo 
+		.mod-promo
 			width (100/2)%
 @media screen and (max-width 991px)
 	.overview
 		.overview-header
-			display block	
-			.info 
+			display block
+			.info
 				max-width 100%
 				width 100%
 	.client-promo-container
@@ -2337,11 +2337,11 @@ footer
 	.promo-container
 		.mod-promo
 			width (100/1)%
-	.client-container 
-		.mod-client 
-			width (100/3)%	
+	.client-container
+		.mod-client
+			width (100/3)%
 	nav
-		ul.main-menu 
+		ul.main-menu
 			display none
 			li
 				display block
@@ -2354,20 +2354,20 @@ footer
 			.search-container
 				display block
 				.right-column
-					padding-left 0				
+					padding-left 0
 	.home-slider
 		.container-fluid
 			.row
 				.col-right,.col-left
 					.mod-slide
-						.blank 
+						.blank
 							height auto
 						.slide
 							.caption
 								font-size 80%
 								/*position relative
 								width 100%*/
-	.overview 
+	.overview
 		.container
 			.box-container
 				flex-wrap wrap
@@ -2378,16 +2378,16 @@ footer
 			display block
 			.info,.gallery
 				width 100%
-				max-width 100%				
+				max-width 100%
 			.info
 				.header-info
 					display block
 					margin 0 0 0 0
-					.title 
+					.title
 						margin 8px 0 0 0
 						display block
 				.box-icons
-					.item 
+					.item
 						flex-grow 1
 						border-right 1px solid Gray(5)
 						border-bottom none
@@ -2396,10 +2396,10 @@ footer
 		.overview-info
 			#stores
 				height 260px
-	footer 
-		.container 
+	footer
+		.container
 			text-align center
-			ul 
+			ul
 				margin 0
 				padding 10px
 			.socials
@@ -2409,62 +2409,62 @@ footer
 			.profile-header
 				display block
 	.blog
-		.container 
+		.container
 			display block
-			.blog-related 
+			.blog-related
 				width 100%
 				margin-left 0
 	.blog-page
-		.container 
+		.container
 			display block
-			.blog-related 
+			.blog-related
 				width 100%
 				margin-left 0
-	.promo 
+	.promo
 		.overview-header
-			.info 
+			.info
 				width 100%
 				min-width 100%
-			.gallery 
+			.gallery
 				height 280px
 	.block-buttons
 		button
 			display block !important
-			float none !important	
+			float none !important
 			margin 16px 0
 			width 100%
 	.nav-tabs
 		white-space nowrap
 		overflow-x auto
 		overflow-y hidden
-		li 
-			float none 
+		li
+			float none
 			display inline-block
 	.social-tab
 		top auto
 		bottom 0
 		height 36px
 		width 100%
-		.icon-social 
-			display inline-block	
-		.icon-social:hover 
+		.icon-social
+			display inline-block
+		.icon-social:hover
 			i
 				padding 10px
-	.client-container 
-		.mod-client 
+	.client-container
+		.mod-client
 			width (100/2)%
 	.promos-highlight
-		.mod-promo 
+		.mod-promo
 			width 100%
-			.mod-body 
+			.mod-body
 				.content
 					height auto
-			.mod-footer 
+			.mod-footer
 				position relative
 @media screen and (max-width 592px)
 	.client-promo-container
 		.mod-client-promos
-			.wrapper 
+			.wrapper
 				display block
 				.client
 					flex-wrap wrap
@@ -2474,7 +2474,7 @@ footer
 					.button
 						text-align left
 						margin-top 10px
-				.promos 
+				.promos
 					padding 4px 0
 					.item
 						display block
@@ -2482,12 +2482,12 @@ footer
 							margin-bottom 16px
 	.promo-container
 		.mod-promo
-			.wrapper 
+			.wrapper
 				display block
-				.thumb 
+				.thumb
 					display none
-				.data 
-					.data-footer 
+				.data
+					.data-footer
 						background-color transparent
 				.actions
 					border-top 1px solid Gray(5)
@@ -2495,14 +2495,14 @@ footer
 					//display block
 					justify-content space-between
 					width 100%
-	.client-container 
-		.mod-client 
+	.client-container
+		.mod-client
 			width 100%
-			.wrapper 
-				.thumb 
+			.wrapper
+				.thumb
 					max-height 260px
-				.data 
-					.title 
+				.data
+					.title
 						font-size 11pt
 					.subtitle
 						font-size 9pt
@@ -2512,13 +2512,13 @@ footer
 /*------------- ADMIN ------------------*/
 /*--------------------------------------*/
 .header-admin
-	.logo 
+	.logo
 		padding 36px 10px
 	.nav-tabs
 		li
 			display inline-block
 			float none
-			vertical-align top 
+			vertical-align top
 		.active
 			a
 				background-color Gray(5)
@@ -2532,11 +2532,11 @@ footer
 	padding 40px 0 9px 0
 	position relative
 	margin 0
-	hr 
+	hr
 		margin 0 0 16px 0
 	h1
 		font-weight 700
-	p 
+	p
 		font-size 11pt
 .mod-menu-container
 	min-height 100px
@@ -2545,7 +2545,7 @@ footer
 	.mod-menu
 		Transition(opacity,300ms,ease-out)
 		margin-bottom 2px
-		&:hover 
+		&:hover
 			opacity 0.6
 .admin-gallery
 	max-height 280px
@@ -2553,25 +2553,25 @@ footer
 	.thumbnail
 		margin 2px
 		position relative
-		.redbg 
+		.redbg
 			background-color rgba(150,20,30,0.65)
 			display none
-			height 100%	
+			height 100%
 			left 0
 			position absolute
 			top 0
 			width 100%
-			i 
+			i
 				cursor pointer
-				&:hover 
+				&:hover
 					color orange
 			.delete
 				position absolute
 				right 8px
 				top 8px
 		&:hover
-			.redbg 
-				display block	
+			.redbg
+				display block
 .mod-container
 	max-height 580px
 	overflow auto
@@ -2585,21 +2585,21 @@ footer
 		Radius(4px)
 		Shadow(2px 2px 4px 0 rgba(0,0,0,0.25))
 		Transition(all 300ms ease-out)
-		&:hover 
+		&:hover
 			border 1px solid Gray(20)
 			Shadow(0 0 4px 0 rgba(0,0,0,0.15))
 		.thumbnail
 			margin-bottom 0
 			height 80%
 			position absolute
-			width 80px 
+			width 80px
 		.data
 			overflow hidden
 			margin 0 130px 0 90px
-			hr 
+			hr
 				margin 8px 0 8px 0
 			.buttons
-				top 10px 
+				top 10px
 				position absolute
 				right 10px
 			.options
@@ -2612,7 +2612,7 @@ footer
 		padding-top 16px
 		padding-bottom 16px
 		//Shadow(1px 1px 2px 1px rgba(0,0,0,0.10))
-.mod-card	
+.mod-card
 	Transition(width 300ms ease-out)
 	margin 0 0 4px 0
 	.card-inner
@@ -2620,18 +2620,18 @@ footer
 		overflow hidden
 		margin-bottom 8px
 		transition box-shadow 300ms ease-out
-		&:hover 
+		&:hover
 			Shadow(5px 5px 6px 1px rgba(0,0,0,0.16))
 		.thumb
 			position relative
-			.buttons 
+			.buttons
 				position absolute
 				bottom 10px
 				right 10px
 			.selector
-				left 8px 
+				left 8px
 				position absolute
-				top 8px			
+				top 8px
 		.caption
 			background-color white
 			position relative
@@ -2652,10 +2652,10 @@ footer
 					position absolute
 					width 80px
 					right 0
-					top 0					
-			hr 
+					top 0
+			hr
 				margin 0
-			p 
+			p
 				font-size 10pt
 				padding 10px
 				margin 0
@@ -2673,14 +2673,14 @@ footer
 				position absolute
 				top 10px
 				right 10px
-			.foot 
+			.foot
 				align-items center
 				border-top 1px solid Gray(10)
 				color Gray(65)
-				display flex 
+				display flex
 				justify-content space-between
 				padding 6px 10px
-				text-align right	
+				text-align right
 			/*.edit
 				cursor pointer
 				position absolute
@@ -2688,8 +2688,8 @@ footer
 				right 10px
 				.fa-circle
 					Transition(color 300ms ease-out)
-				&:hover 
-					.fa-circle 
+				&:hover
+					.fa-circle
 						color black
 			.edit-list
 				top 16px*/
@@ -2703,7 +2703,7 @@ footer
 	height 360px
 	overflow auto
 .mod-container-lg
-	height 620px 
+	height 620px
 	overflow auto
 .mod-list-thumb
 	background-color  white
@@ -2715,21 +2715,21 @@ footer
 	Radius(4px)
 	Shadow(2px 2px 4px 0 rgba(0,0,0,0.25))
 	Animation(all 300ms ease-out)
-	&:hover 
+	&:hover
 		border 1px solid Gray(20)
 		Shadow(0 0 4px 0 rgba(0,0,0,0.15))
 	.thumbnail
 		margin-bottom 0
 		height 80%
 		position absolute
-		width 80px 
+		width 80px
 	.data
 		overflow hidden
 		margin 0 130px 0 90px
-		hr 
+		hr
 			margin 8px 0 8px 0
 		.buttons
-			top 10px 
+			top 10px
 			position absolute
 			right 10px
 		.options
@@ -2745,7 +2745,7 @@ footer
 	position relative
 	Radius(2px)
 	///Transition(shadow 200ms linear)
-	&:hover 
+	&:hover
 		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.12)
 	h4
 		margin-right 50px
@@ -2754,16 +2754,16 @@ footer
 	.buttons
 		position absolute
 		top 10px
-		right 10px		
-	p 
+		right 10px
+	p
 		font-size 9pt
-	small 
+	small
 		color Gray(60)
 		font-family 'Open Sans', sans-serif
 		font-size 8pt
 	hr
 		margin 6px 0
-.mod-list.active 
+.mod-list.active
 	background-color aqua_2
 	border 1px solid aqua_3
 	&:after
@@ -2774,8 +2774,8 @@ footer
 		height 10px
 		position absolute
 		transform rotateZ(45deg)
-		width 10px		
-	&:hover 
+		width 10px
+	&:hover
 		box-shadow none
 .form-group
 	position relative
@@ -2795,37 +2795,37 @@ footer
 	box-shadow 0 2px 4px rgba(0,0,0,0.2)
 	width 100%
 	z-index 11
-	li 
+	li
 		display block
 		cursor pointer
 		margin 2px 0
 		padding 6px 10px
-		&:hover 
+		&:hover
 			background-color Gray(10)
-	li.active 
+	li.active
 		background-color Gray(10)
 .panel-admin-mod
-	.panel-heading 
+	.panel-heading
 		background-color Gray(10)
 		color Gray(60)
 		padding 6px 16px
 	.panel-body
 		margin 0
 		padding 0
-		.list-group 
+		.list-group
 			margin-bottom 0
 			.list-group-item
 				position relative
 				border none
 				border-top 1px solid Gray(10)
-				border-radius 0				
+				border-radius 0
 				.buttons
 					right 10px
 					top 10px
 					position absolute
 				.item
 					margin-right 50px
-					i 
+					i
 						cursor pointer
 						margin 0 8px 0 0
 			.list-group-item:first-of-type
@@ -2838,9 +2838,9 @@ footer
 	box-shadow 2px 2px 4px alpha(black,.05)
 	margin 8px 0
 	padding 26px
-	hr 
+	hr
 		margin 15px 0 15px 0
-	.title-bar 
+	.title-bar
 		margin -26px -26px 15px -26px
 		padding-left 26px
 		text-align left
@@ -2861,8 +2861,8 @@ footer
 	background-color white
 	margin 0 0 8px 0
 	.tab-panel
-		border-left 1px solid Gray(10)	
-		border-right 1px solid Gray(10)	
+		border-left 1px solid Gray(10)
+		border-right 1px solid Gray(10)
 		border-bottom 1px solid Gray(10)
 		padding 36px 26px
 		position relative
@@ -2878,17 +2878,17 @@ footer
 			top 0
 			width 100%
 			z-index 3
-			h1 
+			h1
 				font-size 18pt
-			.close 
+			.close
 				position absolute
 				right 16px
 				top 16px
 				opacity 1
 				font-size 9pt
-				&:hover 
+				&:hover
 					color fucsia_3
-.pop-schedules 
+.pop-schedules
 	.row-days
 		overflow auto
 		margin 6px 0
@@ -2897,7 +2897,7 @@ footer
 		button.active
 			background-color aqua_3
 			color white
-	.hours 
+	.hours
 		margin 16px 0
 		display flex
 		flex-wrap wrap
@@ -2910,19 +2910,19 @@ footer
 			padding 10px 0
 			text-align center
 			width 64px
-			&:hover 
+			&:hover
 				background-color aqua_1
-		button.active 
+		button.active
 			background-color aqua_3
 			color white
 .flex-options
-	display flex 
+	display flex
 	.flex-item
 		border 1px solid Gray(10)
 		cursor pointer
 		padding 10px 16px
 		margin 0 10px 0 0
-		&:hover 
+		&:hover
 			background-color Gray(5)
 .cke_editable
 	padding 18px
@@ -2939,7 +2939,7 @@ footer
 		padding 8px 26px
 	h1,h2,h3,h4,h5,h6,p,small
 		margin 6px 0
-	.box-title 
+	.box-title
 		border-bottom 1px solid Gray(5)
 	.box-footer
 		border-top 1px solid Gray(5)
@@ -2950,24 +2950,25 @@ footer
 	margin 0 0 8px 0
 	.sale-header
 		display flex
-		.thumb-container 
+		position relative
+		.thumb-container
 			padding 16px
 			.thumb
 				background-color aqua_4
 				border 1px solid Gray(10)
 				height 80px
 				width 80px
-		.caption 
+		.caption
 			flex-grow 1
 			padding 8px 16px
 			h1,h2,h3,h4,h5,hr
 				margin 6px 0
-				a 
+				a
 					color black
 					&:hover,&:focus
 						color aqua_3
 						text-decoration none
-		.action 
+		.action
 			padding 16px
 			width 60px
 		.sale-actions
@@ -2976,9 +2977,10 @@ footer
 			margin-top 6px
 			.btn-group
 				margin-left 8px
-		.close 
+
+		.close
 			padding 4px 6px
-	.sale-footer 
+	.sale-footer
 		display none
 		padding 0 16px
 		.sale-user
@@ -2993,7 +2995,7 @@ footer
 			&:after,&:before
 				color Gray(6)
 				font-family 'FontAwesome'
-				font-size 96pt					
+				font-size 96pt
 				position absolute
 				z-index 1
 			&:after
@@ -3008,7 +3010,7 @@ footer
 				position relative
 				display flex
 				z-index 2
-				.item 
+				.item
 					.user-thumb
 						background-color Gray(20)
 						border-radius 4px
@@ -3017,10 +3019,10 @@ footer
 				.item:last-of-type
 					flex-grow 1
 					padding 0 20px
-					.mail 
+					.mail
 						color Gray(40)
 						font-size 10pt
-						&:hover 
+						&:hover
 							color fucsia_3
 							text-decoration none
 			.feedback
@@ -3030,7 +3032,7 @@ footer
 				p[data-tag="comment"]
 					position relative
 					font-style italic
-				.stars 
+				.stars
 					font-size 9pt
-	.sale-user-footer		
+	.sale-user-footer
 		display block

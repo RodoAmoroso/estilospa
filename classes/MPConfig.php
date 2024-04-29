@@ -59,20 +59,26 @@ class MPConfig extends Core{
 
 
 					//Producción
-					/*$notification_url = ROOT.'ipn.php',
+					$notification_url = ROOT.'ipn.php',
 					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583',
 					$app_id='7300466898804487',
 					$public_key='APP_USR-43830fea-2de3-4976-86ca-08ed0494b311',
-					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';*/
+					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';
 
 
 
 					//Test Localhost Bricks
-					$notification_url = 'https://webhook.site/ac7e8e07-282a-4a04-a792-13d8ec40eb8b',
+					/*$notification_url = 'https://webhook.site/4ed11692-870d-461f-8d06-df3d439bad71',
 					$access_token='TEST-389403748152273-070520-1890d82af8a41b80904fb788b903ccdd__LD_LB__-263157583',
 					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
 					$app_id='389403748152273',
-					$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj';
+					$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj';*/
+					//Test Localhost RODO
+					/*$notification_url = 'https://webhook.site/e4b8577b-3b88-4eb5-a1f1-516fca6a7486',
+					$access_token='TEST-8912612574179921-062914-214e0db738393b77599faf197d6e1682__LB_LD__-89899659',
+					$public_key='TEST-97e1dc09-512d-4118-9c27-631b539d5aa0',
+					$app_id='8912612574179921',
+					$secret_key='mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46';*/
 
 
 					//Test Demo
@@ -80,6 +86,7 @@ class MPConfig extends Core{
 					//$app_id='7030611358224519',
 					//$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
 					//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+					///código de acceso a la cuenta:751838
 
 					// Test SpaEstilo
 					//$app_id='4678134710817612',
@@ -98,6 +105,7 @@ class MPConfig extends Core{
 		$this->Clients = new Clients;
 		$this->Sales = new Sales;
 		$this->Users = new Users;
+		$this->MPErrors = new MPErrors;
 		///$this->set_hash();
 		parent::__construct();
 	}
@@ -403,13 +411,16 @@ class MPConfig extends Core{
 		unset($user->pass);
 
 
-		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
 
 		if($client_access_token = $this->get_access_token($promo->idclient)){
 			MercadoPago\SDK::setAccessToken($client_access_token);
 		}
+		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
+
 
 		//$total_price = Input::get('subtotal','float')*Input::get('quantity','int');
+
+		///echo_json($sale_temp);
 
 		// Crear un elemento en la preferencia
 		$item = new MercadoPago\Item();
@@ -434,7 +445,7 @@ class MPConfig extends Core{
 		$preference->expiration_date_to = $now->modify('+1 hours')->format('c');
 
 		if($client_access_token){
-			$preference->marketplace_fee = (float) $client->fee*($sale_temp ? $sale_temp->subtotal : $promo->price_w_discount)/100;
+			$preference->marketplace_fee = (float) $client->fee*($sale_temp ? $sale_temp->total : $promo->price_w_discount)/100;
 		}
 
 
@@ -447,11 +458,15 @@ class MPConfig extends Core{
 			'pending'=>ROOT.'pago-status/pending/'.$this->_hash
 		);
 		$preference->auto_return = "approved";
+		$preference->binary_mode = true;
 
 		$preference->save();
 
+		///echo_json($preference->marketplace_fee);
+
 		return [
 			'id'=>$preference->id,
+			'marketplace_fee'=>$preference->marketplace_fee,
 			'external_reference'=>$this->_hash,
 			'promo'=>$promo,
 			'user'=>$user,
@@ -468,6 +483,9 @@ class MPConfig extends Core{
 			return false;
 		}
 		$userdata = $User->data();
+
+		//echo_json(Input::get_all());
+
 
 		if(!$this->Promos->find(Input::get('promoid'))){
 			$this->response = 'No se ha encontrado la experiencia.';
@@ -489,13 +507,12 @@ class MPConfig extends Core{
 		$sale_temp = $this->Sales->data();
 
 
-		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
 
 		if($client_access_token = $this->get_access_token($promo->idclient)){
 			MercadoPago\SDK::setAccessToken($client_access_token);
 		}
+		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
 
-		////echo_json(Input::get('formData'));
 
 
 		$payment = new MercadoPago\Payment();
@@ -517,18 +534,34 @@ class MPConfig extends Core{
 
 		$payment->payer = $payer;
 
+		if($client_access_token){
+			$payment->application_fee = (float) $client->fee*($sale_temp ? $sale_temp->total : $promo->price_w_discount)/100;
+		}
+
+
 		///echo_json(Input::get_all());
 
 		try {
 			$payment->save();
 		} catch (Exception $e) {
 			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
+			$this->MPErrors->save([
+				'error'=>json_encode(['message'=>$e->getMessage()]),
+				'sale'=>json_encode($sale_temp),
+				'input'=>json_encode(Input::get_all())
+			]);
 			return false;
 		}
 
 		if($payment->Error()){
-			$this->response = $payment->Error()->message;
+			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
+			$this->response .= 'Ref: '.$payment->Error()->message;
 			///echo_json($payment->Error());
+			$this->MPErrors->save([
+				'error'=>json_encode($payment->Error()),
+				'sale'=>json_encode($sale_temp),
+				'input'=>json_encode(Input::get_all())
+			]);
 			return false;
 		}
 
@@ -537,6 +570,11 @@ class MPConfig extends Core{
 		if($payment->status!='approved' && $payment->status!='in_process'){
 			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
 			$this->response .= '<p><b>'.$payment->status.'</b> '.$payment->Error().'</p>';
+			$this->MPErrors->save([
+				'error'=>json_encode(['status'=>$payment->status]),
+				'sale'=>json_encode($sale_temp),
+				'input'=>json_encode(Input::get_all())
+			]);
 			return false;
 		}
 		if($payment->status=='in_process'){

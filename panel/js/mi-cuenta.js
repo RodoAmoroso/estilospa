@@ -120,8 +120,18 @@ sales = {
 					mod.find('[data-tag="price"]')
 						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
 
+					if(v.application_fee!=null){
+						mod.find('[data-tag="sale-estilospa"]').remove()
+					}else{
+						if(v.marketplace_owner==null){
+							mod.find('[data-tag="sale-estilospa"]').text('Ingreso sin comisión a EstiloSPA')
+						}
+					}
+					if(v.collection_status!='approved') mod.find('[data-tag="sale-estilospa"]').remove()
+
 					mod.find('[data-tag="date"]')
-						.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+						//.html('Comisión EstiloSPA.com: $ '+parseFloat(v.application_fee).numberFormat(2,',','.')+' | Comisión MercadoPago: $ '+parseFloat(v.mercadopago_fee).numberFormat(2,',','.') + ' | Fecha de compra: '+v.fecha+' hs.'+vouchertext);
+						.html(`${v.application_fee==null ? '' : 'Comisión EstiloSPA.com: $ '+(parseFloat(v.application_fee).numberFormat(2,',','.')+' | ')}   Comisión MercadoPago: $ ${parseFloat(v.mercadopago_fee).numberFormat(2,',','.')}  | Fecha de compra: ${v.fecha} hs. ${vouchertext}`);
 
 
 					mod.find('.status')

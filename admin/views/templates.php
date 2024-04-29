@@ -98,8 +98,10 @@
 		<div class="caption">
 			<h4 data-tag="title" class="title-promo">Cliente / Title Promo</h4>
 			<h1 data-tag="ordernumber" class="title">Orden Nro.: </h1>
-			<h4 data-tag="price" class="subtitle">$0000 - Cant. 11</h4>
-			<small data-tag="date" class="date">$0000 - Cant. 11 | Fecha de compra: 00/00/0000 10:00:00 hs.</small>
+			<h4 data-tag="price" class="subtitle">
+
+			</h4>
+			<div data-tag="date" class="date"></div>
 
 			<div class="status">
 				<div class="payment-status"></div>
@@ -129,6 +131,10 @@
 		</div>
 		<div class="action">
 			<button data-button="toggle" class="btn btn-primary btn-block btn-xs"><i class="fa fa-chevron-down"></i></button>
+		</div>
+
+		<div class="tags">
+			<div data-tag="sale-estilospa" class="sale-estilospa">Ingreso en Cuenta de EstiloSPA</div>
 		</div>
 	</div>
 	<div class="sale-footer">

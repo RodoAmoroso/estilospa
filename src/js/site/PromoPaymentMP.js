@@ -24,7 +24,7 @@ class PromoPaymentMP {
 
 		const mp_settings = {
 			initialization: {
-				amount: this.preference.sale.price*this.preference.sale.quantity, // monto a ser pago
+				amount: this.preference.sale.subtotal*this.preference.sale.quantity, // monto a ser pago
 				preferenceId: this.preference.id,
 				payer: {
 					email:this.preference.user.mail
@@ -49,7 +49,11 @@ class PromoPaymentMP {
 					console.log('ok')
 				},
 				onSubmit: async cardFormData=>{
-					console.log('payment.processing...')
+					//console.log('payment.processing...')
+					if(cardFormData.paymentType=='wallet_purchase'){
+						window.location.href = this.preference.promo.url
+						return false
+					}
 
 					cardFormData.preference = this.preference
 					cardFormData.promoid = this.promoid

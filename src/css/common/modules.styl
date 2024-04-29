@@ -241,6 +241,8 @@
 	.sale-header
 		display flex
 		padding 0
+		position relative
+		//overflow hidden
 		.thumb-container
 			margin-right 10px
 			min-height 180px
@@ -259,7 +261,7 @@
 				font-weight 500
 				color $cyan_2
 			.subtitle
-				font-size 1.25rem
+				font-size 11pt
 				font-weight 400
 			.title-promo
 				font-size 1.4rem
@@ -292,6 +294,19 @@
 				margin-left 8px
 		.close
 			padding 4px 6px
+
+		.tags
+			position absolute
+			right 0
+			top 1rem
+			font-size 9pt
+			.sale-estilospa
+				background-color $pink_2
+				color white
+				padding .225rem .725rem
+
+
+
 	.sale-footer
 		padding 0
 		.sale-user

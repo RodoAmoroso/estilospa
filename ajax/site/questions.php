@@ -83,13 +83,16 @@ switch($_action){
 
 		if(!$User->logged()) die(Responses::response('require_login'));
 		if(!Input::check(Input::get('required'))) die(Responses::response('restricted'));
-		$questionid = $Questions->add('questions_responses',array(
+
+		$values = [
 			'messageid'=>Input::get('messageid'),
 			'userid'=>$User->data()->id,
 			'message'=>strip_tags(Input::get('message')),
-			'added'=>date('Y-m-d H:i:s')
-		));
-		if(!$Mailing->response($questionid)) die(Responses::response('fail'));
+			'added'=>date('Y-m-d H:i:s'),
+			'approved'=>0
+		];
+		$questionid = $Questions->add('questions_responses',$values);
+		//if(!$Mailing->response($questionid)) die(Responses::response('fail'));
 		echo Responses::response('ok');
 		break;
 

@@ -127,7 +127,7 @@
 
 							<div class="stars">
 								<?= Stars($promstars,''); ?><br>
-								<small class="punctuation"><?= round($promstars,1) ?>/5</small>
+								<small class="punctuation"><?= !$promstars ?? round($promstars,1) ?>/5</small>
 							</div>
 						</div>
 					</div>

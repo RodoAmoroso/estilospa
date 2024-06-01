@@ -22,9 +22,8 @@ class DB {
 	}
 
 	public static function getInstance(){
-		/*if(!isset(self::$_instance)){
-		}*/
 		self::$_instance = new DB();
+		self::$_instance->query("SET time_zone = '-3:00'");
 		return self::$_instance;
 	}
 

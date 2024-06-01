@@ -261,7 +261,7 @@ class Sales {
 
 		$sale->gift = null;
 		$sale->image = $data->promo->image;
-		$sale->price = $sale->total;
+		//$sale->price = $sale->total;
 
 		$Mailing = new Mailing;
 		$Mailing->sales_success_user($sale);
@@ -378,11 +378,13 @@ class Sales {
 			LEFT JOIN {vouchers_codes} vc ON vc.id=vu.idcode
 			LEFT JOIN {reservations_sales} rs ON rs.saleid=s.id
 			{$where}
-			GROUP BY collection_id
 			ORDER BY s.added DESC
 			{$limitby}",
 			$values
 		);
+
+		///GROUP BY collection_id
+
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->results();
 		foreach($this->_data as $key=>$row){

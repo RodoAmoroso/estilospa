@@ -399,7 +399,7 @@ class Mailing {
 		}
 
 		$this->_mailer->addBCC($this->_email, $this->_fullname);
-		//$this->_mailer->addAddress($this->_email, $this->_fullname);
+		$this->_mailer->addBCC('rodosoft@hotmail.com', 'Rodo');
 		$this->_mailer->Subject = 'Nueva venta en EstiloSPA.com - Nro: '.$obj->title;
 
 		$body = Templates::template('sales/success-client',$obj);
@@ -616,6 +616,26 @@ class Mailing {
 
 		return true;
 	}
+
+
+	public function unlink_mp($client=0){
+
+		if(!$client) return false;
+		///$this->_mailer->addAddress($reservation->user->mail, $client->name);
+		$arrMails = str_replace(',', ';', $client->mail);
+		$arrMails = explode(';',$arrMails);
+		foreach($arrMails as $mail){
+			$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
+		}
+		$this->_mailer->addBCC($this->_email, $this->_fullname);
+		$this->_mailer->Subject = 'Desvinculación de la cuenta de MercadoPago en EstiloSPA';
+
+		$body = Templates::template('sales/unlink-mp',$client);
+		if(!$this->send($body)) return false;
+
+		return true;
+	}
+
 
 
 	public function root(){

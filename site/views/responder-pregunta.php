@@ -36,6 +36,11 @@
 			<p><?=$response->message?></p>
 			<small>Enviada el <?=$response->creado?> hs.</small>
 		</div>
+
+		<?php if(!$response->approved): ?>
+		<div class="small text-danger"><i class="fa fa-exclamation-triangle fa-fw"></i> La respuesta pasará por un proceso de revisión y estará publicada en el sitio una vez que se apruebe.</div>
+		<?php endif; ?>
+
 		<?php endif; ?>
 
 

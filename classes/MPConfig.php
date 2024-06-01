@@ -291,12 +291,12 @@ class MPConfig extends Core{
 
 		$Notifications = new Notifications();
 
-		$this->_db->query(
-			"SELECT m.*, c.name, c.permalink
+		$this->_db->query("
+			SELECT m.*, c.name, c.permalink
 			FROM {mp} m
 			LEFT JOIN {clients} c ON c.id=m.idclient
 			{$where}
-			");
+		");
 		if(!$this->_db->count()) return false;
 
 
@@ -310,7 +310,12 @@ class MPConfig extends Core{
 
 			$response = curl_post('https://api.mercadopago.com/oauth/token',$request);
 			$json = json_decode($response->response);
-			if($response->status == 400) return false;
+
+			if($response->status == 400){
+				$Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
+				$this->_db->delete('mp',['id','=',$client->id]);
+				return false;
+			}
 
 			$this->_db->update('mp',$client->id,array(
 				'access_token'=>$json->access_token,
@@ -361,11 +366,14 @@ class MPConfig extends Core{
 	}
 
 
-
 	public function get_access_token($idclient=0){
+		if(!$mp_client = $this->get_mp_client($idclient)) return false;
+		return $mp_client->access_token;
+	}
+	public function get_mp_client($idclient=0){
 		$this->_db->get('mp',array('idclient','=',$idclient));
 		if(!$this->_db->count()) return false;
-		return $this->_db->first()->access_token;
+		return $this->_db->first();
 	}
 
 
@@ -412,8 +420,10 @@ class MPConfig extends Core{
 
 
 
-		if($client_access_token = $this->get_access_token($promo->idclient)){
-			MercadoPago\SDK::setAccessToken($client_access_token);
+		if($mp_client = $this->get_mp_client($promo->idclient)){
+			///echo_json($mp_client);
+			MercadoPago\SDK::setAccessToken($mp_client->access_token);
+			$this->public_key = $mp_client->public_key;
 		}
 		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
 
@@ -435,7 +445,7 @@ class MPConfig extends Core{
 		$preference->items = array($item);
 		// el $preference->purpose = 'wallet_purchase'; solo permite pagos registrados
 		// para permitir pagos de guests, puede omitir esta propiedad
-		$preference->purpose = 'wallet_purchase';
+		//$preference->purpose = 'wallet_purchase';
 
 
 		/// Crear vencimiento para el pago
@@ -444,7 +454,7 @@ class MPConfig extends Core{
 		$preference->expiration_date_from = $now->format('c');
 		$preference->expiration_date_to = $now->modify('+1 hours')->format('c');
 
-		if($client_access_token){
+		if($mp_client){
 			$preference->marketplace_fee = (float) $client->fee*($sale_temp ? $sale_temp->total : $promo->price_w_discount)/100;
 		}
 
@@ -462,10 +472,9 @@ class MPConfig extends Core{
 
 		$preference->save();
 
-		///echo_json($preference->marketplace_fee);
-
 		return [
 			'id'=>$preference->id,
+			'init_point'=>$preference->init_point,
 			'marketplace_fee'=>$preference->marketplace_fee,
 			'external_reference'=>$this->_hash,
 			'promo'=>$promo,
@@ -518,7 +527,7 @@ class MPConfig extends Core{
 		$payment = new MercadoPago\Payment();
 		$payment->transaction_amount = (float) Input::get('formData')['transaction_amount'];
 		$payment->token = Input::get('formData')['token'];
-		$payment->installments = (int) Input::get('formData')['installments'];
+		$payment->installments = Input::get('formData')['installments'] ? (int) Input::get('formData')['installments'] : 1;
 		$payment->payment_method_id = Input::get('formData')['payment_method_id'];
 		$payment->issuer_id = Input::get('formData')['issuer_id'];
 
@@ -562,6 +571,17 @@ class MPConfig extends Core{
 				'sale'=>json_encode($sale_temp),
 				'input'=>json_encode(Input::get_all())
 			]);
+
+			//renew token
+			if($payment->Error()->message == 'Unauthorized use of live credentials'){
+				///$this->renewtoken($client->id);
+				///DESVINCULO
+				$Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
+				$this->_db->delete('mp',['id','=',$client->id]);
+				$Mailing = new Mailing;
+				$Mailing->unlink_mp($client);
+
+			}
 			return false;
 		}
 

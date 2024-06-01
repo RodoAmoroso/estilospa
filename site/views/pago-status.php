@@ -30,7 +30,7 @@ switch($status):
 
 <script>
 	fbq('track', 'Purchase', {
-		value: '<?=$amount?>',
+		value: '<?= $sale->total ?>',
 		currency: 'ARS'
 	});
 </script>
@@ -66,7 +66,7 @@ switch($status):
 </section>
 <script>
 	fbq('track', 'Purchase', {
-		value: '<?=$amount?>',
+		value: '<?= $sale->total ?>',
 		currency: 'ARS'
 	});
 </script>

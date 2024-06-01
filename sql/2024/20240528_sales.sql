@@ -1,0 +1,1 @@
+ALTER TABLE `spa_sales` CHANGE `iduser` `iduser` INT(10) UNSIGNED NULL DEFAULT NULL, CHANGE `idpromo` `idpromo` INT(10) UNSIGNED NULL DEFAULT NULL;

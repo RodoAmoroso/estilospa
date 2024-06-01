@@ -22,7 +22,7 @@
 						$_SALES->getOverall();
 						$thismonthquantity = $_SALES->overall()->quantity;
 						?>
-						<h2 class="fw-400">$ <?= number_format($_SALES->overall()->neto,2,',','.') ?></h2>
+						<h2 class="fw-400">$ <?= !$_SALES->overall()->neto ?? number_format($_SALES->overall()->neto,2,',','.') ?></h2>
 						<small>(total en comisiones de venta)</small>
 					</div>
 					<div class="box-content">

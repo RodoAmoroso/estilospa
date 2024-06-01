@@ -42,6 +42,37 @@ switch($_action){
 		break;
 
 
+	///Response
+	case 'find-response':
+		if(!$response = $Questions->get_response(Input::get('responseid'))) die(Responses::response('fail'));
+		echo Responses::response('ok','',['response'=>$response]);
+		break;
+
+	case 'edit-response':
+		if(!$response = $Questions->get_response(Input::get('responseid'))) die(Responses::response('fail'));
+		$responseid = $Questions->update('questions_responses',[
+			'id'=>Input::get('responseid'),
+			'message'=>Input::get('response','xss'),
+			'approved'=>1
+		]);
+		if(!$response->approved){
+			if(!$Mailing->response($responseid)) die(Responses::response('fail','No se pudo enviar el email al usuario.'));
+		}
+		echo Responses::response('ok');
+		break;
+	case 'approve-response':
+		if(!$response = $Questions->get_response(Input::get('responseid'))) die(Responses::response('fail'));
+		$responseid = $Questions->update('questions_responses',[
+			'id'=>Input::get('responseid'),
+			'approved'=>Input::get('approve')
+		]);
+		if(Input::get('approve')){
+			if(!$Mailing->response($responseid)) die(Responses::response('fail','No se pudo enviar el email al usuario.'));
+		}
+		echo Responses::response('ok');
+		break;
+
+
 	default:
 		echo Responses::response('fail');
 		break;

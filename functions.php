@@ -433,16 +433,18 @@ function BuildSearchAssignment($glossary=array(),$row=''){
 function Stars($rate=0,$size=''){
 	$leftover = 5;
 	$stars = '';
-	for($i=1; $i<=floor($rate); $i++):
-		$leftover--;
-		$stars .= '<i class="fa fa-star '.$size.'"></i> ';
-	endfor;
-	if($rate-floor($rate)): $leftover--;
-		$stars .= '<i class="fa fa-star-half-o '.$size.'"></i> ';
-	endif;
-	for($i=1; $i<=$leftover; $i++):
-		$stars .= '<i class="fa fa-star-o '.$size.'"></i> ';
-	endfor;
+	if($rate){
+		for($i=1; $i<=floor($rate); $i++):
+			$leftover--;
+			$stars .= '<i class="fa fa-star '.$size.'"></i> ';
+		endfor;
+		if($rate-floor($rate)): $leftover--;
+			$stars .= '<i class="fa fa-star-half-o '.$size.'"></i> ';
+		endif;
+		for($i=1; $i<=$leftover; $i++):
+			$stars .= '<i class="fa fa-star-o '.$size.'"></i> ';
+		endfor;
+	}
 	return $stars;
 }
 function Fav($promoid=0,$clientid=0){

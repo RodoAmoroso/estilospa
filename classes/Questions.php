@@ -1,19 +1,13 @@
-<?php 
+<?php
 
-class Questions {
+class Questions extends Core{
 
-	private $_db,
-					$_data,
-					$_lastid;
 
 	public 	$filters=array(),
 					$page=1,
 					$limit=20,
 					$limit_responses='';
 
-	public function __construct(){
-		$this->_db = DB::getInstance();
-	}
 
 	public function get($id=null){
 
@@ -77,21 +71,40 @@ class Questions {
 							$values[] = 'glossary';
 						}
 						break;
+
+					case 'from_date':
+						if(!empty($filter[key($filter)])){
+							$where .= empty($where) ? "WHERE " : " AND ";
+							$where .= "DATE(q.added)>=?";
+							$values[] = $filter[key($filter)];
+						}
+						break;
+
+					case 'to_date':
+						if(!empty($filter[key($filter)])){
+							$where .= empty($where) ? "WHERE " : " AND ";
+							$where .= "DATE(q.added)<=?";
+							$values[] = $filter[key($filter)];
+						}
+						break;
+
+
 					case 'status':
 						$where .= empty($where) ? "WHERE " : " AND ";
 						if($filter[key($filter)] == 'answered'){
 							$where .= "(SELECT COUNT(*) FROM {questions_responses} qr WHERE qr.messageid=q.id)>?";
 						}else{
 							$where .= "(SELECT COUNT(*) FROM {questions_responses} qr WHERE qr.messageid=q.id)=?";
-						}						
+						}
 						$values[] = 0;
 						break;
+
 				}
 			}
 		}
 
 		$this->_db->query(
-			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado, 
+			"SELECT q.*, DATE_FORMAT(q.added,'%d/%m/%Y %H:%i') creado,
 			u.name user_name, u.lastname user_lastname, u.mail user_email, u.phone user_phone
 			FROM {questions} q
 			LEFT JOIN {users} u ON u.id=q.userid
@@ -152,7 +165,7 @@ class Questions {
 			$data[$k]->client = $this->find_client($responses->userid);
 		}
 		return $data;
-	}	
+	}
 	public function get_response($responseid=0){
 		$this->_db->query(
 			"SELECT r.*, DATE_FORMAT(r.added,'%d/%m/%Y %H:%i') creado
@@ -163,6 +176,12 @@ class Questions {
 		if(!$this->_db->count()) return false;
 		return $this->_db->first();
 	}
+	public function update($table='questions',$values=[]){
+		if(!$table || !$values) return false;
+		$this->table = $table;
+		if(!parent::core_save($values['id'],$values)) return false;
+		return parent::core_lastid();
+	}
 
 	public function get_unanswered($clientid=null,$answered=false){
 
@@ -171,7 +190,7 @@ class Questions {
 		if(!$answered){
 			$where = "WHERE r.id IS NULL";
 		}else{
-			$where = "WHERE r.id IS NOT NULL";			
+			$where = "WHERE r.id IS NOT NULL";
 		}
 		if(!is_null($clientid)){
 			$where .= " AND (p.idclient=? OR c.id=? OR ga.clientid=?)";
@@ -198,7 +217,7 @@ class Questions {
 			{$limit}",
 			$values
 		);
-		
+
 		//show_array($this->_db->getquery()->queryString);
 
 		if(!$this->_db->count()) return false;
@@ -249,14 +268,14 @@ class Questions {
 
 	public function check_privilege($questionid=0,$user=0){
 		if(!$question = $this->get($questionid)) return false;
-		
+
 		$Promos = new Promos();
 		$Clients = new Clients();
 		$Glossary = new Glossary();
 
 		switch ($question->type) {
 			case 'promos':
-				
+
 				if(!$Promos->find($question->rowid)) return false;
 				$promo = $Promos->data();
 
@@ -273,8 +292,8 @@ class Questions {
 			case 'glossary':
 				if(!$Glossary->check_assoc($user->idclient,$question->rowid)) return false;
 				break;
-			
-			
+
+
 		}
 		return true;
 
@@ -289,7 +308,7 @@ class Questions {
 		return true;
 	}
 
-	public function has_response($messageid=0,$userid=0){		
+	public function has_response($messageid=0,$userid=0){
 		$this->_db->query(
 			"SELECT r.*, DATE_FORMAT(r.added,'%d/%m/%Y %H:%i:%s') creado
 			FROM {questions_responses} r
@@ -329,7 +348,7 @@ class Questions {
 
 	public function delete_all($userid=0){
 		$this->_db->query(
-			"DELETE q,qr,qq 
+			"DELETE q,qr,qq
 			FROM {questions} q
 			LEFT JOIN {questions_responses} qr ON q.id=qr.messageid
 			LEFT JOIN {questions_queue} qq ON q.id=qq.messageid
@@ -353,15 +372,15 @@ class Questions {
 	public function get_latest(){
 
 		$this->_db->query(
-			"SELECT q1.* 
+			"SELECT q1.*
 			FROM spa_questions q1
-			INNER JOIN 
+			INNER JOIN
 				(
 					SELECT MAX(added) recent, userid
-					FROM spa_questions 
+					FROM spa_questions
 					WHERE DATEDIFF(NOW(),added) = 1
 					GROUP BY userid
-				) q2 
+				) q2
 				ON q2.userid=q1.userid AND q2.recent=q1.added
 			LIMIT 0,100"
 		);

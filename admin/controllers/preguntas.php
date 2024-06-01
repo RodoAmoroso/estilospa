@@ -10,4 +10,10 @@ $Questions->filters = array();
 if(!empty($_where)) $Questions->filters[] = ['type'=>$_where];
 if(!empty($_status)) $Questions->filters[] = ['status'=>$_status];
 
+if(Input::get('from_date')){
+	$Questions->filters[] = ['from_date'=>Input::get('from_date')];
+}
+if(Input::get('to_date')){
+	$Questions->filters[] = ['to_date'=>Input::get('to_date')];
+}
 $questions = $Questions->get();

@@ -6,6 +6,7 @@
 		background-color gray(2)
 	.question-box
 		display flex
+		align-items center
 		margin-bottom 10px
 		.icon
 			margin 0 16px 16px 0
@@ -21,8 +22,10 @@
 			small
 				font-size 1.2rem
 				color gray(40)
-			.actions
-				margin-top 16px
+		.actions
+			text-align right
+			min-width 100px
+			border-left 1px solid gray(10)
 	.response-title
 		margin-left 36px
 		border-bottom 1px solid gray(5)
@@ -53,6 +56,20 @@
 		background-color gray(1)
 		a
 			color $cyan_2
+
+	@media screen and (max-width 991px)
+		.question-box
+			flex-wrap wrap
+			.message
+				.caption
+					font-size 1.25rem
+			.actions
+				border-left none
+				border-top 1px dashed gray(10)
+				margin-top 1rem
+				padding-top 1rem
+				width 100%
+				min-width 0
 
 .questions-wrapper:not(:last-of-type)
 	border-bottom 1px solid gray(10)

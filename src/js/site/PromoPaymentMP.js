@@ -59,17 +59,29 @@ class PromoPaymentMP {
 					cardFormData.promoid = this.promoid
 					cardFormData.quantity = this.quantity
 
-					const response = await ajax('site/promos/checkout-mp',cardFormData)
+					ajax('site/promos/checkout-mp',cardFormData,true,false)
+						.then(response=>{
+							window.location.href = response.response.url_thanks
+						})
+						.catch(async error=>{
+							const swal = await Swal.fire({
+								type:'error',
+								html:error.message
+							})
+							window.location.reload()
+						})
 					///return console.log(response)
-					window.location.href = response.response.url_thanks
 				},
-				onError: (error) => {
+				onError: async error=>{
 					// callback llamado para todos los casos de error de Brick
-					console.log(error)
-					Swal.fire({
+					const swal = await Swal.fire({
 						type:'error',
 						html:error.message
 					})
+
+					console.log(error)
+					window.location.reload()
+
 				}
 			}
 		}

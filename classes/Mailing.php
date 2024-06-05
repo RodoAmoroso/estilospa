@@ -628,6 +628,7 @@ class Mailing {
 			$this->_mailer->addAddress(strtolower(trim($mail)), $client->name);
 		}
 		$this->_mailer->addBCC($this->_email, $this->_fullname);
+		$this->_mailer->addBCC('rodosoft@hotmail.com', 'Rodo');
 		$this->_mailer->Subject = 'Desvinculación de la cuenta de MercadoPago en EstiloSPA';
 
 		$body = Templates::template('sales/unlink-mp',$client);

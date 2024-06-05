@@ -53,7 +53,7 @@ let loading = obj => {
 		if(obj.callback){obj.callback();}
 	}
 }
-let ajax = (url,obj={},loader=true) => {
+let ajax = (url,obj={},loader=true,swalerror=true) => {
 	if(loader) loading();
 	if(obj==undefined) obj = {};
 	obj.token = TOKEN
@@ -68,7 +68,7 @@ let ajax = (url,obj={},loader=true) => {
 		.then(response => {
 			if(loader) loading({show:false});
 			if(response.status!='ok'){
-				Swal.fire({type:'error',html:response.message});
+				if(swalerror) Swal.fire({type:'error',html:response.message});
 				if(typeof response === 'object') response.ajax_url = url
 				console.log(response,url,obj);
 				reject(response);

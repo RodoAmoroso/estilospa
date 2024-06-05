@@ -6,7 +6,7 @@ date_default_timezone_set('America/Argentina/Buenos_Aires');
 $GLOBALS['config'] = array(
 	'mysql'=>array(
 		'host'=>'localhost',
-		'dbname'=>'estilospa_production',
+		'dbname'=>'estilospa',
 		'user'=>'root',
 		'pass'=>'',
 		'prefix'=>'spa_'

@@ -9,6 +9,7 @@ if(!$voucher = $Sales->find_voucher($_subsection)) Redirect::to('404');
 
 if(!$Sales->find($voucher->saleid)) Redirect::to('404');
 $sale = $Sales->data();
+if($sale->collection_status!='approved') Redirect::to('404');
 
 if($_userdata->idtype != 1 && $_userdata->idclient != $sale->idclient && $sale->iduser != $_userdata->id) Redirect::to('restricted');
 

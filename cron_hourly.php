@@ -71,6 +71,6 @@ if($reservations = $Reservations->get()){
 }
 
 $Cron = new Cron;
-$Cron->add_log('hourly');
+//$Cron->add_log('hourly');
 
 http_response_code(200);

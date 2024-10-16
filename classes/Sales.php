@@ -36,6 +36,12 @@ class Sales {
 		$this->_data = $this->_db->first();
 		return true;
 	}
+	public function check_hash($hash=0){
+		$this->_db->query("SELECT * FROM {sales} WHERE external_reference=? ORDER BY added DESC",array($hash));
+		if(!$this->_db->count()) return false;
+		$this->_data = $this->_db->first();
+		return true;
+	}
 
 	public function update($idsale=0,$sql=array()){
 		if(!$this->_db->update('sales',$idsale,$sql)) return false;
@@ -85,7 +91,10 @@ class Sales {
 	/// TEMP
 	public function find_temp($hash=''){
 		if(!$hash) return false;
+
 		$this->_db->get('sales_temp',array('hash','=',$hash));
+		$this->_db->query("SELECT * FROM {sales_temp} WHERE hash=? ORDER BY added DESC",[$hash]);
+
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
 		$this->_data->subtotal = (float) $this->_data->price;
@@ -132,6 +141,7 @@ class Sales {
 
 		$hash = Cookie::get('sale_hash');
 
+
 		if($sale_temp = $this->find_temp($hash)){
 
 			$sales_values = [
@@ -148,6 +158,13 @@ class Sales {
 			if($promo->id != $sale_temp->idpromo){
 				$sales_values['idcode'] = null;
 				$sales_values['quantity'] = 1;
+			}
+
+			//check if exists hash sale
+			if($this->check_hash($hash)){
+				$new_hash = set_hash();
+				Cookie::put('sale_hash',$new_hash);
+				$sales_values['hash'] = $new_hash;
 			}
 			$this->update_temp($sale_temp->id,$sales_values);
 
@@ -349,7 +366,12 @@ class Sales {
 		if($this->sale_voucher){
 			$where .= empty($where) ? "WHERE " : " AND ";
 			$arr_voucher = explode('-',$this->sale_voucher);
-			$where .= "s.merchant_order_id LIKE '%{$arr_voucher[0]}%'";
+			//$where .= "s.merchant_order_id LIKE '%{$arr_voucher[0]}%'";
+			$where .= "s.id IN (
+				SELECT sv.saleid
+				FROM {sales_vouchers} sv
+				WHERE sv.id LIKE '%{$this->sale_voucher}%'
+			)";
 		}
 
 		$limitby = 'LIMIT 0,100';

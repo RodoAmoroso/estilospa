@@ -22,3 +22,4 @@ if($sale_temp){
 	$Clients->find($sale_temp->idclient);
 	$client = $Clients->data();
 }*/
+Cookie::delete('sale_hash');

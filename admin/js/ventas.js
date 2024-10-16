@@ -85,7 +85,7 @@ sales = {
 				$('[data-tag="totalmods"]').text(DATA.results.length);
 
 				$.each(DATA.results,function(k,v){
-					if(v.title == null){console.log(v.id)}
+					/*if(v.title == null){console.log(v.id)}*/
 
 					var mod = $('#mod_sale').clone();
 
@@ -147,7 +147,7 @@ sales = {
 					mod.find('[data-button="toggle"],[data-group="status"]')
 						.attr('data-id',v.id);
 
-					if(v.status=='rejected') mod.find('.sale-actions').remove();
+					if(v.collection_status=='rejected') mod.find('.sale-actions').remove();
 
 					if(v.gallery != null && v.gallery !='' ){
 						var img = $.parseJSON(v.gallery);
@@ -193,9 +193,16 @@ sales = {
 						mod.find('.stars').remove();
 					}
 
-					if(v.sales_vouchers){
+					console.log(v.collection_status)
+
+					if(v.sales_vouchers && v.collection_status=='approved'){
 						$.each(v.sales_vouchers,function(sk,sv){
-							mod.find('.voucher-list').append('<li><a href="'+ROOT+'compra-descarga-voucher/'+sv.id+'" target="_blank">'+v.merchant_order_id+'-'+sv.id+'</a></li>')
+							mod.find('.voucher-list').append(`
+								<li data-voucherid="${sv.id}" >
+									<a href="${ROOT}compra-descarga-voucher/${sv.id}" target="_blank" class="voucher-link" >${sv.id}</a>
+									<a href="#" data-toggle="delete-voucher" class="remove-voucher" >X</a>
+								</li>`
+							)
 						});
 					}
 
@@ -246,6 +253,28 @@ sales = {
 		});
 		$('#fd_from,#fd_to').datepicker();
 		sales.get();
+
+
+		$('#sales').on('click','[data-toggle="delete-voucher"]',async btn=>{
+			btn.preventDefault()
+			const li = $(btn.currentTarget).closest('li')
+			const voucherid = li.attr('data-voucherid')
+
+			const swal = await Swal.fire({
+				type:'warning',
+				title:'¿Seguro deseas borrar este voucher?',
+				html:'El usuario va a tener la posibilidad de crear uno nuevo',
+				showCancelButton:true,
+				reverseButtons:true
+			})
+			if(!swal.value) return false
+
+			const response = await ajax('admin/sales/delete-voucher',{
+				voucherid:voucherid
+			})
+
+			li.remove()
+		})
 	}
 }
 

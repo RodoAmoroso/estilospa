@@ -2,7 +2,7 @@
 
 ////$hash = $payment_info["response"]['external_reference'];
 
-if($Sales->check($collection_id)){
+if($Sales->check_hash($hash)){
 
 	$saleid = $Sales->data()->id;
 	if($Sales->data()->collection_status!=$collection_status){
@@ -20,6 +20,7 @@ if($Sales->check($collection_id)){
 
 }else{
 
+	//echo_json($Sales->data());
 	if(!$Sales->find_temp($hash)) die(http_response_code(400));
 
 	$idpromo = $Sales->data()->idpromo;

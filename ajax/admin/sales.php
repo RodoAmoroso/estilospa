@@ -5,6 +5,7 @@ header("Content-Type: application/json; charset=utf-8", true);
 
 $User = new User();
 $Sales = new Sales();
+$SalesVouchers = new SalesVouchers();
 
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 if(!$User->logged() || $User->data()->idtype != 1) die(Responses::response('restricted'));
@@ -52,6 +53,11 @@ switch($_action){
 			'last_month'=>$last_month,
 			'stats'=>$stats
 		));
+		break;
+
+	case 'delete-voucher':
+		if(!$SalesVouchers->delete(Input::get('voucherid'))) die(Responses::response('fail'));
+		echo Responses::response('ok');
 		break;
 
 	default:

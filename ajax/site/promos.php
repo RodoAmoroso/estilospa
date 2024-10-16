@@ -113,6 +113,19 @@ switch($_action){
 		echo Responses::response('ok');
 		break;
 
+	case 'update-user':
+		if(!$User->logged()) die(Responses::response('restricted'));
+		if(!Input::check(Input::get('required'))) die(Responses::response('fail','Todos los campos son obligatorios'));
+
+		$User->update($User->data()->id,[
+			'name'=>Input::get('firstname'),
+			'lastname'=>Input::get('lastname'),
+			'phone'=>Input::get('phone')
+		]);
+
+		echo Responses::response('ok','Los datos fueron guardados correctamente!');
+		break;
+
 
 	default:
 		echo Responses::response('fail');

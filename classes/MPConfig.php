@@ -48,7 +48,27 @@ class MPConfig extends Core{
     "nickname": "TESTUSER1938095197",
     "site_status": "active",
     "password": "69pqC3D0NP"
-}
+	}
+
+
+
+
+
+	[APPID] 1361101101198276
+	[VENDEDOR]
+	u: TEST_USER_1275050815
+	p: MLOCbsfRyC
+	e: test_user_1275050815@testuser.com
+
+	[COMPRADOR 1]
+	u: TESTI0IK5LPC
+	p: UJvj97qXGB
+	e: test_user_59143675@testuser.com
+
+	[COMPRADOR 2]
+	u: TESTUSER750054787
+	p: xiyNWJ7X2l
+	e: test_user_750054787@testuser.com
 
 	*/
 
@@ -68,11 +88,12 @@ class MPConfig extends Core{
 
 
 					//Test Localhost Bricks
-					/*$notification_url = 'https://webhook.site/4ed11692-870d-461f-8d06-df3d439bad71',
-					$access_token='TEST-389403748152273-070520-1890d82af8a41b80904fb788b903ccdd__LD_LB__-263157583',
-					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
-					$app_id='389403748152273',
-					$secret_key='YVDiCxOKBqhOZ4Y6bdbWYd2PLTFan8rj';*/
+					/*$access_token='APP_USR-1361101101198276-021419-50236e2b890ef3cd7f668922428d6287-1275050815',
+					$public_key='APP_USR-b2027506-80ff-492f-97c6-995b3957e4b9',
+					$app_id='1361101101198276',
+					$secret_key='eAekX3P1Dr01F7BaHUMbRkbs3DpQ2SL7',
+					$notification_url='https://webhook.site/95ec422e-9f8e-4947-954d-5c633acce5f4';*/
+
 					//Test Localhost RODO
 					/*$notification_url = 'https://webhook.site/e4b8577b-3b88-4eb5-a1f1-516fca6a7486',
 					$access_token='TEST-8912612574179921-062914-214e0db738393b77599faf197d6e1682__LB_LD__-89899659',
@@ -106,6 +127,7 @@ class MPConfig extends Core{
 		$this->Sales = new Sales;
 		$this->Users = new Users;
 		$this->MPErrors = new MPErrors;
+		$this->Notifications = new Notifications;
 		///$this->set_hash();
 		parent::__construct();
 	}
@@ -289,7 +311,7 @@ class MPConfig extends Core{
 		$where = "WHERE UNIX_TIMESTAMP(m.added)+m.expires_in-(60*60*24*7)<=UNIX_TIMESTAMP(NOW())";
 		if($idclient) $where = "WHERE m.idclient={$idclient}";
 
-		$Notifications = new Notifications();
+		///$Notifications = new Notifications();
 
 		$this->_db->query("
 			SELECT m.*, c.name, c.permalink
@@ -312,7 +334,7 @@ class MPConfig extends Core{
 			$json = json_decode($response->response);
 
 			if($response->status == 400){
-				$Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
+				$this->Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
 				$this->_db->delete('mp',['id','=',$client->id]);
 				return false;
 			}
@@ -325,7 +347,7 @@ class MPConfig extends Core{
 				'added'=>date('Y-m-d H:i:s')
 			));
 
-			$Notifications->add_log('Token de integración de MercadoPago renovado para <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
+			$this->Notifications->add_log('Token de integración de MercadoPago renovado para <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
 
 		}
 
@@ -415,7 +437,6 @@ class MPConfig extends Core{
 
 
 		if(!$user = $this->Users->find($User->data()->id)) return false;
-
 		unset($user->pass);
 
 
@@ -446,6 +467,12 @@ class MPConfig extends Core{
 		// el $preference->purpose = 'wallet_purchase'; solo permite pagos registrados
 		// para permitir pagos de guests, puede omitir esta propiedad
 		//$preference->purpose = 'wallet_purchase';
+
+		$payer = new MercadoPago\Payer;
+		$payer->email = $user->mail;
+		$payer->name = $user->name;
+		$payer->surname = $user->lastname;
+		$preference->payer = $payer;
 
 
 		/// Crear vencimiento para el pago
@@ -478,7 +505,7 @@ class MPConfig extends Core{
 			'marketplace_fee'=>$preference->marketplace_fee,
 			'external_reference'=>$this->_hash,
 			'promo'=>$promo,
-			'user'=>$user,
+			//'user'=>$user,
 			'sale'=>$sale_temp,
 			'public_key'=>$this->public_key
 		];
@@ -493,14 +520,15 @@ class MPConfig extends Core{
 		}
 		$userdata = $User->data();
 
-		//echo_json(Input::get_all());
-
 
 		if(!$this->Promos->find(Input::get('promoid'))){
 			$this->response = 'No se ha encontrado la experiencia.';
 			return false;
 		}
 		$promo = $this->Promos->data();
+
+
+		///CHEQUEAR SI EL PRECIO CON DTO. DA 0
 
 		if(!$this->Clients->find($promo->idclient)) {
 			$this->response = 'No se ha encontrado el centro.';
@@ -535,20 +563,26 @@ class MPConfig extends Core{
 		$payment->description = $promo->title." - ".$promo->clientname;
 
 		$payer = new MercadoPago\Payer();
-		$payer->email = Input::get('formData')['payer']['email'];
-		$payer->identification = array(
-		  "type" => Input::get('formData')['payer']['identification']['type'],
-		  "number" => Input::get('formData')['payer']['identification']['number']
-		);
+		$payer->email = Input::get('user')['email'];
+		$payer->first_name = Input::get('user')['firstname'];
+		$payer->last_name = Input::get('user')['lastname'];
 
+		$payer->entity_type = 'individual';
+		$payer->type = 'customer';
+
+		/*$payer->identification = array(
+			"type" => Input::get('formData')['payer']['identification']['type'],
+			"number" => Input::get('formData')['payer']['identification']['number']
+		);*/
 		$payment->payer = $payer;
+
 
 		if($client_access_token){
 			$payment->application_fee = (float) $client->fee*($sale_temp ? $sale_temp->total : $promo->price_w_discount)/100;
 		}
 
 
-		///echo_json(Input::get_all());
+		//echo_json($payment->toArray());
 
 		try {
 			$payment->save();
@@ -559,11 +593,12 @@ class MPConfig extends Core{
 				'sale'=>json_encode($sale_temp),
 				'input'=>json_encode(Input::get_all())
 			]);
+
 			return false;
 		}
 
 		if($payment->Error()){
-			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
+			$this->response = '<h4>No pudimos procesar el pago. La página se recargará y podrás intentar nuevamente.</h4>';
 			$this->response .= 'Ref: '.$payment->Error()->message;
 			///echo_json($payment->Error());
 			$this->MPErrors->save([
@@ -573,13 +608,16 @@ class MPConfig extends Core{
 			]);
 
 			//renew token
+			//if($payment->Error()->message == 'Unauthorized use of live credentials'){
 			if($payment->Error()->message == 'Unauthorized use of live credentials'){
 				///$this->renewtoken($client->id);
 				///DESVINCULO
-				$Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
-				$this->_db->delete('mp',['id','=',$client->id]);
-				$Mailing = new Mailing;
-				$Mailing->unlink_mp($client);
+				if($client_access_token){
+					$this->_db->delete('mp',['idclient','=',$client->id]);
+					$Mailing = new Mailing;
+					$Mailing->unlink_mp($client);
+					$this->Notifications->add_log('Se ha desvinculado la integración de MercadoPago de <a href="'.ROOT.'centros/'.$client->permalink.'" target="_blank">'.$client->name.'</a>','token');
+				}
 
 			}
 			return false;

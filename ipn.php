@@ -20,11 +20,9 @@ $Stores = new Stores();
 $Mailing = new Mailing();
 $MPConfig = new MPConfig();
 
-if($access_token = $MPConfig->get_access_token($_GET["idclient"])){
-	//http_response_code(400);
-	//return false;
+/*if($access_token = $MPConfig->get_access_token($_GET["idclient"])){
 	MercadoPago\SDK::setAccessToken($access_token);
-}
+}*/
 //MercadoPago\SDK::setClientId($MPConfig->app_id);
 //MercadoPago\SDK::setClientSecret($MPConfig->secret_key);
 //$mp = new MP($access_token); ///token del seller
@@ -69,8 +67,14 @@ switch($_GET["topic"]) {
 		break;
 }
 
+//exit;
 
 $hash = $payment_info->external_reference;
+
+
+/*if($access_token = $MPConfig->get_access_token()){
+	MercadoPago\SDK::setAccessToken($access_token);
+}*/
 
 $collection_id = $payment_info->id;
 $payment_type = $payment_info->payment_type_id;

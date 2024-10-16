@@ -363,20 +363,42 @@
 
 	.voucher-list
 		padding 0
-		margin 0
+		margin .25rem 0
 		display flex
 		flex-wrap wrap
 		li
-			display block
+			display flex
+			align-items center
 			margin 0 4px 4px 0
+			font-size 9pt
 			&:not(:last-of-type):after
 				content '|'
 				margin 0 1rem
-			a
-				color $fucsia_3
-				font-size 1.2rem
-				line-height 1
-				padding 0
+			a:first-of-type
+				border-top-left-radius 4pt
+				border-bottom-left-radius 4pt
+			a:last-of-type
+				border-top-right-radius 4pt
+				border-bottom-right-radius 4pt
+
+			a.voucher-link
+				background-color $pink_1
+				display block
+				color white
+				color $pink_3
+				padding .15rem 1.25rem
+				&:hover,&:focus
+					text-decoration none
+					background-color $pink_3
+					color white
+			a.remove-voucher
+				display block
+				background-color darken($pink_1,10)
+				color white
+				padding .15rem .825rem
+				&:hover,&:focus
+					background-color $fucsia_5
+					text-decoration none
 
 
 .glossary-module-wrapper

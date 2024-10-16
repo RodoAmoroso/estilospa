@@ -78,7 +78,7 @@ class SalesVouchers extends Sales{
 		$this->_pdf->SetFont('ProximaNormal','',12);
 		$this->_pdf->SetTextColor(255,255,255);
 		$this->_pdf->SetXY(21,218);
-		$this->_pdf->Cell(180,6,utf8_decode('Voucher N° ').$voucher->sale->merchant_order_id.'-'.$voucher->id,0,0,'L',false);
+		$this->_pdf->Cell(180,6,utf8_decode('Voucher N°: ').$voucher->id,0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',10);
 		$this->_pdf->SetXY(21,223.5);
@@ -183,6 +183,12 @@ class SalesVouchers extends Sales{
 			WHERE id=?",
 			array($voucherid)
 		);
+		return true;
+	}
+
+	public function delete($voucherid=0){
+		if(!$voucherid) return false;
+		$this->_db->query("DELETE FROM {sales_vouchers} WHERE id=?",[$voucherid]);
 		return true;
 	}
 }

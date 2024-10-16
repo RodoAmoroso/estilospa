@@ -26,7 +26,7 @@ $Promos->sort = 'rand';
 $Promos->visible = true;
 $Promos->keywords = $Glossary->data()->name;
 $Promos->arrglossary = [$idglossary];
-$Promos->limit = '0,12';
+$Promos->limit = '0,100';
 
 $_arrjs[] = ['folder'=>'site/','script'=>'questions'];
 

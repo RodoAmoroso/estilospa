@@ -22,19 +22,26 @@ class PromoPaymentMP {
 		//return
 		$('#paymentBrick_container').html('')
 
+		console.log(this.user)
+
 		const mp_settings = {
 			initialization: {
 				amount: this.preference.sale.subtotal*this.preference.sale.quantity, // monto a ser pago
 				preferenceId: this.preference.id,
 				payer: {
-					email:this.preference.user.mail
+					email:this.user.email
 				},
-				marketplace:true //????
+				//marketplace:true //????
 			},
 			customization: {
 				visual: {
 					style: {
 						theme: 'flat', // | 'dark' | 'bootstrap' | 'flat'
+					},
+					texts:{
+						paymentMethods:{
+							creditCardValueProp:'Hasta 12 cuotas fijas'
+						}
 					}
 				},
 				paymentMethods: {
@@ -50,7 +57,8 @@ class PromoPaymentMP {
 				},
 				onSubmit: async cardFormData=>{
 					//console.log('payment.processing...')
-					if(cardFormData.paymentType=='wallet_purchase'){
+					///return console.log(cardFormData)
+					if(cardFormData.paymentType=='wallet_purchase' || cardFormData.paymentType=='onboarding_credits'){
 						window.location.href = this.preference.promo.url
 						return false
 					}
@@ -58,6 +66,14 @@ class PromoPaymentMP {
 					cardFormData.preference = this.preference
 					cardFormData.promoid = this.promoid
 					cardFormData.quantity = this.quantity
+
+					cardFormData.user = {
+						firstname:$('[data-form="user-info"] [name="firstname"]').val(),
+						lastname:$('[data-form="user-info"] [name="lastname"]').val(),
+						phone:$('[data-form="user-info"] [name="phone"]').val(),
+						email:$('[data-form="user-info"] [name="email"]').val()
+					}
+
 
 					ajax('site/promos/checkout-mp',cardFormData,true,false)
 						.then(response=>{
@@ -80,7 +96,6 @@ class PromoPaymentMP {
 					})
 
 					console.log(error)
-					window.location.reload()
 
 				}
 			}
@@ -112,7 +127,7 @@ class PromoPaymentMP {
 			this.update_sale()
 		})
 		///$('[name="quantity"]').trigger('change')
-		this.create_preference()
+		//this.create_preference()
 
 
 		//voucher
@@ -134,6 +149,21 @@ class PromoPaymentMP {
 			}
 			$('[data-content="voucher"]').html(template).removeClass('alert-warning').addClass('alert-success')*/
 			//this.calculate()
+		})
+
+
+
+		$('[data-form="user-info"]').submit(async form=>{
+			form.preventDefault()
+			const post = get_form(form.currentTarget)
+
+			const response = await ajax('site/promos/update-user',post)
+			this.user = post
+
+			$('[data-form="user-info"] [name]').attr({readonly:true})
+			$('[data-toggle="payment-box"]').removeClass('d-none')
+
+			this.create_preference()
 		})
 
 	}

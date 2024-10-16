@@ -26,7 +26,7 @@
 						<small>(total en comisiones de venta)</small>
 					</div>
 					<div class="box-content">
-						<h4 class="fw-400">$ <?= number_format($_SALES->overall()->overall,2,',','.') ?></h4>
+						<h4 class="fw-400">$ <?= number_format($_SALES->overall()->overall??0,2,',','.') ?></h4>
 						<small>Volumen Total de Venta</small>
 					</div>
 					<div class="box-footer">

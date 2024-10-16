@@ -142,7 +142,7 @@ sales = {
 					mod.find('[data-button="toggle"],[data-group="status"]')
 						.attr('data-id',v.id);
 
-					if(v.status=='rejected') mod.find('.sale-actions').remove();
+					if(v.collection_status=='rejected') mod.find('.sale-actions').remove();
 
 					if(v.gallery != null && v.gallery !='' ){
 						var img = $.parseJSON(v.gallery);
@@ -186,9 +186,13 @@ sales = {
 						}
 					}
 
-					if(v.sales_vouchers){
+					if(v.sales_vouchers && v.collection_status=='approved'){
 						$.each(v.sales_vouchers,function(sk,sv){
-							mod.find('.voucher-list').append('<li><a href="'+ROOT+'compra-descarga-voucher/'+sv.id+'" target="_blank">'+v.merchant_order_id+'-'+sv.id+'</a></li>')
+							mod.find('.voucher-list').append(`
+								<li>
+									<a href="${ROOT}compra-descarga-voucher/${sv.id}" target="_blank" class="voucher-link">${sv.id}</a>
+								</li>`
+							)
 						});
 					}
 

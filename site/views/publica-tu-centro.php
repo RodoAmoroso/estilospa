@@ -7,7 +7,7 @@
 		<form id="form_publish" class="row">
 
 			<div class="col-xs-12 col-sm-4">
-				<h3>EstilosSpa.com</h3>
+				<h3>EstiloSpa.com</h3>
 				<p><i class="fa fa-phone"></i> <a href="tel:011 4643 0556">011 4643 0556</a></p>
 				<p><i class="fa fa-envelope"></i> <a href="mailto:estilospa.com@gmail.com">estilospa.com@gmail.com</a></p>
 			</div>
@@ -18,7 +18,7 @@
 					<label for="fd_name">Nombre y Apellido</label>
 					<input name="fullname" type="text" id="fd_name" class="form-control" required></input>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="fd_mail">Email</label>
 					<input name="email" id="fd_mail" type="email" class="form-control" required></input>
@@ -28,7 +28,7 @@
 					<label for="fd_web">Web</label>
 					<input name="web" id="fd_web" type="text" class="form-control" placeholder="https://..." ></input>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="fd_phone">Teléfono (cód. área + nro.)</label>
 					<input name="phone" id="fd_phone" type="text" class="form-control" required></input>
@@ -38,7 +38,7 @@
 					<label for="fd_company">Empresa</label>
 					<input name="company" type="text" id="fd_company" class="form-control" required></input>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="fd_how">¿Cómo nos conociste?</label>
 					<select name="knowus" class="form-control" id="fd_how" required>

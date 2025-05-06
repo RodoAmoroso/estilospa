@@ -85,11 +85,25 @@ if(!$Sales->find($saleid)) die(http_response_code(400));
 $_salesdata = $Sales->data();
 $_salesdata->promolink = ROOT.'promo/'.$_salesdata->permalink.'/'.$_salesdata->idpromo.'-'.Permalink($_salesdata->title);
 
+if(!$Promos->find($_salesdata->idpromo)) die(http_response_code(400));
+$promo = $Promos->data();
 
 $Stores->get($_salesdata->clientid);
+$stores = $Stores->data();
+$stores_by_ids = array_column($stores, null, 'id');
+
+$promo_stores_ids = explode(',',$promo->stores);
+$promo_stores = [];
+if($promo_stores_ids){
+	foreach($promo_stores_ids as $store){
+		$promo_stores[] = $stores_by_ids[$store] ?? null;
+	}
+}
+
+
 $_salesdata->stores = '<ul style="padding:0 16px">';
-if($Stores->data()){
-	foreach($Stores->data() as $store){
+if($promo_stores){
+	foreach($promo_stores as $store){
 		$_salesdata->stores .= '<li>'.$store->address.', '.$store->city.' - '.$store->name.' '.(!empty($store->phones) ? ' - Tel: '.$store->phones : '' ).(!empty($store->whatsapp) ? ' - Celular: '.$store->whatsapp : '' ).'</li>';
 	}
 }

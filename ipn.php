@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 ///error_reporting(1);
 
 if (!isset($_GET["id"], $_GET["topic"]) || !ctype_digit($_GET["id"])) {
-	http_response_code(400);
+	http_response_code(200);
 	return false;
 }
 

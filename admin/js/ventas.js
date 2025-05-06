@@ -115,14 +115,14 @@ sales = {
 						mod.find('[data-tag="voucher_usage"]').text(vouchertext);
 					}
 
-					var total = (v.price-discountvoucher)*v.quantity;
+					var total = (v.price*v.quantity)-discountvoucher;
 
 
 					mod.find('[data-tag="ordernumber"]')
 						.text('Orden Nro.: '+v.collection_id+' - $ '+(total.numberFormat(2,',','.')));
 
 					mod.find('[data-tag="price"]')
-						.html(`<span>Precio Unit.: $ ${(v.price-discountvoucher).numberFormat(2,',','.')}</span> | <span>Cant.: ${v.quantity}</span>`);
+						.html(`<span>Precio Unit.: $ ${(total/v.quantity).numberFormat(2,',','.')}</span> | <span>Cant.: ${v.quantity}</span>`);
 
 					if(v.application_fee!=null){
 						//<span class="label label-danger">Ingreso en Cuenta</span>

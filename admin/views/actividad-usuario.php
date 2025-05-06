@@ -115,7 +115,7 @@
 											<ul class="voucher-list">
 												<?php foreach($sale->sales_vouchers as $voucher): ?>
 												<li>
-													<a href="<?= ROOT.'compra-descarga-voucher'.$voucher->id ?>" target="_blank"><?= $sale->merchant_order_id.'-'.$voucher->id ?></a>
+													<a href="<?= ROOT.'compra-descarga-voucher/'.$voucher->id ?>" target="_blank"><?= $sale->merchant_order_id.'-'.$voucher->id ?></a>
 												</li>
 												<?php endforeach; ?>
 											</ul>

@@ -97,22 +97,22 @@ class Sales {
 
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->first();
-		$this->_data->subtotal = (float) $this->_data->price;
+		$this->_data->subtotal = (float) $this->_data->price*$this->_data->quantity;
 
 		$this->_data->voucher = false;
+		$this->_data->total = (float) $this->_data->subtotal;
 
 		if($this->_data->idcode){
 			$Vouchers = new Vouchers;
 			$Vouchers->findcode($this->_data->idcode);
 			if($this->_data->voucher = $Vouchers->data()){
-				$this->_data->subtotal = $this->_data->price-($this->_data->voucher->ispercent ? $this->_data->price*$this->_data->voucher->value/100 : $this->_data->voucher->value);
+				$this->_data->total = $this->_data->total-($this->_data->voucher->ispercent ? $this->_data->price*$this->_data->voucher->value/100 : $this->_data->voucher->value);
 			}else{
 				$this->_data->idcode = null;
 			}
 
 		}
 
-		$this->_data->total = (float) $this->_data->subtotal*$this->_data->quantity;
 		return $this->_data;
 	}
 	public function create_temp($array=[]){
@@ -268,9 +268,19 @@ class Sales {
 
 		$Stores = new Stores;
 		$Stores->get($data->client->id);
+		$stores = $Stores->data();
+		$stores_by_ids = array_column($stores, null, 'id');
+		$promo_stores_ids = explode(',',$data->promo->stores);
+		$promo_stores = [];
+		if($promo_stores_ids){
+			foreach($promo_stores_ids as $store){
+				$promo_stores[] = $stores_by_ids[$store] ?? null;
+			}
+		}
+
 		$sale->stores = '<ul style="padding:0 16px">';
-		if($Stores->data()){
-			foreach($Stores->data() as $store){
+		if($promo_stores){
+			foreach($promo_stores as $store){
 				$sale->stores .= '<li>'.$store->address.', '.$store->city.' - '.$store->name.' '.(!empty($store->phones) ? ' - Tel: '.$store->phones : '' ).(!empty($store->whatsapp) ? ' - Celular: '.$store->whatsapp : '' ).'</li>';
 			}
 		}
@@ -410,6 +420,8 @@ class Sales {
 		if(!$this->_db->count()) return false;
 		$this->_data = $this->_db->results();
 		foreach($this->_data as $key=>$row){
+
+			/// Vouchers Generados
 			$this->_data[$key]->sales_vouchers = $this->get_vouchers($row->id);
 
 

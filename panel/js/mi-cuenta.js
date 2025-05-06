@@ -114,11 +114,13 @@ sales = {
 						mod.find('[data-tag="voucher_usage"]').text(vouchertext);
 					}
 
+					var total = (v.price*v.quantity)-discountvoucher;
+
 					mod.find('[data-tag="ordernumber"]')
-						.text('Orden Nro.: '+v.collection_id+' - $ '+((v.price-discountvoucher)*v.quantity).numberFormat(2,',','.'));
+						.text( 'Orden Nro.: '+v.collection_id+' - $ '+(total).numberFormat(2,',','.') );
 
 					mod.find('[data-tag="price"]')
-						.html('Precio Unit.: $ '+(v.price-discountvoucher).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
+						.html('Precio Unit.: $ '+(total/v.quantity).numberFormat(2,',','.')+' | Cant.: '+v.quantity);
 
 					if(v.application_fee!=null){
 						mod.find('[data-tag="sale-estilospa"]').remove()

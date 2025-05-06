@@ -25,3 +25,4 @@ $stores = $Stores->data();
 
 
 $vouchers = $Sales->get_vouchers($sale->id);
+//echo_json($sale);

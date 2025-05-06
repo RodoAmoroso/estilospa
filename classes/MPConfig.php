@@ -95,11 +95,11 @@ class MPConfig extends Core{
 					$notification_url='https://webhook.site/95ec422e-9f8e-4947-954d-5c633acce5f4';*/
 
 					//Test Localhost RODO
-					/*$notification_url = 'https://webhook.site/e4b8577b-3b88-4eb5-a1f1-516fca6a7486',
-					$access_token='TEST-8912612574179921-062914-214e0db738393b77599faf197d6e1682__LB_LD__-89899659',
-					$public_key='TEST-97e1dc09-512d-4118-9c27-631b539d5aa0',
-					$app_id='8912612574179921',
-					$secret_key='mDMvtgjLASrGDnSYDNxQkqSdj8SaXH46';*/
+					/*$notification_url = 'https://bent-activity-19.webhook.cool',
+					$access_token='TEST-7300466898804487-070519-1e990036ebef47e8938c36f778c08e87__LA_LC__-263157583',
+					$public_key='TEST-70d4bf7d-539e-4ba9-9f72-3453c772453a',
+					$app_id='7300466898804487',
+					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';*/
 
 
 					//Test Demo
@@ -457,9 +457,10 @@ class MPConfig extends Core{
 		$item = new MercadoPago\Item();
 		$item->id = $promo->id;
 		$item->title = $promo->title." - ".$promo->clientname;
-		$item->quantity = $sale_temp ? $sale_temp->quantity : 1;
+		$item->description = 'Incluye: '.$promo->includes;
+		$item->quantity = 1;
 		$item->currency_id = "ARS";
-		$item->unit_price = $sale_temp ? $sale_temp->subtotal : $promo->price_w_discount;
+		$item->unit_price = $sale_temp ? $sale_temp->total : $promo->price_w_discount;
 		$item->category_id = 'services';
 
 		$preference = new MercadoPago\Preference();
@@ -469,6 +470,7 @@ class MPConfig extends Core{
 		//$preference->purpose = 'wallet_purchase';
 
 		$payer = new MercadoPago\Payer;
+		//$payer->email = $user->mail;
 		$payer->email = $user->mail;
 		$payer->name = $user->name;
 		$payer->surname = $user->lastname;
@@ -552,37 +554,82 @@ class MPConfig extends Core{
 
 
 
+		$preference = MercadoPago\Preference::find_by_id(Input::get('preference')['id']);
+		//dd($preference->getAttributes());
+		$preference_attributes = $preference->toArray();
+
+		//dd($preference_attributes);
+		$preference_payer = $preference_attributes['payer']->toArray();
+
+
+
 		$payment = new MercadoPago\Payment();
-		$payment->transaction_amount = (float) Input::get('formData')['transaction_amount'];
-		$payment->token = Input::get('formData')['token'];
 		$payment->installments = Input::get('formData')['installments'] ? (int) Input::get('formData')['installments'] : 1;
+		$payment->token = Input::get('formData')['token'];
+		$payment->transaction_amount = (float) Input::get('formData')['transaction_amount'];
+
 		$payment->payment_method_id = Input::get('formData')['payment_method_id'];
 		$payment->issuer_id = Input::get('formData')['issuer_id'];
 
 		$payment->external_reference = $hash;
 		$payment->description = $promo->title." - ".$promo->clientname;
 
-		$payer = new MercadoPago\Payer();
-		$payer->email = Input::get('user')['email'];
-		$payer->first_name = Input::get('user')['firstname'];
-		$payer->last_name = Input::get('user')['lastname'];
-
-		$payer->entity_type = 'individual';
-		$payer->type = 'customer';
-
-		/*$payer->identification = array(
-			"type" => Input::get('formData')['payer']['identification']['type'],
-			"number" => Input::get('formData')['payer']['identification']['number']
-		);*/
-		$payment->payer = $payer;
-
-
 		if($client_access_token){
 			$payment->application_fee = (float) $client->fee*($sale_temp ? $sale_temp->total : $promo->price_w_discount)/100;
 		}
 
 
+		$payment->statement_descriptor = 'EstiloSpa';
+
+		/*$item = new MercadoPago\Item();
+		$item->id = $promo->id;
+		$item->title = $promo->title." - ".$promo->clientname;
+		$item->description = 'Incluye: '.$promo->includes;
+		$item->quantity = 1;
+		$item->unit_price = $sale_temp ? $sale_temp->total : $promo->price_w_discount;
+		$item->category_id = 'services';*/
+
+		$payment->additional_info = [
+			'items'=>[
+				[
+					'id' => $promo->id,
+					'title' => $promo->title." - ".$promo->clientname,
+					'description' => 'Incluye: '.$promo->includes,
+					'quantity' => 1,
+					'unit_price' => $sale_temp ? $sale_temp->total : $promo->price_w_discount,
+					'category_id' => 'services'
+				]
+			]
+		];
+		$payment->notification_url = $preference_attributes['notification_url'];
+		//$payment->callback_url = $preference_attributes['back_urls'];
+		$payment->binary_mode = $preference_attributes['binary_mode'];
+
+
+
+		/*$payer = new MercadoPago\Payer();
+		$payer->email = $preference_payer['email']; //Input::get('user')['email'];
+		$payer->first_name = $preference_payer['name']; //Input::get('user')['firstname'];
+		$payer->last_name = $preference_payer['surname']; //Input::get('user')['lastname'];
+
+		$payer->entity_type = 'individual';
+		$payer->type = 'customer';*/
+
+
+		/*$payer->identification = array(
+			"type" => Input::get('formData')['payer']['identification']['type'],
+			"number" => Input::get('formData')['payer']['identification']['number']
+		);*/
+		$payment->payer = [
+			'email' => $preference_payer['email'], //Input::get('user')['email'];
+			'first_name' => $preference_payer['name'], //Input::get('user')['firstname'];
+			'last_name' => $preference_payer['surname'], //Input::get('user')['lastname'];
+			'entity_type' => 'individual',
+			'type' => 'customer'
+		];
+
 		//echo_json($payment->toArray());
+		//dd($payment->toArray());
 
 		try {
 			$payment->save();

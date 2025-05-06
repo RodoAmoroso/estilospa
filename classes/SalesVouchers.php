@@ -34,12 +34,21 @@ class SalesVouchers extends Sales{
 
 		///$file_info = pathinfo($voucher->image->path);
 		///$mime = mime_content_type($voucher->image->path);
-		///echo_json($mime,true);
 
 
 		$Stores = new Stores();
 		if(!$Stores->get($voucher->sale->idclient)) return false;
-		$voucher->stores = $Stores->data()[0];
+		$stores = $Stores->data();
+		$stores_by_ids = array_column($stores, null, 'id');
+
+		$promo_stores_ids = explode(',',$voucher->promo->stores);
+		$voucher->stores = [];
+		if($promo_stores_ids){
+			foreach($promo_stores_ids as $store){
+				$voucher->stores[] = $stores_by_ids[$store] ?? null;
+			}
+		}
+		//echo_json($voucher->stores,true);
 
 		define('FPDF_FONTPATH',PATH.'fonts'.DS);
 		require_once PATH.'vendor/autoload.php';
@@ -93,11 +102,11 @@ class SalesVouchers extends Sales{
 
 		$this->_pdf->SetFont('ProximaNormal','',13);
 		$this->_pdf->SetXY(21, 231.5);
-		$this->_pdf->Cell(180,6,utf8_decode($voucher->promo->clientname.' - '.$voucher->stores->address.' '.$voucher->stores->city),0,0,'L',false);
+		$this->_pdf->Cell(180,6,utf8_decode($voucher->promo->clientname.' - '.$voucher->stores[0]->address.' '.$voucher->stores[0]->city),0,0,'L',false);
 
 		$this->_pdf->SetFont('ProximaNormal','',11);
 		$this->_pdf->SetXY(21, 236);
-		$this->_pdf->Cell(180,6,'Realizar la reserva del turno al '.(empty($voucher->stores->phones) ? '' : 'Tel: '.$voucher->stores->phones.' ').(empty($voucher->stores->whatsapp) ? '' : '- Whatsapp: '.$voucher->stores->whatsapp),0,0,'L',false);
+		$this->_pdf->Cell(180,6,'Realizar la reserva del turno al '.(empty($voucher->stores[0]->phones) ? '' : 'Tel: '.$voucher->stores[0]->phones.' ').(empty($voucher->stores[0]->whatsapp) ? '' : '- Whatsapp: '.$voucher->stores[0]->whatsapp),0,0,'L',false);
 
 
 		$this->_pdf->SetFont('ProximaNormal','',8);

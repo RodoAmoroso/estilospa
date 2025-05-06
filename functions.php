@@ -588,6 +588,9 @@ function echo_json($obj,$exit=true){
 	echo json_encode($obj);
 	if($exit) exit;
 }
+function dd($obj){
+	echo_json($obj,true);
+}
 function obfuscate_email($email){
 	$em   = explode("@",$email);
 	$name = implode('@', array_slice($em, 0, count($em)-1));

@@ -23,8 +23,12 @@
 								<hr>
 
 								<div class="form-group">
-									<h4><strong>Total: $ <?=number_format($sale->price*$sale->quantity,0,',','.')?></strong></h4>
-									<h5>Precio Unit.: $ <?= number_format($sale->price,2,',','.') ?> (x <?= $sale->quantity ?>)</h5>
+									<h4 <?= $sale->voucher_id ? 'class="strikethrough"' : '' ?> >Total: <strong>$ <?=number_format($sale->price*$sale->quantity,0,',','.')?></strong></h4>
+									<?php if($sale->voucher_id): ?>
+									<h4>Total.: <strong>$ <?= number_format(($sale->price*$sale->quantity) - ($sale->voucher_percent ? ($sale->price*$sale->quantity)*$sale->voucher_value/100 : $sale->voucher_value),0,',','.') ?></strong></h4>
+									<div>Voucher: <b><?= $sale->vouchertext ?></b></div>
+									<?php endif; ?>
+
 								</div>
 
 								<div class="form-group">

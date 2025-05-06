@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class File {
 
@@ -17,7 +17,7 @@ class File {
 
 	////////////////////// MOVE FILE ///////////////////////
 	public function MoveFile($image=true){
-		
+
 		if(!is_dir($this->folder)) mkdir($this->folder, 0777);
 		if(!is_dir($this->folder)) die(Responses::response('folder_fail'));
 
@@ -53,7 +53,7 @@ class File {
 			default:
 				die( Responses::response('upload_fail') );
 				break;
-		}	
+		}
 	}
 
 	////////////////////// RESIZE IMAGE ///////////////////////
@@ -67,7 +67,7 @@ class File {
 		$filename = $this->folder.$this->filename.$sx.'.'.$this->extension;
 		list($imgWidth, $imgHeight, $imgType) = getimagesize($this->folder.'tempname.'.$this->extension);
 
-		$srcimage = $this->ImageCreate($imgType);		
+		$srcimage = $this->ImageCreate($imgType);
 
 		if(($resizeWidth == 0 && $resizeHeight == 0) || ($imgWidth < $resizeWidth && $imgHeight < $resizeHeight)) {
 			$newHeight = $imgHeight;
@@ -89,6 +89,8 @@ class File {
 				}
 			}
 		}
+		$newWidth = round($newWidth);
+		$newHeight = round($newHeight);
 		$tmpImg = imagecreatetruecolor($newWidth,$newHeight);
 		if($imgType == 2){
 			imagecopyresampled($tmpImg,$srcimage,0,0,0,0,$newWidth,$newHeight,$imgWidth,$imgHeight);
@@ -111,7 +113,7 @@ class File {
 		if($trim){
 			list($width_th,$height_th) = getimagesize($filename);
 			$src_th = $this->ImageCreate($imgType);
-			$tmb_th = imagecreatetruecolor($resizeWidth,$resizeHeight); 
+			$tmb_th = imagecreatetruecolor($resizeWidth,$resizeHeight);
 			if($imgType == 2){
 				$bg_th = imagecolorallocate($tmb_th, 198, 198, 198);
 			}else{
@@ -145,9 +147,9 @@ class File {
 	}
 
 	public static function download($filepath='',$name=''){
-		
+
 		//$original = PATH.'descargas'.DS.$file->filename.'.'.$file->extension;
-		
+
 		if(!is_file($filepath)) return false;
 
 		header("Content-Type: application/".$file->extension);

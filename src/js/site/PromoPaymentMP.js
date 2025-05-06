@@ -26,7 +26,7 @@ class PromoPaymentMP {
 
 		const mp_settings = {
 			initialization: {
-				amount: this.preference.sale.subtotal*this.preference.sale.quantity, // monto a ser pago
+				amount: this.preference.sale.total, // monto a ser pago
 				preferenceId: this.preference.id,
 				payer: {
 					email:this.user.email
@@ -40,14 +40,15 @@ class PromoPaymentMP {
 					},
 					texts:{
 						paymentMethods:{
-							creditCardValueProp:'Hasta 12 cuotas fijas'
+							creditCardValueProp:'Usá tu tarjeta de crédito de forma segura'//'Hasta 12 cuotas fijas'
 						}
 					}
 				},
 				paymentMethods: {
 					creditCard: "all",
 					debitCard: "all",
-					mercadoPago: "all"
+					mercadoPago: "all",
+					maxInstallments: 1
 				}
 			},
 			callbacks: {
@@ -57,7 +58,10 @@ class PromoPaymentMP {
 				},
 				onSubmit: async cardFormData=>{
 					//console.log('payment.processing...')
-					///return console.log(cardFormData)
+
+					//return console.log(cardFormData)
+
+
 					if(cardFormData.paymentType=='wallet_purchase' || cardFormData.paymentType=='onboarding_credits'){
 						window.location.href = this.preference.promo.url
 						return false

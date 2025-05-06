@@ -6,8 +6,8 @@ use PHPMailer\PHPMailer\Exception;
 class Mailing {
 
 	public 	$_mailer,
-					//$_email='rodosoft@hotmail.com',
-					$_email='estilospa.com@gmail.com',
+					$_email='rodosoft@hotmail.com',
+					//$_email='estilospa.com@gmail.com',
 					$_fullname='EstiloSPA',
 					$_error,
 					$_notifications,

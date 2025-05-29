@@ -462,7 +462,7 @@ function Fav($promoid=0,$clientid=0){
 		if($Favs->find()):
 			$fav = '<i class="fa fa-heart active"></i>';
 		else:
-			$fav = '<i class="fa fa-heart-o"></i>';
+			$fav = '<i class="fal fa-heart"></i>';
 		endif;
 	}else{
 		$favprop = 'data-toggle="modal" data-target="#modal_not_logged"';
@@ -602,4 +602,16 @@ function obfuscate_phone($phone){
 }
 function set_hash(){
 	return hash('sha256', date('YmdHis').rand(11111,99999));
+}
+function to_slug(string $text): string {
+	$text = strtolower($text);
+	$text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+	$text = preg_replace('/[^a-z0-9-]+/', '_', $text);
+	$text = preg_replace('/-+/', '_', $text);
+	$text = trim($text, '-');
+	return $text;
+}
+function text_shortener($text='',$length=1){
+	if(strlen($text)<=$length) return $text;
+	return substr($text, 0, $length).'...';
 }

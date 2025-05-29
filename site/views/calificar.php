@@ -42,7 +42,7 @@
 									<h3>Describinos cómo fue tu experiencia:</h3>
 									<p>Podés hacer referencia sobre la higiene general de lugar, atención de la recepcionista, atención del profesional, equipamiento, calificación general, etc.</p>
 
-									<div class="form-group">
+									<div class="mb-3">
 										<textarea name="comment" rows="6" class="form-control" maxlength="500" required></textarea>
 										<small>Máximo <maxchar>500</maxchar> caracteres</small>
 									</div>
@@ -71,7 +71,7 @@
 									</div>
 									<hr>
 
-									<div class="form-group">
+									<div class="mb-3">
 										<button id="btn_qualify" class="btn btn-primary">Enviar <i class="fa fa-paper-plane"></i></button>
 									</div>
 

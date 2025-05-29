@@ -60,7 +60,7 @@ $Newsletters->filters = [
 $newsletters = $Newsletters->get_log($user->id);
 
 
-$avatar = json_decode($user->image);
+//$avatar = json_decode($user->image);
 
 
 $Favs = new Favs;

@@ -16,10 +16,10 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_groups">Filtrar por Categorías</label>
 						<div class="input-group">
-						<select id="fd_groups_search" class="form-control"></select>					
+						<select id="fd_groups_search" class="form-control"></select>
 						<div class="input-group-btn">
 							<button id="btn_edit_groups_search" class="btn btn-primary" title="" data-original-title="editar"><i class="fa fa-pencil"></i></button>
 						</div>
@@ -28,11 +28,11 @@
 
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group text-right">
+					<div class="mb-3 text-end">
 						<button id="btn_new" class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Nuevo Item</button>
 					</div>
 				</div>
-			</div>		
+			</div>
 			<hr>
 			<div id="mod_glossary" class="well mod-container-lg"></div>
 
@@ -51,13 +51,13 @@
 		<div class="block-white">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_name">Nombre</label>
 						<input id="fd_name" type="text" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_groups">Categoría</label>
 						<div class="input-group">
 						<select id="fd_groups" class="form-control">
@@ -75,26 +75,26 @@
 			</div>
 
 			<hr>
-			
-			<div class="form-group">
+
+			<div class="mb-3">
 				<label class="dp-block" for="btn_header">Imagen Cabecera</label>
 				<div data-input="header">
 					<button class="btn btn-primary btn-sm">Examinar...</button>
 					<input type="file" accept="image/*" class="d-none" >
-				</div>		
+				</div>
 			</div>
 			<div id="header" class="thumbnail thumb-cover thumb-fullx280 bg-gray-10"></div>
 
 
 			<hr>
 
-			<div class="form-group">
+			<div class="mb-3">
 				<label for="fd_description">Descripción</label>
 				<textarea id="fd_description" rows="10" class="form-control"></textarea>
 			</div>
 
 			<hr>
-			<div class="form-group">
+			<div class="mb-3">
 				<div data-input="image">
 					<button id="btn_image" class="btn btn-sm btn-primary"><i class="fa fa-chevron-up"></i> Agregar Imagen...</button>
 					<input type="file" accept="image/*" class="d-none" >
@@ -121,11 +121,11 @@
 		<div class="block-white">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_group_name">Nombre</label>
 						<input type="text" id="fd_group_name" class="form-control">
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<button id="btn_save_group" class="btn btn-success btn-sm">Guardar</button>
 					</div>
 				</div>
@@ -138,7 +138,7 @@
 
 			<hr>
 			<button id="btn_close_groups" class="btn btn-warning">Cerrar</button>
-			
+
 		</div>
 	</div>
 </section>

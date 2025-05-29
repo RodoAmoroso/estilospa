@@ -20,7 +20,8 @@ class Master extends Core{
 				'visible'=>"{$this->alias}.visible=?"
 			],
 			'search'=>[
-				"{$this->alias}.name","{$this->alias}.title"
+				"{$this->alias}.name",
+				"{$this->alias}.title"
 			],
 			'sort'=>[
 				'name'=>"{$this->alias}.name ASC",
@@ -33,32 +34,23 @@ class Master extends Core{
 
 
 	public function get(){
-
-
-		$this->search_filters();
-
-
-		$query =
-		"SELECT {$this->alias}.*
-		FROM {{$this->table}} {$this->alias}
-		{$this->_filters->where}
-		{$this->_filters->sort}
-		LIMIT {$this->limit}";
-
+		$query = $this->set_query("{$this->alias}.*");
 		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
-
 		return $data;
 	}
 	public function get_total(){
-		$this->search_filters();
-		$query =
-		"SELECT COUNT({$this->alias}.id) total
-		FROM {{$this->table}} {$this->alias}
-		{$this->_filters->where}
-		{$this->_filters->sort}
-		LIMIT {$this->limit}";
+		$query = $this->set_query("COUNT({$this->alias}.id) total");
 		$this->_db->query($query,$this->_filters->values);
 		return $this->_db->first()->total;
+	}
+	protected function set_query($selects="*"){
+		$this->search_filters();
+		return "
+			SELECT {$selects}
+			FROM {{$this->table}} {$this->alias}
+			{$this->_filters->where}
+			{$this->_filters->sort}
+			LIMIT {$this->limit}";
 	}
 
 	public function find($id=null){
@@ -73,7 +65,7 @@ class Master extends Core{
 			'name'=>Input::get('name'),
 			'title'=>Input::get('title'),
 			'caption'=>Input::get('caption'),
-			'image'=>empty(Input::get('image')) ? null : json_encode(Input::get('image')),
+			'image'=>Input::get('image','json|nullable'),
 			'visible'=>Input::get('visible')
 		];
 		if(!parent::core_save(Input::get('id'),$values)) return false;
@@ -83,12 +75,16 @@ class Master extends Core{
 
 	public function delete($id=null){
 		if(!$id) return false;
-		if(!$data = $this->find($id)) return false;
+		if(is_object($id)){
+			$data = $id;
+		}else{
+			if(!$data = $this->find($id)) return false;
+		}
 		if(!parent::core_delete($data)) return false;
 		return true;
 	}
 
-	public function reorder($arrids=array()){
+	public function reorder($arrids=[]){
 		if(!is_array($arrids)) return false;
 		if(!parent::core_reorder($arrids)) return false;
 		return true;

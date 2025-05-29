@@ -20,20 +20,20 @@
 
 
 	<div id="fieldset_gift" class="dp-none">
-		<div class="form-group">
+		<div class="mb-3">
 			<label for="">Para:</label>
 			<input name="to_user" type="text" class="form-control" placeholder="para quien?">
 		</div>
-		<div class="form-group">
+		<div class="mb-3">
 			<label for="">Mensaje:</label>
 			<textarea name="message" rows="4" class="form-control" placeholder="Tu mensaje..." maxlength="255"></textarea>
 		</div>
 
 
-		<div class="form-group">
+		<div class="mb-3">
 			<label for="">Imagen (Opcional)</label>
 
-			<div data-input="image" class="form-group">
+			<div data-input="image" class="mb-3">
 				<button id="btn_image" class="btn btn-xs btn-default" type="button">Examinar...</button>
 				<input type="file" accept="image/*" class="d-none" >
 			</div>
@@ -46,7 +46,7 @@
 
 	<hr>
 
-	<div class="form-group">
+	<div class="mb-3">
 		<button class="btn btn-success btn-sm"><i class="fa fa-save fa-fw"></i> <span data-content="save-generate">Generar</span> Voucher</button>
 	</div>
 

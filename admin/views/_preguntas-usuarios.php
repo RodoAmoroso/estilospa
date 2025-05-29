@@ -16,7 +16,7 @@
 
 			<div class="row">
 				<div class="col-lg-4">
-					<form method="POST" class="form-group">
+					<form method="POST" class="mb-3">
 						<label for="">Centros</label>
 						<select name="clients" class="form-control" onchange="this.form.submit()">
 							<option value="">--Todos los Centros--</option>

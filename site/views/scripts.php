@@ -8,20 +8,20 @@
 <script type="text/javascript" src="<?= JS.'lib/toastr.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'lib/sweetalert2.min.js' ?>"></script>
 <script type="text/javascript" src="<?= JS.'lib/lazyload.min.js' ?>"></script>
-<script type="text/javascript" src="<?= JS.'functions.js?id='.rand(1111,9999) ?>" ></script>
+<script type="text/javascript" src="<?= JS.'functions.js?id='.RAND ?>" ></script>
 
 
 <!--- Plugins --->
 <?php if(isset($_arrjs)): foreach($_arrjs as $js): ?>
-<script type="text/javascript" src="<?= !isset($js['folder']) ? $js['script'] : JS.$js['folder'].$js['script'].'.js?id='.rand(111,999) ?>"></script>
+<script type="text/javascript" src="<?= !isset($js['folder']) ? $js['script'] : JS.$js['folder'].$js['script'].'.js?id='.RAND ?>"></script>
 <?php endforeach; endif; ?>
 
 
 <!-- Section Scripts -->
-<script type="text/javascript" src="<?= SITE.'js/main.js?id='.rand(1111,9999) ?>"></script>
+<script type="text/javascript" src="<?= JS.'site/main.js?id='.RAND ?>"></script>
 
-<?php if($_sectionpath): if($_jspath = View::loader('js','js')): ?>
-<script type="text/javascript" src="<?= SITE.$_jspath.'?id='.rand(1111,9999) ?>"></script>
+<?php if($_sectionpath): if($_jspath = View::loader('js','site','js')): ?>
+<script type="text/javascript" src="<?= JS.$_jspath.'?id='.RAND ?>"></script>
 <?php endif; endif; ?>
 
 </body>

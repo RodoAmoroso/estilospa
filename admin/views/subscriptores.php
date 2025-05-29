@@ -17,26 +17,26 @@
 				<div class="col-xs-12 col-sm-6">
 					<label for="fd_search">Buscar</label>
 
-					<form id="form_search" class="form-group" autocomplete="off">
+					<form id="form_search" class="mb-3" autocomplete="off">
 						<div class="input-group">
 							<input id="fd_search" type="text" class="form-control" placeholder="Buscar por email...">
 							<div class="input-group-btn">
 								<button class="btn btn-primary"><i class="fa fa-search"></i></button>
 							</div>
 						</div>
-						
+
 					</form>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 text-right">
-					<div class="form-group" >
+				<div class="col-xs-12 col-sm-6 text-end">
+					<div class="mb-3" >
 						<label for="" class="dp-block" >&nbsp;</label>
 						<a href="<?= ADMIN.'views/exportar-subscriptores.php' ?>" target="_blank" class="btn btn-success btn-sm" type="submit"><i class="fa fa-file-excel-o fa-fw"></i> Exportar Listado</a>
 					</div>
 				</div>
-				
+
 			</div>
-			
+
 			<hr>
 			<h4>Listado de subscriptores</h4>
 

@@ -7,11 +7,11 @@
 	<div class="container">
 
 		<!-- BREADCRUMB -->
-		<ul class="breadcrumb sz-9 bg-white">
-			<li><a href="<?= ROOT ?>">Home</a></li>
-			<li><a href="<?= ROOT ?>busqueda/centros-de-estetica">Centros de Estética</a></li>
-			<li><?= $clientdata->name ?></li>
-		</ul>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="<?= ROOT ?>">Home</a></li>
+			<li class="breadcrumb-item"><a href="<?= ROOT ?>busqueda/centros-de-estetica">Centros de Estética</a></li>
+			<li class="breadcrumb-item active"><?= $clientdata->name ?></li>
+		</ol>
 
 
 		<!-- OVERVIEW HEADER -->
@@ -93,7 +93,7 @@
 
 							<!-- VIEWS -->
 							<div class="inner">
-								<div class="views text-right">
+								<div class="views text-end">
 									<i class="fa fa-eye fa-lg"></i><br /><span><?= number_format($clientdata->views,0,'','.') ?> visitas</span>
 								</div>
 							</div>
@@ -315,24 +315,24 @@
 					<div class="row">
 						<div class="col-md-6">
 
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_name">Nombre</label>
 								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_name">Apellido</label>
 								<input id="fd_name" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_phone">Teléfono</label>
 								<input id="fd_phone" type="text" name="phone" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->phone : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_mail">E-mail</label>
 								<input id="fd_mail" type="email" name="email" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->mail : '' ?>">
 							</div>
 
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_message">Mensaje <i>(opcional)</i></label>
 								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" placeholder="Indicar la cantidad de personas en caso que sean más de una." ></textarea>
 							</div>
@@ -380,7 +380,7 @@
 
 					<hr>
 
-					<div class="form-group">
+					<div class="mb-3">
 						<button type="submit" class="btn btn-primary" >ENVIAR</button>
 					</div>
 

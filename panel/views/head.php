@@ -26,7 +26,6 @@
 	<?php endforeach; endif; ?>
 
 	<link rel="stylesheet" href="<?= CSS.'styles.css?id='.rand(1111,9999) ?>" >
-	<link rel="stylesheet" href="<?= CSS.'admin.css?id='.rand(1111,9999) ?>" >
 
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 

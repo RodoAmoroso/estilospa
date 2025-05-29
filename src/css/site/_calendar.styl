@@ -1,0 +1,93 @@
+.calendar-wrapper
+	background-color white
+	border-radius 10px
+	padding 16px
+	box-shadow $shadow
+.calendar-promo
+	background-color gray(5)
+	border 1px solid gray(10)
+	.month
+		background-color gray(8)
+		align-items center
+		display flex
+		text-align center
+		font-size 1.8rem
+		justify-content space-between
+		.next,.prev
+			cursor pointer
+			padding 6px
+			&:hover
+				background-color $cyan_0
+		.name
+			padding 6px
+	.week
+		padding 6px 0
+		.days
+			margin 0
+			padding 0
+			display flex
+			justify-content center
+			.day
+				border-radius 4px
+				padding 4px 10px
+				display block
+				cursor pointer
+				&:hover
+					background-color $cyan_0
+			.day.active
+				background-color $aqua_3
+				color white
+	.schedule
+		height 300px
+		overflow auto
+		.hours
+			padding 0
+			.hour
+				display block
+				.module
+					align-items center
+					display flex
+					justify-content space-between
+					background-color white
+					//border 1px solid gray(10)
+					margin 2px 0
+					padding 6px 16px
+			.hour.disabled
+				opacity .45
+				.btn
+					cursor auto
+.event
+	.event-wrapper
+		.event-body
+			display flex
+			.image
+				border 1px solid gray(10)
+				border-radius 6px
+				width 200px
+				min-width 200px
+			.data
+				padding 0 16px
+				width 100%
+				.title
+					a
+						color $fucsia_3
+						font-size 1.8rem
+				.price
+					font-size 1.6rem
+					margin 10px 0
+				.date
+					margin 10px 0
+
+		.event-footer
+			margin 16px 0
+			padding 16px 0
+			border-top 1px solid gray(10)
+	.user
+		border-top 1px solid gray(10)
+		line-height 2.4rem
+		padding 16px
+		margin 10px 0
+.fc-day-grid-event
+	cursor pointer
+.fc-day-grid-container
+	height auto !important

@@ -16,7 +16,7 @@
 
 			<div class="row">
 				<div class="col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Elegir año</label>
 						<select name="year" class="form-control">
 							<option value="<?=date('Y')?>"><?=date('Y')?></option>
@@ -65,17 +65,17 @@
 
 			<form id="form_holiday" class="row">
 				<div class="col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<input name="date" type="text" class="form-control" placeholder="Fecha" required readonly>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<input name="name" type="text" class="form-control" placeholder="Nombre" required>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<button class="btn btn-success"><i class="fa fa-plus fa-fw"></i> Agregar Feriado</button>
 					</div>
 				</div>

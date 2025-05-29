@@ -46,7 +46,7 @@ switch($_action){
 		break;
 
 	case 'delete':
-		$Banners->delete();
+		$Banners->delete(Input::get('id'));
 		echo Responses::response('ok');
 		break;
 

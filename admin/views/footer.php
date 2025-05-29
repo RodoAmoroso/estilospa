@@ -1,4 +1,10 @@
 
+	</div> <!-- End Page Wrapper -->
+
+</section>
+<!-- End Section Wrapper-->
+
+
 <!-- COPYRIGHT -->
 <footer class="bg-aqua-5 cl-white pad-16">
 	<div class="container text-center">

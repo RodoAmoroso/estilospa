@@ -16,7 +16,7 @@
 
 			<div class="col-xs-12 col-sm-6">
 
-				<form id="form_search" class="form-group" autocomplete="off">
+				<form id="form_search" class="mb-3" autocomplete="off">
 					<label for="fd_search">Buscar</label>
 					<div class="input-group">
 						<input id="fd_search" type="text" class="form-control">
@@ -28,7 +28,7 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
-						<div class="form-group">
+						<div class="mb-3">
 							<select id="select_order" class="form-control input-sm">
 								<option value="date">Ordenar por fecha de creación</option>
 								<option value="name">Ordenar por orden alfabético</option>
@@ -43,8 +43,8 @@
 
 
 			</div>
-			<div class="col-xs-12 col-sm-6 text-right">
-				<div class="form-group">
+			<div class="col-xs-12 col-sm-6 text-end">
+				<div class="mb-3">
 					<label for="" class="dp-block" >&nbsp;</label>
 					<button id="btn_new" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Centro</button>
 				</div>
@@ -83,12 +83,12 @@
 			<div id="tab_general" class="tab-panel ">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_name">Nombre</label>
 							<input id="fd_name" type="text" class="form-control">
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_web">Web</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-link"></i></div>
@@ -96,7 +96,7 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label class="dp-block" for="fd_plans">Tipo de Plan</label>
 							<div class="input-group">
 								<select id="fd_plans" class="form-control">
@@ -115,15 +115,15 @@
 
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_subtitle">Subtítulo/Copete/Epígrafe</label>
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_mail">Mail</label>
 							<input id="fd_mail" type="text" class="form-control">
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_permalink">Enlace Permanente	<i class="fa fa-question-circle cl-pink-3" data-toggle="tooltip" title="" data-original-title="El enlace permanente permite identificar a una página de manera fácil y rápida. Se genera automáticamente a partir del título. Si decides editarlo no debe contener espacios, acentos o caracteres especiales para que funcione correctamente."></i></label>
 							<div class="input-group">
 								<div class="input-group-addon"><span id="root_root"><?= ROOT.'centro/' ?></span></div>
@@ -146,10 +146,10 @@
 
 
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_users_search">Usuarios Asignados</label>
 
-							<form id="form_search_users" class="form-group" autocomplete="off">
+							<form id="form_search_users" class="mb-3" autocomplete="off">
 								<input id="fd_users_search" type="text" class="form-control" placeholder="Buscar usuarios...">
 							</form>
 
@@ -159,12 +159,12 @@
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="btn_logo">Logo</label>
 							<div id="logo_client" class="thumb-contain thumb-200x200 border-gray-10"></div>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<div data-input="logo">
 								<button class="btn btn-xs btn-primary">Examinar...</button>
 								<input type="file" accept="image/*" class="d-none" >
@@ -186,26 +186,26 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="row">
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_address">Dirección y Nro. <i class="fa fa-question-circle cl-pink-3" title="Agregar sólo la calle y el número."></i></label>
 									<input id="fd_store_address" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_additional">Adicionales <i class="fa fa-question-circle cl-pink-3" title="Agregar si corresponde piso, local, altura, entre calles, etc."></i></label>
 									<input id="fd_store_additional" type="text" class="form-control">
 								</div>
 							</div>
 
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_city">Localidad/Barrio</label>
 									<input id="fd_store_city" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_province">Provincia/Zona</label>
 									<select id="fd_store_province" class="form-control">
 										<?php
@@ -220,13 +220,13 @@
 							</div>
 
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_phones">Teléfonos <i class="fa fa-question-circle cl-pink-3" title="Agregar el código de área + el nro. de teléfono"></i></label>
 									<input id="fd_store_phones" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_whatsapp">WhatsApp <i class="fa fa-question-circle cl-pink-3" title="Agregar el código de área + el nro. de teléfono"></i></label>
 									<div class="input-group">
 										<div class="input-group-addon">54 9</div>
@@ -236,13 +236,13 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="">Código de inserción de google maps</label>
 							<textarea id="fd_store_map" rows="5" class="form-control"></textarea>
 							<small><a href="https://support.google.com/maps/answer/144361?co=GENIE.Platform%3DDesktop&hl=es" target="_blank">¿cómo hago?</a></small>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_store_schedules" class="dp-block">Horarios </label>
 							<button id="btn_schedules" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Editar</button>
 							<!-- <input id="fd_store_schedules" type="text" class="form-control"> -->
@@ -288,7 +288,7 @@
 					<p class="sz-11 alert alert-info">Horario Establecido: <span id="schedules_text">No se estableció ningún horario aún.</span></p>
 
 					<hr>
-					<div id="btn_close_schedules" class="text-right"><button class="btn btn-warning btn-sm">Cerrar</button></div>
+					<div id="btn_close_schedules" class="text-end"><button class="btn btn-warning btn-sm">Cerrar</button></div>
 
 				</div>
 
@@ -335,7 +335,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Imagen</label>
 							<div data-input="gallery">
 								<button class="btn btn-xs btn-primary">Examinar...</button>
@@ -345,7 +345,7 @@
 						<p class="sz-9">Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal del centro.</p>
 					</div>
 					<!-- <div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Video</label>
 							<div class="input-group">
 								<input id="fd_video" type="text" class="form-control">
@@ -371,11 +371,11 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_feature_name">Título</label>
 							<input id="fd_feature_name" type="text" class="form-control">
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_feature_description">Descripción</label>
 							<textarea id="fd_feature_description" rows="8" class="form-control" ></textarea>
 						</div>
@@ -397,7 +397,7 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_social_type">Red Social</label>
 							<select id="fd_social_type" class="form-control">
 								<option value="facebook">Facebook</option>
@@ -408,14 +408,14 @@
 								<option value="google-plus">Google+</option>
 							</select>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_social_link">Link</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-link"></i></div>
 								<input id="fd_social_link" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<button id="btn_social_save" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Editar/Agregar</button>
 							<button id="btn_social_cancel" class="btn btn-sm btn-warning">Cancelar</button>
 						</div>
@@ -455,11 +455,11 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_type_name">Nombre</label>
 						<input id="fd_type_name" type="text" class="form-control">
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<button id="btn_save_type" class="btn btn-sm btn-success">Agregar/Editar</button>
 					</div>
 				</div>
@@ -492,13 +492,13 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_plan_name">Nombre</label>
 						<input id="fd_plan_name" type="text" class="form-control">
 					</div>
 					<div class="row">
 						<div class="col-xs-12 col-sm-6">
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_plan_fee">Comisión <i class="fa fa-question-circle cl-pink-3" title="Sólo agregar el valor sin la comisión de Mercado Pago"></i></label>
 								<div class="input-group">
 									<input id="fd_plan_fee" type="number" min="0" max="100" value="0" class="form-control">
@@ -507,14 +507,14 @@
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-6">
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_plan_promos">Cant. de experiencias disponibles <i class="fa fa-question-circle cl-pink-3" title="Sólo aplica a las promos de venta online"></i></label>
 								<input id="fd_plan_promos" type="number" min="0" max="1000" value="0" class="form-control">
 							</div>
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="mb-3">
 						<button id="btn_save_plan" class="btn btn-sm btn-success">Agregar/Editar</button>
 					</div>
 				</div>

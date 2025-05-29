@@ -4,13 +4,28 @@
 
 	<div class="container">
 		<ul class="left-menu">
-			<li><a href="<?= ROOT.'publica-tu-centro' ?>">PUBLICÁ TU CENTRO <i class="fa fa-angle-double-right"></i></a></li>
+			<li>
+				<a href="<?= ROOT.'publica-tu-centro' ?>">
+					<span>PUBLICÁ TU CENTRO</span> <i class="fa fa-angle-double-right"></i>
+				</a>
+			</li>
 		</ul>
 		<ul class="right-menu">
-			<li><a href="http://www.facebook.com/estilospa" target="_blank"><i class="fa fa-facebook fa-fw"></i></a></li>
-			<li><a href="http://www.twitter.com/estilospa" target="_blank"><i class="fa fa-twitter fa-fw"></i></a></li>
-			<li><a href="https://www.instagram.com/estilospa/" target="_blank"><i class="fa fa-instagram fa-fw"></i></a></li>
-			<li><a href="http://www.youtube.com/EstiloSpa" target="_blank"><i class="fa fa-youtube-play fa-fw"></i></a></li>
+			<li>
+				<a href="http://www.facebook.com/estilospa" target="_blank">
+					<i class="fab fa-facebook-f fa-fw"></i>
+				</a>
+			</li>
+			<li>
+				<a href="https://www.instagram.com/estilospa/" target="_blank">
+					<i class="fab fa-instagram fa-fw"></i>
+				</a>
+			</li>
+			<li>
+				<a href="http://www.youtube.com/EstiloSpa" target="_blank">
+					<i class="fab fa-youtube fa-fw"></i>
+				</a>
+			</li>
 		</ul>
 	</div>
 </section>
@@ -20,17 +35,28 @@
 	<div class="container">
 		<div class="header-inner">
 
-			<a href="<?= ROOT ?>" class="logo"><img src="<?= View::assets('logo.jpg') ?>" alt=""></a>
+			<a href="<?= ROOT ?>" class="logo">
+				<img src="<?= View::assets('logo.jpg') ?>" alt="">
+			</a>
 
 			<?php if(!$User->logged()): ?>
 
 			<div class="user">
 				<ul class="menu-login">
-					<li><a href="<?= ROOT ?>login">INGRESAR</a></li>
+					<li>
+						<a href="<?= ROOT ?>login">Ingresar</a>
+					</li>
 					<li class="separator hidden-xs">|</li>
-					<li><a href="<?= ROOT ?>registro">REGISTRATE</a></li>
+					<li>
+						<a href="<?= ROOT ?>registro">Registrate</a>
+					</li>
+					<li class="separator hidden-xs">|</li>
+					<li>
+						<a href="#">Canjear Voucher</a>
+					</li>
 				</ul>
 			</div>
+
 			<?php
 			else:
 			$img = empty($_userdata->image) ? '' : json_decode($_userdata->image);
@@ -44,9 +70,10 @@
 				</div>
 				<div id="menu_user" class="menu-user-container" >
 					<div class="arrow"></div>
+
 					<ul class="menu-user" >
 
-					<?php if($_userdata->idtype == 1): ?>
+						<?php if($_userdata->idtype == 1): ?>
 						<li>
 							<a href="<?= View::url('admin') ?>">
 								<i class="fa fa-wrench"></i>
@@ -55,7 +82,7 @@
 						</li>
 						<li>
 							<a href="<?= View::url('admin','centros') ?>">
-								<i class="fa fa-building-o"></i>
+								<i class="fa fa-buildings"></i>
 								<span>Centros</span>
 							</a>
 						</li>
@@ -97,13 +124,14 @@
 							</a>
 						</li>
 						<li class="separator"></li>
-					<?php endif; ?>
+						<?php endif; ?>
 
 
 
-					<?php if($_userdata->idtype == 3): ?>
-
-						<?php $reservations_unconfirmed = $Reservations->get_unconfirmed($_userdata->idclient); ?>
+						<?php
+						if($_userdata->idtype == 3):
+							$reservations_unconfirmed = $Reservations->get_unconfirmed($_userdata->idclient);
+						?>
 						<li>
 							<a href="<?= View::url('panel') ?>">
 								<i class="fa fa-wrench"></i>
@@ -111,7 +139,7 @@
 						</li>
 						<li>
 							<a href="<?= View::url('panel','mi-centro') ?>">
-								<i class="fa fa-building-o"></i>
+								<i class="fa fa-building"></i>
 								<span>Mi Centro</span>
 							</a>
 						</li>
@@ -143,10 +171,10 @@
 							</a>
 						</li>
 						<li class="separator"></li>
-					<?php endif; ?>
+						<?php endif; ?>
 
 
-					<?php if($_userdata->idtype == 4): ?>
+						<?php if($_userdata->idtype == 4): ?>
 						<li>
 							<a href="<?= View::url('panel') ?>">
 								<i class="fa fa-wrench"></i>
@@ -159,13 +187,12 @@
 							</a>
 						</li>
 						<li class="separator"></li>
-					<?php endif; ?>
-
-
+						<?php endif; ?>
 
 						<li><a href="<?= View::url('perfil') ?>"><i class="fa fa-user"></i> <span>Perfil</span></a></li>
 						<li><a href="<?= View::url('mis-compras') ?>"><i class="fa fa-shopping-basket"></i> <span>Mis Compras</span></a></li>
 						<li><a href="<?= View::url('mis-favoritos') ?>"><i class="fa fa-heart"></i> <span>Favoritos</span></a></li>
+
 						<?php if($_userdata->idtype == 2): ?>
 						<li><a href="<?= View::url('mi-agenda') ?>"><i class="fa fa-calendar"></i> <span>Agenda</span></a></li>
 						<?php endif; ?>
@@ -173,6 +200,7 @@
 						<li class="separator"></li>
 
 						<li><a href="javascript:logout();"><i class="fa fa-times"></i> <span>Cerrar Sesión</span></a></li>
+
 					</ul>
 				</div>
 			</div>
@@ -182,5 +210,3 @@
 
 	</div>
 </header>
-
-

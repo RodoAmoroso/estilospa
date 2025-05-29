@@ -17,7 +17,7 @@
 				<div class="col-xs-12 col-sm-6">
 					<label for="fd_search">Buscar</label>
 
-					<form id="form_search" class="form-group" autocomplete="off">
+					<form id="form_search" class="mb-3" autocomplete="off">
 						<div class="input-group">
 							<input id="fd_search" type="text" class="form-control" placeholder="Buscar por código o nombre...">
 							<div class="input-group-btn">
@@ -28,8 +28,8 @@
 					</form>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 text-right">
-					<div class="form-group">
+				<div class="col-xs-12 col-sm-6 text-end">
+					<div class="mb-3">
 						<label for="" class="dp-block" >&nbsp;</label>
 						<button id="btn_new" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Voucher</button>
 					</div>
@@ -64,7 +64,7 @@
 
 				</div>
 				<div class="col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_filter_promo">Filtrar por experiencia</label>
 						<select id="fd_filter_promo" class="form-control input-sm">
 							<option value="0">-- Todas --</option>
@@ -90,7 +90,7 @@
 			<h3 class="fw-600">Agregar / Editar Voucher</h3>
 			<hr>
 
-			<div class="form-group">
+			<div class="mb-3">
 
 			<div class="btn-group" data-toggle="buttons">
 				<label class="btn btn-default active">
@@ -109,13 +109,13 @@
 			<hr>
 			<div class="row">
 				<div class="col-sm-6 col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_name">Nombre</label>
 						<input id="fd_name" type="text" class="form-control">
 					</div>
 				</div>
 				<div class="col-sm-6 col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_type">Tipo de Descuento</label>
 						<select id="fd_type" type="text" class="form-control">
 							<option value="percent">Porcentaje</option>
@@ -124,7 +124,7 @@
 					</div>
 				</div>
 				<div class="col-sm-6 col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_value">Valor</label>
 						<div  class="input-group">
 							<div id="fd_value_symbol" class="input-group-addon">%</div>
@@ -136,7 +136,7 @@
 
 					<!-- UNIQUE -->
 					<div id="block_unique">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_code">Código</label>
 							<input id="fd_code" type="text" class="form-control">
 						</div>
@@ -145,7 +145,7 @@
 					<!-- MULTIPLE -->
 					<div id="block_multiple" class="dp-none">
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="">Cantidad</label>
 							<div class="input-group">
 								<input id="fd_code_quantity" type="number" class="form-control" value="2" min="1" max="5000">
@@ -158,7 +158,7 @@
 						<!-- <div id="code_list" class="well list-group mod-container-sm"></div> -->
 						<input type="text" name="codes" value="" class="form-control" >
 
-						<!-- <form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="form-group" target="_blank">
+						<!-- <form action="<?= ADMIN.'views/exportar-codigos.php' ?>" method="post" id="form_export_codes" class="mb-3" target="_blank">
 							<button class="btn btn-xs btn-success"><i class="fa fa-download fa-fw"></i> Exportar códigos</button>
 						</form> -->
 
@@ -168,13 +168,13 @@
 
 				</div>
 				<div class="col-sm-6 col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_start">Inicia</label>
 						<input id="fd_start" type="text" class="form-control" readonly>
 					</div>
 				</div>
 				<div class="col-sm-6 col-md-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_finish">Termina</label>
 						<input id="fd_finish" type="text" class="form-control" readonly>
 					</div>
@@ -192,7 +192,7 @@
 
 
 						<div class="col-sm-6">
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_filter_status_assoc">Filtrar por status</label>
 								<select id="fd_filter_status_assoc" class="form-control input-sm">
 									<option value="">-- Todas --</option>
@@ -203,7 +203,7 @@
 							</div>
 						</div>
 						<div class="col-sm-6">
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_filter_client_assoc">Filtrar por cliente</label>
 								<select id="fd_filter_client_assoc" class="form-control input-sm">
 									<option value="0">-- Todos --</option>
@@ -243,7 +243,7 @@
 					<button id="btn_cancel" class="btn btn-warning btn-sm"><i class="fa fa-fw fa-times"></i> Cancelar</button>
 					<button id="btn_delete" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> Borrar</button>
 				</div>
-				<div class="col-sm-6 text-right">
+				<div class="col-sm-6 text-end">
 					<button id="btn_save" class="btn btn-success"><i class="fa fa-fw fa-save"></i> Guardar</button>
 				</div>
 			</div>

@@ -1,44 +1,49 @@
+<div class="main-nav-mobile-button">
+	<i class="fa fa-bars fa-lg cl-white" ></i>
+</div>
 
-<?php
-$arrAdminMenu = array(
-	array('name'=>'Inicio','permalink'=>'inicio'),
-	array('name'=>'Actividad','permalink'=>'actividad'),
-	array('name'=>'Home','permalink'=>'home'),
-	array('name'=>'Centros','permalink'=>'centros'),
-	array('name'=>'Experiencias','permalink'=>'promos'),
-	array('name'=>'Categorías','permalink'=>'promos-categorias'),
-	array('name'=>'Usuarios','permalink'=>'usuarios'),
-	array('name'=>'Ventas','permalink'=>'ventas'),
-	array('name'=>'Etiquetas','permalink'=>'etiquetas'),
-	array('name'=>'Preguntas','permalink'=>'preguntas'),
-	array('name'=>'Reservas','permalink'=>'reservas'),
-	array('name'=>'Blog','permalink'=>'blog'),
-	///array('name'=>'Estadísticas','permalink'=>'estadisticas'),
-	array('name'=>'Vouchers','permalink'=>'vouchers'),
-	array('name'=>'Subscriptores','permalink'=>'subscriptores'),
-	array('name'=>'Vinculaciones','permalink'=>'vinculaciones')
-);
-?>
+<section id="page-wrapper">
 
-
-<!-- MAIN MENU -->
-<nav class="main-nav">
-	<div class="container">
-
-		<i class="fa fa-bars fa-lg cl-white" ></i>
+	<!-- MAIN MENU -->
+	<nav class="main-nav">
 
 		<ul id="main_menu" class="main-menu" >
 			<?php
 			foreach($arrAdminMenu as $kmm=>$vmm):
 				$active = '';
-				if($_section == $vmm['permalink']):
+				if(($_section == $vmm['permalink']) || (isset($vmm['active-links']) && in_array($_section, $vmm['active-links'])) ):
 					$active = 'active';
 				endif;
 			?>
-			<li class="<?= $active ?>" ><a href="<?= ROOT.'admin/'.$vmm['permalink'] ?>" ><?= $vmm['name'] ?></a></li>
+			<li class="<?= $active ?>" >
+
+				<a href="<?= isset($vmm['submenu']) ? '#' : ROOT.'admin/'.$vmm['permalink'] ?>" <?= isset($vmm['submenu']) ? 'data-bs-toggle="collapse" data-bs-target="#submenu_'.$kmm.'"' : '' ?> >
+					<span><?= $vmm['name'] ?></span>
+					<?php if(isset($vmm['submenu'])): ?>
+					<i class="fa fa-caret-down fa-fw"></i>
+					<?php endif; ?>
+				</a>
+
+				<?php if(isset($vmm['submenu'])): ?>
+				<ul id="submenu_<?= $kmm ?>" class="submenu collapse <?= $active ? 'show' : '' ?>">
+					<?php
+					foreach($vmm['submenu'] as $submenu):
+						$subactive = '';
+						if($_section==$submenu['permalink']) $subactive = 'active';
+					?>
+					<li class="submenu-item <?= $subactive ?>">
+						<a href="<?= ROOT.'admin/'.$submenu['permalink'] ?>"><?= $submenu['name'] ?></a>
+					</li>
+					<?php endforeach; ?>
+				</ul>
+				<?php endif; ?>
+
+
+
+			</li>
 			<?php endforeach ?>
 		</ul>
 
-	</div>
-</nav>
+	</nav>
 
+	<div id="page-content-wrapper">

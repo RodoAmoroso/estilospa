@@ -16,7 +16,7 @@
 
 	<link rel="stylesheet" href="<?= CSS ?>lib/bootstrap.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/jquery-ui.min.css" >
-	<link rel="stylesheet" href="<?= CSS ?>lib/font-awesome.min.css" >
+	<link rel="stylesheet" href="<?= CSS ?>lib/fontawesome-all.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/animate.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/sweetalert2.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/toastr.min.css" >

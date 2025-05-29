@@ -7,43 +7,48 @@
 		<hr>
 
 		<div class="row form-content">
-			
-			<div class="col-xs-12 col-sm-8 ">				
 
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 bd-right-gray-5">
+			<div class="col-xs-12 col-sm-8 ">
 
-						<form id="form_register" >					
-							<div class="form-group">
-								<label for="fd_name">Nombre</label>
-								<input name="name" type="text" class="form-control" required >
-							</div>			
-							<div class="form-group">
-								<label for="fd_mail">E-Mail</label>
-								<input name="email" type="email" class="form-control" required >
-							</div>				
-							<div class="form-group">
-								<label for="fd_password">Password</label>
-								<input name="password" type="password" class="form-control" required >
-							</div>
-							<div class="form-group">
-								<label for="fd_passwordagain">Repetir Password</label>
-								<input name="password_repeat" type="password" class="form-control" required >
-							</div>	
+				<form id="form_register" >
+					<div class="row">
 
-							<div class="form-group">
-								<button class="btn btn-fucsia" data-loading-text="Enviando..."  >Registrarse <i class="fa fa-angle-double-right"></i></button>
-							</div>					
-						</form>
+						<div class="col-md-6 mb-3">
+							<label for="fd_name">Nombre</label>
+							<input name="name" type="text" class="form-control" required >
+						</div>
+
+						<div class="col-md-6 mb-3">
+							<label for="fd_mail">E-Mail</label>
+							<input name="email" type="email" class="form-control" required >
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="fd_password">Password</label>
+							<input name="password" type="password" class="form-control" required >
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="fd_passwordagain">Repetir Password</label>
+							<input name="password_repeat" type="password" class="form-control" required >
+						</div>
+
+						<div class="col-md-12 mb-3">
+							<button class="btn btn-fucsia" data-loading-text="Enviando..."  >
+								Registrarse <i class="fal fa-angle-double-right"></i>
+							</button>
+						</div>
+
+						</div>
 
 					</div>
-					
-				</div>		
+				</form>
+
+				<hr>
+				<div>¿Ya tenés cuenta? <a href="<?= View::url('login') ?>" class="text-fucsia-3">Ingresá aquí</a></div>
 
 			</div>
 		</div>
 
-		
+
 	</div>
 </section>
 

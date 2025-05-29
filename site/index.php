@@ -23,6 +23,8 @@ if($_site->info()['maintenance']) $_section = 'mantenimiento';
 $_controllerpath = View::loader('php','controllers');
 if($_controllerpath) include $_controllerpath;
 
+//echo 'v.2025';
+
 
 $_URLHEAD =  ROOT.(!empty($_section) ? $_section : '').(!empty($_subsection) ? '/'.$_subsection : '').(!empty($_idsection) ? '/'.$_idsection : '');
 

@@ -63,7 +63,7 @@
 					<div class="col-sm-6">
 						<button id="view_more" class="btn btn-default"><span>leer más</span> <i class="fa fa-caret-down"></i></button>
 					</div>
-					<div class="col-sm-6 text-right">
+					<div class="col-sm-6 text-end">
 						<button class="btn btn-primary" data-toggle="scrollto" data-target="#form_question"><i class="fa fa-envelope"></i> Consultar a los Centros Acerca de <?= $Glossary->data()->name ?></button>
 					</div>
 				</div>

@@ -22,7 +22,7 @@
 				<hr>
 
 				<!-- PROVINCES -->
-				<h4 class="title-bar" data-toggle="collapse" href="#list_zones" >Zonas/Provincias <i class="fa fa-caret-down"></i></h4>
+				<h4 class="title-bar" data-bs-toggle="collapse" href="#list_zones" >Zonas/Provincias <i class="fa fa-caret-down"></i></h4>
 				<ul id="list_zones" class="list collapse in">
 					<?php
 					//$Stores->keywords = $searchtext;
@@ -32,7 +32,7 @@
 						foreach($Stores->data() as $i=>$store):
 					?>
 					<li data-word="location" >
-						<a data-toggle="collapse" href="#zones_<?= $i ?>" ><span><?= $store->name ?></span> <i class="fa fa-caret-down"></i></a>
+						<a data-bs-toggle="collapse" href="#zones_<?= $i ?>" ><span><?= $store->name ?></span> <i class="fa fa-caret-down"></i></a>
 						<ul id="zones_<?= $i ?>" class="collapse">
 							<?php
 							$_stores = new Stores();

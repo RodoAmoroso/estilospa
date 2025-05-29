@@ -5,12 +5,13 @@ $user_types = DB::getInstance()->get('usertypes',array('id','!=',0));
 $clients = new Clients();
 $clients->get();
 
-$_arrjs[] = ['folder'=>'lib/','script'=>'upfile'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'upfile'];
 
 $_arrcss[] = ['folder'=>'lib/dataTables/','style'=>'datatables.min'];
 $_arrjs[] = ['folder'=>'lib/dataTables/','script'=>'datatables.min'];
 
-$_arrjs[] = ['folder'=>'','script'=>'tables'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'crud'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'tables'];
 
 /*$Users = new Users;
 $Users->limit = '0,10000';

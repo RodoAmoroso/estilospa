@@ -1,6 +1,6 @@
 
 <!-- MAIN MENU -->
-<nav class="main-nav">
+<nav class="main-nav d-none">
 	<div class="container">
 
 		<i class="fa fa-bars fa-lg cl-white" ></i>
@@ -9,7 +9,9 @@
 			<li class="highlight"><a href="<?= ROOT.'categoria/' ?>">Experiencias</a></li>
 
 			<?php if($menu_categories): foreach($menu_categories as $category_nav): ?>
-			<li><a href="<?= ROOT.'categoria/'.$category_nav->id.'-'.Permalink($category_nav->name).'/' ?>"><?= $category_nav->name ?></a></li>
+			<li>
+				<a href="<?= ROOT.'categoria/'.$category_nav->id.'-'.Permalink($category_nav->name).'/' ?>"><?= $category_nav->name ?></a>
+			</li>
 			<?php endforeach; endif; ?>
 
 			<li class="highlight"><a href="<?= ROOT.'regalos/' ?>">Para Regalar</a></li>

@@ -1,37 +1,49 @@
 <?php
 
+error_reporting(0);
+
+
 class File {
 
-	public $filename = 'tempname';
-	public $extension = 'jpg';
-	public $image = true;
-	private $folder;
-	private $file;
-	private $arrName = array();
-	private $node = 0;
+	public 		$filename = 'tempname',
+						$extension = 'jpg',
+						$image = true,
+						$main_folder,
+						$folder;
 
-	public function __construct($file=array(),$folder=''){
+	private 	$file,
+						$arrName = array(),
+						$node = 0;
+
+	public function __construct($file,$folder){
 		$this->file = $file;
+		$this->main_folder = 'img/';
 		$this->folder = $folder;
+		if(!is_dir(PATH.$this->main_folder.$this->folder)) @mkdir(PATH.$this->main_folder.$this->folder, 0777);
+		if(!is_dir(PATH.$this->main_folder.$this->folder)) die(Responses::response('folder_fail','',['folder'=>$this->main_folder.$this->folder]));
 	}
 
 	////////////////////// MOVE FILE ///////////////////////
 	public function MoveFile($image=true){
-
-		if(!is_dir($this->folder)) mkdir($this->folder, 0777);
-		if(!is_dir($this->folder)) die(Responses::response('folder_fail'));
-
+		$this->hash = hash('sha256',date('Y-m-d H:i:s').rand(1111,9999));
 		$this->image = $image;
 		$this->arrName = explode('.',$this->file['name']);
-		$this->filename = Permalink($this->arrName[0]).'-'.rand(1111,9999);
+		$this->filename = permalink($this->arrName[0].'-'.rand(1111,9999));
 		$this->extension = strtolower($this->arrName[count($this->arrName)-1]);
 		if($this->file['size'] > intval(ini_get('upload_max_filesize'))*1048576){
-			die(Responses::response('maxsize','',array('size'=>substr(ini_get('upload_max_filesize'),0,-1))));
+			die(Responses::response('max_filesize','',array('size'=>substr(ini_get('upload_max_filesize'),0,-1))));
 		}
-		if(move_uploaded_file($this->file['tmp_name'], $this->folder.($this->image ? 'tempname' : $this->filename).'.'.$this->extension)){
-			return Responses::response('ok','',array('filename'=>$this->filename,'extension'=>$this->extension));
+		if(move_uploaded_file($this->file['tmp_name'], PATH.$this->main_folder.$this->folder.($this->image ? 'tempname.'.$this->extension : $this->hash) )){
+			return array(
+				'filename'=>$this->filename,
+				'extension'=>$this->extension,
+				'hash'=>$this->hash,
+				'folder'=>$this->folder,
+				'main_folder'=>$this->main_folder
+			);
 		}else{
-			return Responses::response('uploadfail','',array('filename'=>$this->filename,'extension'=>$this->extension));
+			//return Responses::response('upload_fail','',array('filename'=>$this->filename,'extension'=>$this->extension));
+			die( Responses::response('upload_fail') );
 		}
 	}
 
@@ -39,16 +51,20 @@ class File {
 	public function ImageCreate($type){
 		switch($type){
 			case 1:
-				return imagecreatefromgif($this->folder.'tempname.'.$this->extension);
+				return imagecreatefromgif(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
 				//$this->extension = 'gif';
 				break;
 			case 2:
-				return imagecreatefromjpeg($this->folder.'tempname.'.$this->extension);
+				return imagecreatefromjpeg(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
 				//$this->extension = 'jpg';
 				break;
 			case 3:
-				return imagecreatefrompng($this->folder.'tempname.'.$this->extension);
+				return imagecreatefrompng(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
 				///$this->extension = 'png';
+				break;
+			case 18:
+				return imagecreatefromwebp(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
+				///$this->extension = 'webp';
 				break;
 			default:
 				die( Responses::response('upload_fail') );
@@ -64,8 +80,8 @@ class File {
 		$resizeHeight = $arrImg[$this->node][1];
 		$sx = $arrImg[$this->node][2];
 
-		$filename = $this->folder.$this->filename.$sx.'.'.$this->extension;
-		list($imgWidth, $imgHeight, $imgType) = getimagesize($this->folder.'tempname.'.$this->extension);
+		$filename = PATH.$this->main_folder.$this->folder.$this->filename.$sx.'.'.$this->extension;
+		list($imgWidth, $imgHeight, $imgType) = getimagesize(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
 
 		$srcimage = $this->ImageCreate($imgType);
 
@@ -134,8 +150,8 @@ class File {
 		//////////////////// DIE /////////////////////
 		if($this->node == count($arrImg)-1){
 			if(imagedestroy($srcimage)){
-				if(file_exists($this->folder.'tempname.'.$this->extension)){
-					unlink($this->folder.'tempname.'.$this->extension);
+				if(file_exists(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension)){
+					unlink(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
 				}
 			}
 		}else{
@@ -143,22 +159,53 @@ class File {
 			$this->Resize($arrImg, $forced, $trim);
 		}
 		/////////////////////////////////////////////
-		return array('status'=>'ok','filename'=>$this->filename,'extension'=>$this->extension);
+		return array(
+			'status'=>'ok',
+			'filename'=>$this->filename,
+			'extension'=>$this->extension,
+			'hash'=>$this->hash,
+			'folder'=>$this->folder,
+			'main_folder'=>$this->main_folder
+		);
 	}
 
-	public static function download($filepath='',$name=''){
 
-		//$original = PATH.'descargas'.DS.$file->filename.'.'.$file->extension;
+	public static function download_file($filename='',$file=''){
 
-		if(!is_file($filepath)) return false;
+		//echo_json([$filename,$file],true);
 
-		header("Content-Type: application/".$file->extension);
-		header("Content-Length: ".filesize($filepath));
-		header('Content-Disposition: attachment; filename="'.$name.'"');
+		if(!is_file($file)) return false;
+
+		$file_info = pathinfo($file);
+		$mime = mime_content_type($file);
+		$is_image = false;
+		if(preg_match('/image\/jpeg/',$mime)) $is_image=true;
+
+		ob_start();
+		//echo_json($mime,true);
+
+		header("Content-Type: ".$mime);
+		header("Content-Length: ".filesize($file));
+		if(!$is_image) header('Content-Disposition: attachment; filename="'.$filename.'"');
 
 		ob_clean();
 		flush();
-		readfile($filepath);
+		readfile($file);
+		return true;
+	}
+
+
+	public static function download_excel($file='',$extension='',$content=''){
+		$fpt = fopen("tempname.".$extension,"w");
+		fwrite($fpt,$content);
+		fclose($fpt);
+		if(is_file("tempname.".$extension)){
+			header("Content-Type: application/".$extension);
+			header("Content-Length: tempname.".$extension);
+			header('Content-Disposition: attachment; filename="'.$file.'"');
+			readfile("tempname.".$extension);
+		}
+		return true;
 	}
 
 

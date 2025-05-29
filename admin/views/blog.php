@@ -17,7 +17,7 @@
 			<div class="col-xs-12 col-sm-6">
 				<label for="fd_search">Buscar</label>
 
-				<form id="form_search" class="form-group" autocomplete="off">
+				<form id="form_search" class="mb-3" autocomplete="off">
 					<div class="input-group">
 						<input id="fd_search" type="text" class="form-control">
 						<div class="input-group-btn">
@@ -29,15 +29,15 @@
 
 
 			</div>
-			<div class="col-xs-12 col-sm-6 text-right">
-				<div class="form-group">
+			<div class="col-xs-12 col-sm-6 text-end">
+				<div class="mb-3">
 					<label for="" class="dp-block" >&nbsp;</label>
 					<button id="btn_new" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Noticia</button>
 				</div>
 			</div>
 
 			<div class="col-xs-4">
-				<div class="form-group">
+				<div class="mb-3">
 					<select id="select_categories" class="form-control input-sm"></select>
 				</div>
 			</div>
@@ -75,25 +75,25 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-8">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_title">Título</label>
 							<input id="fd_title" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-4">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_date">Fecha</label>
 							<input id="fd_date" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-8">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_subtitle">Subtítulo</label>
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-4">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_category">Categoría</label>
 							<div class="input-group">
 								<select id="fd_category" type="text" class="form-control"></select>
@@ -105,13 +105,13 @@
 					</div>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_shortdescription">Descripción Corta <i class="fa fa-question-circle cl-gray-60" title="Es el texto destacado de la noticia que se verá antes de entrar a la nota completa."></i></label>
 					<textarea id="fd_shortdescription" rows="4" class="form-control" maxlength="500"></textarea>
 					<p class="sz-9" style="margin-top:6px">Max. 500 caracteres. (Quedan: <shortchar>500</shortchar>)</p>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_content">Contenido</label>
 					<textarea id="fd_content" rows="6" class="form-control"></textarea>
 				</div>
@@ -144,7 +144,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Imagen</label><br />
 
 							<div data-input="gallery">
@@ -156,7 +156,7 @@
 						<small>Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal de la nota.</small>
 					</div>
 					<!-- <div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Video</label>
 							<div class="input-group">
 								<input id="fd_video" type="text" class="form-control">
@@ -195,11 +195,11 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_category_name">Nombre</label>
 						<input id="fd_category_name" type="text" class="form-control">
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<button id="btn_save_category" class="btn btn-sm btn-success">Agregar/Editar</button>
 					</div>
 				</div>

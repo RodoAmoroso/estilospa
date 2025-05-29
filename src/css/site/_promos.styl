@@ -1,0 +1,342 @@
+.promo
+	background-color gray(5)
+	.breadcrumb
+		//display none
+		background-color white
+		margin 0
+		padding 8px 15px
+		font-size 10pt
+	.block-white
+		background-color white
+		///padding 0
+	.main-wrapper
+		background-color white
+		display flex
+		.gallery
+			min-width 560px
+			min-height 360px
+			width 560px
+			.navigation
+				i
+					font-size .875rem
+					margin 0
+		.info-wrapper
+			padding 25px
+			width 100%
+			.promo-title
+				color $aqua_5
+				font-weight 600
+				margin 0 0 8px 0
+			.shop-action
+				display flex
+				.amount
+					min-width 60px
+					width 60px
+					select
+						border 1px solid $aqua_4
+						border-radius 0
+						padding .4rem 1.25rem
+						height auto
+						color $cyan_4
+				.button-action
+					padding 0
+					position relative
+					.form-group
+						position relative
+						width 200px
+					.highlight-button
+						background-color $aqua_4
+						display flex
+						justify-content space-between
+						align-items center
+						border none
+						font-family 'Fira Sans Condensed'
+						color white
+						padding 0
+						text-transform uppercase
+						//height 34px
+						width 200px
+						span
+							padding 6px 16px
+							margin 0
+						i
+							padding 9px 16px
+							margin 0
+						span
+							cursor pointer
+						i:last-of-type
+							background-color $aqua_5
+							border-top-right-radius 4px
+							cursor pointer
+					.btn-list
+						background-color $aqua_5
+						border 1px solid $aqua_5
+						position absolute
+						padding 0
+						margin 0
+						z-index 9
+						text-align left
+						width 100%
+						li
+							display block
+							cursor pointer
+							color white
+							padding 8px 16px
+							font-family 'Fira Sans Condensed'
+							text-transform uppercase
+							span
+								margin-left 10px
+							&:hover
+								background-color $aqua_3
+			.box-icons
+				display flex
+				justify-content space-between
+				padding 15px 0
+				//align-items center
+				.item
+					padding 0
+					i
+						color $cyan_2
+						color gray(40)
+						font-size 2rem
+					.active
+						color $fucsia_3
+			.pricing
+				margin 15px 0 15px 0
+				padding 15px 0
+				.promo-discount
+					color gray(40)
+				.promo-price
+					font-weight 400
+					font-size 30pt
+	.client-wrapper
+		align-items center
+		background-color $aqua_1
+		color $aqua_5
+		display flex
+		//display none
+		padding 15px
+		&:hover,&:focus
+			text-decoration none
+		.logo
+			background-color white
+			border 2px solid white
+			height 80px
+			min-width 80px
+			width 80px
+		.client-info
+			padding 0 18px
+			.client-name
+				font-size 1.6rem
+				font-weight 500
+				margin 0 0 6px 0
+			.client-location
+				font-size 1.3rem
+				margin 0
+			.stars
+				i
+					font-size .875rem
+
+.promos-highlight
+	padding 0
+	display flex
+	flex-wrap wrap
+	position relative
+	.mod-promo
+		padding 0 15px 15px 0
+		//background-color white
+		position relative
+		display block
+		width 100%
+		&:hover
+			text-decoration none
+			.wrapper
+				box-shadow 0px 0px 6px alpha(black,.35)
+		.wrapper
+			align-content space-between
+			box-shadow 2px 2px 4px alpha(black,.05)
+			background-color white
+			border 1px solid alpha($aqua_3,.5)
+			display flex
+			flex-wrap wrap
+			height 100%
+			position relative
+			transition 300ms all ease-out
+			.mod-body
+				width 100%
+				.image-wrapper
+					background-color gray(5)
+					position relative
+					height 150px
+					.sale-tag
+						position absolute
+						top 8px
+						left -5px
+						span
+							background-color $aqua_3
+							font-weight 500
+							color #fff
+							font-size 9pt
+							padding 6px 10px
+							position relative
+						&:before
+							border-right 5px solid black
+							border-left 5px solid transparent
+							border-top 5px solid transparent
+							border-bottom 5px solid transparent
+							bottom -7px
+							content ''
+							height 0
+							position absolute
+							left -5px
+							width 0
+					.fav
+						right 8px
+						color gray(15)
+						cursor pointer
+						position absolute
+						top 6px
+						font-size 14pt
+						&:hover
+							color $fucsia_3
+						.active
+							color $fucsia_3
+				.content
+					padding 8px
+					width 100%
+					.title
+						color $aqua_5
+						display block
+						font-weight 500
+						padding 0
+						font-size 13pt
+						font-weight 800
+						word-wrap break-word
+						line-height 1.2
+					.subtitle
+						color gray(50)
+						margin 6px 0
+						font-size 11pt
+						line-height 1.4
+					.location
+						display block
+						color $aqua_3
+						margin-top 0
+						margin 10px 0 0 0
+						font-size 10pt
+						line-height 1.2
+						i
+							margin-right 4px
+
+			.mod-footer
+				border-top 1px solid gray(5)
+				padding 0
+				position relative
+				width 100%
+				.actions
+					align-items flex-end
+					display flex
+					height 100%
+					justify-content space-between
+					margin 0
+					padding 10px
+					.pricing
+						width 50%
+						.price
+							color gray(80)
+							font-weight 500
+							font-size 18pt
+						.strikethrough
+							color gray(40)
+							font-size 12pt
+					.promo-buttons
+						width 50%
+	.mod-promo-6
+		width (100/6)%
+	.mod-promo-5
+		width (100/5)%
+	.mod-promo-4
+		width (100/4)%
+	.mod-promo-3
+		width (100/3)%
+	.mod-promo-2
+		width (100/2)%
+	.mod-promo-1
+		width 100% !important
+		padding 0 0 15px 0
+		.wrapper
+			.mod-body
+				.content
+					.title
+						height auto
+
+.promo-buttons
+	position relative
+	min-width 136px
+	.main-button
+		background-color $aqua_3
+		display flex
+		justify-content space-between
+		align-items center
+		&:hover,&:focus
+			background-color $aqua_4
+			a
+				text-decoration none
+		a
+			color white
+			///padding 2px 8px
+			display block
+			font-size 9pt
+			font-weight 800
+			width 100%
+			text-transform uppercase
+			line-height 1
+		i.icon
+			min-width 32px
+			width 32px
+			color white
+			margin-right .425rem
+
+			min-width 24px
+			width 24px
+			height 24px
+			flex()
+
+		i.arrow
+			min-width 24px
+			width 24px
+			height 24px
+			flex()
+			background-color $aqua_5
+			cursor pointer
+			color white
+			&:hover
+				background-color $aqua_6
+	ul
+		border 1px solid cyan_1
+		box-shadow 2px 2px 6px alpha(black,.07)
+		margin 0
+		padding 0
+		position absolute
+		width 100%
+		z-index 99
+		li
+			align-items center
+			background-color white
+			display flex
+			a
+				color $aqua_5
+				text-transform uppercase
+				padding 6px 16px
+				font-size 9pt
+				font-weight 600
+			&:hover,&:focus
+				background-color $aqua_5
+				i
+					color white
+				a
+					color white
+					text-decoration none
+			i
+				color $aqua_5
+				padding 6px 10px

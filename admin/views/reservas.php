@@ -16,7 +16,7 @@
 
 		<div class="block-white">
 
-			<div class="form-group">
+			<div class="mb-3">
 				<button data-btn-action="" class="btn btn-sm btn-default">Reservas Anteriores</button>
 				<button data-btn-action="" class="btn btn-sm btn-default active">Reservas Vigentes</button>
 			</div>

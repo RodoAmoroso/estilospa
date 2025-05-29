@@ -1,16 +1,6 @@
 <?php
 
-/*$User = new User();
-if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
-	$hash = Cookie::get(Config::get('cookie/cookie_name'));
-	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
-	if($hashCheck->count()){
-		$User = new User($hashCheck->first()->iduser);
-		$User->login();
-	}
-}*/
-require PATH.'site/controllers/main.php';
-
+$User = new User;
 if(!$User->logged()) Redirect::to('login#panel');
 if($_userdata->idtype != 3 && $_userdata->idtype != 4) Redirect::to('restricted');
 

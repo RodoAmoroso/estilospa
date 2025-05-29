@@ -13,6 +13,7 @@ class SalesVouchers extends Sales{
 
 		if(is_null($voucher)) return false;
 
+
 		$this->_voucher = $voucher;
 
 		if(!parent::find($voucher->saleid)) return false;
@@ -49,15 +50,18 @@ class SalesVouchers extends Sales{
 			}
 		}
 		//echo_json($voucher->stores,true);
+		//dd($voucher);
 
 		define('FPDF_FONTPATH',PATH.'fonts'.DS);
 		require_once PATH.'vendor/autoload.php';
 
+		//dd($voucher);
 		$this->_pdf = new Fpdi();
 
 		$this->_pdf->AddFont('ProximaNormal','','proxima-nova-600.php');
 		$this->_pdf->AddFont('ProximaBold','','proxima-nova-700.php');
 		$this->_pdf->AddFont('Oleo','','oleo-script-swash-caps.php');
+
 
 
 		if($voucher->gift){

@@ -67,6 +67,6 @@ $has_voucher = $Vouchers->getpromo($Promos->data()->id);
 
 
 
-$_arrjs[] = ['folder'=>'lib/','script'=>'slider'];
-$_arrjs[] = ['folder'=>'site/','script'=>'questions'];
-$_arrjs[] = ['folder'=>'site/','script'=>'reservations'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'slider'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'questions'];
+$_arrjs[] = ['folder'=>'classes/','script'=>'reservations'];

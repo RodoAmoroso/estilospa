@@ -119,7 +119,7 @@
 				<?php if($_userdata->idtype==3): ?>
 				<div class="col-lg-6">
 					<label for="">Rango de Fechas</label>
-					<div class="form-group">
+					<div class="mb-3">
 						<div class="row">
 							<div class="col-xs-6">
 								<input id="fd_from" type="text" class="form-control" placeholder="Desde" >
@@ -134,7 +134,7 @@
 
 				<div class="col-lg-6">
 					<label for="">Buscar por nro. de comprobante</label>
-					<div class="form-group">
+					<div class="mb-3">
 						<div class="input-group">
 							<input id="fd_ordernumber" type="text" class="form-control" placeholder="nro. de orden o nro. de comprobante" >
 							<div class="input-group-btn">
@@ -146,7 +146,7 @@
 
 
 				<div class="col-lg-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Buscar por Nombre, apellido o email</label>
 						<div class="input-group">
 							<input id="fd_user" type="text" class="form-control" placeholder="" >
@@ -157,7 +157,7 @@
 					</div>
 				</div>
 				<div class="col-lg-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Buscar por nro de voucher</label>
 						<div class="input-group">
 							<input id="fd_voucher" type="text" class="form-control" placeholder="" >

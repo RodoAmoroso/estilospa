@@ -20,13 +20,13 @@
 
 		<?php if(!$response = $Questions->has_response($_question->id,$_userdata->id)): ?>
 		<form id="form_response">
-			<div class="form-group">
+			<div class="mb-3">
 				<textarea name="message" rows="6" class="form-control" required maxlength="500"></textarea>
 				<small class="text-gray-50">(máx. 500 caracteres)</small>
 			</div>
 			<input type="hidden" name="messageid" value="<?=$_question->id?>">
 
-			<div class="form-group">
+			<div class="mb-3">
 				<button class="btn btn-default">Responder</button>
 			</div>
 		</form>

@@ -1,0 +1,77 @@
+.question-form
+	margin 26px 0
+
+.questions-wrapper
+	padding 16px
+	&:hover
+		background-color gray(2)
+	.question-box
+		display flex
+		align-items center
+		margin-bottom 10px
+		.icon
+			margin 0 16px 16px 0
+			color gray(20)
+			font-size 2rem
+		.message
+			width 100%
+			.caption
+				color black
+				font-size 12pt
+				font-weight 300
+				margin-bottom 0
+			small
+				font-size 9pt
+				color gray(40)
+		.actions
+			text-align right
+			min-width 100px
+			border-left 1px solid gray(10)
+	.response-title
+		margin-left 36px
+		border-bottom 1px solid gray(5)
+		padding 8px 0
+	.response
+		margin 16px 0 0 36px
+		padding-bottom 10px
+		.thumb
+			$size = 60px
+			background-color gray(0)
+			border-radius 6px
+			border 1px solid gray(10)
+			height $size
+			margin 0 16px 16px 0
+			min-width $size
+			width $size
+		.client
+			color $cyan_3
+			display block
+			margin 0 0 6px 0
+			font-size 11pt
+			font-weight 800
+		&:not(:last-of-type)
+			border-bottom 1px dotted gray(10)
+	.more-responses
+		margin 0 0 0 36px
+		padding 8px
+		font-size 1.2rem
+		background-color gray(1)
+		a
+			color $cyan_2
+
+	@media screen and (max-width 991px)
+		.question-box
+			flex-wrap wrap
+			.message
+				.caption
+					font-size 1.25rem
+			.actions
+				border-left none
+				border-top 1px dashed gray(10)
+				margin-top 1rem
+				padding-top 1rem
+				width 100%
+				min-width 0
+
+.questions-wrapper:not(:last-of-type)
+	border-bottom 1px solid gray(10)

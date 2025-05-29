@@ -5,7 +5,7 @@
 		<h1>Usuarios</h1>
 		<hr>
 
-		<div class="form-group">
+		<div class="mb-3">
 			<button id="btn_new" class="btn btn-sm btn-fucsia"><i class="fa fa-plus"></i> Nuevo Usuario</button>
 		</div>
 
@@ -57,25 +57,25 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_name">Nombre <sup class="fa fa-asterisk cl-fucsia-3 sz-6"></sup></label>
 						<input name="name" id="fd_name" type="text" class="form-control" required >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_lastname">Apellido</label>
 						<input name="lastname" id="fd_lastname" type="text" class="form-control"  >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_dni">DNI <i class="fa fa-question-circle cl-gray-30" title="" data-original-title="Necesario para participar de compras y promociones"></i></label>
 						<input name="dni" id="fd_dni" type="number" min="0" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 
 						<label for="fd_birth">Fecha de Nacimiento</label><br />
 
@@ -97,37 +97,37 @@
 				</div>
 
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_phone">Teléfono (Prefijo + Nro.)</label>
 						<input name="phone" id="fd_phone" type="text" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_address">Dirección (Calle y Nro.)</label>
 						<input name="address" id="fd_address" type="text" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_addressobs">Piso/Depto.</label>
 						<input name="addressobs" id="fd_addressobs" type="text" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_city">Ciudad/Localidad</label>
 						<input name="city" id="fd_city" type="text" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_zip">Código Postal</label>
 						<input name="zipcode" id="fd_zip" type="text" class="form-control" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_provinces">Provincia/Zona</label>
 						<select name="idprovince" id="fd_provinces" class="form-control">
 							<?php if($provinces->count()): foreach($provinces->results() as $province): ?>
@@ -144,13 +144,13 @@
 			<div class="row">
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_mail">E-mail <sup class="fa fa-asterisk cl-fucsia-3 sz-6"></sup></label>
 						<input name="mail" id="fd_mail" type="email" class="form-control" required>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_pass">Contraseña <sup class="fa fa-asterisk cl-fucsia-3 sz-6" title="Necesaria al crear el usuario" ></sup></label>
 						<input name="pass" id="fd_pass" type="text" class="form-control" >
 					</div>
@@ -165,7 +165,7 @@
 
 				<div class="col-xs-12 col-sm-6">
 					<label for="">Imagen</label>
-					<div class="form-group">
+					<div class="mb-3">
 						<div data-input="image">
 							<button id="btn_image" class="btn btn-sm btn-primary" type="button">Examinar...</button>
 							<input type="file" accept="image/*" class="d-none">
@@ -175,7 +175,7 @@
 				</div>
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_types">Permitir editar centro:</label>
 						<select name="idtype" id="fd_types" class="form-control">
 							<?php if($user_types->count()): foreach($user_types->results() as $type): ?>
@@ -185,7 +185,7 @@
 					</div>
 					<p class="sz-9">Al Elegir el tipo de usuario 'Cliente' se activarán las opciones para vincularlo a un centro ya cargado</p>
 
-					<div id="clients_block" class="form-group dp-none">
+					<div id="clients_block" class="mb-3 dp-none">
 						<hr>
 						<label for="fd_clients">Vincular usuario a un centro</label>
 						<select name="idclient" id="fd_clients" class="form-control">

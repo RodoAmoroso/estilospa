@@ -1,14 +1,6 @@
 <?php
 
-$User = new User();
-/*if(Cookie::exists(Config::get('cookie/cookie_name')) && !Session::exists(Config::get('session/session_name'))){
-	$hash = Cookie::get(Config::get('cookie/cookie_name'));
-	$hashCheck = DB::getInstance()->get('sessions', array('hash','=',$hash));
-	if($hashCheck->count()){
-		$User = new User($hashCheck->first()->iduser);
-		$User->login();
-	}
-}*/
+$User = new User;
 $_userdata = null;
 if($User->logged()){
 	$User->update($User->data()->id,array('logged'=>date('Y-m-d H:i:s')));
@@ -39,6 +31,11 @@ $Reservations = new Reservations();
 
 $PromosCategories = new PromosCategories;
 $PromosCategories->filters = ['visible'=>1];
-
 $PromosCategories->limit = "0,8";
 $menu_categories = $PromosCategories->get();
+
+
+
+$MainCategories = new MainCategories;
+$MainCategories->filters = ['visible'=>1];
+$main_categories = $MainCategories->get();

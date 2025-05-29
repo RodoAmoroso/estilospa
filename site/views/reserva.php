@@ -38,7 +38,7 @@
 
 					</div>
 
-					<div class="event-footer text-right">
+					<div class="event-footer text-end">
 
 						<form data-form="cancel-reservation">
 							<input type="hidden" name="id" value="<?=$_reservation->id?>">

@@ -3,5 +3,5 @@ FROM spa_sales s
 LEFT JOIN spa_clients c ON c.id=s.idclient
 LEFT JOIN spa_promos p ON p.id=s.idpromo
 LEFT JOIN spa_users u ON u.id=s.iduser
-WHERE DATE(s.added)>='2020-04-01' AND DATE(s.added)<='2020-08-05' AND c.name LIKE '%Depi4ever%'
+WHERE DATE(s.added)>='2025-01-01' AND DATE(s.added)<='2025-05-07'
 ORDER BY s.added DESC

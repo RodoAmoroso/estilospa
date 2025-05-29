@@ -1,0 +1,187 @@
+header.header
+	box-shadow 1px 4px 10px alpha(black,.05)
+	z-index 2
+	.container
+		.header-inner
+			align-items center
+			display flex
+			justify-content space-between
+			.logo
+				img
+					padding 16px 0
+					max-width 220px
+					width 100%
+			.user
+				min-width 180px
+				padding 16px 0
+				position relative
+				ul.menu-login
+					margin 0
+					padding 20px 0
+					text-align right
+					display flex
+					align-items center
+					li
+						display block
+						vertical-align top
+						a
+							display block
+							font-size 10pt
+							padding 0 10px 0 0
+							text-transform uppercase
+							font-weight 800
+						&:hover
+							a
+								color $fucsia_3
+								text-decoration none
+					.separator
+						padding 0 10px 0 0
+						transform translateY(-1px)
+			.user-logged
+				align-items center
+				display flex
+				justify-content flex-end
+				.avatar
+					background-color gray(10)
+					height 40px
+					min-width 40px
+					margin 0 8px
+					border-radius 4px
+					width 40px
+				.user-title
+					cursor pointer
+					font-size 11pt
+					font-weight 400
+					margin 0
+					position relative
+					a
+						display block
+						i
+							margin 0 6px
+						&:hover,&:focus
+							color $fucsia_3
+							text-decoration none
+				.menu-user-container
+					margin 70px 0 0 0
+					position absolute
+					right 0
+					//transform rotate3d(1,0,0,54deg)
+					transform matrix3d(1,0,0.00,0,0.00,0,1.00,-0.001,0,-1,0,0,0,0,0,1)
+					transform-origin top
+					transition transform 200ms linear
+					top 0
+					width 100%
+					z-index 10
+					ul.menu-user
+						background-color white
+						border 1px solid gray(10)
+						padding 0
+						border-radius 8px
+						box-shadow $shadow
+						text-align left
+						overflow hidden
+						width 100%
+						li
+							display block
+							a
+								align-items center
+								display flex
+								font-size 10pt
+								color gray(80)
+								margin 0
+								padding 6px 10px
+								transition background-color 300ms ease-out
+								i
+									width 18px
+								&:hover,&:focus
+									background-color $fucsia_3
+									background-color $aqua_3
+									text-decoration none
+									color white
+								.notify-icon
+									align-items center
+									background-color $fucsia_3
+									border-radius 50%
+									color white
+									display flex
+									font-size 1.05rem
+									height 18px
+									justify-content center
+									//padding .165rem .865rem
+									margin-left .875rem
+									width 18px
+						li:first-of-type
+							margin-top 12px
+						li.separator
+							border-top 1px solid gray(10)
+						li.highlight
+							a
+								color $fucsia_3
+					.arrow
+						background-color white
+						border-top 1px solid gray(10)
+						border-left 1px solid gray(10)
+						top -7px
+						height 16px
+						left 44px
+						transform rotate3d(0,0,1,45deg)
+						position absolute
+						width 16px
+				.menu-user-container.active
+					//height auto
+					//transform rotate3d(1,0,0,0deg)
+					transform matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,0,0,0,1)
+
+
+.section-header
+	color white
+	padding 100px 0 10px 0
+	position relative
+	&:hover
+		color white
+		text-decoration none
+	h1
+		font-weight 700
+	.bg
+		opacity .65
+		mix-blend-mode multiply
+	a
+		color white
+
+.top-menu
+	background-color $aqua_1
+	border-bottom 1px solid $aqua_2
+	.container
+		ul
+			margin 0
+			padding 0
+			li
+				display inline-block
+				vertical-align top
+				a
+					color $aqua_5
+					display block
+					font-size 7pt
+					font-weight 600
+					padding 5px 0 4px 0
+				&:hover
+					a
+						color black
+						text-decoration none
+		ul.right-menu
+			display flex
+			position absolute
+			right 10px
+			top 0
+			li
+				border-left 1px solid $aqua_2
+				padding 0
+				margin 0
+				a
+					padding 6px 10px 4px 10px
+					i
+						font-size 9pt
+				a:hover
+					background-color white
+			li:last-of-type
+				border-right 1px solid $aqua_2

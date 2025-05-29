@@ -20,7 +20,7 @@ class Experiences extends Core{
 				'unstarted'=>"p.start>NOW()",
 				'expiring'=>"(DATEDIFF(p.finish, NOW()) < 25 AND DATEDIFF(p.finish, NOW()) > 0)",
 
-				'sale'=>"p.issale=?",
+				'sale'=>"p.sale=?",
 				'gift'=>"p.gift=?",
 
 				//'city'=>"(SELECT s.id FROM {stores} s WHERE s.id IN(p.stores) AND s.city=?) IS NOT NULL"

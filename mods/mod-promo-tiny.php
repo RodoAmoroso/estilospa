@@ -25,9 +25,9 @@
 			<div class="button promo-buttons">
 
 				<?php if($promo->sale): ?>
-				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
+				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#comprar">Comprar</a> <i class="fa fa-caret-down arrow" data-bs-toggle="collapse" data-bs-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php else: ?>
-				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-toggle="collapse" data-target="#btn_promo_<?=$kp?>"></i></div>
+				<div class="main-button" ><i class="fa fa-envelope fa-fw icon"></i> <a href="<?=$promolink?>#consultar">Consultar</a> <i class="fa fa-caret-down arrow" data-bs-toggle="collapse" data-bs-target="#btn_promo_<?=$kp?>"></i></div>
 				<?php endif; ?>
 
 				<ul id="btn_promo_<?=$kp?>" class="collapse">

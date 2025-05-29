@@ -4,11 +4,11 @@
 
 		<div class="blog-container">
 			<!-- BREADCRUMB -->
-			<ul class="breadcrumb sz-9">
-				<li><a href="<?= ROOT ?>">Home</a></li>
-				<li><a href="<?= ROOT ?>blog">Blog</a></li>
-				<li><?= $Blog->data()->title ?></li>
-			</ul>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="<?= ROOT ?>">Home</a></li>
+				<li class="breadcrumb-item"><a href="<?= ROOT ?>blog">Blog</a></li>
+				<li class="breadcrumb-item active"><?= $Blog->data()->title ?></li>
+			</ol>
 
 			<div class="title-bar title">
 				<h1><?= $Blog->data()->title ?></h1>

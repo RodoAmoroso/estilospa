@@ -19,7 +19,7 @@
 							<div class="box-content">
 								<div class="thumb thumb-cover thumb-fullx180 bd-full-gray-20 bg-aqua-2" style="background-image:url(<?= $promo->image ?>)"></div>
 							</div>
-							<div class="box-footer form-group">
+							<div class="box-footer mb-3">
 								<h6>Precio unit. $ <span data-content="unit-price" data-value="<?= $promo->price_w_discount ?>"><?= number_format($promo->price_w_discount,2,',','.') ?></span></h6>
 
 								<!-- AMOUNT -->
@@ -96,19 +96,19 @@
 
 								<form data-form="user-info">
 									<div class="row">
-										<div class="col-lg-6 form-group">
+										<div class="col-lg-6 mb-3">
 											<label for="">Tu Nombre *</label>
 											<input name="firstname" type="text" class="form-control" value="<?= $_userdata->name ?>" required>
 										</div>
-										<div class="col-lg-6 form-group">
+										<div class="col-lg-6 mb-3">
 											<label for="">Tu Apellido *</label>
 											<input name="lastname" type="text" class="form-control" value="<?= $_userdata->lastname ?>" required>
 										</div>
-										<div class="col-lg-6 form-group">
+										<div class="col-lg-6 mb-3">
 											<label for="">Celular/Whatsapp (Prefijo + Nro.) *</label>
 											<input name="phone" type="text" class="form-control" value="<?= $_userdata->phone ?>" required>
 										</div>
-										<div class="col-lg-6 form-group">
+										<div class="col-lg-6 mb-3">
 											<label for="">Email *</label>
 											<input name="email" type="email" class="form-control" value="<?= $_userdata->mail ?>" required>
 										</div>

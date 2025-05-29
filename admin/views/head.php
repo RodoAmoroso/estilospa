@@ -16,7 +16,7 @@
 
 	<link rel="stylesheet" href="<?= CSS ?>lib/bootstrap.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/jquery-ui.min.css" >
-	<link rel="stylesheet" href="<?= CSS ?>lib/font-awesome.min.css" >
+	<link rel="stylesheet" href="<?= CSS ?>lib/fontawesome-all.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/animate.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/sweetalert2.min.css" >
 	<link rel="stylesheet" href="<?= CSS ?>lib/toastr.min.css" >
@@ -26,13 +26,12 @@
 	<?php endforeach; endif; ?>
 
 	<link rel="stylesheet" href="<?= CSS.'styles.css?id='.rand(1111,9999) ?>" >
-	<link rel="stylesheet" href="<?= CSS.'admin.css?id='.rand(1111,9999) ?>" >
 
 	<link rel="shortcut icon" href="<?= View::assets('favicon.png') ?>" type="image/png" >
 
 	<?php
-		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? PATH.$_IMGFACEBOOK : PATH.'assets/logo.jpg';
-		$_IMGSIZE = getimagesize($_IMGFACEBOOK);
+		$_IMGFACEBOOK = isset($_IMGFACEBOOK) ? $_IMGFACEBOOK : 'assets/logo.jpg';
+		$_IMGSIZE = getimagesize(PATH.$_IMGFACEBOOK);
 		$_URLHEAD = isset($_URLHEAD) ? $_URLHEAD : ROOT;
 		$_DESCRIPTION = isset($_DESCRIPTION) ? $_DESCRIPTION : DESCRIPTION;
 		$_TITLE = isset($_TITLE) ? $_TITLE : TITLE;

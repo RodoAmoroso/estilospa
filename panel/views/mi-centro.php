@@ -46,12 +46,12 @@
 			<div id="tab_general" class="tab-panel ">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_name">Nombre</label>
 							<input id="fd_name" type="text" class="form-control">
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_web">Web</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-link"></i></div>
@@ -61,11 +61,11 @@
 
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_subtitle">Subtítulo/Copete/Epígrafe</label>
 							<input id="fd_subtitle" type="text" class="form-control">
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_mail">Mail</label>
 							<input id="fd_mail" type="text" class="form-control">
 						</div>
@@ -77,11 +77,11 @@
 				<div class="row">
 
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="btn_logo">Logo</label>
 							<div id="logo_client" class="thumb-contain thumb-300x300 border-gray-10"></div>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<div data-input="logo">
 								<button id="btn_logo" class="btn btn-primary btn-sm">Subir Imagen</button>
 								<input type="file" accept="image/*" class="d-none">
@@ -102,26 +102,26 @@
 					<div class="col-xs-12 col-sm-6">
 						<div class="row">
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_address">Dirección y Nro. <i class="fa fa-question-circle cl-pink-3" title="Agregar sólo la calle y el número."></i></label>
 									<input id="fd_store_address" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_additional">Adicionales <i class="fa fa-question-circle cl-pink-3" title="Agregar si corresponde piso, local, altura, entre calles, etc."></i></label>
 									<input id="fd_store_additional" type="text" class="form-control">
 								</div>
 							</div>
 
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_city">Localidad/Barrio</label>
 									<input id="fd_store_city" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_province">Provincia/Zona</label>
 									<select id="fd_store_province" class="form-control">
 										<?php
@@ -136,13 +136,13 @@
 							</div>
 
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_phones">Teléfonos <i class="fa fa-question-circle cl-pink-3" title="Agregar el código de área + el nro. de teléfono"></i></label>
 									<input id="fd_store_phones" type="text" class="form-control">
 								</div>
 							</div>
 							<div class="col-xs-6">
-								<div class="form-group">
+								<div class="mb-3">
 									<label for="fd_store_whatsapp">WhatsApp <i class="fa fa-question-circle cl-pink-3" title="Agregar el código de área + el nro. de teléfono"></i></label>
 									<div class="input-group">
 										<div class="input-group-addon">54 9</div>
@@ -152,13 +152,13 @@
 							</div>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="">Código de inserción de google maps</label>
 							<textarea id="fd_store_map" rows="5" class="form-control"></textarea>
 							<small><a href="https://support.google.com/maps/answer/144361?co=GENIE.Platform%3DDesktop&hl=es" target="_blank">¿cómo hago?</a></small>
 						</div>
 
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_store_schedules" class="dp-block">Horarios </label>
 							<button id="btn_schedules" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Editar</button>
 							<!-- <input id="fd_store_schedules" type="text" class="form-control"> -->
@@ -217,7 +217,7 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Imagen</label><br />
 
 							<div data-input="gallery">
@@ -229,7 +229,7 @@
 						<p class="sz-9">Puedes subir varias imágenes al mismo tiempo (max. <?= MAXFILES ?>).<br />La primer imagen de la galería es la imagen principal del centro.</p>
 					</div>
 					<!-- <div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_video">Agregar Video</label>
 							<div class="input-group">
 								<input id="fd_video" type="text" class="form-control">
@@ -255,16 +255,16 @@
 				<hr>
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_feature_name">Título</label>
 							<input id="fd_feature_name" type="text" class="form-control">
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_feature_description">Descripción</label>
 							<textarea id="fd_feature_description" rows="8" class="form-control" ></textarea>
 						</div>
 						<hr>
-						<div class="form-group">
+						<div class="mb-3">
 							<button id="btn_save_feature" class="btn btn-primary btn-sm pull-right"><i class="fa fa-plus"></i> Editar / Agregar</button>
 							<button id="btn_cancel_feature" class="btn btn-warning btn-sm">Cancelar</button>
 						</div>
@@ -283,7 +283,7 @@
 
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_social_type">Red Social</label>
 							<select id="fd_social_type" class="form-control">
 								<option value="facebook">Facebook</option>
@@ -294,14 +294,14 @@
 								<option value="youtube">Youtube</option>
 							</select>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_social_link">Link</label>
 							<div class="input-group">
 								<div class="input-group-addon"><i class="fa fa-link"></i></div>
 								<input id="fd_social_link" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<button id="btn_social_save" class="btn btn-sm btn-primary pull-right"><i class="fa fa-plus"></i> Editar/Agregar</button>
 							<button id="btn_social_cancel" class="btn btn-sm btn-warning">Cancelar</button>
 						</div>

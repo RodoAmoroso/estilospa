@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class View {
 
@@ -7,28 +7,35 @@ class View {
 	public static $scope='admin';
 
 
-	public static function loader($ext='',$folder=''){
+	public static function loader($ext='',$folder='',$scope=false){
 		global $_section,$_subsection;
-		$path = false;
-		if(is_dir(PATH.self::$scope.DS.$folder.DS.$_section)){
-			if(file_exists(PATH.self::$scope.DS.$folder.DS.$_section.DS.$_subsection.'.'.$ext)){
+
+		if(!$scope) $scope = self::$scope;
+
+		if(empty($_section)){
+			if(file_exists(PATH.$scope.DS.$folder.DS.'index.'.$ext)){
+				return $folder.'/index.'.$ext;
+			}
+		}
+		if(is_dir(PATH.$scope.DS.$folder.DS.$_section)){
+			if(file_exists(PATH.$scope.DS.$folder.DS.$_section.DS.$_subsection.'.'.$ext)){
 				return $folder.'/'.$_section.'/'.$_subsection.'.'.$ext;
 			}
-			if(file_exists(PATH.self::$scope.DS.$folder.DS.$_section.DS.'index.'.$ext)){
+			if(file_exists(PATH.$scope.DS.$folder.DS.$_section.DS.'index.'.$ext)){
 				return $folder.'/'.$_section.'/index.'.$ext;
 			}
 		}
-		if(file_exists(PATH.self::$scope.DS.$folder.DS.$_section.'.'.$ext)){
+		if(file_exists(PATH.$scope.DS.$folder.DS.$_section.'.'.$ext)){
 			return $folder.'/'.$_section.'.'.$ext;
 		}
 
-		return $path;
+		return false;
 	}
 
 
-	public static function views($_section='',$_subsection=''){		
+	public static function views($_section='',$_subsection=''){
 		$path=self::$scope.'/views/404.php';
-		if(file_exists(PATH.self::$scope.DS.'views'.DS.$_section.'.php')) $path=self::$scope.'/views/'.$_section.'.php';		
+		if(file_exists(PATH.self::$scope.DS.'views'.DS.$_section.'.php')) $path=self::$scope.'/views/'.$_section.'.php';
 		if(is_dir(PATH.self::$scope.DS.'views'.DS.$_section)) if(file_exists(PATH.self::$scope.DS.'views'.DS.$_section.DS.$_subsection.'.php')) $path=self::$scope.'/views/'.$_section.'/'.$_subsection.'.php';
 		return $path;
 	}

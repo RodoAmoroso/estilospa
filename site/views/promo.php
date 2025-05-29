@@ -9,19 +9,27 @@
 
 	<div class="container">
 
-		<ul class="breadcrumb">
-			<li><a href="<?= ROOT ?>">Home</a></li>
-			<li><a href="<?= ROOT.'busqueda' ?>">Experiencias</a></li>
-			<li><a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>"><?= $Clients->data()->name ?></a></li>
-			<li><?= $Promos->data()->title ?></li>
-		</ul>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="<?= ROOT ?>">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="<?= ROOT.'busqueda' ?>">Experiencias</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>"><?= $Clients->data()->name ?></a>
+			</li>
+			<li class="breadcrumb-item active">
+				<?= $Promos->data()->title ?>
+			</li>
+		</ol>
 
 		<a href="<?= ROOT.'centros/'.$Clients->data()->permalink ?>" class="client-wrapper">
 			<div class="logo thumb-contain img-circle" style="background-image:url(<?= $logo ?>);"></div>
 			<div class="client-info">
 				<h1 class="client-name"><?= $Clients->data()->name ?></h1>
 				<?php if($Stores->get($Clients->data()->id)): ?>
-				<h2 class="client-location"> <i class="fa fa-map-marker"></i>
+				<h2 class="client-location"> <i class="fa fa-map-marker-alt"></i>
 				<?php
 				if(count($Stores->data())>1){
 					echo 'Varias sucursales';
@@ -139,7 +147,7 @@
 
 					<!-- VIEWS -->
 					<div class="item">
-						<div class="views text-right">
+						<div class="views text-end">
 							<i class="fa fa-eye fa-lg"></i><br>
 							<small><?= number_format($Promos->data()->views,0,'','.') ?> visitas</small>
 						</div>
@@ -237,24 +245,24 @@
 					<div class="row">
 						<div class="col-md-6">
 
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_name">Nombre</label>
 								<input id="fd_name" type="text" name="name" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->name : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_lastname">Apellido</label>
 								<input id="fd_lastname" type="text" name="lastname" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->lastname : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_phone">Teléfono</label>
 								<input id="fd_phone" type="text" name="phone" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->phone : '' ?>">
 							</div>
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_mail">E-mail</label>
 								<input id="fd_mail" type="email" name="email" class="form-control" required value="<?= !is_null($_userdata) ? $_userdata->mail : '' ?>">
 							</div>
 
-							<div class="form-group">
+							<div class="mb-3">
 								<label for="fd_message">Mensaje <i>(opcional)</i></label>
 								<textarea id="fd_message" type="text" name="message" class="form-control" rows="5" placeholder="Indicar la cantidad de personas en caso que sean más de una." ></textarea>
 							</div>
@@ -302,7 +310,7 @@
 
 					<hr>
 
-					<div class="form-group">
+					<div class="mb-3">
 						<button type="submit" class="btn btn-primary" >ENVIAR</button>
 					</div>
 
@@ -349,21 +357,21 @@
 				<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
 				<div class="row">
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_gift_to">Para:</label>
 							<input name="to" id="fd_gift_to" type="text" class="form-control" placeholder="Ingresá el nombre del destinatario" required>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_gift_mail">Email:</label>
 							<input name="email" id="fd_gift_mail" type="email" class="form-control" placeholder="Ingresá el email del destinatario" required>
 						</div>
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_gift_from">De:</label>
 							<input name="from" id="fd_gift_from" type="text" class="form-control" value="<?php if($User->logged()) echo $User->data()->name.' '.$User->data()->lastname ?>" placeholder="Ingresá tu nombre" required>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6">
-						<div class="form-group">
+						<div class="mb-3">
 							<label for="fd_gift_message">Mensaje (Opcional):</label>
 							<textarea name="message" id="fd_gift_message" rows="8" class="form-control" placeholder="Incluí algún mensaje" maxlength="255" required ></textarea>
 							<small><span id="gift_left_characters">255</span> caracteres restantes</small>
@@ -371,7 +379,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="form-group text-right">
+				<div class="mb-3 text-end">
 					<button id="btn_gift_next" class="btn btn-primary">Siguiente <i class="fa fa-angle-double-right"></i></button>
 				</div>
 			</form>
@@ -413,7 +421,7 @@ if($has_voucher):
 						<p class="sz-11">Si tienes un código para esta experiencia puedes aplicarlo para obtener un descuento en la compra.</p>
 						<hr>
 
-						<form data-form="apply-voucher" class="form-group">
+						<form data-form="apply-voucher" class="mb-3">
 							<input type="hidden" name="idpromo" value="<?=$Promos->data()->id?>">
 							<label for="fd_voucher_code">Ingresar código</label>
 							<div class="input-group">

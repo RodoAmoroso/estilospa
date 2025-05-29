@@ -8,18 +8,18 @@
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 				<form id="form_recover">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_mail">email</label>
 						<input name="email" id="fd_mail" type="email" class="form-control" required>
 					</div>
 					<div id="status"></div>
-					<div class="form-group">
+					<div class="mb-3">
 						<button class="btn btn-fucsia">Enviar</button>
 					</div>
-				</form>				
+				</form>
 			</div>
 		</div>
-		
+
 	</div>
 </section>
 

@@ -21,7 +21,7 @@
 					<a href="#" data-toggle="collapse-zones" class="tag"><span>Zonas</span> <span class="remove"><i class="fa fa-angle-down"></i></span></a>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<ul id="list_zones" class="list" >
 						<?php foreach($stores as $store): ?>
 						<li><a href="<?= ROOT.'categoria/'.($category ? $category->id.'-'.Permalink($category->name) : '-').'/'.urlencode($store->city) ?>"><?=$store->city?></a></li>

@@ -1,0 +1,496 @@
+.main-nav-mobile-button
+	padding .425rem
+	display none
+	@media screen and (max-width 991px)
+		display block
+
+
+#page-wrapper
+
+	display flex
+
+	nav.main-nav
+		background-color $aqua_5
+		border-right 6px solid $aqua_6
+		width 160px
+		min-width 160px
+		transition all 600ms $cubic
+
+		ul.main-menu
+			margin 0
+			padding 1rem 0
+			> li
+				display block
+				margin 0
+				transition background-color 300ms ease-out
+				list-style-type none
+				> a
+					padding .425rem 1.25rem
+					color white
+					display flex
+					justify-content space-between
+					align-items center
+					font-size 10pt
+					font-weight 600
+				&:hover
+					background-color $aqua_6
+					> a
+						color white
+						text-decoration none
+				ul.submenu
+					margin 0
+					padding 0 0 .625rem 0
+					li.submenu-item
+						display block
+						a
+							padding .225rem 0 .225rem 1.725rem
+							display block
+							color $aqua_1
+							font-weight 600
+							font-size 9pt
+						a:hover
+							background-color $aqua_3
+					li.active
+						a
+							color $aqua_4
+			> li.active
+				background-color $aqua_6
+				a
+					color $aqua_1
+			.highlight
+				background-color $fucsia_3
+			.highlight-promo
+				background-color $aqua_2
+				a
+					color $cyan_4
+
+
+	#page-content-wrapper
+		width 100%
+
+	@media screen and (max-width 991px)
+		nav.main-nav
+			transform translateX(-100%)
+			position absolute
+			height 100%
+			z-index 900
+		nav.main-nav.expanded
+			transform translateX(0)
+
+
+.header-admin
+	.logo
+		padding 36px 10px
+	.nav-tabs
+		li
+			display inline-block
+			float none
+			vertical-align top
+		.active
+			a
+				background-color gray(5)
+				background-color #ADD8E6
+				color white
+.page-header
+	background-color $aqua_6
+	color white
+	padding 20px 0
+	position relative
+	margin 0
+	hr
+		margin 16px 0
+	h1
+		font-weight 700
+		margin 0
+	p
+		font-size 11pt
+
+
+.admin-gallery
+	max-height 280px
+	overflow auto
+	.thumbnail
+		margin 2px
+		position relative
+		.redbg
+			background-color rgba(150,20,30,0.65)
+			display none
+			height 100%
+			left 0
+			position absolute
+			top 0
+			width 100%
+			i
+				cursor pointer
+				&:hover
+					color orange
+			.delete
+				position absolute
+				right 8px
+				color white
+				top 8px
+		&:hover
+			.redbg
+				display block
+
+.admin-box
+	padding 0 0 10px 0
+	min-height 580px
+	.container
+		padding-top 16px
+		padding-bottom 16px
+		//Shadow(1px 1px 2px 1px rgba(0,0,0,0.10))
+
+.mod-menu-container
+	min-height 100px
+	max-height 696px
+	overflow auto
+	.mod-menu
+		Transition(opacity,300ms,ease-out)
+		margin-bottom 2px
+		&:hover
+			opacity 0.6
+.mod-container
+	max-height 580px
+	overflow auto
+	.mod-item
+		background-color  white
+		border 1px solid gray(10)
+		margin 2px 0 6px 0
+		opacity 1
+		padding 10px
+		position relative
+		border-radius 4px
+		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.25)
+		Transition(all 300ms ease-out)
+		&:hover
+			border 1px solid gray(20)
+			box-shadow 2px 2px 4px 0 rgba(0,0,0,0.15)
+		.thumbnail
+			margin-bottom 0
+			height 80%
+			position absolute
+			width 80px
+		.data
+			overflow hidden
+			margin 0 130px 0 90px
+			hr
+				margin 8px 0 8px 0
+			.buttons
+				top 10px
+				position absolute
+				right 10px
+			.options
+				bottom 10px
+				position absolute
+				right 10px
+
+.mod-card
+	Transition(width 300ms ease-out)
+	margin 0 0 4px 0
+	.card-inner
+		border 1px solid gray(10)
+		overflow hidden
+		margin-bottom 8px
+		transition box-shadow 300ms ease-out
+		&:hover
+			box-shadow $shadow
+			///Shadow(5px 5px 6px 1px rgba(0,0,0,0.16))
+		.thumb
+			position relative
+			.buttons
+				position absolute
+				bottom 10px
+				right 10px
+			.selector
+				left 8px
+				position absolute
+				top 8px
+		.caption
+			background-color white
+			position relative
+			padding .265rem 76px .265rem 10px
+			min-height 110px
+			h1,h2
+				font-weight 700
+				font-size 11pt
+				///height 40px
+				//line-height 16pt
+				margin 2px 0
+				overflow hidden
+				position relative
+				white-space nowrap
+				&:after
+					background-image linear-gradient(left, rgba(255,255,255,0), white)
+					content ''
+					height 40px
+					position absolute
+					width 80px
+					right 0
+					top 0
+			.title
+				padding-top .665rem
+				font-size 12pt
+			.subtitle
+				font-size 10pt
+			hr
+				margin 0
+			p
+				font-size 10pt
+				margin 0
+				strong
+					color #01957B
+			h2
+				font-size 10pt
+				//padding 0 10px
+				font-weight 400
+				height auto
+			h1.sm
+				font-size 9pt
+			.description
+				margin-top 1rem
+			.buttons
+				display none
+				position absolute
+				top 10px
+				right 10px
+			.foot
+				align-items center
+				border-top 1px solid gray(10)
+				color gray(65)
+				display flex
+				justify-content space-between
+				padding 6px 10px
+				text-align right
+
+
+.mod-container-xs
+	height 120px
+	overflow auto
+.mod-container-sm
+	height 240px
+	overflow auto
+.mod-container-md
+	height 360px
+	overflow auto
+.mod-container-lg
+	height 620px
+	overflow auto
+.mod-list-thumb
+	background-color  white
+	border 1px solid gray(10)
+	margin 2px 0 6px 0
+	opacity 1
+	padding 10px
+	position relative
+	border-radius 4px
+	box-shadow 2px 2px 4px 0 rgba(0,0,0,0.25)
+	transition all 300ms ease-out
+	&:hover
+		border 1px solid gray(20)
+		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.15)
+	.thumbnail
+		margin-bottom 0
+		height 80%
+		position absolute
+		width 80px
+	.data
+		overflow hidden
+		margin 0 130px 0 90px
+		hr
+			margin 8px 0 8px 0
+		.buttons
+			top 10px
+			position absolute
+			right 10px
+		.options
+			bottom 10px
+			position absolute
+			right 10px
+.mod-list
+	background-color white
+	border 1px solid gray(10)
+	margin-bottom 4px
+	overflow hidden
+	padding 4px 14px
+	position relative
+	border-radius 2px
+	///Transition(shadow 200ms linear)
+	&:hover
+		box-shadow 2px 2px 4px 0 rgba(0,0,0,0.12)
+	h4
+		margin-right 50px
+		font-size 10pt
+		font-weight 400
+	.buttons
+		position absolute
+		top 10px
+		right 10px
+	p
+		font-size 9pt
+		color gray(50)
+	small
+		color gray(60)
+		font-family 'Open Sans', sans-serif
+		font-size 8pt
+	hr
+		margin 6px 0
+.mod-list.active
+	background-color $aqua_2
+	border 1px solid $aqua_3
+	&:after
+		background-color black
+		content ''
+		left -5px
+		top 38%
+		height 10px
+		position absolute
+		transform rotateZ(45deg)
+		width 10px
+	&:hover
+		box-shadow none
+
+.form-group
+	position relative
+
+.panel-admin-mod
+	.panel-heading
+		background-color gray(10)
+		color gray(60)
+		padding 6px 16px
+	.panel-body
+		margin 0
+		padding 0
+		.list-group
+			margin-bottom 0
+			.list-group-item
+				position relative
+				border none
+				border-top 1px solid gray(10)
+				border-radius 0
+				.buttons
+					right 10px
+					top 10px
+					position absolute
+				.item
+					margin-right 50px
+					i
+						cursor pointer
+						margin 0 8px 0 0
+			.list-group-item:first-of-type
+				border-top none
+
+.block-buttons
+	position relative
+	.inactive-block
+		background-color rgba(255,255,255,.8)
+		cursor not-allowed
+		display none
+		left 0
+		position absolute
+		top 0
+		height 100%
+		width 100%
+	.inactive-block.active
+		display block
+.tab-content
+	background-color white
+	margin 0 0 8px 0
+	.tab-panel
+		border-left 1px solid gray(10)
+		border-right 1px solid gray(10)
+		border-bottom 1px solid gray(10)
+		padding 36px 26px
+		position relative
+		display none
+		&:first-of-type
+			display block
+		.pop
+			background-color rgba(255,255,255,0.95)
+			height 100%
+			left 0
+			padding 16px
+			position absolute
+			top 0
+			width 100%
+			z-index 3
+			h1
+				font-size 18pt
+			.close
+				position absolute
+				right 16px
+				top 16px
+				opacity 1
+				font-size 9pt
+				&:hover
+					color $fucsia_3
+.pop-schedules
+	.row-days
+		overflow auto
+		margin 6px 0
+		.form-inline
+			margin 0 0 16px 0
+		button.active
+			background-color $aqua_3
+			color white
+	.hours
+		margin 16px 0
+		display flex
+		flex-wrap wrap
+		button
+			border 1px solid $aqua_1
+			cursor pointer
+			display inline-block
+			font-family 'Fira Sans Condensed', sans-serif
+			margin 0 4px 4px 0
+			padding 10px 0
+			text-align center
+			width 64px
+			&:hover
+				background-color $aqua_1
+		button.active
+			background-color $aqua_3
+			color white
+.flex-options
+	display flex
+	.flex-item
+		border 1px solid gray(10)
+		cursor pointer
+		padding 10px 16px
+		margin 0 10px 0 0
+		&:hover
+			background-color gray(5)
+.cke_editable
+	padding 18px
+.ui-datepicker
+	z-index 3 !important
+
+
+
+.stats-highlights
+	display flex
+	flex-wrap wrap
+	justify-content center
+	.stats-block
+		background-color white
+		border-radius 8px
+		border 1px solid gray(10)
+		margin 0 10px 10px 0
+		min-width 180px
+		padding 26px
+		text-align center
+		width 200px
+		.icon
+			font-size 4rem
+			color $aqua_3
+		.number
+			font-size 2rem
+			font-weight 600
+		.caption
+			margin-top 10px
+			font-size 1.2rem
+			line-height 1.2rem
+			color gray(40)
+
+
+

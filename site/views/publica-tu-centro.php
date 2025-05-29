@@ -14,32 +14,32 @@
 
 
 			<div id="fields" class="col-xs-12 col-sm-6">
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_name">Nombre y Apellido</label>
 					<input name="fullname" type="text" id="fd_name" class="form-control" required></input>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_mail">Email</label>
 					<input name="email" id="fd_mail" type="email" class="form-control" required></input>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_web">Web</label>
 					<input name="web" id="fd_web" type="text" class="form-control" placeholder="https://..." ></input>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_phone">Teléfono (cód. área + nro.)</label>
 					<input name="phone" id="fd_phone" type="text" class="form-control" required></input>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_company">Empresa</label>
 					<input name="company" type="text" id="fd_company" class="form-control" required></input>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_how">¿Cómo nos conociste?</label>
 					<select name="knowus" class="form-control" id="fd_how" required>
 						<option value="">Seleccioná una opción...</option>
@@ -55,12 +55,12 @@
 					</select>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_message">Mensaje</label>
 					<textarea name="message" id="fd_message" class="form-control" rows="5" required ></textarea>
 				</div>
 
-				<div class="form-group">
+				<div class="mb-3">
 					<button type="submit" class="btn btn-primary"><i class="fa fa-envelope"></i> Enviar</button>
 				</div>
 			</div>

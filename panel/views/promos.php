@@ -37,7 +37,7 @@
 				</select>
 			</div>
 			<div class="col-xs-12 col-sm-4">
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="fd_select_order">Ordernar</label>
 					<select id="fd_select_order" class="form-control input-sm">
 						<option value="added">Ordenar por fecha de creación (desc.)</option>
@@ -46,7 +46,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 text-right">
-				<div class="form-group">
+				<div class="mb-3">
 					<label for="" class="dp-block" >&nbsp;</label>
 					<a href="<?=PANEL.'promo/nueva'?>" class="btn btn-success"><i class="fa fa-plus"></i> Agregar Experiencia</a>
 				</div>

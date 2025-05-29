@@ -28,19 +28,19 @@
 
 				<form id="form_hotsale" class="form-wrapper">
 					<label for="">Ingresá tu nombre</label>
-					<div class="form-group">
+					<div class="mb-3">
 						<input type="text" name="name" class="form-control" placeholder="Nombre" required>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 					<label for="">Ingresá tu email</label>
 						<input type="email" name="email" class="form-control" placeholder="Email" required>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<div class="d-flexbox align-items-center">
 							<input type="checkbox" required>&nbsp;&nbsp;<a href="<?=View::url('terminos-condiciones')?>" target="_blank">Acepto los términos y condiciones</a>
 						</div>
 					</div>
-					<div class="form-group">
+					<div class="mb-3">
 						<button class="btn btn-block btn-primary">Registrarme</button>
 					</div>
 				</form>

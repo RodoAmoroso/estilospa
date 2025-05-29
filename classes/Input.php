@@ -45,6 +45,9 @@ class Input {
 			case 'json':
 				$input = empty($input) ? '' : json_encode($input);
 				break;
+			case 'json|nullable':
+				$input = empty($input) ? null : json_encode($input);
+				break;
 			case 'bool':
 				$input = (bool) $input;
 				break;

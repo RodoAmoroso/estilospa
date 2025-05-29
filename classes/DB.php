@@ -35,7 +35,11 @@ class DB {
 
 		$query = preg_replace('/{(.*?)}/', $this->_prefix.'$1', $sql);
 
-		$this->_queries[] = $query;
+		$this->_queries[] = [
+			'query'=>$query,
+			'params'=>$params
+		];
+
 		if($this->_query = $this->_pdo->prepare($query)){
 			if(count($params)){
 				$nm = 1;
@@ -48,7 +52,7 @@ class DB {
 
 				$this->_query->execute();
 
-				if(!preg_match('/(INSERT )\w/', $sql) && !preg_match('/(UPDATE)/', $sql) && !preg_match('/(DELETE)/', $sql) && !preg_match('/(SET )/', $sql)){
+				if(!preg_match('/(INSERT )\w/', $sql) && !preg_match('/(UPDATE )/', $sql) && !preg_match('/(DELETE )/', $sql) && !preg_match('/(SET )/', $sql)){
 					$this->_count = $this->_query->rowCount();
 					$this->_query->setFetchMode(PDO::FETCH_OBJ);
 					$this->_results = $this->_query->fetchAll();
@@ -56,7 +60,19 @@ class DB {
 
 			}catch(PDOException $e){
 				$this->_error = $e->getMessage();
-				echo_json([$e,'message'=>Responses::get_message('fail')],true);
+
+				global $_userdata;
+				$user = false;
+				if($_userdata) $user = $_userdata;
+
+				$this->insert('errors_log',[
+					'log'=>$e->getMessage(),
+					'query'=>$query,
+					'params'=>json_encode($params),
+					'userdata'=>json_encode($user)
+				]);
+
+				if(ENV=='sandbox') dd([$e,'message'=>Responses::get_message('fail')]);
 				exit;
 			}
 		}
@@ -74,21 +90,27 @@ class DB {
 
 	/******* STANDARD QUERIES *********/
 
-	public function action($action, $table, $where=array()){
+	public function action($action, $table, $where=[], $sort=''){
 		if(count($where)===3){
-			$operators = array('=','>','<','>=','<=','LIKE','!=','NOT LIKE');
+			$operators = array('=','>','<','>=','<=','LIKE','!=','NOT LIKE','IS NULL','IS NOT NULL','BETWEEN','NOT BETWEEN');
 
 			$field 			= $where[0];
 			$operator 	= $where[1];
 			$value 			= $where[2];
 
 			if(in_array($operator,$operators)){
-				$sql = "{$action} FROM {{$table}} WHERE {$field} {$operator} ?";
+				$sql = "{$action} FROM {{$table}} WHERE `{$field}` {$operator} ? {$sort}";
 				if(!$this->query($sql, array($value))->error()) return $this;
 			}
 		}else{
-			$sql = "{$action} FROM {{$table}}";
-			if(!$this->query($sql)->error()) return $this;
+			$value=array();
+			$query='';
+			if(!empty($where) && is_numeric($where)){
+				$query="WHERE id=?";
+				$value[]=$where;
+			}
+			$sql = "{$action} FROM {{$table}} {$query} {$sort}";
+			if(!$this->query($sql,$value)->error()) return $this;
 		}
 		return false;
 	}
@@ -105,16 +127,17 @@ class DB {
 		$set = '';
 		$nm = 1;
 		foreach ($fields as $name=>$value) {
-			$set .= "{$name} = ?";
+			$set .= "`{$name}` = ?";
 			if($nm < count($fields)){
 				$set .= ', ';
 			}
 			$nm++;
 		}
 		if(is_array($id)){
-			$where = $id[0].$id[1].$id[2];
+			$where = "`".$id[0]."`".$id[1]."'".$id[2]."'";
 		}else{
 			$where = "id={$id}";
+			$this->_lastid = $id;
 		}
 		$sql = "UPDATE {{$table}} SET {$set} WHERE {$where}";
 		if(!$this->query($sql,$fields)->error()){
@@ -196,4 +219,9 @@ class DB {
 	public function error(){
 		return $this->_error;
 	}
+
+	public function get_queries(){
+		return $this->_queries;
+	}
+
 }

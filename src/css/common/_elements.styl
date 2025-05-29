@@ -1,0 +1,323 @@
+.dp-none
+	display none
+.d-none
+	display none !important
+.dp-ib
+	display inline-block
+	vertical-align top
+.dp-block
+	display block
+.dp-table
+	display table
+	position relative
+	table-layout auto
+.dp-table-cell
+	display table-cell
+	vertical-align middle
+	overflow hidden
+.dp-flexbox
+	display flex
+	align-items center
+	justify-content center
+.d-flexbox
+	display flex
+
+
+
+.overprint-fixed,.overprint-absolute
+	background-position center center
+	background-repeat no-repeat
+	background-size cover
+	height 100%
+	left 0
+	top 0
+	width 100%
+.overprint-fixed
+	position fixed
+.overprint-absolute
+	position absolute
+.parallax-mirror
+	img
+		filter blur(2px)
+.relative
+	position relative
+.clickable
+	cursor pointer
+.grayscale
+	filter grayscale(100%)
+.ui-effects-transfer
+	background-color gray(5)
+	border 2px dotted gray(20)
+	z-index 50
+#scrollUp
+	top 10px
+	right 10px
+	padding 2px 10px
+	background black
+	color #FFF
+	i
+		font-size 29px
+
+
+.d-flex
+	display flex
+.flex-wrap
+	flex-wrap wrap
+.align-items-center
+	align-items center
+	input[type="checkbox"]
+		margin-right .465rem
+.justify-space-between
+	justify-content space-between
+
+
+.thumb-cover
+	background-size cover
+	background-position center center
+	background-repeat no-repeat
+.thumb-contain
+	background-size contain
+	background-position center center
+	background-repeat no-repeat
+.thumb-fullx380
+	height 380px
+.thumb-fullx280
+	height 280px
+.thumb-fullx80
+	height 80px
+.thumb-fullx180
+	height 180px
+.thumb-fullx120
+	height 120px
+.thumb-80x80
+	height 80px
+	width 80px
+.thumb-100x100
+	height 100px
+	width 100px
+.thumb-150x150
+	height 150px
+	width 150px
+.thumb-200x200
+	height 200px
+	width 200px
+.thumb-300x300
+	height 300px
+	width 300px
+.thumb-400x400
+	height 400px
+	width 400px
+.img-wide
+	width 100%
+
+.fw-300
+	font-weight 300
+.fw-400
+	font-weight 400
+.fw-600
+	font-weight 600
+.fw-700
+	font-weight 700
+
+.required
+	background-color rgba(255,0,0,0.025) !important
+	border 1px solid red !important
+.strikethrough
+	text-decoration line-through
+
+.fa-toggle-on
+	color $green_3
+.fa-toggle-off
+	color red
+
+
+.gral-section
+	padding-top 80px
+	padding-bottom 80px
+
+.gral-section-min
+	padding-top 40px
+	padding-bottom 40px
+
+
+#loading
+	align-items center
+	background-color alpha(white,.85)
+	visibility hidden
+	display flex
+	justify-content center
+	height 100%
+	left 0
+	opacity 0
+	position fixed
+	text-align center
+	transition all 600ms ease-out
+	top 0
+	width 100%
+	z-index 9999
+	.loading-text
+		padding 16px
+#loading.active
+	visibility visible
+	opacity 1
+
+.title-bar
+	background-color $aqua_1
+	color $aqua_5
+	padding 8px 0
+	margin 16px 0 10px 0
+	text-align center
+	.title
+		margin 0
+
+.block-white
+	background-color white
+	border 1px solid gray(10)
+	border-bottom-left-radius 4px
+	border-bottom-right-radius 4px
+	box-shadow 2px 2px 4px alpha(black,.05)
+	margin 8px 0
+	padding 26px
+	hr
+		margin 15px 0 15px 0
+	.title-bar
+		margin -26px -26px 15px -26px
+		padding-left 26px
+		text-align left
+
+
+.onoffswitch
+	position relative
+	user-select none
+	width 54px
+	.onoffswitch-checkbox
+		display none
+	.onoffswitch-checkbox:checked +
+		.onoffswitch-label
+			border 2px solid $green_2
+			.onoffswitch-inner
+				margin-left 0
+			.onoffswitch-switch
+				right 1px
+	.onoffswitch-label
+		overflow hidden
+		cursor pointer
+		border 2px solid gray(20)
+		border-radius 20px
+		width 100%
+		position relative
+		.onoffswitch-inner
+			margin-left 0
+			display block
+			width 200%
+			height 20px
+			margin-left -100%
+			//text-align center
+			transition margin .3s $cubic
+			&:before
+				background-color $green_2
+				border-radius 0
+				content 'SI'
+				color white
+			&:after
+				background-color gray(20)
+				color gray(60)
+				content 'NO'
+				text-align right
+			&:before,&:after
+				box-sizing border-box
+				display block
+				float left
+				font-family 'Ubuntu', sans-serif
+				font-style normal
+				font-size 1.2rem
+				font-weight bold
+				height 20px
+				line-height 1.15rem
+				padding 4px 6px 0 12px
+				width 50%
+		.onoffswitch-switch
+			background-color white
+			border-radius 100%
+			bottom 0
+			display block
+			margin 0
+			position absolute
+			right 29px
+			top 0
+			transition all .3s $cubic
+			width 20px
+
+
+.rounded
+	border-radius 8px
+
+
+.btn-group-block
+	display flex
+	.btn
+		margin 2px
+		width 100%
+
+
+.radio-group
+	margin 1rem 0
+	.radio-item
+		border 1px solid gray(10)
+		border-radius 4px
+		padding .465rem 1rem
+		margin 0 1rem 1rem 0
+		input[type="radio"]
+			display none
+			&:checked +
+				.radio-icon
+					&:before
+						content '\f046'
+						font-family 'FontAwesome'
+		.radio-label
+			font-size 1.5rem
+			font-style normal
+		.radio-icon
+			&:before
+				content '\f096'
+				font-family 'FontAwesome'
+
+.number-list
+	padding 0
+	margin 0 !important
+	li
+		display flex
+		align-items center
+		margin .425rem 0
+		font-size 1.625rem
+		.number
+			align-items center
+			background-color $fucsia_3
+			background-color $cyan_3
+			border-radius 50%
+			display flex
+			color white
+			justify-content center
+			height 18px
+			margin-right 1rem
+			width 18px
+			font-size .975rem
+			font-weight 600
+
+.max-width
+	max-width 720px
+	margin 0 auto
+
+hr
+	border-top 1px solid gray(40)
+hr.hr-dashed
+	border-top 1px dashed gray(50)
+
+.form-check-input:checked
+	background-color $green_3
+	border-color $green_3
+
+
+[data-swal]
+	cursor pointer
+	color $cyan_2

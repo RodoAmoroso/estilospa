@@ -13,12 +13,12 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="input-group">
-						<span class="input-group-addon bg-aqua-3 cl-white"><i class="fa fa-at"></i></span>
+						<span class="input-group-text bg-aqua-3 cl-white"><i class="fa fa-at"></i></span>
 						<input name="email" type="email" class="form-control" placeholder="Email..." required>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<button class="btn btn-default btn-block"><i class="fa fa-paper-plane"></i> SUBSCRIBIRME</button>
+					<button class="btn btn-default btn-block"><i class="fa fa-paper-plane fa-fw"></i> SUBSCRIBIRME</button>
 				</div>
 			</div>
 			<div class="status"></div>
@@ -48,7 +48,7 @@
 <!-- GLOSARIO -->
 <section class="glossary-list">
 	<div class="container">
-		<h3>Servicios y Tratamientos <a href="<?= ROOT.'etiquetas' ?>" class="sz-10">(ver todos)</a></h3>
+		<h3 class="section-title">Servicios y Tratamientos <a href="<?= ROOT.'etiquetas' ?>" class="sz-10">(ver todos)</a></h3>
 		<div class="row">
 			<?php
 			$GlossaryGroups->limit = '0,6';
@@ -57,7 +57,7 @@
 				foreach ($GlossaryGroups->data() as $group):
 			?>
 			<div class="col col-xs-12 col-sm-2">
-				<h4 class="fw-400"><?= $group->name ?></h4>
+				<h4 class="glossary-title"><?= $group->name ?></h4>
 				<?php
 				$Glossary->idgroup = $group->id;
 				$Glossary->limit = '0,10';
@@ -66,7 +66,9 @@
 				if($Glossary->get()):
 					foreach ($Glossary->data() as $glossary):
 				?>
-				<a href="<?= ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name) ?>" class="dp-block"><?= $glossary->name ?></a>
+				<a href="<?= ROOT.'etiqueta/'.$glossary->id.'-'.Permalink($glossary->name) ?>" class="dp-block">
+					<?= $glossary->name ?>
+				</a>
 				<?php endforeach; endif; ?>
 			</div>
 			<?php endforeach; endif; ?>
@@ -110,16 +112,13 @@
 
 				<div class="socials">
 					<a href="http://www.facebook.com/estilospa" target="_blank" class="icon">
-						<i class="fa fa-facebook"></i>
-					</a>
-					<a href="http://www.twitter.com/estilospa" target="_blank" class="icon">
-						<i class="fa fa-twitter"></i>
+						<i class="fab fa-facebook-f"></i>
 					</a>
 					<a href="https://www.instagram.com/estilospa/" target="_blank" class="icon">
-						<i class="fa fa-instagram"></i>
+						<i class="fab fa-instagram"></i>
 					</a>
 					<a href="http://www.youtube.com/EstiloSpa" target="_blank" class="icon">
-						<i class="fa fa-youtube-play"></i>
+						<i class="fab fa-youtube"></i>
 					</a>
 				</div>
 			</div>
@@ -202,7 +201,7 @@
 <?php if($_section!='promo' && $_section!='centros'): ?>
 <div class="float-whatsapp">
 	<a href="https://api.whatsapp.com/send?phone=5491158314531" target="_blank" class="icon">
-		<i class="fa fa-whatsapp"></i>
+		<i class="fab fa-whatsapp"></i>
 	</a>
 </div>
 <?php endif; ?>

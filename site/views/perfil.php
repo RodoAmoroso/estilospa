@@ -33,25 +33,25 @@
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_name">Nombre</label>
 						<input name="name" id="fd_name" type="text" class="form-control" value="<?= $User->data()->name ?>" required>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_lastname">Apellido</label>
 						<input name="lastname" id="fd_lastname" type="text" class="form-control" value="<?= $User->data()->lastname ?>" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_dni">DNI <i class="fa fa-question-circle cl-gray-30" title="Necesario para participar de compras y promociones"></i></label>
 						<input name="dni" id="fd_dni" type="number" min="0" class="form-control" value="<?= $User->data()->dni ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_birth">Fecha de Nacimiento</label><br />
 
 							<?php $arrDate = explode('-',$User->data()->birth); ?>
@@ -104,37 +104,37 @@
 				</div>
 
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_phone">Teléfono (Prefijo + Nro.)</label>
 						<input name="phone" id="fd_phone" type="text" class="form-control" value="<?= $User->data()->phone ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_address">Dirección (Calle y Nro.)</label>
 						<input name="address" id="fd_address" type="text" class="form-control" value="<?= $User->data()->address ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_addressobs">Piso/Depto.</label>
 						<input name="addressobs" id="fd_addressobs" type="text" class="form-control" value="<?= $User->data()->addressobs ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_city">Ciudad/Localidad</label>
 						<input name="city" id="fd_city" type="text" class="form-control" value="<?= $User->data()->city ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_zip">Código Postal</label>
 						<input name="zipcode" id="fd_zip" type="text" class="form-control" value="<?= $User->data()->zipcode ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_provinces">Provincia</label>
 						<select name="idprovince" id="fd_provinces" class="form-control">
 							<?php
@@ -161,13 +161,13 @@
 				<hr>
 
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_passnew">Cambiar Constraseña</label>
 						<input name="password_new" id="fd_passnew" type="password" class="form-control">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_pass">Contraseña Actual </label>
 						<input name="password" id="fd_pass" type="password" class="form-control">
 					</div>
@@ -192,7 +192,7 @@
 
 			<hr>
 
-			<div class="text-right">
+			<div class="text-end">
 				<button id="btn_save" class="btn btn-success"><i class="fa fa-save"></i> GUARDAR</button>
 			</div>
 

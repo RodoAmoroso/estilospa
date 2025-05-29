@@ -21,7 +21,7 @@
 			<!-- <div class="row">
 				<div class="col-lg-4">
 					<label for="fd_search">Buscar</label>
-					<form class="form-group" autocomplete="off" method="POST">
+					<form class="mb-3" autocomplete="off" method="POST">
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Buscar por nombre o email...">
 							<div class="input-group-btn">

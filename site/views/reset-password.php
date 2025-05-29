@@ -19,13 +19,13 @@
 			<div class="col-xs-12 col-sm-4">
 
 				<form id="form_reset">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="fd_pass">Nuevo Password</label>
 						<input name="password" id="fd_password" type="password" class="form-control" required>
 					</div>
 					<input name="hash" value="<?=$hash?>" type="hidden" >
 					<input name="userid" value="<?=$userid?>" type="hidden" >
-					<div class="form-group">
+					<div class="mb-3">
 						<button class="btn btn-fucsia">Enviar</button>
 					</div>
 				</form>

@@ -7,28 +7,6 @@ class Banners extends Core{
 						$folder='home';
 
 
-	public function save(){
-		$values = array(
-			'name'=>Input::get('name'),
-			'title'=>Input::get('title'),
-			'caption'=>Input::get('caption'),
-			'image'=>json_encode(Input::get('image')),
-			'link'=>json_encode(Input::get('link')),
-			'visible'=>Input::get('visible'),
-			'type'=>Input::get('type')
-		);
-
-		if(!parent::core_save(Input::get('id'),$values)) return false;
-		return true;
-	}
-
-	public function delete($id=0){
-		if(!$id) return false;
-		if(!$data = $this->find($id)) return false;
-		if(!parent::core_delete($data)) return false;
-		return true;
-	}
-
 	public function get(){
 
 		$filters = parent::core_filters([
@@ -53,7 +31,7 @@ class Banners extends Core{
 
 		if(!$data = parent::core_get($query,$filters->values)) return false;
 		foreach($data as $k=>$row){
-			$data[$k]->image = json_decode($row->image);
+			//$data[$k]->image = json_decode($row->image);
 			$data[$k]->link = json_decode($row->link);
 		}
 
@@ -65,6 +43,29 @@ class Banners extends Core{
 		$this->filters = ['id'=>$id];
 		if(!$data = $this->get()) return false;
 		return $data[0];
+	}
+
+
+	public function save(){
+		$values = array(
+			'name'=>Input::get('name'),
+			'title'=>Input::get('title'),
+			'caption'=>Input::get('caption'),
+			'image'=>json_encode(Input::get('image')),
+			'link'=>json_encode(Input::get('link')),
+			'visible'=>Input::get('visible'),
+			'type'=>Input::get('type')
+		);
+
+		if(!parent::core_save(Input::get('id'),$values)) return false;
+		return true;
+	}
+
+	public function delete($id=0){
+		if(!$id) return false;
+		if(!$data = $this->find($id)) return false;
+		if(!parent::core_delete($data)) return false;
+		return true;
 	}
 
 	public function reorder($arrids=array()){

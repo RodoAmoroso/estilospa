@@ -90,7 +90,7 @@
 
 				<div class="col-lg-4">
 					<label for="">Desde / Hasta</label>
-					<div class="form-group">
+					<div class="mb-3">
 						<div class="row">
 							<div class="col-xs-6">
 								<input id="fd_from" type="text" class="form-control" placeholder="Desde" >
@@ -102,7 +102,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Nro. de orden/comprobante</label>
 						<div class="input-group">
 							<input id="fd_ordernumber" type="text" class="form-control" placeholder="nro. de orden o nro. de comprobante" >
@@ -129,7 +129,7 @@
 				</div>
 
 				<div class="col-lg-8">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Buscar por Nombre, apellido o email</label>
 						<div class="input-group">
 							<input id="fd_user" type="text" class="form-control" placeholder="" >
@@ -140,7 +140,7 @@
 					</div>
 				</div>
 				<div class="col-lg-4">
-					<div class="form-group">
+					<div class="mb-3">
 						<label for="">Buscar por nro de voucher</label>
 						<div class="input-group">
 							<input id="fd_voucher" type="text" class="form-control" placeholder="" >

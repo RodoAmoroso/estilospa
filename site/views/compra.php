@@ -16,13 +16,13 @@
 							</div>
 							<div class="col-md-8">
 								<h3 class="title-promo"><a href="<?=View::url('promo',$promo->permalink,$promo->id.'-'.Permalink($promo->title))?>" target="_blank"><?=$promo->title?></a></h3>
-								<div class="form-group">
+								<div class="mb-3">
 									<h5><a href="<?=View::url('centros',$promo->permalink)?>" target="_blank"><?=$promo->clientname?></a></h5>
 								</div>
 
 								<hr>
 
-								<div class="form-group">
+								<div class="mb-3">
 									<h4 <?= $sale->voucher_id ? 'class="strikethrough"' : '' ?> >Total: <strong>$ <?=number_format($sale->price*$sale->quantity,0,',','.')?></strong></h4>
 									<?php if($sale->voucher_id): ?>
 									<h4>Total.: <strong>$ <?= number_format(($sale->price*$sale->quantity) - ($sale->voucher_percent ? ($sale->price*$sale->quantity)*$sale->voucher_value/100 : $sale->voucher_value),0,',','.') ?></strong></h4>
@@ -31,7 +31,7 @@
 
 								</div>
 
-								<div class="form-group">
+								<div class="mb-3">
 									<h4 class="title">Orden Nro.: <?=$sale->collection_id?></h4>
 									<small class="date">Fecha de compra: <?=$sale->fecha ?> hs.</small>
 								</div>
@@ -48,7 +48,7 @@
 
 						<?php if(!$vouchers || count($vouchers) < $sale->quantity): ?>
 
-						<div class="form-group">Vouchers disponibles: <?= $vouchers ? $sale->quantity-count($vouchers) : $sale->quantity ?></div>
+						<div class="mb-3">Vouchers disponibles: <?= $vouchers ? $sale->quantity-count($vouchers) : $sale->quantity ?></div>
 
 						<button data-toggle="generate-voucher" class="btn btn-sm btn-success"><i class="fa fa-plus fa-fw"></i> Generar Voucher</button>
 

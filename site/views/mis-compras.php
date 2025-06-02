@@ -1,6 +1,48 @@
 
 <section class="gral-section">
 	<div class="container">
+
+		<div class="card shadow-lg border-0" style="border-radius: 15px; background: linear-gradient(135deg, #d4effb 0%, #b6d4f2 100%);">
+			<div class="card-body text-center" style="padding:3rem">
+				<div class="mb-4">
+					<i class="fa fa-heart text-fucsia-4" style="font-size: 3rem;"></i>
+				</div>
+
+				<h3 class="card-title fw-bold text-dark mb-3">
+					Ritual de Bienestar para Padres
+				</h3>
+
+				<p class="lead text-primary fw-semibold mb-3">
+					<strong>Ser papá es darlo todo, cada día.</strong>
+				</p>
+
+				<p class="text-muted mb-3">
+					Sabemos que a veces necesitás frenar... y volver a respirar vos.
+				</p>
+
+				<p class="mb-4">
+					<strong>Mini pausas simples pero poderosas</strong> para recargar energías y conectar con lo importante.
+				</p>
+
+				<div class="alert alert-light border-0 mb-4">
+					<small class="text-muted">
+						Tarjetas imprimibles con rituales de bienestar pensados especialmente para padres.
+					</small>
+				</div>
+
+				<a href="<?= View::assets('ritual-papa.pdf') ?>" download class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold mb-3">
+					<i class="fa fa-download fa-fw"></i>
+					DESCARGÁ TU RITUAL GRATUITO
+				</a>
+
+				<p class="text-muted small mb-0">
+					<i>Porque cuando vos estás bien, todo a tu alrededor florece.</i>
+				</p>
+			</div>
+		</div>
+
+
+
 		<h1>Mis Compras</h1>
 		<hr>
 

@@ -1,7 +1,5 @@
 <?php
 
-header("Content-Type: application/json; charset=utf-8", true);
-
 $Clients = new Clients();
 $Stores = new Stores();
 $Stats = new Stats();

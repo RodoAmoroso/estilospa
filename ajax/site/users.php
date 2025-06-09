@@ -1,8 +1,5 @@
 <?php
 
-header("Content-Type: application/json; charset=utf-8", true);
-///require 'templates-mail.php';
-///require 'phpmailer/PHPMailerAutoload.php';
 
 $UserAdmin = new UserAdmin();
 $Sales = new Sales();

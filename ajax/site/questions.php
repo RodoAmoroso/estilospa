@@ -1,7 +1,5 @@
 <?php
 
-header("Content-Type: application/json; charset=utf-8", true);
-
 $Questions = new Questions();
 $Mailing = new Mailing();
 $Promos = new Promos();

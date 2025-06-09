@@ -1,7 +1,5 @@
 <?php
 
-header("Content-Type: application/json; charset=utf-8", true);
-
 $Search = new Search();
 $Search->keywords = Input::get('keywords');
 $Search->searchmixed = Input::get('search_mixed');

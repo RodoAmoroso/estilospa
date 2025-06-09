@@ -1,8 +1,6 @@
 <?php
 
 
-header("Content-Type: application/json; charset=utf-8", true);
-
 $User = new User();
 $Sales = new Sales();
 $SalesVouchers = new SalesVouchers();

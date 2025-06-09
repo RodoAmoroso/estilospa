@@ -1,6 +1,5 @@
 <?php
 
-
 if(!Input::check(['class'])) die(Responses::response('required'));
 
 $_class = Input::get('class');

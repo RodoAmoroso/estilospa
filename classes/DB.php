@@ -9,7 +9,8 @@ class DB {
 					$_results,
 					$_count = 0,
 					$_lastid = 0,
-					$_prefix = '';
+					$_prefix = '',
+					$_queries=[];
 
 	private function __construct(){
 		$this->_prefix = Config::get('mysql/prefix');
@@ -115,7 +116,7 @@ class DB {
 		return false;
 	}
 
-	public function get($table, $where){
+	public function get($table, $where=[]){
 		return $this->action("SELECT *", $table, $where);
 	}
 

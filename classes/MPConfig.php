@@ -79,20 +79,20 @@ class MPConfig extends Core{
 
 
 					//Producción
-					$notification_url = ROOT.'ipn.php',
+					/* $notification_url = ROOT.'ipn.php',
 					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583',
 					$app_id='7300466898804487',
 					$public_key='APP_USR-43830fea-2de3-4976-86ca-08ed0494b311',
-					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';
+					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K'; */
 
 
 
 					//Test Localhost Bricks
-					/*$access_token='APP_USR-1361101101198276-021419-50236e2b890ef3cd7f668922428d6287-1275050815',
+					$access_token='APP_USR-1361101101198276-021419-50236e2b890ef3cd7f668922428d6287-1275050815',
 					$public_key='APP_USR-b2027506-80ff-492f-97c6-995b3957e4b9',
 					$app_id='1361101101198276',
 					$secret_key='eAekX3P1Dr01F7BaHUMbRkbs3DpQ2SL7',
-					$notification_url='https://webhook.site/95ec422e-9f8e-4947-954d-5c633acce5f4';*/
+					$notification_url='https://abnormal-alligator-72.webhook.cool';
 
 					//Test Localhost RODO
 					/*$notification_url = 'https://bent-activity-19.webhook.cool',

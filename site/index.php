@@ -18,7 +18,7 @@ View::$root = SITE;
 
 Redirect::$root = ROOT;
 
-if($_site->info()['maintenance']) $_section = 'mantenimiento';
+if($CFG->maintenance) $_section = 'mantenimiento';
 
 $_controllerpath = View::loader('php','controllers');
 if($_controllerpath) include $_controllerpath;
@@ -36,7 +36,7 @@ $nomenu = ['404','mantenimiento','restricted','hotsale-gracias'];
 if($_sectionpath){
 	if(!in_array($_section,$nomenu)){
 		include 'views/header.php';
-		include 'views/mainmenu.php';
+		include 'views/main-menu.php';
 		include $_sectionpath;
 		require 'views/footer.php';
 	}else{

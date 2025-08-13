@@ -62,10 +62,23 @@ class Experiences extends Core{
 		if(!$data = parent::core_get($query,$filters->values)) return false;
 		///parent::core_get($query,$filters->values);
 		///show_array(parent::core_query(),true);
+		$now = new DateTime();
+
 		foreach($data as $k=>$row){
+			
 			$data[$k]->image = json_decode($row->gallery);
+			$row->image_main = ROOT.'img/promos/'.$data[$k]->image[0]->photoname.'-t.'.$data[$k]->image[0]->extension;
+
 			$data[$k]->link = ROOT.'promo/'.$row->permalink.'/'.$row->id.'-'.Permalink($row->title);
 			$data[$k]->client_link = ROOT.'centros/'.$row->permalink;
+
+			$row->price_formatted = '$ '.number_format($row->price,2,',','.');
+
+			$row->start_obj = new DateTime($row->start);
+			$row->finish_obj = new DateTime($row->finish);
+			
+			$row->active = $row->start_obj <= $now && $row->finish_obj >= $now;
+			
 		}
 
 		return $data;
@@ -78,23 +91,50 @@ class Experiences extends Core{
 		return $data[0];
 	}
 
-	/*public function save(){
-		$values = array(
-			'name'=>Input::get('name'),
-			'caption'=>Input::get('caption'),
-			'image'=>empty(Input::get('image')) ? '' : json_encode(Input::get('image')),
-			'visible'=>Input::get('visible')
-		);
+	public function save(){
+		
+		$start = explode('/',Input::get('Start'));
+		$finish = explode('/',Input::get('Finish'));
+
+		$values = [
+			'idclient'=>$idclient,
+			'idpromotype'=>Input::get('IDPromotype'),
+			'categoryid'=>empty(Input::get('CategoryID')) ? null : Input::get('CategoryID'),
+			'gift'=>Input::get('Gift'),
+			'sale'=>Input::get('Sale'),
+			'stores'=>implode(',',Input::get('Stores')),
+			'title'=>Input::get('Title'),
+			'subtitle'=>Input::get('Subtitle'),
+			'label'=>Input::get('Label'),
+			'description'=>Input::get('Description'),
+			'valid'=>Input::get('Valid'),
+			'includes'=>Input::get('Includes'),
+			'duration'=>Input::get('Duration'),
+			'recomendations'=>Input::get('Recomendations'),
+			'reservation'=>Input::get('Reservation'),
+			'cancellation'=>Input::get('Cancellation'),
+			'gallery'=>json_encode(Input::get('Gallery')),
+			'price'=>Input::get('Price'),
+			'discount'=>Input::get('Discount'),
+			'amount'=>Input::get('Amount'),
+			'start'=>$start[2].'-'.$start[1].'-'.$start[0],
+			'finish'=>$finish[2].'-'.$finish[1].'-'.$finish[0]
+		];
+
 		if(!parent::core_save(Input::get('id'),$values)) return false;
 		return true;
 	}
 
-	public function delete($id=0){
+	public function delete($id=null){
 		if(!$id) return false;
-		if(!$data = $this->find($id)) return false;
+		if(is_object($id)){
+			$data = $id;
+		}else{
+			if(!$data = $this->find($id)) return false;
+		}
 		if(!parent::core_delete($data)) return false;
 		return true;
-	}*/
+	}
 
 	public function reorder($arrids=array()){
 		if(!is_array($arrids)) return false;

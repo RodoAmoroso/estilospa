@@ -1,11 +1,11 @@
 <?php
 
-class GiftCards extends Core{
+class ExperiencesGallery extends Core{
 
-	protected 	$table='giftcards',
+	protected 	$table='experiences_gallery',
 							$sizes=['small'=>'-t','big'=>'-n'],
-							$folder='giftcards',
-							$alias='gc';
+							$folder='promos',
+							$alias='eg';
 
 	private 		$_filters;
 
@@ -17,20 +17,15 @@ class GiftCards extends Core{
 				'id'=>"{$this->alias}.id=?",
 				'exclude'=>"{$this->alias}.id!=?",
 				'ids'=>"{$this->alias}.id IN ($)",
-				'visible'=>"{$this->alias}.visible=?"
+				
+        'experience'=>"{$this->alias}.experience_id=?",
+        'experience_ids'=>"{$this->alias}.experience_id IN ($)"
 			],
 			'search'=>[
-				"{$this->alias}.description",
+				"{$this->alias}.name",
 				"{$this->alias}.title"
 			],
 			'sort'=>[
-
-				'title_asc'=>"{$this->alias}.title ASC",
-				'title_desc'=>"{$this->alias}.title DESC",
-
-				'added_asc'=>"{$this->alias}.added ASC",
-				'added_desc'=>"{$this->alias}.added DESC",
-
 				'default'=>"{$this->alias}.position ASC"
 			]
 		]);
@@ -41,11 +36,6 @@ class GiftCards extends Core{
 	public function get(){
 		$query = $this->set_query("{$this->alias}.*");
 		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
-		//dd($data);
-		foreach($data as $k=>$row){
-			$row->value_formatted = '$ '.number_format($row->value,0,',','.');
-			$row->permalink = ROOT.'giftcard/'.$row->id.'-'.Permalink($row->title);
-		}
 		return $data;
 	}
 	public function get_total(){
@@ -70,16 +60,8 @@ class GiftCards extends Core{
 		return $data[0];
 	}
 
-	public function save(){
-		$values = [
-			'title'=>Input::get('title'),
-			'description'=>Input::get('description'),
-			'image'=>Input::get('image','json|nullable'),
-			'value'=>Input::get('value','float'),
-			'expiration'=>Input::get('expiration','int'),
-			'visible'=>Input::get('visible')
-		];
-		if(!parent::core_save(Input::get('id'),$values)) return false;
+	public function save($values=[]){		
+		if(!parent::core_save($values['id'],$values)) return false;
 		$id = parent::core_lastid();
 		return $id;
 	}
@@ -100,7 +82,5 @@ class GiftCards extends Core{
 		if(!parent::core_reorder($arrids)) return false;
 		return true;
 	}
-
-
 
 }

@@ -24,13 +24,13 @@ $QUERIES = [];
 $DB = DB::getInstance();
 
 
-$_site = new Options();
-$_site->get();
-define("TITLE",$_site->info()['title']);
-define("DESCRIPTION",$_site->info()['description']);
-define("KEYWORDS",$_site->info()['keywords']);
+$Configuration = new Configuration();
+$Configuration->get();
+define('TITLE',$CFG->title);
+define('DESCRIPTION',$CFG->description);
+define('KEYWORDS',$CFG->keywords);
 
 define("ENV",'sandbox');
 
-$_arrcss = array();
-$_arrjs = array();
+$_arrcss = [];
+$_arrjs = [];

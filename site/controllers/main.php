@@ -7,6 +7,8 @@ if($User->logged()){
 	$_userdata = $User->data();
 }
 
+//dd($_userdata);
+
 $dbprovinces = DB::getInstance()->get('provinces',array('id','!=',0));
 foreach($dbprovinces->results() as $p){
 	$Provinces[$p->id] = $p->name;

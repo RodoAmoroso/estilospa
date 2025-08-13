@@ -43,6 +43,15 @@ class Responses {
 			case 'unauthorized':
 				$custommessage = 'No estás autorizado para ingresar.';
 				break;
+
+			case 'phone_length':
+				$custommessage = 'El número de teléfono debe tener al menos 8 caracteres.';
+				break;
+			case 'phone_number':
+				$custommessage = 'El número de teléfono debe tener algún número.';
+				break;
+
+
 			case 'user_inactive':
 				$custommessage = 'Tu cuenta no ha sido activada. Por razones de seguridad necesitamos que activés tu cuenta desde el link que te fue enviado por email al registrarte. Si no recibiste el email de activación podés volver a enviarlo <a href="'.View::url('reenviar-activacion').'">desde aquí</a>';
 				break;

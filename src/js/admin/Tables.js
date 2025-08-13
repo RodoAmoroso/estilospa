@@ -35,7 +35,6 @@ class Tables extends CRUD{
 			}
 		}
 		this.datatable_options.fnDrawCallback = settings=>{
-			//console.log(settings.json)
 			loading({show:false})
 		}
 

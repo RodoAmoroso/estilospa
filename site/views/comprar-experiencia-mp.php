@@ -23,11 +23,9 @@
 								<h6>Precio unit. $ <span data-content="unit-price" data-value="<?= $promo->price_w_discount ?>"><?= number_format($promo->price_w_discount,2,',','.') ?></span></h6>
 
 								<!-- AMOUNT -->
-								<div class="input-group">
-									<div class="input-group-addon">
-										<span class="input-group-text">Cantidad</span>
-									</div>
-									<select name="quantity" class="form-control">
+								<div class="input-group">									
+									<span class="input-group-text">Cantidad</span>									
+									<select name="quantity" class="form-select">
 										<?php for($i=1; $i<=($promo->amount>15 ? 15 : $promo->amount); $i++): ?>
 										<option value="<?= $i ?>" <?= $sale_temp && $sale_temp->quantity==$i ? 'selected' : '' ?>><?= $i ?></option>
 										<?php endfor; ?>
@@ -81,7 +79,6 @@
 				</div>
 
 			</div>
-
 
 			<div class="col-lg-8">
 				<div class="boxes">
@@ -140,10 +137,6 @@
 				</div>
 
 			</div>
-
-
-
-
 
 		</div>
 

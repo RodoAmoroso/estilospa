@@ -15,11 +15,15 @@ switch($_action):
 
 	case 'register':
 
-		$hash = hash('sha256', uniqid());
+		$hash = set_hash();
 
-		if(!filter_var(Input::get('email'),FILTER_VALIDATE_EMAIL)) die(Responses::response('invalid_email'));
+		$validate = Input::validate([
+			'password'=>Input::get('password'),
+			'email'=>Input::get('email'),
+		]);
+		if(!$validate->status) die(Responses::response('fail',$validate->message));
+
 		if($User->find(Input::get('email'))) die(Responses::response('user_exists'));
-		if(strlen(Input::get('password'))<8) die(Responses::response('invalid_pass'));
 		if(Input::get('password') != Input::get('password_repeat')) die(Responses::response('password_match'));
 		/////////////////////////////////
 		if(!$idu = $User->create(

@@ -30,8 +30,8 @@
 						<th></th>
 						<th>Imagen</th>
 						<th>Título</th>
-						<th>Valor</th>
 						<th>Visibilidad</th>
+						<th>Valor</th>
 						<th>Vencimiento <i class="fa fa-info-circle fa-fw" data-swal="Cantidad de días a partir de la compra"></i></th>
 						<th>Agregado/Modificado</th>
 						<th class="text-end">Acciones</th>
@@ -63,29 +63,23 @@
 
 				<div class="col-lg-6">
 
-					<div class="mb-3 input-group">
-						<div class="form-floating">
-							<input name="title" type="text" class="form-control" placeholder="Título" required>
-							<label for="">Título</label>
-						</div>
+					<label for="">Título</label>
+					<div class="mb-3 input-group">					
+						<input name="title" type="text" class="form-control" required>						
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="mb-3 input-group">
-								<div class="form-floating">
-									<input name="expiration" type="number" class="form-control" placeholder="Vencimiento" required step="1" >
-									<label for="">Vencimiento</label>
-								</div>
+							<label for="">Vencimiento</label>
+							<div class="mb-3 input-group">								
+								<input name="expiration" type="number" class="form-control" required step="1" >							
 								<span class="input-group-text">Días</span>
 							</div>
 						</div>
 						<div class="col-lg-6">
+							<label for="">Valor</label>
 							<div class="mb-3 input-group">
-								<span class="input-group-text">$</span>
-								<div class="form-floating">
-									<input name="value" type="number" class="form-control" placeholder="Valor" required step="0.1" >
-									<label for="">Valor</label>
-								</div>
+								<span class="input-group-text">$</span>								
+								<input name="value" type="number" class="form-control" required step="0.1" >								
 							</div>
 						</div>
 					</div>
@@ -124,10 +118,67 @@
 		</div>
 
 		<div class="block-white">
-			<h5>Experiencias</h5>
-			<hr>
-			[incluídas]
-			[excluídas]
+			<div class="row">
+				<div class="col-lg-6 mb-3 border-end">
+					<h5>Experiencias Incluídas</h5>
+					<div class="table-responsive p-3 bg-gray-5 border" style="max-height:480px;overflow:auto;">
+						<table class="table table-sm table-bordered small bg-gray-0">
+							<thead>
+								<tr>
+									<th>Experiencia</th>
+									<th class="text-center">Seleccionar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if($experiences): foreach($experiences as $experience): ?>
+								<tr>
+									<td class="align-middle d-flex align-items-center">
+										<div class="img-thumbnail rounded thumb-80x80 thumb-cover me-3" style="background-image:url(<?= $experience->image_main ?>)"></div>
+										<div>
+											<h6 class="title"><b><?= $experience->title ?></b></h6>
+											
+											<?php if($experience->active): ?>
+											<span class="badge bg-success">Activa</span>
+											<?php else: ?>
+											<span class="badge bg-danger">Inactiva</span>
+											<?php endif; ?>
+
+											<div class="title"><?= $experience->client_name ?></div>
+											<div class="title"><?= $experience->price_formatted ?></div>
+										</div>
+									</td>
+									<td class="align-middle"> 
+										<div class="d-flex justify-content-center">
+										<div class="onoffswitch">
+											<input type="checkbox" class="onoffswitch-checkbox" id="switch_<?= $experience->id ?>" name="switch_<?= $experience->id ?>" checked>
+											<label for="switch_<?= $experience->id ?>" class="onoffswitch-label">
+												<span class="onoffswitch-inner"></span>
+												<span class="onoffswitch-switch"></span>
+											</label>
+										</div>
+										</div>
+									</td>
+								</tr>
+								<?php endforeach; endif; ?>
+							</tbody>
+						</table>
+					</div>
+					<div class="small-comment mt-1">Si no se selecciona ninguna aplicará a todas</div>
+				</div>
+				<div class="col-lg-6 mb-3">
+					<h5>Experiencias Excluídas</h5>
+					<div class="table-responsive">
+						<table class="table table-sm table-bordered small">
+							<thead>
+								<tr>
+									<th>Experiencia</th>
+									<th class="text-end">Seleccionar</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="block-white">

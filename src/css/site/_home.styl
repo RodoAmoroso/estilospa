@@ -15,7 +15,8 @@
 			display block
 			background-position center
 			background-size cover
-			transform translateX(1px)
+			transform translateX(1.5pt)
+			//border 1px solid red
 			img
 				width 100%
 
@@ -154,6 +155,7 @@
 
 
 .home-categories
+	margin-top -10px
 	.home-categories-modules
 
 		display flex
@@ -195,3 +197,39 @@
 	padding 36px 0
 .home-carousel
 	padding 3rem 0
+
+
+.how-it-works
+	padding 2rem 0
+	.title
+		display flex
+		justify-content center
+		align-items center
+		position relative
+		.title-bar 
+			width 100% 
+			height 8px 
+			position absolute
+		.title-button 
+			position relative
+			background-color $aqua_3
+			padding .5rem 1.5rem
+			color white
+			border-radius 5pt
+			font-size 16pt
+
+	.caption 
+		font-size 18pt
+		max-width 720px
+		margin 0 auto		
+	
+	.step 
+		padding 1rem
+		display flex
+		align-items center
+		justify-content center
+		font-size 16pt
+		i 
+			margin-right 1rem
+			font-size 26pt
+			color $aqua_3

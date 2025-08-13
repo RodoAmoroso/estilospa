@@ -33,8 +33,8 @@ $(function(){
 	});
 
 	owlSlider.owlCarousel({
-		autoplay:true,
-		loop:true,
+		autoplay:false,
+		loop:false,
 		dots:true,
 		nav:true,
 		navText:['<i class="fal fa-angle-left"></i>','<i class="fal fa-angle-right"></i>'],

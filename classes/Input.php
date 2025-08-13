@@ -110,40 +110,55 @@ class Input {
 
 		$obj = new stdClass();
 		$obj->status = true;
+		$obj->message = '';
+		$fail = false;
+
 		foreach($array as $key=>$value){
 			switch($key){
+
 				case 'password':
 					if(strlen($value) < 8) {
-						$obj->response = Responses::response('invalid_pass');
-						$obj->status = false;
+						$fail = 'password_length';
 					}
-					/*if(!preg_match("#[0-9]+#", $value)) {
-						$obj->response = Responses::response('password_number');
-						$obj->status = false;
+					if(!preg_match("#[0-9]+#", $value)) {
+						$fail = 'password_number';
 					}
-
 					if(!preg_match("#[a-zA-Z]+#", $value)) {
-						$obj->response = Responses::response('password_alpha');
-						$obj->status = false;
-					}*/
+						$fail = 'password_alpha';
+					}
 					break;
 
 				case 'email':
 					if(!filter_var($value,FILTER_VALIDATE_EMAIL)){
-						$obj->response = Responses::response('invalid_email');
-						$obj->status = false;
+						$fail = 'invalid_email';
 					}
 					break;
 
 				case 'phone':
 					if(strlen($value) < 8) {
-						$obj->response = Responses::response('phone_length');
-						$obj->status = false;
+						$fail = 'phone_length';
 					}
-
 					if(!preg_match("#[0-9]+#", $value)) {
-						$obj->response = Responses::response('phone_number');
-						$obj->status = false;
+						$fail = 'phone_number';
+					}
+					break;
+
+				case 'dni':
+					if(!preg_match("/[0-9]{7}$/", $value) && strlen($value)!=8) {
+						$fail = 'dni';
+					}
+					break;
+				case 'cuit':
+					if(!preg_match("/[0-9]{10}$/", $value) && strlen($value)!=11) {
+						$fail = 'cuit';
+					}
+					break;
+
+				case 'adult':
+					$birth = DateTime::createFromFormat(self::detect_date_format($value),$value);
+					$age = $birth->diff(new DateTime('now'))->y;
+					if($age<18){
+						$fail = 'adult';
 					}
 					break;
 
@@ -151,7 +166,20 @@ class Input {
 			}
 		}
 
+		if($fail){
+			$obj->message = Responses::response($fail,'',[],false)['message'];
+			$obj->status = false;
+		}
+
 		return $obj;
+
+	}
+
+	public static function detect_date_format($fecha){
+
+		if (preg_match('/^\d{2}\/\d{2}\/\d{4}$/', $fecha)) return 'd/m/Y';
+		if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $fecha)) return 'Y-m-d';
+		return false;
 
 	}
 

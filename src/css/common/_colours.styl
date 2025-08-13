@@ -1,5 +1,5 @@
 $colours = {
-	'gold-1' : #D9CAAD,
+	'gold-1' : #e1d6c3,
 	'gold-2' : #756c5d,
 
 	'fucsia-0' : #fceff8,
@@ -22,7 +22,7 @@ $colours = {
 
 	'yellow-1' : #fff2dc,
 	'yellow-2' : #ffe4bc,
-	'yellow-3' : #c79448,
+	'yellow-3' : #e2a247,
 	'yellow-4' : #7f5415,
 
 	'green-1' : #dffadb,
@@ -32,7 +32,7 @@ $colours = {
 
 	'aqua-0' : #f0fffc,
 	'aqua-1' : #A1C7C5,
-	'aqua-2' : #72adaa,
+	'aqua-2' : #64a49e,
 	'aqua-3' : #468885,
 	'aqua-4' : #286461,
 	'aqua-5' : #004C5B,
@@ -51,3 +51,19 @@ for name,value in $colours
 	.border-{name}
 		border 1px solid value
 	define('$'+replace('-','_',name),value)
+
+	.btn-{name}
+		background-color value		
+		color white
+		&:hover
+			background-color darken(value,15)
+			color white
+
+	.btn-outline-{name}
+		border-color value
+		background-color transparent
+		color value
+		&:hover
+			background-color darken(value,15)
+			//color white
+			color white

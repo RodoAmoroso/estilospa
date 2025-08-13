@@ -69,18 +69,27 @@ class User {
 		$field = is_numeric($user) ? 'u.id' : 'u.mail';
 		if($hash) $field = 'u.hash';
 
-		$this->_db->query("SELECT u.*, CONCAT(u.name,' ',u.lastname) fullname, a.idclient, c.idplan, c.added clientadded, p.fee, p.name planname, p.promos cantpromos, c.name client_name, c.permalink client_permalink
-			FROM {users} u
-			LEFT JOIN {assoc_client_user} a ON a.iduser=u.id
-			LEFT JOIN {clients} c ON c.id=a.idclient
-			LEFT JOIN {clientplans} p ON p.id=c.idplan
-			WHERE {$field} = ?",
-			array($user)
+		$this->_db->query("SELECT 
+			u.*, CONCAT(u.name,' ',u.lastname) fullname, 
+			a.idclient, 
+			c.idplan, c.added clientadded, c.name client_name, c.permalink client_permalink,
+			p.fee, p.name planname, p.promos cantpromos 
+		FROM {users} u
+		LEFT JOIN {assoc_client_user} a ON a.iduser=u.id
+		LEFT JOIN {clients} c ON c.id=a.idclient
+		LEFT JOIN {clientplans} p ON p.id=c.idplan
+		WHERE {$field} = ?",
+		[$user]
 		);
 
 		if(!$this->_db->count()) return false;
 
 		$this->_data = $this->_db->first();
+		$img = is_null($this->_data->image) ? null : json_decode($this->_data->image);
+		
+		$this->_data->image_url_big = View::img('users',is_null($img) ? 'user-default.png' : $img->photoname.'-o.'.$img->extension);
+		$this->_data->image_url_small = View::img('users',is_null($img) ? 'user-default.png' : $img->photoname.'-t.'.$img->extension);
+
 		return true;
 	}
 

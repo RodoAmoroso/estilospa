@@ -189,16 +189,16 @@
 .onoffswitch
 	position relative
 	user-select none
-	width 54px
+	width 48px
 	.onoffswitch-checkbox
 		display none
 	.onoffswitch-checkbox:checked +
 		.onoffswitch-label
 			border 2px solid $green_2
 			.onoffswitch-inner
-				margin-left 0
+				transform translateX(-8px)
 			.onoffswitch-switch
-				right 1px
+				right 0
 	.onoffswitch-label
 		overflow hidden
 		cursor pointer
@@ -207,34 +207,32 @@
 		width 100%
 		position relative
 		.onoffswitch-inner
-			margin-left 0
 			display block
 			width 200%
 			height 20px
-			margin-left -100%
-			//text-align center
-			transition margin .3s $cubic
+			transition all .3s $cubic
+			transform translateX(-35px)
+
 			&:before
 				background-color $green_2
-				border-radius 0
 				content 'SI'
 				color white
 			&:after
 				background-color gray(20)
 				color gray(60)
 				content 'NO'
-				text-align right
 			&:before,&:after
 				box-sizing border-box
-				display block
+				display flex 
+				justify-content center
+				align-items center
 				float left
-				font-family 'Ubuntu', sans-serif
 				font-style normal
-				font-size 1.2rem
+				font-size 9pt
 				font-weight bold
 				height 20px
-				line-height 1.15rem
-				padding 4px 6px 0 12px
+				line-height 1
+				padding 0
 				width 50%
 		.onoffswitch-switch
 			background-color white
@@ -243,7 +241,7 @@
 			display block
 			margin 0
 			position absolute
-			right 29px
+			right 24px
 			top 0
 			transition all .3s $cubic
 			width 20px
@@ -321,3 +319,9 @@ hr.hr-dashed
 [data-swal]
 	cursor pointer
 	color $cyan_2
+
+
+.small-comment
+	font-size 9pt 
+	font-style italic
+	color gray(60)

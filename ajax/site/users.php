@@ -89,6 +89,42 @@ switch($_action):
 
 		echo Responses::response('ok','La contraseña se ha actualizado con éxito. Ahora podés ingresar con tu email y contraseña <a href="'.View::url('login').'" >haciendo click aquí</a>');
 		break;
+
+	case 'google_login':
+		// Handle Google OAuth login via AJAX (for future use)
+		$googleId = Input::get('google_id');
+		$email = Input::get('email');
+		
+		if (!$googleId || !$email) {
+			die(Responses::response('fail', 'Datos de Google incompletos'));
+		}
+		
+		// Check if user exists by Google ID
+		if ($User->findByGoogleId($googleId)) {
+			// User exists, log them in
+			if ($User->isActive($User->data()->mail)) {
+				$User->loginWithGoogle($User->data()->mail);
+				echo Responses::response('ok');
+			} else {
+				// Activate inactive user
+				$User->update($User->data()->id, ['active' => 1]);
+				$User->loginWithGoogle($User->data()->mail);
+				echo Responses::response('ok');
+			}
+		} else {
+			// Check if user exists by email
+			if ($User->find($email)) {
+				// User exists but not linked to Google, link them
+				$User->update($User->data()->id, ['google_id' => $googleId]);
+				$User->loginWithGoogle($email);
+				echo Responses::response('ok');
+			} else {
+				// User doesn't exist, redirect to OAuth callback for registration
+				echo Responses::response('redirect', 'oauth2callback.php');
+			}
+		}
+		break;
+
 	case 'resend':
 		$email = Input::get('email');
 

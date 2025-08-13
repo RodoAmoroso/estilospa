@@ -34,9 +34,15 @@
 
 
 					</div>
-					<div class="col-xs-12 col-sm-6 dp-none">
-						<button class="btn btn-primary btn-sm btn-facebook"><i class="fa fa-facebook"></i> Ingresar con Facebook</button>
-						<button class="btn btn-primary btn-sm btn-twitter"><i class="fa fa-twitter"></i> Ingresar con Twitter</button>
+					<div class="col-xs-12 col-sm-6">
+						<div class="text-center">
+							<p class="text-muted mb-3">O ingresa con</p>
+							<a href="https://accounts.google.com/o/oauth2/auth?client_id=995346835833.apps.googleusercontent.com&redirect_uri=<?= urlencode(ROOT.'oauth2callback.php') ?>&scope=email%20profile&response_type=code" 
+							   class="btn btn-outline-secondary btn-lg btn-block google-login-btn mb-2">
+								<i class="fab fa-google"></i> Continuar con Google
+							</a>
+							
+						</div>
 					</div>
 
 				</div>

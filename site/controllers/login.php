@@ -8,3 +8,6 @@ if(!empty($_subsection)){
 	$arrsection = explode('-',$_subsection);
 }
 
+// Add Google OAuth JavaScript
+$_arrjs[] = ['folder'=>'site/','script'=>'google-oauth'];
+

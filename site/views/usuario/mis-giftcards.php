@@ -58,7 +58,7 @@
 						</td>
 						<td class="align-middle text-end">
 							<button class="btn btn-aqua-5 btn-sm">
-								<i class="fal fa-right-left fa-fw"></i>
+								<i class="fal fa-face-smile-relaxed fa-fw"></i>
 								<span>Para Mi</span>
 							</button>
 

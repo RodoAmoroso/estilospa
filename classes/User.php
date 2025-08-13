@@ -219,4 +219,58 @@ class User {
 		return $this->_lastid;
 	}
 
+	/**
+	 * Login user via Google OAuth (without password verification)
+	 */
+	public function loginWithGoogle($email) {
+		if ($this->find($email)) {
+			$hash = hash('sha256', uniqid());
+			$hashCheck = $this->_db->get('sessions', array('iduser', '=', $this->data()->id));
+			if (!$hashCheck->count()) {
+				$this->_db->insert('sessions', array(
+					'iduser' => $this->data()->id,
+					'hash' => $hash
+				));
+			} else {
+				$hash = $hashCheck->first()->hash;
+				$this->_db->update('sessions', $hashCheck->first()->id, array(
+					'hash' => $hash
+				));
+			}
+			Session::put($this->_sessionName, $hash);
+			Cookie::put($this->_cookieName, $hash);
+			$this->_logged = true;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Find user by Google ID
+	 */
+	public function findByGoogleId($googleId) {
+		$this->_db->query("SELECT 
+			u.*, CONCAT(u.name,' ',u.lastname) fullname, 
+			a.idclient, 
+			c.idplan, c.added clientadded, c.name client_name, c.permalink client_permalink,
+			p.fee, p.name planname, p.promos cantpromos 
+		FROM {users} u
+		LEFT JOIN {assoc_client_user} a ON a.iduser=u.id
+		LEFT JOIN {clients} c ON c.id=a.idclient
+		LEFT JOIN {clientplans} p ON p.id=c.idplan
+		WHERE u.google_id = ?",
+		[$googleId]
+		);
+
+		if (!$this->_db->count()) return false;
+
+		$this->_data = $this->_db->first();
+		$img = is_null($this->_data->image) ? null : json_decode($this->_data->image);
+		
+		$this->_data->image_url_big = View::img('users', is_null($img) ? 'user-default.png' : $img->photoname.'-o.'.$img->extension);
+		$this->_data->image_url_small = View::img('users', is_null($img) ? 'user-default.png' : $img->photoname.'-t.'.$img->extension);
+
+		return true;
+	}
+
 }

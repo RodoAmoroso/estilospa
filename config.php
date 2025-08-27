@@ -42,7 +42,7 @@ $GLOBALS['config'] = array(
 		'salt'=>'We are the colors of the prism, shining light into the darkness'
 	),
 	'paths'=>array(
-		'root'=>'',
+		'root'=>'estilospa',
 		'admin'=>'admin',
 		'site'=>'site',
 		'panel'=>'panel',

@@ -43,10 +43,10 @@ $(document).ready(function() {
     // Add hover effects for better UX
     $('.google-login-btn').hover(
         function() {
-            $(this).find('i.fab.fa-google').css('color', '#4285f4');
+            $(this).find('.google-icon').css('transform', 'scale(1.1)');
         },
         function() {
-            $(this).find('i.fab.fa-google').css('color', '');
+            $(this).find('.google-icon').css('transform', 'scale(1)');
         }
     );
     

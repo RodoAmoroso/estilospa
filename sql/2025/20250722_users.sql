@@ -4,3 +4,9 @@ ALTER TABLE `spa_users` CHANGE `birth` `birth` DATE NULL DEFAULT NULL, CHANGE `l
 UPDATE spa_users 
 SET image=NULL
 WHERE image='';
+
+
+ALTER TABLE `spa_users` CHANGE `lastname` `lastname` VARCHAR(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `spa_sessions` ADD FOREIGN KEY (`iduser`) REFERENCES `spa_users`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT;

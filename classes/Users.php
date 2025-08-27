@@ -15,13 +15,18 @@ class Users extends Core{
 				'active'=>"u.active=?",
 				'exclude'=>"u.id!=?",
 				'type'=>"u.idtype=?",
-				'has_questions'=>"(SELECT COUNT(q.id) FROM {questions} q WHERE q.userid=u.id AND q.type='promos') > 0",
+				'has_questions'=>"(
+					SELECT COUNT(q.id) 
+					FROM {questions} q 
+					WHERE q.userid=u.id AND q.type='promos'
+				) > 0",
 				'has_questions_client'=>"(
 						SELECT COUNT(q.id)
 						FROM {questions} q
 						LEFT JOIN {promos} p ON p.id=q.rowid
 						WHERE q.userid=u.id AND q.type='promos' AND p.idclient=?
 					) > 0",
+				'google_id'=>"u.google_id=?"
 			],
 			'search'=>[
 				'u.name','u.lastname','u.mail'

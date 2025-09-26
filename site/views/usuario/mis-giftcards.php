@@ -22,7 +22,7 @@
 
 		<hr>
 		
-		<h4>Mis GiftCards</h4>
+		<h4>GiftCards Comprados</h4>
 		
 		<div class="table-responsive">
 			<table class="table table-sm small table-bordered">
@@ -45,10 +45,26 @@
 							<!-- <div class="border rounded thumb-cover">
 								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
 							</div> -->
+							
 						</td>
 						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Para Mi</td>
+						<td class="align-middle">
+							<span class="badge text-bg-danger">sin activar</span>
+						</td>
+						<td class="align-middle">						
+
+							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
+								<i class="fal fa-gift fa-fw"></i>
+								<span>Para Regalar</span>
+							</a>
+
+							<button class="btn btn-aqua-5 btn-sm">
+								<i class="fal fa-face-smile-relaxed fa-fw"></i>
+								<span>Para Mi</span>
+							</button>
+
+							
+						</td>
 						<td class="align-middle">--</td>
 						<td class="align-middle">
 							<span class="badge text-bg-warning">sin canjear</span>
@@ -56,25 +72,17 @@
 						<td class="align-middle">
 							<div>$ 100.000</div>
 						</td>
-						<td class="align-middle text-end">
-							<button class="btn btn-aqua-5 btn-sm">
-								<i class="fal fa-face-smile-relaxed fa-fw"></i>
-								<span>Para Mi</span>
-							</button>
-
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
-								<i class="fal fa-gift fa-fw"></i>
-								<span>Para Regalar</span>
-							</a>
+						<td class="align-middle text-end">							
 
 							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
 								<i class="fal fa-memo-circle-info fa-fw"></i>
 								<span>Ver Detalles</span>
 							</a>
+							
 						</td>
 					</tr>
 
-					<tr>
+					<tr class="d-nonew"></tr>
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -101,7 +109,7 @@
 						</td>
 					</tr>
 
-					<tr>
+					<tr class="d-nonew">
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -129,7 +137,7 @@
 					</tr>
 
 
-					<tr>
+					<tr class="d-nonew">
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -157,7 +165,7 @@
 					</tr>
 
 
-					<tr>
+					<tr class="d-nonew">
 						<td class="align-middle" >
 							<div class="title">Otra</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -191,7 +199,7 @@
 
 
 
-					<tr class="alert-warning">
+					<tr class="alert-warning d-nonew">
 						<td class="align-middle" >
 							<div class="title">Otra</div>
 							<!-- <div class="border rounded thumb-cover">

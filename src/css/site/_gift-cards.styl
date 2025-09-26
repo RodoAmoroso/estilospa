@@ -162,3 +162,52 @@
 		padding 1rem
 	.title 
 		font-size 12pt
+
+.giftcards-bakground-gallery
+	.owl-stage-outer
+		padding-bottom 16px
+	.thumbnail
+		border 2px solid gray(10)
+		border-radius 10pt 
+		background-color white
+		background-size cover
+		background-position center
+		cursor pointer
+		&:hover 
+			opacity .65
+	.thumbnail.selected
+		border-color $fucsia_4
+		position relative
+		&:after 
+			content ''
+			border-top 8px solid transparent
+			border-right 8px solid transparent
+			border-bottom 8px solid $fucsia_4
+			border-left 8px solid transparent
+			left calc(50% - 8px)
+			height 16px
+			width 16px
+			position absolute 
+			bottom -8px
+
+
+.giftcard-code-input
+	display flex
+	justify-content space-between
+	input
+		border 1px solid $aqua_1
+		border-radius 6pt
+		font-size 18pt 
+		text-align center
+		height 60px
+		width 11%
+		max-width 60px
+		color $aqua_3
+		margin 1rem 0 1rem 0
+		text-transform uppercase
+		&:focus,
+		&:active
+			border-color $aqua_4
+			outline none
+		&:hover 
+			border-color $aqua_4

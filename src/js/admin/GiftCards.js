@@ -49,8 +49,6 @@ class GiftCards extends Tables{
 		//this.form.find('[data-table="faqs"] tbody').html('')
 	}
 
-
-
 	init(){
 		console.log('giftcards')
 

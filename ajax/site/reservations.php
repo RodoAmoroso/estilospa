@@ -66,7 +66,6 @@ switch($_action){
 	case 'get_hours':
 
 		$Stores->get(Input::get('idclient'));
-		//$Stores->get(112);
 		if(!$Stores->data()) die(Responses::response('ok','',['hours'=>false]));
 
 		$schedules = json_decode($Stores->data()[0]->schedules);

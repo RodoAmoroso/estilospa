@@ -70,6 +70,8 @@
 		var TOKEN = '<?= TOKEN ?>';
 	</script>
 
+	<?php if(ENV=='production'): ?>
+
 	<!-- Google Analytics -->
 	<script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -110,6 +112,8 @@
 
 
 	<meta name="google-site-verification" content="hHQNIXKcIha1J4C82llTavEIvXLE2DC2mINd-LL0vzc" />
+
+	<?php endif; ?>
 
 
 </head>

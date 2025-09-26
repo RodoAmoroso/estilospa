@@ -6,7 +6,7 @@ class Reservations {
 	}
 
 
-	get_hours(){
+	async get_hours(){
 
 		$(this.container).find('.schedule .hours').html('');
 
@@ -15,73 +15,72 @@ class Reservations {
 		let month = $(this.container).find('[data-month]').attr('data-month');
 		let year = $(this.container).find('[data-year]').attr('data-year');
 
-		Promise.all([
+		const promises = await Promise.all([
 			ajax('site/reservations/get_hours',{
 				idclient:this.idclient,
 				activeday:activeday,
-				date:year+'-'+month+'-'+day
+				date:`${year}-${month}-${day}`
 			}),
 			get_template('reservations/module-hour')
 		])
-			.then(promises=>{
+		
+		
+		let data = promises[0];
 
-				let data = promises[0];
+		if(data.hours.length == 0) return false;
 
-				if(data.hours.length == 0) return false;
+		let min = '09:00';
+		let max = '21:00';
+		$.each(data.hours,(kk,vv)=>{
+			if(kk==0){
+				min = vv[0];
+			}
+			if(kk==data.hours.length-1){
+				max = vv[1];
+			}
+		});
 
-				let min = '09:00';
-				let max = '21:00';
-				$.each(data.hours,(kk,vv)=>{
-					if(kk==0){
-						min = vv[0];
-					}
-					if(kk==data.hours.length-1){
-						max = vv[1];
-					}
-				});
+		let hourminmin = min.split(':');
+		let hourminmax = max.split(':');
 
-				let hourminmin = min.split(':');
-				let hourminmax = max.split(':');
+		for(let i=parseInt(hourminmin[0]); i<=parseInt(hourminmax[0]); i++){
 
-				for(let i=parseInt(hourminmin[0]); i<=parseInt(hourminmax[0]); i++){
+			let $template = $(promises[1]);
+			$template.attr('data-hour',i+':00').find('.number').text(i+':00 hs.');
+			$(this.container).find('.schedule .hours').append($template);
 
-					let $template = $(promises[1]);
-					$template.attr('data-hour',i+':00').find('.number').text(i+':00 hs.');
-					$(this.container).find('.schedule .hours').append($template);
+			if(i<parseInt(hourminmax[0])){
+				$template = $(promises[1]);
+				$template.attr('data-hour',i+':30').find('.number').text(i+':30 hs.');
+				$(this.container).find('.schedule .hours').append($template);
+			}
 
-					if(i<parseInt(hourminmax[0])){
-						$template = $(promises[1]);
-						$template.attr('data-hour',i+':30').find('.number').text(i+':30 hs.');
-						$(this.container).find('.schedule .hours').append($template);
-					}
+		}
 
+		$.each(data.taken_days,(kk,vv)=>{
+			$(this.container).find('.schedule .hours .hour[data-hour="'+vv.hora+':'+(vv.minutos==0 ? '00' : vv.minutos)+'"]').addClass('disabled');
+		});
+
+		let today = new Date();
+
+		let selected_date = new Date(year,month-1,day);
+		let today_date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+
+		if(selected_date.getTime()==today_date.getTime()){
+			$.each($(this.container).find('.schedule .hours .hour'),function(kk,vv){
+				let time = $(this).attr('data-hour');
+				let arrtime = time.split(':');
+				if(parseInt(arrtime[0]) <= today.getHours()+3){
+					$(this).addClass('disabled');
 				}
-
-				$.each(data.taken_days,(kk,vv)=>{
-					$(this.container).find('.schedule .hours .hour[data-hour="'+vv.hora+':'+(vv.minutos==0 ? '00' : vv.minutos)+'"]').addClass('disabled');
-				});
-
-				let today = new Date();
-
-				let selected_date = new Date(year,month-1,day);
-				let today_date = new Date(today.getFullYear(),today.getMonth(),today.getDate());
-
-				if(selected_date.getTime()==today_date.getTime()){
-					$.each($(this.container).find('.schedule .hours .hour'),function(kk,vv){
-						let time = $(this).attr('data-hour');
-						let arrtime = time.split(':');
-						if(parseInt(arrtime[0]) <= today.getHours()+3){
-							$(this).addClass('disabled');
-						}
-					});
-				}
-				if(selected_date.getTime()<today_date.getTime()){
-					$(this.container).find('.schedule .hours .hour').addClass('disabled');
-				}
-
-
-
 			});
+		}
+		if(selected_date.getTime()<today_date.getTime()){
+			$(this.container).find('.schedule .hours .hour').addClass('disabled');
+		}
+
+
+
 	}
 
 
@@ -176,7 +175,7 @@ class Reservations {
 		});
 
 
-		this.get_hours();
+		this.get_hours()
 
 	}
 

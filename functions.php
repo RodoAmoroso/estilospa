@@ -615,3 +615,8 @@ function text_shortener($text='',$length=1){
 	if(strlen($text)<=$length) return $text;
 	return substr($text, 0, $length).'...';
 }
+function show_queries($queries=[]){
+	echo '<div class="system-queries"><pre>';
+	print_r($queries);
+	echo '</pre></div>';
+}

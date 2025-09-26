@@ -50,7 +50,7 @@
 
 
 			<div>
-				<a href="#" class="btn btn-primary btn-sm px-2">
+				<a href="<?= View::url('abrir-regalo') ?>" class="btn btn-primary btn-sm px-2">
 					<i class="fal fa-gift fa-fw"></i>
 					Abrí Tu Regalo
 				</a>				

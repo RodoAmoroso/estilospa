@@ -43,7 +43,10 @@ class GiftCards extends Core{
 		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
 		//dd($data);
 		foreach($data as $k=>$row){
+			
 			$row->value_formatted = '$ '.number_format($row->value,0,',','.');
+			$row->value_novat_formatted = '$ '.number_format($row->value/1.21,0,',','.');
+
 			$row->permalink = ROOT.'giftcard/'.$row->id.'-'.Permalink($row->title);
 		}
 		return $data;

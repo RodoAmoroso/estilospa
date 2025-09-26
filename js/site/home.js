@@ -5,7 +5,7 @@ $(function(){
 	var owlSlider = $('.home-slider .sliders');
 
 
-	owlClients.owlCarousel({
+	/* owlClients.owlCarousel({
 		autoplay:true,
 		loop:true,
 		dots:true,
@@ -17,9 +17,9 @@ $(function(){
 			991:{items:5}
 		},
 		margin:16
-	});
+	}); */
 
-	owlBlog.owlCarousel({
+	/* owlBlog.owlCarousel({
 		autoplay:false,
 		loop:true,
 		dots:true,
@@ -30,7 +30,7 @@ $(function(){
 			600:{items:3},
 			960:{items:4}
 		},
-	});
+	}); */
 
 	owlSlider.owlCarousel({
 		autoplay:false,

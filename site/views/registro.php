@@ -34,7 +34,7 @@
 						</div>
 	
 						<div class="col-md-12 mb-3">
-							<button class="btn btn-fucsia" data-loading-text="Enviando..."  >
+							<button class="btn btn-aqua-3" data-loading-text="Enviando..."  >
 								Registrarse <i class="fal fa-angle-double-right"></i>
 							</button>
 						</div>

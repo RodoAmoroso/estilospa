@@ -1,49 +1,3 @@
-<?php if($_section!='hotsale'): ?>
-<!-- NEWSLETTER -->
-<section class="newsletter">
-	<!-- <div class="overprint-absolute" style="background-image:url(<?= ROOT ?>assets/bg-1.jpg)" ></div> -->
-	<!-- <div class="bg-gradient overprint-absolute op-80"></div> -->
-
-	<div class="container">
-
-		<h2>¡Subscribite y obtené importantes descuentos para tus compras!</h2>
-		<p class="sz-14">Recibí nuestras promociones exclusivas y enterate de todas las novedades del mundo del cuidado personal.</p>
-
-		<form id="form_newsletter">
-			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<div class="input-group">
-						<span class="input-group-text bg-aqua-3 cl-white"><i class="fa fa-at"></i></span>
-						<input name="email" type="email" class="form-control" placeholder="Email..." required>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-6">
-					<button class="btn btn-default btn-block"><i class="fa fa-paper-plane fa-fw"></i> SUBSCRIBIRME</button>
-				</div>
-			</div>
-			<div class="status"></div>
-		</form>
-
-	</div>
-</section>
-<?php endif; ?>
-
-<!-- INDICE -->
-<section class="gral-section dp-none">
-	<div class="container">
-		<h3>Últimos Centros</h3>
-		<div class="row">
-
-			<?php if($Clients->get('','','0,12','',0,1)): foreach ($Clients->data() as $client): ?>
-			<div class="col col-xs-12 col-sm-2">
-				<a href="<?= ROOT.'centros/'.$client->permalink ?>" class="dp-block"><?= $client->name ?></a>
-			</div>
-			<?php endforeach; endif; ?>
-
-		</div>
-	</div>
-</section>
-
 
 <!-- GLOSARIO -->
 <section class="glossary-list">
@@ -77,38 +31,49 @@
 </section>
 
 
-<!-- MEDIOS DE PAGO -->
-<section class="payment">
-	<div class="container">
-		<h3>Medios de Pago</h3>
-		<div class="cards">
-			<img src="<?= ROOT ?>assets/visa@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/mastercard@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/amex@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/banelco@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/cabal@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/tarjeta-naranja@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/tarjeta-shopping@2x.png" alt="">
-			<img src="<?= ROOT ?>assets/mercadopago@2x.png" alt="">
-		</div>
-		<a href="http://qr.afip.gob.ar/?qr=Hii2ReLLuZMJV76OkTZy1A,," target="_blank" class="afip">
-			<img src="<?= ROOT ?>assets/dataweb.jpg" alt="">
-		</a>
-	</div>
-</section>
-
-
 
 <!-- FOOTER -->
 <footer class="cl-white">
 
-	<div class="overprint-absolute bg" style="background-image:url(<?= ROOT.'assets/bg-6.jpg?id='.rand(111,999) ?>)" ></div>
+	<div class="overprint-absolute bg" style="background-image:url(<?= View::assets('bg-6.jpg') ?>)" ></div>
+
+	<?php if($_section!='hotsale'): ?>
+	<div class="container mb-5 text-center">
+
+		<h4 class="text-light">¡Subscribite y obtené importantes descuentos para tus compras!</h4>
+		<h6 class="text-light">Recibí nuestras promociones exclusivas y enterate de todas las novedades del mundo del cuidado personal.</h6>
+
+		<form id="form_newsletter" class="mt-3">
+			<div class="row justify-content-center">
+				<div class="col-12 col-lg-6">
+					
+					<div class="input-group">						
+						<div class="form-floating">
+							<input name="email" id="email_newsletter" type="email" class="form-control" placeholder="Email" required>
+							<label for="email_newsletter">Email</label>
+						</div>
+						<button class="btn btn-aqua-2">
+							<i class="fa fa-paper-plane fa-fw"></i> Suscribirme
+						</button>
+					</div>
+
+				</div>				
+			</div>
+			<div class="status"></div>
+		</form>
+
+		<hr>
+
+	</div>
+	<?php endif; ?>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12 col-sm-4">
 
-				<img class="logo" src="<?= ROOT ?>assets/logo-white.png" alt="">
+				<a href="<?= ROOT ?>">
+					<img class="logo" src="<?= ROOT ?>assets/logo-white.png" alt="">
+				</a>
 
 				<div class="socials">
 					<a href="http://www.facebook.com/estilospa" target="_blank" class="icon">
@@ -143,12 +108,32 @@
 </footer>
 
 
+<div class="payment">
+	<div class="container">
+		<h6>Medios de Pago</h6>
+		<div class="cards">
+			<img src="<?= ROOT ?>assets/visa@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/mastercard@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/amex@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/banelco@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/cabal@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/tarjeta-naranja@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/tarjeta-shopping@2x.png" alt="">
+			<img src="<?= ROOT ?>assets/mercadopago@2x.png" alt="">
+		</div>		
+	</div>
+</div>
 
 <!-- COPYRIGHT -->
-<section class="copyright-footer">
+<section class="copyright-footer">	
+
 	<div class="container text-center">
-		<p class="sz-9" >&copy; 2006 - <?= date('Y').' '.TITLE ?>. Todos los derechos reservados.</p>
+		<p class="sz-9" >&copy; 2006 - <?= date('Y').' '.TITLE ?>.<br >Todos los derechos reservados.</p>
 	</div>
+
+	<a href="http://qr.afip.gob.ar/?qr=Hii2ReLLuZMJV76OkTZy1A,," target="_blank" class="afip">
+		<img src="<?= ROOT ?>assets/dataweb.jpg" alt="">
+	</a>
 </section>
 
 
@@ -205,3 +190,4 @@
 	</a>
 </div>
 <?php endif; ?>
+

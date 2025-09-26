@@ -11,7 +11,7 @@ class Tables extends CRUD{
 		this.datatable_options = {
 			pageLength:50,
 			language:{
-				url:`${ROOT}js/lib/dataTables/spanish.json`
+				url:`${ROOT}js/lib/datatables.spanish.json`
 			},
 			dom:'<"table-spacer-top"lf>t<"table-spacer-bottom"ip>',
 			serverSide:true,

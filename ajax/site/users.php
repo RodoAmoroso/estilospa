@@ -176,6 +176,18 @@ switch($_action):
 
 		echo Responses::response('ok','Los datos fueron guardados correctamente!');
 		break;
+		
+	case 'file-download':
+		if(!$User->logged()) die(Responses::response('restricted'));
+
+		$DB = DB::getInstance();
+
+		$DB->insert('file_downloads',[
+			'userid'=>$User->data()->id,
+			'type'=>Input::get('type','xss')
+		]);
+		echo Responses::response('ok');
+		break;
 
 	default:
 		///echo json_encode(array('status'=>'fail'));

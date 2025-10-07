@@ -7,7 +7,7 @@
 
 		<div class="mb-3">
 			<button data-toggle="new" class="btn btn-sm btn-success">
-				<i class="fal fa-plus"></i> Nuevo GiftCard
+				<i class="fal fa-plus fa-fw"></i> Nuevo GiftCard
 			</button>
 		</div>
 

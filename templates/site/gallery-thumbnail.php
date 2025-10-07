@@ -1,5 +1,7 @@
-<div class="thumbnail bg-black thumb-150x150 thumb-cover dp-ib" >
-	<div class="redbg">
-		<i class="delete fa fa-times cl-white" title="" data-original-title="Borrar"></i>
+<div class="thumbnail thumb-150x150 shadow-sm" >
+	<div class="hover">
+		<button data-toggle="delete" class="btn btn-danger btn-xs" type="button">
+			<i class="fa fa-trash"></i>
+		</button>	
 	</div>
 </div>

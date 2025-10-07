@@ -2,44 +2,38 @@
 <section class="gral-section">
 	<div class="container">
 
-		<div class="card shadow-lg border-0" style="border-radius: 15px; background: linear-gradient(135deg, #d4effb 0%, #b6d4f2 100%);display: none;">
+		<div class="card shadow-lg border-0" style="border-radius: 15px; background: linear-gradient(135deg,#E1D6C4 0%,#AA9568 100%);margin-bottom:2rem">
 			<div class="card-body text-center" style="padding:3rem">
 				<div class="mb-4">
 					<i class="fa fa-heart text-fucsia-4" style="font-size: 3rem;"></i>
 				</div>
 
-				<h3 class="card-title fw-bold text-dark mb-3">
-					Ritual de Bienestar para Padres
-				</h3>
+				<h2 class="card-title fw-bold text-dark mb-3">
+					<b>Ritual de Bienestar para Madres</b>
+				</h2>
 
-				<p class="lead text-primary fw-semibold mb-3">
-					<strong>Ser papá es darlo todo, cada día.</strong>
+				<p class="lead text-fucsia-4 fw-semibold mb-3">
+					<strong>Ser mamá es darlo todo, cada día.</strong>
 				</p>
 
-				<p class="text-muted mb-3">
-					Sabemos que a veces necesitás frenar... y volver a respirar vos.
+				<p class="text-light mb-3">
+					Sabemos que a veces necesitás frenar... y volver a respirar vos. <br ><strong>Mini pausas simples pero poderosas</strong> para recargar energías y conectar con lo importante.
 				</p>
 
-				<p class="mb-4">
-					<strong>Mini pausas simples pero poderosas</strong> para recargar energías y conectar con lo importante.
-				</p>
+				<h4 class="mb-4" style="color:#47142C">
+					<b>Tarjetas imprimibles con rituales de bienestar pensados especialmente para madres.</b>	<br> <i>Porque cuando vos estás bien, todo a tu alrededor florece.</i>
+				</h4>
 
-				<div class="alert alert-light border-0 mb-4">
-					<small class="text-muted">
-						Tarjetas imprimibles con rituales de bienestar pensados especialmente para padres.
-					</small>
-				</div>
+				<br>
 
-				<a href="<?= View::assets('ritual-papa.pdf') ?>" download class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold mb-3">
+				<a data-toggle="download-ritual" data-href="<?= View::assets('rituales-mama.pdf') ?>" class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold mb-3">
 					<i class="fa fa-download fa-fw"></i>
 					DESCARGÁ TU RITUAL GRATUITO
 				</a>
 
-				<p class="text-muted small mb-0">
-					<i>Porque cuando vos estás bien, todo a tu alrededor florece.</i>
-				</p>
+			
 			</div>
-		</div>
+		</div>		
 
 
 

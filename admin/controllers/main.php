@@ -28,7 +28,7 @@ $arrAdminMenu = [
 	[
 		'name'=>'GiftCards',
 		'permalink'=>'giftcards',
-		'active-links'=>['giftcards','giftcards-gallery','giftcards-uso'],
+		'active-links'=>['giftcards','giftcards-galeria','giftcards-uso'],
 		'submenu'=>[
 			[
 				'name'=>'Listado',
@@ -36,7 +36,7 @@ $arrAdminMenu = [
 			],
 			[
 				'name'=>'Galería',
-				'permalink'=>'giftcards-gallery'
+				'permalink'=>'giftcards-galeria'
 			],
 			[
 				'name'=>'Uso',

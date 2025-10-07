@@ -21,7 +21,7 @@
 		</div>		
 
 		<hr>
-		
+		<code><?= generate_code() ?></code>
 		<h4>GiftCards Comprados</h4>
 		
 		<div class="table-responsive">

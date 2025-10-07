@@ -1,0 +1,2 @@
+"use strict";class GiftCardsGallery{constructor(){this.init()}init(){console.log("giftcards.gallery");new UpFile({container:'[data-input="gallery"]',folder:"giftcards",controller:"admin/upload/medium",callback:l=>{console.log(l)}})}}new GiftCardsGallery;
+//# sourceMappingURL=giftcards-galeria.js.map

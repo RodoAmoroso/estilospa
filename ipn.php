@@ -1,7 +1,7 @@
 <?php
 require_once 'config.php';
 //require_once 'mercadopago/mercadopago.php';
-require_once 'vendor/autoload.php';
+//require_once 'vendor/autoload.php';
 ///require 'ajax/templates-mail.php';
 ///require 'ajax/phpmailer/PHPMailerAutoload.php';
 ///error_reporting(1);

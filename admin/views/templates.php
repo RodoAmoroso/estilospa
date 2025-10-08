@@ -118,6 +118,8 @@
 						</ul>
 					</div>
 
+					<div class="small text-muted fst-italic" data-content="modified" ></div>
+
 				</div>
 			</div>
 

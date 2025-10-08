@@ -55,7 +55,7 @@ else:
 				<p>Una vez que llegues a la pantalla de vinculación, sólo tenés que darle permiso a Mercado Pago para que se vincule con la cuenta de EstiloSpa.</p>
 				<p>&nbsp;</p>
 
-				<a href="https://auth.mercadopago.com.ar/authorization?client_id=<?=$MPConfig->app_id?>&response_type=code&platform_id=mp&state=<?= hash('sha256',date('YmdHis')) ?>&redirect_uri=<?=$MPConfig->redirect_uri?>" class="btn btn-success btn-lg"><i class="fa fa-handshake-o"></i> VINCULAR CUENTA</a>
+				<a href="https://auth.mercadopago.com.ar/authorization?client_id=<?=$MPConfig->get_app_id()?>&response_type=code&platform_id=mp&state=<?= hash('sha256',date('YmdHis')) ?>&redirect_uri=<?=$MPConfig->redirect_uri?>" class="btn btn-success btn-lg"><i class="fa fa-handshake-o"></i> VINCULAR CUENTA</a>
 
 			</div>
 		</div>

@@ -1,11 +1,11 @@
 <?php
 
-class GiftCards extends Core{
+class GiftCardsGallery extends Core{
 
-	protected 	$table='giftcards',
+	protected 	$table='giftcards_gallery',
 							$sizes=['small'=>'-t','big'=>'-n'],
 							$folder='giftcards',
-							$alias='gc';
+							$alias='gg';
 
 	private 		$_filters;
 
@@ -16,21 +16,13 @@ class GiftCards extends Core{
 			'filters'=>[
 				'id'=>"{$this->alias}.id=?",
 				'exclude'=>"{$this->alias}.id!=?",
-				'ids'=>"{$this->alias}.id IN ($)",
-				'visible'=>"{$this->alias}.visible=?"
+				'ids'=>"{$this->alias}.id IN ($)"
 			],
 			'search'=>[
-				"{$this->alias}.description",
+				"{$this->alias}.name",
 				"{$this->alias}.title"
 			],
 			'sort'=>[
-
-				'title_asc'=>"{$this->alias}.title ASC",
-				'title_desc'=>"{$this->alias}.title DESC",
-
-				'added_asc'=>"{$this->alias}.added ASC",
-				'added_desc'=>"{$this->alias}.added DESC",
-
 				'default'=>"{$this->alias}.position ASC"
 			]
 		]);
@@ -41,15 +33,6 @@ class GiftCards extends Core{
 	public function get(){
 		$query = $this->set_query("{$this->alias}.*");
 		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
-		//dd($data);
-		foreach($data as $k=>$row){
-			
-			$row->value_formatted = '$ '.number_format($row->value,0,',','.');
-			$row->value_novat_formatted = '$ '.number_format($row->value/1.21,0,',','.');
-
-			$row->permalink = ROOT.'giftcard/'.$row->id.'-'.Permalink($row->title);
-			$row->permalink_payment = ROOT.'giftcard-compra/'.$row->id.'-'.Permalink($row->title);
-		}
 		return $data;
 	}
 	public function get_total(){
@@ -75,17 +58,32 @@ class GiftCards extends Core{
 	}
 
 	public function save(){
-		$values = [
-			'title'=>Input::get('title'),
-			'description'=>Input::get('description'),
-			'image'=>Input::get('image','json|nullable'),
-			'value'=>Input::get('value','float'),
-			'expiration'=>Input::get('expiration','int'),
-			'visible'=>Input::get('visible')
-		];
-		if(!parent::core_save(Input::get('id'),$values)) return false;
-		$id = parent::core_lastid();
-		return $id;
+
+    
+    if(!is_array(Input::get('images'))) return false;
+
+    $gallery = [];
+    $total = $this->get_total();
+    foreach(Input::get('images') as $image){
+
+      $total++;
+
+      $gallery[] = [
+        json_encode([
+          'f'=>$image['filename'],
+          'e'=>$image['extension']
+        ]),
+        $total,
+        date('Y-m-d H:i:s')
+      ];
+    }
+
+
+    $this->_db->insertmultiple($this->table,[
+      'image','position','added'
+    ],$gallery);
+		
+		return true;
 	}
 
 	public function delete($id=null){

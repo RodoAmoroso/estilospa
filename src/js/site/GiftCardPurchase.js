@@ -6,8 +6,8 @@ class GiftCardPurchase {
 
 	async create_preference(){
 
-		const response = await ajax('site/promos/get-mp-preference',{
-			promoid:this.promoid
+		const response = await ajax('site/giftcards/get-mp-preference',{
+			giftcardid:giftcardid
 		})
 		this.preference = response.preference
 		///return console.log(response)
@@ -18,16 +18,7 @@ class GiftCardPurchase {
 	init(){
 		console.log('giftcard.purchase')
 
-		$('[data-form="user-info"]').submit(form=>{
-			form.preventDefault()
-			const post = get_form(form.currentTarget)
-
-			console.log(post)
-
-			$('[data-toggle="user-info"]').addClass('d-none')
-			$('[data-toggle="payment"]').removeClass('d-none')
-		})
-
+		
 
 		$('[data-toggle="giftcard-carousel"]').owlCarousel({
 			margin:10,

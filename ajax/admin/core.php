@@ -18,7 +18,7 @@ switch($_action):
 		$Class->limit = '0,500';
 		$total = $Class->get_total();
 		$total = !$total ? 0 : $total;
-		$total_pages = page_maker($display_results,$total);
+		$total_pages = PageMaker($display_results,$total);
 
 		$page = empty(Input::get('page')) ? 1 : intval(Input::get('page'));
 		$Class->limit = (($page*$display_results)-$display_results).','.$display_results;

@@ -124,6 +124,15 @@
 	border 1px solid red !important
 .strikethrough
 	text-decoration line-through
+[readonly]
+	background-color gray(5)
+	&:focus
+		background-color gray(5)
+button[disabled]
+	background-color gray(40) !important
+	border none
+	color gray(10) !important
+	cursor no-allowed
 
 .fa-toggle-on
 	color $green_3
@@ -133,6 +142,9 @@
 
 .gral-section
 	padding 4rem 0
+
+	@media screen and (max-width 991px)
+		padding 1rem
 
 .gral-section-min
 	padding-top 40px

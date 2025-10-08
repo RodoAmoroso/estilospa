@@ -2,3 +2,5 @@
 /test/
 /img/
 .env
+prepros-6.config
+prepros.config

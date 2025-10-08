@@ -208,6 +208,8 @@ sales = {
 
 					mod.find('[data-tag="ipn"]').attr('href',ADMIN+'detalles-compra/'+v.collection_id);
 
+					mod.find('[data-content="modified"]').html(`Última actualización: ${v.modified==null ? '[nunca]' : v.modified}`)
+
 					///////////////////////////////////////////////////
 					$('#sales').append(mod);
 				});

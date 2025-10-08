@@ -1,7 +1,8 @@
 <?php
 
-$Promos = new Promos;
 $User = new User;
+$_userdata = $User->data();
+$Promos = new Promos;
 $Sales = new Sales;
 $Mailing = new Mailing;
 
@@ -89,7 +90,7 @@ switch($_action){
 	case 'get-mp-preference':
 
 		if(!$User->logged()) die(Responses::response('restricted'));
-		if(!$preference = $MPConfig->create_preference()) die(Responses::response('fail'));
+		if(!$preference = $MPConfig->get_preference()) die(Responses::response('fail'));
 
 		echo Responses::response('ok','',[
 			'preference'=>$preference

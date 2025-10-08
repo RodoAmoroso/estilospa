@@ -323,7 +323,11 @@ class Sales {
 	}
 
 	public function setStatus(){
-		if($this->_db->update('sales',Input::get('ID'),array('status'=>Input::get('Status')))){
+		if($this->_db->update('sales',Input::get('ID'),[
+			'status'=>Input::get('Status'),
+			'modified'=>date('Y-m-d H:i:s')
+			])
+		){
 			return true;
 		}
 		return false;
@@ -423,6 +427,11 @@ class Sales {
 
 			/// Vouchers Generados
 			$this->_data[$key]->sales_vouchers = $this->get_vouchers($row->id);
+
+			if($row->modified) {
+				$modified_obj = new DateTime($row->modified);
+				$this->_data[$key]->modified = $modified_obj->format('d/m/Y H:i').' hs.';
+			}
 
 
 			$this->_data[$key]->discountvoucher = 0;

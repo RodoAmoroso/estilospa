@@ -19,7 +19,9 @@ switch($status):
 
 
 
-		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia"><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
+		<a href="<?= View::url('mis-compras') ?>" class="btn btn-fucsia">
+			<i class="fa fa-download fa-fw"></i> Descargar Voucher
+		</a>
 		<?php endif; endif;?>
 
 		<hr>

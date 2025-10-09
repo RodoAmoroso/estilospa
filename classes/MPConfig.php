@@ -65,8 +65,15 @@ class MPConfig extends Core{
 	public function get_app_id(){
 		return $this->app_id;
 	}
+	public function get_secret_key(){
+		return $this->secret_key;
+	}
 	public function get_public_key(){
 		return $this->public_key;
+	}
+	public function find_payment($id){
+
+		return MercadoPago\Payment::find_by_id($id);
 	}
 
 	public function find($idclient=0){
@@ -690,7 +697,28 @@ class MPConfig extends Core{
 	public function create_giftcard_payment(){
 
 		$preference = Input::get('preference');		
-		//dd($preference);
+		$GiftCardsPurchases = new GiftCardsPurchases;
+
+		$purchase_values = [
+			'id'=>null,
+			'giftcard_id'=>Input::get('preference')['items'][0]['id'],
+			'code'=>generate_code(),
+			'user_id'=>$this->userdata->id,
+			'price'=>Input::get('preference')['items'][0]['unit_price'],
+			'hash'=>Input::get('preference')['external_reference']			
+		];
+
+		if(Input::get('paymentType') == 'wallet_purchase' || Input::get('paymentType') == 'onboarding_credits'){
+
+			// create temp purchase
+			$purchase_values['payment_status'] = 'pending';
+			$purchase_id = $GiftCardsPurchases->save($purchase_values);
+
+			die(Responses::response('ok','',[
+				'url_thanks'=>ROOT.'pago-giftcard-status/pending/'.Input::get('preference')['external_reference']
+			]));
+			
+		}
 
 
 		MercadoPago\SDK::setIntegratorId("dev_28f49a44e7ed11eab4a00242ac130004");
@@ -744,6 +772,7 @@ class MPConfig extends Core{
 
 			return false;
 		}
+		
 
 		if($payment->error){
 			$this->response = '<h4>No pudimos procesar el pago. La página se recargará y podrás intentar nuevamente.</h4>';
@@ -756,7 +785,6 @@ class MPConfig extends Core{
 			]);
 		}
 
-		//dd($payment->toArray());
 
 		if(!$payment->status || ($payment->status!='approved' && $payment->status!='in_process')){
 			$this->response = '<h4>No pudimos procesar el pago. Recarga la página e intenta nuevamente.</h4>';
@@ -769,34 +797,32 @@ class MPConfig extends Core{
 			return false;
 		}
 
-		/// save
-		$GiftCardsPurchases = new GiftCardsPurchases;
-
+		/// Save Purchase
 		$fees = 0;
 		if($payment->fee_details){
 			foreach($payment->fee_details as $fee_detail){
 				$fees += $fee_detail->amount;
 			}
-		}
+		}	
 
-		$GiftCardsPurchases->save([
-			'id'=>null,
-			'giftcard_id'=>Input::get('preference')['items'][0]['id'],
-			'code'=>generate_code(),
-			'user_id'=>$this->userdata->id,
-			'price'=>Input::get('preference')['items'][0]['unit_price'],
-			'mp_payment_id'=>$payment->id,
-			'payment_status'=>$payment->status,
-			'hash'=>Input::get('preference')['external_reference'],
-			'mp_fee'=>$fees,
-			'payment_type'=>$payment->payment_type_id.': '.$payment->payment_method_id
-		]);
+		$purchase_values['payment_status'] = $payment->status;
+		$purchase_values['mp_payment_id'] = $payment->id;
+		$purchase_values['mp_fee'] = $fees;
+		$purchase_values['payment_type'] = $payment->payment_type_id.': '.$payment->payment_method_id;
+		
+		$purchase_id = $GiftCardsPurchases->save($purchase_values);
+		$purchase_values['id'] = $purchase_id;
 
+		// Send Email
+		$purchase = (object) $purchase_values;
+		$purchase->user = $this->userdata;
+		$Mailing = new Mailing;		
+		$Mailing->giftcard_purchase($purchase);
 
 
 		if($payment->status=='in_process'){
 
-			die(Responses::response('fail','',[
+			die(Responses::response('ok','',[
 				'url_thanks'=>ROOT.'pago-giftcard-status/pending/'.Input::get('preference')['external_reference']
 			]));
 

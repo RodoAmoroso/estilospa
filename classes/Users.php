@@ -12,6 +12,7 @@ class Users extends Core{
 		$this->_filters = parent::core_filters([
 			'filters'=>[
 				'id'=>"u.id=?",
+				'ids'=>"u.id IN ($)",
 				'active'=>"u.active=?",
 				'exclude'=>"u.id!=?",
 				'type'=>"u.idtype=?",

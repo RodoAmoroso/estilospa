@@ -1,0 +1,2 @@
+"use strict";$(()=>{$('[data-form="giftcard-code"]').submit(async t=>{t.preventDefault();const e=get_form(t.currentTarget);console.log(e)}),$('[data-form="giftcard-code"] input').on("keyup",t=>{const e=$(t.currentTarget).closest(".giftcard-code-input"),r=$(t.currentTarget).index();if(e.find("input").length-1==r)return!1;e.find(`input:eq(${r+1})`).focus()})});
+//# sourceMappingURL=abrir-regalo.js.map

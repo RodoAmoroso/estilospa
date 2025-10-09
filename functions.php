@@ -620,7 +620,7 @@ function show_queries($queries=[]){
 	print_r($queries);
 	echo '</pre></div>';
 }
-function generate_code($longitud = 10) {
+function generate_code($longitud=8) {
 	$caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 	$codigo = '';
 	for ($i = 0; $i < $longitud; $i++) {

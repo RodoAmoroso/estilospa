@@ -21,8 +21,10 @@
 		</div>		
 
 		<hr>
-		<code><?= generate_code() ?></code>
-		<h4>GiftCards Comprados</h4>
+
+		<h4>GiftCards Compradas</h4>
+
+		<?php if($giftcards_purchases): ?>
 		
 		<div class="table-responsive">
 			<table class="table table-sm small table-bordered">
@@ -39,19 +41,34 @@
 					</tr>
 				</thead>
 				<tbody>
+					<?php foreach($giftcards_purchases as $giftcard_purchase): ?>
 					<tr>
 						<td class="align-middle" >
-							<div class="title">Test</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-							
+							<?= $giftcard_purchase->giftcard ? $giftcard_purchase->giftcard->title : '[giftcard]' ?>
 						</td>
-						<td class="align-middle">00/00/0000</td>
+						<td class="align-middle"><?= $giftcard_purchase->added ?></td>
 						<td class="align-middle">
 							<span class="badge text-bg-danger">sin activar</span>
 						</td>
-						<td class="align-middle">						
+						<td class="align-middle">
+							????
+						</td>
+						<td class="align-middle">
+							<code><?= $giftcard_purchase->code ?></code>
+							<i data-toggle="copy-code" data-code="<?= $giftcard_purchase->code ?>" class="fal fa-copy fa-fw clickable text-danger" title="Copiar"></i>
+						</td>
+						<td class="align-middle">
+							<span class="badge text-bg-warning">sin canjear</span>
+						</td>
+						<td class="align-middle">
+							<?= $giftcard_purchase->value_formatted ?>
+						</td>
+						<td class="align-middle text-end">							
+
+							<!-- <a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
+								<i class="fal fa-memo-circle-info fa-fw"></i>
+								<span>Ver Detalles</span>
+							</a> -->
 
 							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
 								<i class="fal fa-gift fa-fw"></i>
@@ -62,27 +79,12 @@
 								<i class="fal fa-face-smile-relaxed fa-fw"></i>
 								<span>Para Mi</span>
 							</button>
-
-							
-						</td>
-						<td class="align-middle">--</td>
-						<td class="align-middle">
-							<span class="badge text-bg-warning">sin canjear</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000</div>
-						</td>
-						<td class="align-middle text-end">							
-
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
 							
 						</td>
 					</tr>
+					<?php endforeach; ?>
 
-					<tr class="d-nonew"></tr>
+					<tr class="d-none">
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -109,7 +111,7 @@
 						</td>
 					</tr>
 
-					<tr class="d-nonew">
+					<tr class="d-nonee">
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -136,8 +138,7 @@
 						</td>
 					</tr>
 
-
-					<tr class="d-nonew">
+					<tr class="d-none">
 						<td class="align-middle" >
 							<div class="title">Test</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -164,8 +165,7 @@
 						</td>
 					</tr>
 
-
-					<tr class="d-nonew">
+					<tr class="d-none">
 						<td class="align-middle" >
 							<div class="title">Otra</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -197,9 +197,7 @@
 						</td>
 					</tr>
 
-
-
-					<tr class="alert-warning d-nonew">
+					<tr class="d-none">
 						<td class="align-middle" >
 							<div class="title">Otra</div>
 							<!-- <div class="border rounded thumb-cover">
@@ -234,8 +232,12 @@
 				</tbody>
 			</table>
 		</div>
-
 		
+		<?php else: ?>
+
+		<h4>No tenés giftcards compradas :(</h4>	
+
+		<?php endif; ?>
 
 
 	</div>

@@ -49,6 +49,7 @@ class GiftCards extends Core{
 
 			$row->permalink = ROOT.'giftcard/'.$row->id.'-'.Permalink($row->title);
 			$row->permalink_payment = ROOT.'giftcard-compra/'.$row->id.'-'.Permalink($row->title);
+			
 		}
 		return $data;
 	}

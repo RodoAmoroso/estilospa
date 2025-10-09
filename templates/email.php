@@ -26,7 +26,7 @@
 					<td style="background-color:#215663;color:white;padding:20px;font-size:9pt;">
 						<h3><a href="<?=ROOT?>" style="color:white">EstiloSPA</a></h3>
 						<p>
-							<a href="http://www.facebook.com/estilospa" style="color:white">Facebook</a> | <a href="https://www.instagram.com/estilospa/" style="color:white">Instragram</a> | <a href="http://www.twitter.com/estilospa" style="color:white">Twitter</a>
+							<a href="http://www.facebook.com/estilospa" style="color:white">Facebook</a> | <a href="https://www.instagram.com/estilospa/" style="color:white">Instragram</a>
 						</p>
 						<small>© 2006 - <?=date('Y')?>. Spa. Estetica. Centros de Estética. Centros Integrales de Estética y Medicina, Tratamientos de Estetica. Estilo Spa. Todos los derechos reservados.</small>
 					</td>

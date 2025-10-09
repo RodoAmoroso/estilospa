@@ -60,12 +60,6 @@ class GiftCard {
 
 					//return console.log(cardFormData)
 
-
-					if(cardFormData.paymentType=='wallet_purchase' || cardFormData.paymentType=='onboarding_credits'){
-						//window.location.href = this.preference.promo.url
-						return false
-					}
-
 					cardFormData.preference = this.preference
 					cardFormData.giftcard_id = this.id
 
@@ -76,10 +70,16 @@ class GiftCard {
 						email:$('[data-form="user-info"] [name="email"]').val()
 					}
 
+					/* if(cardFormData.paymentType=='wallet_purchase' || cardFormData.paymentType=='onboarding_credits'){
+						//window.location.href = this.preference.promo.url
+						const response = await ajax('site/giftcards/')
+						return false
+					} */
 
-					ajax('site/giftcards/checkout-mp',cardFormData,true,false)
-						.then(response=>{
-							window.location.href = response.url_thanks
+					const response = await ajax('site/giftcards/checkout-mp',cardFormData,true,false)
+					window.location.href = response.url_thanks
+
+						/* .then(response=>{
 						})
 						.catch(async error=>{
 							const swal = await Swal.fire({
@@ -87,7 +87,7 @@ class GiftCard {
 								html:error.message
 							})
 							window.location.reload()
-						})
+						}) */
 					///return console.log(response)
 				},
 				onError: async error=>{

@@ -218,4 +218,7 @@ if($latest_sales){
 $Cron = new Cron;
 $Cron->add_log('daily');
 
+
+/// CLEAN giftcards_purchases pending (after 30 days)
+
 http_response_code(200);

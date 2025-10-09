@@ -1,1 +1,5 @@
 ALTER TABLE `spa_mp_errors` CHANGE `sale` `sale` LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NULL DEFAULT NULL;
+
+
+-- giftcards tables 
+-- mp_webhooks

@@ -637,10 +637,22 @@ class Mailing {
 		return true;
 	}
 
-
-
 	public function root(){
 		return $_SERVER['HTTP_HOST'];
+	}
+
+
+	public function giftcard_purchase($purchase){
+		if(!$purchase) return false;
+		$this->_mailer->addAddress(strtolower(trim($purchase->user->mail)), $purchase->user->name);
+		$this->_mailer->addBCC($this->_email, $this->_fullname);
+		//$this->_mailer->addBCC('rodosoft@hotmail.com', 'Rodo');
+		$this->_mailer->Subject = 'Detalles de compra de GiftCard en '.TITLE;
+
+		$body = Templates::template('sales/giftcard-purchase',$purchase);
+		if(!$this->send($body)) return false;
+
+		return true;
 	}
 
 

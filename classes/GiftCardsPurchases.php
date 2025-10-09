@@ -17,7 +17,11 @@ class GiftCardsPurchases extends Core{
 				'ids'=>"{$this->alias}.id IN ($)",
 				
         'user'=>"{$this->alias}.user_id=?",
-        'giftcard'=>"{$this->alias}.giftcard_id=?"
+        'giftcard'=>"{$this->alias}.giftcard_id=?",
+        
+				'payment_status'=>"{$this->alias}.payment_status=?",
+				'hash'=>"{$this->alias}.hash=?",
+				'code'=>"{$this->alias}.code=?",
 
 			],
 			'sort'=>[
@@ -27,10 +31,27 @@ class GiftCardsPurchases extends Core{
 
 	}
 
-
 	public function get(){
 		$query = $this->set_query("{$this->alias}.*");
 		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
+
+		$users_by_ids = parent::core_extract_ids((object) [
+			'data'=>$data,
+			'foreign_key'=>'user_id',
+			'class'=>'Users'
+		]);
+		$giftcards_by_ids = parent::core_extract_ids((object) [
+			'data'=>$data,
+			'foreign_key'=>'giftcard_id',
+			'class'=>'GiftCards'
+		]);
+
+		foreach($data as $k=>$row){
+			$row->user = $users_by_ids[$row->user_id] ?: false;
+			$row->giftcard = $giftcards_by_ids[$row->giftcard_id] ?: false;
+
+			$row->value_formatted = '$ '.number_format($row->price,0,',','.');
+		}
 		return $data;
 	}
 	public function get_total(){
@@ -51,6 +72,18 @@ class GiftCardsPurchases extends Core{
 	public function find($id=null){
 		if(!$id) return false;
 		$this->filters = ['id'=>$id];
+		if(!$data = $this->get()) return false;
+		return $data[0];
+	}
+	public function find_by_hash($hash=null){
+		if(!$hash) return false;
+		$this->filters = ['hash'=>$hash];
+		if(!$data = $this->get()) return false;
+		return $data[0];
+	}
+	public function find_by_code($code=null){
+		if(!$code) return false;
+		$this->filters = ['code'=>$code];
 		if(!$data = $this->get()) return false;
 		return $data[0];
 	}

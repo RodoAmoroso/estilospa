@@ -1,0 +1,2 @@
+"use strict";class GiftCardsPurchases{constructor(){this.init()}init(){console.log("giftcards.purchases"),$('[data-toggle="copy-code"]').click(async t=>{const a=$(t.currentTarget).attr("data-code");if(!("clipboard"in navigator))return toastr.error("No pudimos copiar el código: "+a),!1;await navigator.clipboard.writeText(a),toastr.success("Código copiado! "+a)})}}new GiftCardsPurchases;
+//# sourceMappingURL=mis-giftcards.js.map

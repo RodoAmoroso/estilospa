@@ -3,17 +3,25 @@
 
 		<ul class="site-menu">
 			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-mi" class="item-anchor">Para <span class="script">Mi</span></a>
+				<a href="#" data-toggle="submenu" data-target="para-mi" class="item-anchor">
+					Para <span class="script">Mi</span>
+				</a>
 			</li>
 			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-compartir" class="item-anchor">Para <span class="script">Compartir</span></a>
+				<a href="#" data-toggle="submenu" data-target="para-compartir" class="item-anchor">
+					Para <span class="script">Compartir</span>
+				</a>
 			</li>
 			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-regalar" class="item-anchor">Para <span class="script">Regalar</span></a>
+				<a href="#" data-toggle="submenu" data-target="para-regalar" class="item-anchor">
+					Para <span class="script">Regalar</span>
+				</a>
 			</li>
 
 			<li class="menu-item">
-				<a href="<?= View::url('giftcards') ?>" class="item-anchor"><span>Gift</span><span class="script">Cards</span></a>
+				<a href="<?= View::url('giftcards') ?>" class="item-anchor">
+					<span>Gift</span><span class="script">Cards</span>
+				</a>
 			</li>
 		</ul>
 		
@@ -299,7 +307,7 @@
 	</div>
 </div>
 
-<?php if($User->logged()): ?>					
+<?php if($User->logged() && $giftcard_user_balance): ?>					
 <div class="gift-balance-notification" >
 
 	<div class="icon">
@@ -308,9 +316,9 @@
 
 	<div class="content">
 		<div class="title">Tenés a tu favor</div>
-		<div class="price">$ 150.000,00</div>
+		<div class="price">$ <?= $giftcard_user_balance->total_formatted ?></div>
 	
-		<div class="expiration">Disponible hasta el 00/00/0000</div>
+		<div class="expiration">Disponible hasta el <?= $giftcard_user_balance->expiration ?></div>
 	</div>
 	
 	<div class="close-balance-notification" >

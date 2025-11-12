@@ -22,7 +22,7 @@ class MPConfig extends Core{
 					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
 					$app_id='389403748152273',
 					$secret_key='eAekX3P1Dr01F7BaHUMbRkbs3DpQ2SL7',
-					$notification_url='https://embarrassed-postman-25.webhook.cool';
+					$notification_url='https://green-pegasus-44.webhook.cool';
 
 					//Test Localhost RODO
 					/*$notification_url = 'https://bent-activity-19.webhook.cool',
@@ -46,7 +46,7 @@ class MPConfig extends Core{
 
 
 	public function __construct($access_token=false){
-		//$this->_dbprefix = Config::get('mysql/prefix');
+		//$this->_dbprefix = Env::get('DB_PREFIX');
 		//$this->_db = DB::getInstance();
 
 		///
@@ -834,9 +834,6 @@ class MPConfig extends Core{
 	public function get_response(){
 		return $this->response;
 	}
-
-
-
 
 }
 /*

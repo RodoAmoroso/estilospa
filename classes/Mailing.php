@@ -19,13 +19,13 @@ class Mailing {
 		$this->_mailer->SMTPDebug = false;
 		$this->_mailer->CharSet = 'UTF-8';
 		$this->_mailer->isSMTP();
-		$this->_mailer->Host = 'smtp.hostinger.com';
+		$this->_mailer->Host = Env::get('SMTP_HOST');
 		$this->_mailer->SMTPAuth = true;
-		$this->_mailer->Username = 'noresponder@estilospa.com';
-		$this->_mailer->Password = 'hOFSVeoUC7mu!';
-		$this->_mailer->SMTPSecure = 'ssl';
-		$this->_mailer->Port = 465;
-		$this->_mailer->setFrom('noresponder@estilospa.com',$this->_fullname);
+		$this->_mailer->Username = Env::get('SMTP_USERNAME');
+		$this->_mailer->Password = Env::get('SMTP_PASSWORD');
+		$this->_mailer->SMTPSecure = Env::get('SMTP_SECURE');
+		$this->_mailer->Port = Env::get('SMTP_PORT');
+		$this->_mailer->setFrom(Env::get('SMTP_USERNAME'),$this->_fullname);
 		$this->_mailer->addReplyTo('consultas@estilospa.com',$this->_fullname);
 		$this->_mailer->isHTML(true);
 

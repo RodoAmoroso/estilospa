@@ -26,7 +26,7 @@ class Core {
 
 	public function __construct(){
 		global $DB,$_userdata;
-		//$this->_dbpx = Config::get('mysql/prefix');
+		//$this->_dbpx = Env::get('DB_PREFIX');
 		//$this->_db = DB::getInstance();
 		$this->_db = $DB;
 		$this->userdata = $_userdata;

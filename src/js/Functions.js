@@ -70,7 +70,7 @@ let ajax = (url,obj={},loader=true,swalerror=true) => {
 			if(response.status!='ok'){
 				if(swalerror) Swal.fire({type:'error',html:response.message});
 				if(typeof response === 'object') response.ajax_url = url
-				console.log(response,url,obj);
+				//console.log(response,url,obj);
 				reject(response);
 			}
 			resolve(response);

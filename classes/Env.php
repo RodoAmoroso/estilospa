@@ -1,32 +1,23 @@
 <?php
-// classes/Environment.php
 
-class Environment {
+class Env {
 		
 	private static $loaded = false;
 	private static $env = [];
 	
-	/**
-	 * Cargar variables de entorno desde archivo .env
-	 */
 	public static function load($path = null) {
-		if (self::$loaded) {
-			return;
-		}
+		
+    if (self::$loaded)  return false;
 		
 		$envFile = $path ?: PATH . '.env';
 		
-		if (!file_exists($envFile)) {
-			return;
-		}
-		
+		if (!file_exists($envFile)) return false; 
+
 		$lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 		
 		foreach ($lines as $line) {
-				// Ignorar comentarios
-			if (strpos(trim($line), '#') === 0) {
-				continue;
-			}
+			// Ignorar comentarios
+			if (strpos(trim($line), '#') === 0) continue;
 			
 			// Parsear línea KEY=VALUE
 			if (strpos($line, '=') !== false) {
@@ -49,20 +40,16 @@ class Environment {
 		self::$loaded = true;
 	}
 	
-	/**
-	 * Obtener variable de entorno
-	 */
 	public static function get($key, $default = null) {
 		if (!self::$loaded) {
 			self::load();
 		}
+
+    if(!self::has($key)) return false;
 		
 		return self::$env[$key] ?? getenv($key) ?: $default;
 	}
 	
-	/**
-	 * Verificar si existe una variable de entorno
-	 */
 	public static function has($key) {
 		if (!self::$loaded) {
 			self::load();

@@ -8,7 +8,7 @@
 		<p>Tu GiftCard está lista para usar y lista para regalar.</p>
 		<hr>
 
-		<a href="<?= View::url('mis-giftcards') ?>" class="btn btn-aqua-3">
+		<a href="<?= View::url('usuario','mis-giftcards') ?>" class="btn btn-aqua-3">
 			<i class="fal fa-gift fa-fw"></i>
 			<span>Mis GiftCards</span>
 		</a>
@@ -20,7 +20,7 @@
 		<h3>Una vez confirmada, te estará llegando un email con los detalles de la compra.</h3>
 		<hr>
 
-		<a href="<?= View::url('mis-giftcards') ?>" class="btn btn-aqua-3">
+		<a href="<?= View::url('usuario','mis-giftcards') ?>" class="btn btn-aqua-3">
 			<i class="fal fa-gift fa-fw"></i>
 			<span>Mis GiftCards</span>
 		</a>
@@ -33,7 +33,7 @@
 		<h3>El proceso de compra ha sido cancelado. Intentalo más tarde.</h3>
 		<hr>
 
-		<a href="<?= View::url('giftcards') ?>" class="btn btn-aqua-3">
+		<a href="<?= View::url('usuario','giftcards') ?>" class="btn btn-aqua-3">
 			<i class="fal fa-gift fa-fw"></i>
 			<span>GiftCards</span>
 		</a>

@@ -33,7 +33,16 @@ class GiftCardsPurchases extends Core{
 
 	public function get(){
 		$query = $this->set_query("{$this->alias}.*");
-		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
+
+		$has_many = [
+			[
+				'class'=>'GiftCardsUsersAssignments',
+				'name'=>'assignment',
+				'foreign_key'=>'purchase_id',
+				'foreign_filter'=>'purchase_ids'
+			]
+		];
+		if(!$data = parent::core_get($query,$this->_filters->values,$has_many)) return false;
 
 		$users_by_ids = parent::core_extract_ids((object) [
 			'data'=>$data,
@@ -45,13 +54,24 @@ class GiftCardsPurchases extends Core{
 			'foreign_key'=>'giftcard_id',
 			'class'=>'GiftCards'
 		]);
+		
+		$GiftCardsUsersAssignments = new GiftCardsUsersAssignments;
+		$GiftCardsUsersAssignments->filters = [
+			'purchase_ids'=>implode(',',$this->ids())
+		];
+		//$gifcards_assignments = $GiftCardsUsersAssignments->get();
+		//$giftcards_assignments_by_purchase_id = array_column($gifcards_assignments,null,'purchase_id');
+		//dd($giftcards_assignments_by_purchase_id);
 
 		foreach($data as $k=>$row){
 			$row->user = $users_by_ids[$row->user_id] ?: false;
 			$row->giftcard = $giftcards_by_ids[$row->giftcard_id] ?: false;
 
+			if($row->assignment) $row->assignment = reset($row->assignment);
+
 			$row->value_formatted = '$ '.number_format($row->price,0,',','.');
 		}
+		//dd($data);
 		return $data;
 	}
 	public function get_total(){

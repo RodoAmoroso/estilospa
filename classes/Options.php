@@ -9,7 +9,7 @@ class Options {
 	public 	$fields = array();
 
 	public function __construct(){
-		$this->_dbpx = Config::get('mysql/prefix');
+		$this->_dbpx = Env::get('DB_PREFIX');
 		$this->_db = DB::getInstance();
 	}
 

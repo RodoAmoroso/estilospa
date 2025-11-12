@@ -118,14 +118,14 @@ class Input {
 
 				case 'password':
 					if(strlen($value) < 8) {
-						$fail = 'password_length';
+						$fail = 'invalid_pass';
 					}
-					if(!preg_match("#[0-9]+#", $value)) {
-						$fail = 'password_number';
+					/* if(!preg_match("#[0-9]+#", $value)) {
+						$fail = 'invalid_pass';
 					}
 					if(!preg_match("#[a-zA-Z]+#", $value)) {
-						$fail = 'password_alpha';
-					}
+						$fail = 'invalid_pass';
+					} */
 					break;
 
 				case 'email':

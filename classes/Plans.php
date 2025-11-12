@@ -8,7 +8,7 @@ class Plans {
 					$_lastid;
 
 	public function __construct(){
-		$this->_dbprefix = Config::get('mysql/prefix');
+		$this->_dbprefix = Env::get('DB_PREFIX');
 		$this->_db = DB::getInstance();
 	}
 

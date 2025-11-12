@@ -13,7 +13,7 @@ class Glossary {
 					$sort='';
 
 	public function __construct(){
-		$this->_dbprefix = Config::get('mysql/prefix');
+		$this->_dbprefix = ENV::get('DB_PREFIX');
 		$this->_db = DB::getInstance();
 	}
 

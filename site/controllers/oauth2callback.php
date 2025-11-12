@@ -9,8 +9,8 @@ try{
 	$response = Curl::action([
 		'url'=>'https://oauth2.googleapis.com/token',
 		'body'=>[
-			'client_id'=>Environment::get('GOOGLE_CLIENT_ID'),
-			'client_secret'=>Environment::get('GOOGLE_CLIENT_SECRET'),
+			'client_id'=>Env::get('GOOGLE_CLIENT_ID'),
+			'client_secret'=>Env::get('GOOGLE_CLIENT_SECRET'),
 			'code'=>Input::get('code'),
 			'grant_type'=>'authorization_code',
 			'redirect_uri'=>'http://localhost/estilospa/oauth2callback'

@@ -13,9 +13,9 @@ class DB {
 					$_queries=[];
 
 	private function __construct(){
-		$this->_prefix = Config::get('mysql/prefix');
+		$this->_prefix = Env::get('DB_PREFIX');		
 		try{
-			$this->_pdo = new PDO('mysql:host='.Config::get('mysql/host').';dbname='.Config::get('mysql/dbname'),Config::get('mysql/user'),Config::get('mysql/pass'),array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
+			$this->_pdo = new PDO('mysql:host='.Env::get('DB_HOST').';dbname='.Env::get('DB_NAME'),Env::get('DB_USER'),Env::get('DB_PASS'),array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'"));
 			$this->_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e){
 			die($e->getMessage());

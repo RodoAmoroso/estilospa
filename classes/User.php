@@ -13,7 +13,7 @@ class User {
 					$searchmixed=0;
 
 	public function __construct($user=null){
-		$this->_dbprefix = Config::get('mysql/prefix');
+		$this->_dbprefix = Env::get('DB_PREFIX');
 		$this->_db = DB::getInstance();
 
 		$this->_sessionName = Config::get('session/session_name');

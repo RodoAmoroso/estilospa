@@ -1,6 +1,6 @@
 
 <section class="gral-section registro">
-	<div class="container text-center">
+	<div data-content="code-content" class="container text-center">
 
 		<h1>Abrí tu Regalo</h1>
 		<p>¿Tenés un código? Canjealo acá y transformalo en experiencias de relax, beauty y bienestar. <br>Solo ingresalo y elegí cómo mimarte.</p>

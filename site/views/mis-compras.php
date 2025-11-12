@@ -2,7 +2,7 @@
 <section class="gral-section">
 	<div class="container">
 
-		<div class="card shadow-lg border-0" style="border-radius: 15px; background: linear-gradient(135deg,#E1D6C4 0%,#AA9568 100%);margin-bottom:2rem">
+		<div class="card shadow-lg border-0 d-none" style="border-radius: 15px; background: linear-gradient(135deg,#E1D6C4 0%,#AA9568 100%);margin-bottom:2rem">
 			<div class="card-body text-center" style="padding:3rem">
 				<div class="mb-4">
 					<i class="fa fa-heart text-fucsia-4" style="font-size: 3rem;"></i>

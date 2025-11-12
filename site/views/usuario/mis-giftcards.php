@@ -1,7 +1,17 @@
 <section class="gral-section">
 	<div class="container">	
+
+
+		<div>
+			<div>1. Resumen de Compras</div>
+			<div>2. Mis Experiencias</div>
+			<div>3. Mis GiftCards</div>
+		</div>
+
+
+		<div class="mb-4 d-none">GIFTCARDS COMPRADAS || MIS GIFTCARDS CANJEADAS || REGISTRO USO (MOVIMIENTO)</div>
 		
-		<div class="gift-balance">
+		<div class="gift-balance d-nonee">
 			<div class="icon">
 				<i class="fa fa-money-bill-wave"></i>
 			</div>
@@ -9,7 +19,7 @@
 				<h3>Tu Balance:</h3>
 				<h5>Usado: 50.000,00</h5>
 				<h5>Disponible: 150.000,00</h5>
-				<h5>Sin Reclamar: 100.000,00</h5>
+				<!-- <h5>Sin Reclamar: 100.000,00</h5> -->
 			</div>
 
 			<div class="actions">
@@ -32,7 +42,7 @@
 					<tr>
 						<th>GiftCard</th>
 						<th>Fecha de Compra</th>
-						<th>Validez</th>
+						<th>Validez Hasta</th>
 						<th>Modalidad</th>
 						<th>Código</th>
 						<th>Estado</th>
@@ -48,7 +58,11 @@
 						</td>
 						<td class="align-middle"><?= $giftcard_purchase->added ?></td>
 						<td class="align-middle">
+							<?php if($giftcard_purchase->assignment): ?>
+							<span><?= $giftcard_purchase->assignment->expiration ?></span>
+							<?php else: ?>
 							<span class="badge text-bg-danger">sin activar</span>
+							<?php endif; ?>
 						</td>
 						<td class="align-middle">
 							????
@@ -58,7 +72,11 @@
 							<i data-toggle="copy-code" data-code="<?= $giftcard_purchase->code ?>" class="fal fa-copy fa-fw clickable text-danger" title="Copiar"></i>
 						</td>
 						<td class="align-middle">
+							<?php if($giftcard_purchase->assignment): ?>
+							<span class="badge text-bg-success">canjeado</span>
+							<?php else: ?>
 							<span class="badge text-bg-warning">sin canjear</span>
+							<?php endif; ?>
 						</td>
 						<td class="align-middle">
 							<?= $giftcard_purchase->value_formatted ?>
@@ -72,166 +90,27 @@
 
 							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
 								<i class="fal fa-gift fa-fw"></i>
-								<span>Para Regalar</span>
+								<span>Personalizar</span>
 							</a>
 
-							<button class="btn btn-aqua-5 btn-sm">
+							<!-- <button class="btn btn-aqua-5 btn-sm">
 								<i class="fal fa-face-smile-relaxed fa-fw"></i>
 								<span>Para Mi</span>
-							</button>
+							</button> -->
 							
 						</td>
 					</tr>
 					<?php endforeach; ?>
 
-					<tr class="d-none">
-						<td class="align-middle" >
-							<div class="title">Test</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-						</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Para Mi</td>
-						<td class="align-middle">ABC123456</td>
-						<td class="align-middle">
-							<span class="badge text-bg-success">activo</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000,00</div>
-							<div class="small">Usado: $ 0,00</div>
-							<div class="small">Restan: $ 100.000,00</div>
-						</td>
-						<td class="align-middle text-end">
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
-						</td>
-					</tr>
-
-					<tr class="d-nonee">
-						<td class="align-middle" >
-							<div class="title">Test</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-						</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Para Mi</td>
-						<td class="align-middle">ABC123456</td>
-						<td class="align-middle">
-							<span class="badge text-bg-success">activo</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000,00</div>
-							<div class="small">Usado: $ 50.000,00</div>
-							<div class="small">Restan: $ 50.000,00</div>
-						</td>
-						<td class="align-middle text-end">
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
-						</td>
-					</tr>
-
-					<tr class="d-none">
-						<td class="align-middle" >
-							<div class="title">Test</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-						</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Para Mi</td>
-						<td class="align-middle">ABC123456</td>
-						<td class="align-middle">
-							<span class="badge text-bg-danger">vencido</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000,00</div>
-							<div class="small">Sin usar: $ 50.000,00</div>
-							<div class="small">Usados: $ 50.000,00</div>
-						</td>
-						<td class="align-middle text-end">
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
-						</td>
-					</tr>
-
-					<tr class="d-none">
-						<td class="align-middle" >
-							<div class="title">Otra</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-						</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Regalado a: XXX XXXX</td>
-						<td class="align-middle">ABC123456</td>
-						<td class="align-middle">							
-							<span class="badge text-bg-warning">
-								Sin Canjear
-							</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000,00</div>
-							<div class="small">Sin usar: $ 100.000,00</div>
-						</td>
-						<td class="align-middle text-end">
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
-								<i class="fal fa-pencil fa-fw"></i>
-								<span>Editar GiftCard</span>
-							</a>
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
-						</td>
-					</tr>
-
-					<tr class="d-none">
-						<td class="align-middle" >
-							<div class="title">Otra</div>
-							<!-- <div class="border rounded thumb-cover">
-								<img src="<?= View::assets('blank-square.gif') ?>" alt="" class="w-100">
-							</div> -->
-						</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">00/00/0000</td>
-						<td class="align-middle">Me lo regaló: xxxx xxxx</td>
-						<td class="align-middle">ABC123456</td>
-						<td class="align-middle">							
-							<span class="badge text-bg-success">
-								activo
-							</span>
-						</td>
-						<td class="align-middle">
-							<div>$ 100.000,00</div>
-							<div class="small">Sin usar: $ 100.000,00</div>
-						</td>
-						<td class="align-middle text-end">						
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-aqua-5 btn-sm">
-								<i class="fal fa-download fa-fw"></i>
-								<span>Descargar GiftCard</span>
-							</a>	
-							<a href="<?= View::url('usuario','giftcard') ?>" class="btn btn-green-2 btn-sm">
-								<i class="fal fa-memo-circle-info fa-fw"></i>
-								<span>Ver Detalles</span>
-							</a>
-						</td>
-					</tr>
 
 				</tbody>
 			</table>
 		</div>
+
+		<div>Podés enviar el código para regalarselo a alguien o podés canjearlo para vos desde <a href="<?= View::url('abrir-regalo') ?>">aquí</a></div>
+		<hr>
+
+		<div class="small-comment">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quisquam tempora reiciendis quaerat aperiam minus? Cupiditate amet, ratione excepturi delectus dicta id. Dolores asperiores pariatur omnis eum excepturi repudiandae quaerat consectetur. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis doloremque molestias optio repellendus consequuntur quisquam placeat dolor ipsam eveniet? Harum accusamus soluta, reprehenderit perferendis quam id corporis nesciunt minima temporibus.</div>
 		
 		<?php else: ?>
 

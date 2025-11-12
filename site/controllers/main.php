@@ -41,3 +41,7 @@ $menu_categories = $PromosCategories->get();
 $MainCategories = new MainCategories;
 $MainCategories->filters = ['visible'=>1];
 $main_categories = $MainCategories->get();
+
+
+$GiftCardsUsersAssignments = new GiftCardsUsersAssignments;
+$giftcard_user_balance = $GiftCardsUsersAssignments->user_balance();

@@ -529,6 +529,8 @@ function reservation_labels($status){
 function status_payment($status=''){
 	$label;
 	$text;
+
+	/// CAMBIAR MENSAJE CUANDO EL PAGO AÚN ESTÁ PENDIENTE 
 	switch($status){
 		case 'in_process':
 			$label = 'warning';

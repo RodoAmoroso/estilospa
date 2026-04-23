@@ -2,6 +2,7 @@
 
 $User = new User();
 $Promos = new Promos();
+$Experiences = new Experiences();
 $Sales = new Sales();
 $PromoTypes = new PromoTypes();
 $Vouchers = new Vouchers();
@@ -23,10 +24,10 @@ switch($_action){
 
 	case 'save':
 
-		if( !Input::check(array('Title','Description','Start','Finish','Gallery')) ) die(Responses::response('required'));
+		if( !Input::check(array('title','description','start','finish','gallery')) ) die(Responses::response('required'));
 
-		if(!$Promos->save(Input::get('IDClient'))) die(Responses::response('fail'));
-		echo Responses::response('ok','',array('id'=>$Promos->getLastId()));
+		if(!$id = $Experiences->save()) die(Responses::response('fail'));
+		echo Responses::response('ok','',['id'=>$id]);
 		break;
 
 	case 'get':

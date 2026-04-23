@@ -340,3 +340,32 @@
 			i
 				color $aqua_5
 				padding 6px 10px
+
+.qualify
+	.stars
+		display flex
+		align-items top
+		.stars-wrapper
+			display flex
+			flex-direction row-reverse
+			padding-top 4px
+			label
+				cursor pointer
+				font-size 18pt
+				margin-right 2px
+			input[type="radio"]
+				display none
+			label:hover:before,label:hover ~ label:before,input[type="radio"]:checked ~ label:before
+				color $fucsia_3
+				content '\f005'
+				font-weight 800
+		.star-text-wrapper
+			span
+				display none
+				font-size 18pt
+				font-weight 300
+				margin 0 0 0 16px
+			span.visible
+				display inline
+			span.active
+				display inline

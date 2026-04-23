@@ -1,7 +1,7 @@
 
-<section class="gral-section">
+<section class="gral-section d-nonee">
 	<div class="container">
-
+		
 		<div class="card shadow-lg border-0 d-none" style="border-radius: 15px; background: linear-gradient(135deg,#E1D6C4 0%,#AA9568 100%);margin-bottom:2rem">
 			<div class="card-body text-center" style="padding:3rem">
 				<div class="mb-4">
@@ -37,22 +37,11 @@
 
 
 
-		<h1>Mis Compras</h1>
+		<h1>Mis Experiencias</h1>
 		<hr>
 
 		<div id="sales">
-			<?php
-			if($sale_data):
-				foreach($sale_data as $key=>$sale):
-					if(!is_null($sale->title)){
-						$img = json_decode($sale->gallery);
-						$imgpromo = ROOT.'img/promos/'.$img[0]->photoname.'-t.'.$img[0]->extension;
-						$titlepromo = '<a href="'.ROOT.'promo/'.$sale->permalink.'/'.$sale->idpromo.'-'.Permalink($sale->title).'">'.$sale->title.'</a> / <a href="'.ROOT.'centros/'.$sale->permalink.'">'.$sale->clientname.'</a>';
-					}else{
-						$imgpromo = 'none';
-						$titlepromo = 'La Promo fue borrada.';
-					}
-			?>
+			<?php if($sales): foreach($sales as $key=>$sale): ?>
 			<div data-id="<?= $sale->id ?>" class="mod-sales">
 				<div class="sale-header">
 					<div class="thumb-container">
@@ -62,12 +51,14 @@
 						<h1 class="title">Orden Nro.: <?= $sale->collection_id ?></h1>
 						<h2 class="subtitle">Precio Unit.: $ <?= number_format($sale->price,2,',','.') ?> | Cantidad: <?= $sale->quantity ?> | <span class="subtitle" >Total: $ <?= number_format($sale->price*$sale->quantity,2,',','.') ?></span></h2>
 
-						<h2 class="title-promo"><?= $titlepromo ?></h2>
+						<h2 class="title-promo"><?= $sale->promo ? '<a href="'.$sale->promo->link.'">'.$sale->promo->title.'</a> / <a href="'.$sale->promo->client_link.'">'.$sale->promo->client_name.'</a>' : 'La Experiencia no existe más.' ?></h2>
 
-						<small class="date">Fecha de compra: <?= $sale->fecha ?> hs.</small>
+						<small class="date">Fecha de compra: <?= $sale->added ?> hs.</small>
 
-						<?php if($sale->collection_status=='approved' && $sale->status!=3): ?>
-						<a href="<?=View::url('compra',$sale->id)?>" class="text-fucsia btn-xs "><i class="fa fa-download fa-fw"></i> Descargar Voucher</a>
+						<?php if($sale->payment_status=='approved' && $sale->status!=3): ?>
+						<a href="<?=View::url('usuario/compra-experiencia',$sale->id)?>" class="text-fucsia btn-xs ">
+							<i class="fa fa-download fa-fw"></i> Descargar Voucher
+						</a>
 						<?php endif; ?>
 
 						<hr>
@@ -84,13 +75,13 @@
 								$label = 'danger';
 								break;
 						}
-						$status_payment = status_payment($sale->collection_status);
+						$status_payment = status_payment($sale->payment_status);
 						?>
-						<div class="status alert-<?=$status_payment->label?>">
+						<div class="status alert alert-<?=$status_payment->label?>">
 							<div class="payment-status"><?=$status_payment->text?></div>
 							<div class="sale-actions">
 								<small>Estado: </small>
-								<label class="label label-<?= $label ?>"><?= $sale->statusname ?></label>
+								<span class="badge bg-<?= $label ?>"><?= $sale->status_name ?></span>
 							</div>
 						</div>
 
@@ -103,10 +94,13 @@
 					<div class="sale-user">
 						<div class="feedback">
 
-						<?php
-						$comment = $Sales->get_comment($sale->id,$_userdata->id);
+						<?php						
+						$comment = $SalesComments->find_by_sale_user($sale->id,$_userdata->id);
 						if(!$comment): ?>
-						<p >Todavía no calificaste <a href="<?= ROOT.'calificar/'.$sale->id ?>" class="btn btn-sm btn-success"><i class="fa fa-thumbs-up"></i> Calificar</a></p>
+						<p>
+							Todavía no calificaste <a href="<?= View::url('usuario/calificar',$sale->id) ?>" class="btn btn-sm btn-success">
+							<i class="fa fa-thumbs-up"></i> Calificar</a>
+						</p>
 						<?php else: ?>
 						<p><?= nl2br(htmlspecialchars($comment->text,ENT_QUOTES,'utf-8')) ?></p>
 						<div class="stars">

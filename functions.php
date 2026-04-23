@@ -548,6 +548,14 @@ function status_payment($status=''){
 			$label = 'warning';
 			$text = 'No se completó el pago';
 			break;
+		case 'cancelled':
+			$label = 'danger';
+			$text = 'El pago fue cancelado';
+			break;
+		case 'refunded':
+			$label = 'danger';
+			$text = 'El pago fue reembolsado';
+			break;
 		default:
 			$label = 'danger';
 			$text = 'No se completó el proceso de pago y no se ha generado ningún pago';
@@ -629,4 +637,8 @@ function generate_code($longitud=8) {
 			$codigo .= $caracteres[random_int(0, strlen($caracteres) - 1)];
 	}
 	return $codigo;
+}
+function format_price($price=0){
+	if($price==0) return '';
+	return '$ '.number_format($price,2,',','.');
 }

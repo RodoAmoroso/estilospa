@@ -24,6 +24,7 @@
 
 								<div class="mb-3">
 									<h4 <?= $sale->voucher_id ? 'class="strikethrough"' : '' ?> >Total: <strong>$ <?=number_format($sale->price*$sale->quantity,0,',','.')?></strong></h4>
+									
 									<?php if($sale->voucher_id): ?>
 									<h4>Total.: <strong>$ <?= number_format(($sale->price*$sale->quantity) - ($sale->voucher_percent ? ($sale->price*$sale->quantity)*$sale->voucher_value/100 : $sale->voucher_value),0,',','.') ?></strong></h4>
 									<div>Voucher: <b><?= $sale->vouchertext ?></b></div>
@@ -33,7 +34,7 @@
 
 								<div class="mb-3">
 									<h4 class="title">Orden Nro.: <?=$sale->collection_id?></h4>
-									<small class="date">Fecha de compra: <?=$sale->fecha ?> hs.</small>
+									<small class="date">Fecha de compra: <?=$sale->added ?></small>
 								</div>
 
 							</div>
@@ -50,7 +51,9 @@
 
 						<div class="mb-3">Vouchers disponibles: <?= $vouchers ? $sale->quantity-count($vouchers) : $sale->quantity ?></div>
 
-						<button data-toggle="generate-voucher" class="btn btn-sm btn-success"><i class="fa fa-plus fa-fw"></i> Generar Voucher</button>
+						<button data-toggle="generate-voucher" class="btn btn-sm btn-success">
+							<i class="fa fa-plus fa-fw"></i> Generar Voucher
+						</button>
 
 						<?php endif; ?>
 
@@ -69,10 +72,12 @@
 							<tbody>
 								<tr>
 									<td>
-										<a href="<?=View::url('compra-descarga-voucher',$voucher->id)?>" target="_blank" class="text-fucsia-3 btn-block"><i class="fa fa-download fa-fw"></i> Descargar Voucher <?=$voucher->gift ? ' - Para '.$voucher->to_user.' -' : '' ?> (<?= $sale->merchant_order_id.'-'.$voucher->id ?>)</a>
+										<a href="<?=View::url('usuario/compra-descarga-voucher',$voucher->id)?>" target="_blank" class="text-fucsia-3 btn-block"><i class="fa fa-download fa-fw"></i> Descargar Voucher <?=$voucher->gift ? ' - Para '.$voucher->to_user.' -' : '' ?> (<?= $sale->merchant_order_id.'-'.$voucher->id ?>)</a>
 									</td>
 									<td>
-										<button data-toggle="edit-voucher" data-voucherid="<?= $voucher->id ?>" class="btn btn-xs btn-primary"><i class="fa fa-pencil fa-fw"></i> Editar</button>
+										<button data-toggle="edit-voucher" data-voucherid="<?= $voucher->id ?>" class="btn btn-xs btn-primary">
+											<i class="fa fa-pencil fa-fw"></i> Editar
+										</button>
 									</td>
 								</tr>
 							</tbody>
@@ -93,7 +98,9 @@
 
 		<hr>
 
-		<a href="<?=View::url('mis-compras')?>" class="btn btn-default btn-sm"> <i class="fa fa-angle-double-left fa-fw"></i> Volver</a>
+		<a href="<?=View::url('usuario/mis-compras')?>" class="btn btn-default btn-sm">
+			<i class="fa fa-angle-double-left fa-fw"></i> Volver
+		</a>
 
 
 

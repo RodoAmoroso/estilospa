@@ -57,7 +57,7 @@ switch($_action){
 		$collection_id = date('YmdHis');
 		$payment_type = 'free';
 		$merchant_order_id = date('YmdHis');
-		$collection_status = 'approved';
+		$payment_status = 'approved';
 
 		require PATH.'payment-process.php';
 

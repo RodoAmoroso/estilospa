@@ -79,7 +79,7 @@ $hash = $payment_info->external_reference;
 $collection_id = $payment_info->id;
 $payment_type = $payment_info->payment_type_id;
 $merchant_order_id = !empty($payment_info->order) ? $payment_info->order->id : '';
-$collection_status = $payment_info->status;
+$payment_status = $payment_info->status;
 
 
 $fees = $MPConfig->get_fees($payment_info->fee_details);

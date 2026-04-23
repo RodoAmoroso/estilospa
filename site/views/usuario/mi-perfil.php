@@ -12,9 +12,9 @@
 
 			</div>
 			<div class="user-name">
-				<h1 class="name"><?= $User->data()->name.' '.$User->data()->lastname; ?></h1>
-				<p class="sz-14"><?= $User->data()->mail; ?></p>
-				<p class="sz-8">Usuario desde: <?= date('d/m/Y',strtotime($User->data()->created)) ?></p>
+				<h1 class="name"><?=$_userdata->name.' '.$_userdata->lastname; ?></h1>
+				<p class="sz-14"><?=$_userdata->mail; ?></p>
+				<p class="sz-8">Usuario desde: <?= date('d/m/Y',strtotime($_userdata->created)) ?></p>
 			</div>
 
 		</div>
@@ -28,35 +28,36 @@
 		<h2>Perfil</h2>
 		<hr>
 
-		<form id="form_user">
+		<form data-form="profile">
 
 			<div class="row">
 				<div class="col-xs-12 col-sm-3">
 					<div class="mb-3">
 						<label for="fd_name">Nombre</label>
-						<input name="name" id="fd_name" type="text" class="form-control" value="<?= $User->data()->name ?>" required>
+						<input name="name" id="fd_name" type="text" class="form-control" value="<?=$_userdata->name ?>" required>
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="mb-3">
 						<label for="fd_lastname">Apellido</label>
-						<input name="lastname" id="fd_lastname" type="text" class="form-control" value="<?= $User->data()->lastname ?>" >
+						<input name="lastname" id="fd_lastname" type="text" class="form-control" value="<?=$_userdata->lastname ?>" >
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="mb-3">
-						<label for="fd_dni">DNI <i class="fa fa-question-circle cl-gray-30" title="Necesario para participar de compras y promociones"></i></label>
-						<input name="dni" id="fd_dni" type="number" min="0" class="form-control" value="<?= $User->data()->dni ?>">
+						<label for="fd_dni">DNI <i class="fa fa-question-circle cl-gray-30" data-swal="Necesario para participar de compras y promociones"></i></label>
+						<input name="dni" id="fd_dni" type="number" min="0" class="form-control" value="<?=$_userdata->dni ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-3">
 					<div class="mb-3">
-						<label for="fd_birth">Fecha de Nacimiento</label><br />
+						<label for="fd_birth">Fecha de Nacimiento</label>
 
-							<?php $arrDate = explode('-',$User->data()->birth); ?>
+						<?php $arrDate = explode('-',$_userdata->birth); ?>
 
-							<div class="col-xs-4" style="padding:0 4px 0 0">
-								<select name="birth_day" id="fd_day" class="form-control">
+						<div class="d-flex">
+							<div class="" style="padding:0 4px 0 0">
+								<select name="birth_day" id="fd_day" class="form-select">
 									<option value="">--</option>
 									<?php
 									for($i=1; $i<=31; $i++):
@@ -69,11 +70,11 @@
 									<?php endfor; ?>
 								</select>
 							</div>
-							<div class="col-xs-4" style="padding:0 4px 0 0">
-								<select name="birth_month" id="fd_month" class="form-control">
+							<div class="" style="padding:0 4px 0 0">
+								<select name="birth_month" id="fd_month" class="form-select">
 									<option value="">--</option>
 									<?php
-									$arrMonths = array('Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic');
+									$arrMonths = array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciciembre');
 									foreach($arrMonths as $km=>$vm):
 										$sel = '';
 										if($km+1 == intval($arrDate[1])):
@@ -84,11 +85,11 @@
 									<?php endforeach; ?>
 								</select>
 							</div>
-							<div class="col-xs-4" style="padding:0 4px 0 0">
-								<select name="birth_year" id="fd_year" class="form-control">
+							<div class="" style="padding:0 4px 0 0">
+								<select name="birth_year" id="fd_year" class="form-select">
 									<option value="">--</option>
 									<?php
-									for($i=date('Y'); $i>1900; $i--):
+									for($i=date('Y'); $i>date('Y')-100; $i--):
 										$sel = '';
 										if($i == intval($arrDate[0])):
 											$sel = 'selected';
@@ -98,6 +99,7 @@
 									<?php endfor; ?>
 								</select>
 							</div>
+						</div>
 
 					</div>
 				</div>
@@ -105,43 +107,43 @@
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_phone">Teléfono (Prefijo + Nro.)</label>
-						<input name="phone" id="fd_phone" type="text" class="form-control" value="<?= $User->data()->phone ?>">
+						<input name="phone" id="fd_phone" type="text" class="form-control" value="<?=$_userdata->phone ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_address">Dirección (Calle y Nro.)</label>
-						<input name="address" id="fd_address" type="text" class="form-control" value="<?= $User->data()->address ?>">
+						<input name="address" id="fd_address" type="text" class="form-control" value="<?=$_userdata->address ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_addressobs">Piso/Depto.</label>
-						<input name="addressobs" id="fd_addressobs" type="text" class="form-control" value="<?= $User->data()->addressobs ?>">
+						<input name="addressobs" id="fd_addressobs" type="text" class="form-control" value="<?=$_userdata->addressobs ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_city">Ciudad/Localidad</label>
-						<input name="city" id="fd_city" type="text" class="form-control" value="<?= $User->data()->city ?>">
+						<input name="city" id="fd_city" type="text" class="form-control" value="<?=$_userdata->city ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_zip">Código Postal</label>
-						<input name="zipcode" id="fd_zip" type="text" class="form-control" value="<?= $User->data()->zipcode ?>">
+						<input name="zipcode" id="fd_zip" type="text" class="form-control" value="<?=$_userdata->zipcode ?>">
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-4">
 					<div class="mb-3">
 						<label for="fd_provinces">Provincia</label>
-						<select name="idprovince" id="fd_provinces" class="form-control">
+						<select name="idprovince" id="fd_provinces" class="form-select">
 							<?php
 							$provinces = DB::getInstance()->get('provinces',array('id','!=',0));
 							if($provinces->count()):
 								foreach($provinces->results() as $province):
 									$sel = '';
-									if($province->id == $User->data()->idprovince):
+									if($province->id ==$_userdata->idprovince):
 										$sel = 'selected';
 									endif;
 							?>
@@ -182,7 +184,7 @@
 			<label for="fd_newsletter" class="clickable">Deseo recibir mails con ofertas y promociones.</label>
 
 			<div class="onoffswitch">
-				<input id="newsletter" type="checkbox" class="onoffswitch-checkbox" <?=$User->data()->newsletter ? 'checked' : ''?>>
+				<input id="newsletter" type="checkbox" class="onoffswitch-checkbox" <?=$_userdata->newsletter ? 'checked' : ''?>>
 				<label for="newsletter" class="onoffswitch-label">
 					<span class="onoffswitch-inner"></span>
 					<span class="onoffswitch-switch"></span>
@@ -192,7 +194,9 @@
 			<hr>
 
 			<div class="text-end">
-				<button id="btn_save" class="btn btn-success"><i class="fa fa-save"></i> GUARDAR</button>
+				<button id="btn_save" class="btn btn-success">
+					<i class="fa fa-save"></i> GUARDAR
+				</button>
 			</div>
 
 

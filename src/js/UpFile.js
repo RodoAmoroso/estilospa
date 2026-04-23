@@ -41,7 +41,8 @@ class UpFile {
 						'filename':data.filename,
 						'extension':data.extension,
 						'hash':data.hash,
-						'event':event
+						'event':event,
+						'size':data.size
 					});
 					///////////////////////////////////////////
 					if(this.node < this.files.length-1){

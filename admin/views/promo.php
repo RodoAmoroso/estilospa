@@ -7,56 +7,40 @@
 		<div class="block-white">
 
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
-					<div class="mb-3">
-						<label for="fd_title">Nombre/Título</label>
-						<input id="fd_title" type="text" class="form-control" maxlength="80" data-toogle="charcount" >
-					</div>
+				<div class="col-lg-4 mb-3">
+					<label for="fd_title">Nombre/Título</label>
+					<input id="fd_title" type="text" class="form-control" maxlength="80" data-toogle="charcount" >
 				</div>
-				<div class="col-xs-12 col-sm-6">
-					<div class="row">
-						<div class="col-xs-6">
-							<div class="mb-3">
-								<label for="fd_start">Inicia</label>
-								<input id="fd_start" type="text" class="form-control clickable" readonly>
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<div class="mb-3">
-								<label for="fd_finish">Termina</label>
-								<input id="fd_finish" type="text" class="form-control clickable" readonly>
-							</div>
-						</div>
-					</div>
+				<div class="col-lg-4 mb-3">
+					<label for="fd_start">Inicia</label>
+					<input id="fd_start" type="text" class="form-control clickable" readonly>
+				</div>					
+				<div class="col-lg-4 mb-3">
+					<label for="fd_finish">Termina</label>
+					<input id="fd_finish" type="text" class="form-control clickable" readonly>
 				</div>
 			</div>
 
 
 			<div class="row">
-				<div class="col-lg-4">
-					<div class="mb-3">
-						<label for="fd_subtitle">Subtítulo</label>
-						<input id="fd_subtitle" type="text" class="form-control">
-					</div>
+				<div class="col-lg-4 mb-3">
+					<label for="fd_subtitle">Subtítulo</label>
+					<input id="fd_subtitle" type="text" class="form-control">
 				</div>
-				<div class="col-lg-4">
-					<div class="mb-3">
-						<label for="fd_label">Etiqueta</label>
-						<input id="fd_label" type="text" class="form-control" placeholder="Ej: últimos disponibles!!!">
-					</div>
+				<div class="col-lg-4 mb-3">
+					<label for="fd_label">Etiqueta</label>
+					<input id="fd_label" type="text" class="form-control" placeholder="Ej: últimos disponibles!!!">
 				</div>
-				<div class="col-lg-4">
-					<div class="mb-3">
-						<label for="fd_label">Categorías</label>
-						<?php if($categories): ?>
-						<select id="fd_category" class="form-control" >
-							<option value="">--Seleccionar Categoría--</option>
-							<?php foreach($categories as $category): ?>
-								<option value="<?=$category->id?>"><?=$category->name?></option>
-							<?php endforeach; ?>
+				<div class="col-lg-4 mb-3">
+					<label for="fd_label">Categorías</label>
+					<?php if($categories): ?>
+						<select id="fd_category" class="form-select" >
+						<option value="">--Seleccionar Categoría--</option>
+						<?php foreach($categories as $category): ?>
+							<option value="<?=$category->id?>"><?=$category->name?></option>
+						<?php endforeach; ?>
 						</select>
-						<?php endif; ?>
-					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -65,44 +49,46 @@
 
 
 			<div class="row" >
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-3">
 					<div class="mb-3">
-						<label for="fd_price">Precio <i class="fa fa-question-circle cl-pink-3" title="Es el precio original sin el descuento"></i></label>
+						<label for="fd_price">Precio <i class="fa fa-question-circle" data-swal="Es el precio original sin el descuento" ></i></label>
 						<input id="fd_price" type="number" class="form-control" value="0" min="0" >
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-3">
 					<div class="mb-3">
 						<label for="fd_promotypes">Tipo de Experiencia</label>
 						<div class="input-group">
-							<select id="fd_promotypes" class="form-control"></select>
-							<div class="input-group-btn">
-								<button id="btn_edit_promotypes" class="btn btn-primary"><i class="fa fa-pencil" title="Editar listado"></i></button>
-							</div>
+							<select id="fd_promotypes" class="form-select"></select>
+							<button id="btn_edit_promotypes" class="btn btn-primary">
+								<i class="fa fa-pencil" title="Editar listado"></i>
+							</button>							
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-3">
 					<div class="mb-3">
-						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" title="Si el tipo de experiencia no corresponde a un descuento, dejar en 0"></i></label>
+						<label for="fd_discount">Descuento <i class="fa fa-question-circle cl-pink-3" data-swal="Si el tipo de experiencia no corresponde a un descuento, dejar en 0"></i></label>
 						<div class="input-group">
-							<div class="input-group-addon"><i class="fa fa-percent"></i></div>
+							<div class="input-group-text"><i class="fa fa-percent"></i></div>
 							<input id="fd_discount" type="number" class="form-control" value="0" min="0">
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
+				<div class="col-lg-3">
 					<div class="mb-3">
-						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" title="Si queda en 0 no será visible en el sitio." ></i></label>
+						<label for="fd_amount">Cantidad Disponible <i class="fa fa-question-circle cl-pink-3" data-swal="Si queda en 0 no será visible en el sitio." ></i></label>
 						<input id="fd_amount" type="number" class="form-control" value="20" min="0">
 					</div>
 				</div>
 			</div>
 
+			<hr>
+
 			<?php if($mp_client): ?>
-			<h4><span class="label label-success">Vinculado a MercadoPago</span></h4>
+			<h5><span class="label label-success">Vinculado a MercadoPago</span></h5>
 			<?php else: ?>
-			<h4><span class="label label-danger">Sin vincular a MercadoPago</span></h4>
+			<h5><span class="label label-danger">Sin vincular a MercadoPago</span></h5>
 			<?php endif; ?>
 
 			<div class="alert alert-info">
@@ -118,11 +104,6 @@
 			</div>
 			<hr>
 
-
-			<hr>
-
-
-
 			<div class="row">
 				<div class="col-xs-12 col-sm-6">
 					<div class="mb-3">
@@ -131,7 +112,7 @@
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-6">
-					<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" title="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
+					<label for="fd_clients">Disponible en: <i class="fa fa-question-circle cl-pink-3" data-swal="Click en cada item para seleccionar o deseleccionar dónde estará disponible la promoción"></i></label>
 					<div id="stores" class="well mod-container-sm" style="height:320px"></div>
 					<button id="btn_select_stores" data-collapse="false" class="btn btn-xs btn-white"><i class="fa fa-caret-up"></i> Seleccionar Todos</button>
 				</div>
@@ -184,9 +165,15 @@
 
 			<!-- GIFT -->
 			<hr>
-			<div id="fd_gift" class="mb-3 clickable active" data-toogle="checkbox">
-				<i class="fa fa-check-square"></i> <span>Mostrar en sección regalos</span>
-			</div>
+			<h5>Mostrar en:</h5>
+			<ul class="list-unstyled">
+				<?php foreach($main_categories as $mc): ?>
+				<li>
+					<input type="checkbox" name="main_category" id="fd_main_category_<?=$mc->id?>" value="<?=$mc->id?>">
+					<label for="fd_main_category_<?=$mc->id?>"><?=$mc->name?></label>
+				</li>
+				<?php endforeach; ?>
+			</ul>
 			<hr>
 
 			<div class="mb-3">
@@ -197,24 +184,27 @@
 				</div>
 			</div>
 
-			<div id="gallery" class="well admin-gallery mod-container-sm"></div>
-			<small>&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la experiencia.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</p>
+			<div id="gallery" class="p-3 bg-gray-5 border rounded admin-gallery mod-container-sm"></div>
+			<div class="small-comment mt-2">&bullet; Puedes subir varias imágenes al mismo tiempo.<br />&bullet; Puedes subir 	hasta un total de 10 imágenes.<br />&bullet; La primer imagen de la galería es la imagen principal de la experiencia.<br />&bullet; Puedes arrastrar y cambiar de lugar las imágenes.</div>
 
 
 
 			<hr>
-			<h4>Etiquetas</h4>
+			<h5>Etiquetas</h5>
 
 			<select name="glossary" class="form-control" multiple style="height:300px"></select>
 
 		</div>
 
 		<div class="block-white">
-			<button id="btn_save" class="btn btn-success pull-right">Guardar Experiencia</button>
-			<button id="btn_cancel" class="btn btn-warning btn-sm">Cancelar</button>
-			<?php if($_promodata): ?>
-			<button id="btn_delete" class="btn btn-danger btn-sm">Borrar</button>
-			<?php endif; ?>
+			<div class="row">
+				<div class="col-lg-6">
+					<button id="btn_cancel" class="btn btn-warning btn-sm">Cancelar</button>			
+				</div>
+				<div class="col-lg-6 text-end">
+					<button id="btn_save" class="btn btn-success">Guardar Experiencia</button>
+				</div>
+			</div>
 		</div>
 
 

@@ -1,53 +1,21 @@
 <?php
 
-require PATH.'/vendor/autoload.php';
-
 class MPConfig extends Core{	
 
 	public 	$arrfields=array(),
 					$idclient=0,
-					$redirect_uri=ROOT.'mp';
-
-	private //Producción
-					/* $notification_url = ROOT.'ipn.php',
-					$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583',
-					$app_id='7300466898804487',
-					$public_key='APP_USR-43830fea-2de3-4976-86ca-08ed0494b311',
-					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K'; */
-
-
-
-					//Test Localhost Bricks
-					$access_token='TEST-389403748152273-070520-1890d82af8a41b80904fb788b903ccdd__LD_LB__-263157583',
-					$public_key='TEST-16b8dfa7-44d1-4aba-9b04-d9a7c5cf53ab',
-					$app_id='389403748152273',
-					$secret_key='eAekX3P1Dr01F7BaHUMbRkbs3DpQ2SL7',
-					$notification_url='https://green-pegasus-44.webhook.cool';
-
-					//Test Localhost RODO
-					/*$notification_url = 'https://bent-activity-19.webhook.cool',
-					$access_token='TEST-7300466898804487-070519-1e990036ebef47e8938c36f778c08e87__LA_LC__-263157583',
-					$public_key='TEST-70d4bf7d-539e-4ba9-9f72-3453c772453a',
-					$app_id='7300466898804487',
-					$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';*/
-
-
-					//Test Demo
-					//$notification_url = ROOT.'ipn.php',
-					//$app_id='7030611358224519',
-					//$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
-					//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
-					///código de acceso a la cuenta:751838
-
-					// Test SpaEstilo
-					//$app_id='4678134710817612',
-					//$secret_key='UOf6fadyymoUTHv93Hqstk2iLHDUtOdC',
-					//$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838';
-
+					$redirect_uri=ROOT.'mp';	
 
 	public function __construct($access_token=false){
 		//$this->_dbprefix = Env::get('DB_PREFIX');
 		//$this->_db = DB::getInstance();
+
+		$this->access_token = ENV::get('MP_'.ENV::get('APP_ENV').'_ACCESS_TOKEN');
+		$this->public_key = ENV::get('MP_'.ENV::get('APP_ENV').'_PUBLIC_KEY');
+		$this->app_id = ENV::get('MP_'.ENV::get('APP_ENV').'_APP_ID');
+		$this->secret_key = ENV::get('MP_'.ENV::get('APP_ENV').'_SECRET_KEY');
+		$this->notification_url = ENV::get('MP_'.ENV::get('APP_ENV').'_NOTIFICATION_URL');
+		$this->notification_url_giftcard = ENV::get('MP_'.ENV::get('APP_ENV').'_NOTIFICATION_URL_GIFTCARD');
 
 		///
 		if(!$access_token) MercadoPago\SDK::setAccessToken($this->access_token);
@@ -405,7 +373,7 @@ class MPConfig extends Core{
 		$preference->save();
 
 		if($preference->error){
-			$this->response = $this->preference->error->message;
+			$this->response = $preference->error->message;
 			return false;
 		}
 
@@ -482,7 +450,8 @@ class MPConfig extends Core{
 			'unit_price'=>(float) $giftcard->value,
 			'user'=>$this->userdata,
 			'external_reference'=>$hash,
-			'notification_url'=>$this->notification_url,
+			//'notification_url'=>$this->notification_url,
+			'notification_url'=>$this->notification_url_giftcard,
 			'back_urls'=>[
 				'success'=>preg_replace('/http:/','https:',ROOT).'pago-giftcard-status/success/'.$hash,
 				'failure'=>preg_replace('/http:/','https:',ROOT).'pago-giftcard-status/failure/'.$hash,
@@ -903,6 +872,40 @@ class MPConfig extends Core{
 	u: TEST_USER_1275050815
 	p: MLOCbsfRyC
 	e: test_user_1275050815@testuser.com
-
-
 	*/
+
+
+/* $notification_url = ROOT.'ipn.php',
+$access_token='APP_USR-7300466898804487-070519-065286686bbe9e2c819c57c7094d11da__LD_LC__-263157583',
+$app_id='7300466898804487',
+$public_key='APP_USR-43830fea-2de3-4976-86ca-08ed0494b311',
+$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K'; */
+
+
+
+//Test Localhost Bricks
+/*$access_token=ENV::get('MP_ACCESS_TOKEN'),
+$public_key=ENV::get('MP_PUBLIC_KEY'),
+$app_id=ENV::get('MP_APP_ID'),
+$secret_key=ENV::get('MP_SECRET_KEY'),
+$notification_url=ENV::get('MP_NOTIFICATION_URL');*/
+
+//Test Localhost RODO
+/*$notification_url = 'https://bent-activity-19.webhook.cool',
+$access_token='TEST-7300466898804487-070519-1e990036ebef47e8938c36f778c08e87__LA_LC__-263157583',
+$public_key='TEST-70d4bf7d-539e-4ba9-9f72-3453c772453a',
+$app_id='7300466898804487',
+$secret_key='4Y7yVlsccQUmJM3ExQT59JioiKPK113K';*/
+
+
+//Test Demo
+//$notification_url = ROOT.'ipn.php',
+//$app_id='7030611358224519',
+//$secret_key='5ziaNn6vMrN4FR1xodfDgfqvJT4RnLVN',
+//$access_token='APP_USR-7030611358224519-050401-40a4130219ec8743f65509dc8a65f78d-417751838';
+///código de acceso a la cuenta:751838
+
+// Test SpaEstilo
+//$app_id='4678134710817612',
+//$secret_key='UOf6fadyymoUTHv93Hqstk2iLHDUtOdC',
+//$access_token='APP_USR-4678134710817612-053114-9f39c1925fe2b0c9e0aac0756a7c231a-417751838'

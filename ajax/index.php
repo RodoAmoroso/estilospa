@@ -12,10 +12,13 @@ $_id = isset($_uri[3]) && !empty($_uri[3]) ? $_uri[3] : '';
 
 if(Input::get('token') != Session::session_hashed()) die(Responses::response('restricted','',Input::get_all()));
 
+$User = new User;
+$_userdata=null;
+if($User->logged()) $_userdata = $User->data();
+
 if($_scope=='admin'){
-	$User = new User;
-	if(!$User->logged()) die(Responses::response('restricted'));
-	if($User->data()->idtype != 1) die(Responses::response('restricted'));
+	if(!$_userdata) die(Responses::response('restricted'));
+	if($_userdata->idtype != 1) die(Responses::response('restricted'));
 }
 
 include $_scope.'/'.$_controller.'.php';

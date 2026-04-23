@@ -5,16 +5,19 @@
 $User = new User;
 $_userdata = $User->data();
 
+if(!$User->logged()) die(Responses::response('restricted'));
+
 $MPConfig = new MPConfig;
 
 $GiftCardsUsersAssignments = new GiftCardsUsersAssignments;
 $GiftCardsPurchases = new GiftCardsPurchases;
+$GiftCardsPersonalizations = new GiftCardsPersonalizations;
+
 
 switch($_action):
 
 	case 'get-mp-preference':
 
-		if(!$User->logged()) die(Responses::response('restricted'));
 		if(!$preference = $MPConfig->get_giftcard_preference()) die(Responses::response('fail',$MPConfig->get_response()));
 
 		echo Responses::response('ok','',[
@@ -25,7 +28,6 @@ switch($_action):
 
 	case 'checkout-mp':
 
-		if(!$User->logged()) die(Responses::response('restricted'));
 		if(!$payment = $MPConfig->create_giftcard_payment()) die(Responses::response('fail',$MPConfig->get_response()));
 
 		echo Responses::response('ok','',[
@@ -34,8 +36,6 @@ switch($_action):
 		break;
 
 	case 'redeem-code':
-
-		if(!$User->logged()) die(Responses::response('restricted'));
 
 		/* die(Responses::response('ok','',[
 			'template_thanks'=>Templates::template('giftcards/open-gift-thanks')
@@ -56,12 +56,7 @@ switch($_action):
 		$GiftCardsUsersAssignments->save([
 			'id'=>null,
 			'purchase_id'=>$purchase->id,
-			'user_id'=>$_userdata->id,
-			//'from_user'=>
-			//'to_user'=>
-			//'comments'=>
-			//'image'=>
-			//'gallery_id'=>
+			'user_id'=>$_userdata->id,			
 			'is_gift'=>$purchase->user_id==$_userdata->id ? 0 : 1,
 			'value'=>$purchase->price,
 			'expiration'=>$expiration->format('Y-m-d')
@@ -70,6 +65,39 @@ switch($_action):
 		echo Responses::response('ok','',[
 			'template_thanks'=>Templates::template('giftcards/open-gift-thanks')
 		]);
+		break;
+
+	case 'save-personalization':
+
+		if(!$purchase = $GiftCardsPurchases->find(Input::get('giftcard_purchase_id'))) die(Responses::response('fail'));
+		if($purchase->user_id != $_userdata->id) die(Responses::response('restricted'));
+		///dd($purchase);
+		
+		if(Input::get('id')){
+			if(!$giftcard_personalization = $GiftCardsPersonalizations->find(Input::get('id'))) die(Responses::response('fail'));
+			if($giftcard_personalization->giftcard_purchase_id != $purchase->id) die(Responses::response('restricted'));
+		}
+
+		if(!$GiftCardsPersonalizations->save()) die(Responses::response('fail'));
+		echo Responses::response('ok');
+		break;
+
+
+	case 'upimage':
+
+		$upfile = new File($_FILES['file'],'giftcards/');
+		$upfile->MoveFile(true,true);
+		$file = $upfile->Resize([[720,720,'']], '', false);
+		
+		echo Responses::response('ok','',$file);
+		break;
+
+	case 'delete-image':
+		
+		$file_path = IMG.'giftcards/'.Input::get('filename','xss').'.'.Input::get('extension','xss');
+		if(file_exists($file_path))unlink($file_path);
+
+		echo Responses::response('ok','');
 		break;
 		
 	default:

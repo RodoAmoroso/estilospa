@@ -11,6 +11,7 @@ class Experiences extends Core{
 		$filters = parent::core_filters([
 			'filters'=>[
 				'id'=>"p.id=?",
+				'ids'=>"p.id IN (?)",
 				'exclude'=>"p.id!=?",
 				'category'=>"p.categoryid=?",
 				'client'=>"p.idclient=?",
@@ -93,36 +94,47 @@ class Experiences extends Core{
 
 	public function save(){
 		
-		$start = explode('/',Input::get('Start'));
-		$finish = explode('/',Input::get('Finish'));
+		$start = explode('/',Input::get('start'));
+		$finish = explode('/',Input::get('finish'));
 
 		$values = [
-			'idclient'=>$idclient,
-			'idpromotype'=>Input::get('IDPromotype'),
-			'categoryid'=>empty(Input::get('CategoryID')) ? null : Input::get('CategoryID'),
-			'gift'=>Input::get('Gift'),
-			'sale'=>Input::get('Sale'),
-			'stores'=>implode(',',Input::get('Stores')),
-			'title'=>Input::get('Title'),
-			'subtitle'=>Input::get('Subtitle'),
-			'label'=>Input::get('Label'),
-			'description'=>Input::get('Description'),
-			'valid'=>Input::get('Valid'),
-			'includes'=>Input::get('Includes'),
-			'duration'=>Input::get('Duration'),
-			'recomendations'=>Input::get('Recomendations'),
-			'reservation'=>Input::get('Reservation'),
-			'cancellation'=>Input::get('Cancellation'),
-			'gallery'=>json_encode(Input::get('Gallery')),
-			'price'=>Input::get('Price'),
-			'discount'=>Input::get('Discount'),
-			'amount'=>Input::get('Amount'),
+			'idclient'=>Input::get('idclient'),
+			'idpromotype'=>Input::get('idpromotype'),
+			'categoryid'=>empty(Input::get('categoryid')) ? null : Input::get('categoryid'),
+			'gift'=>Input::get('gift'),
+			'sale'=>Input::get('sale'),
+			'stores'=>implode(',',Input::get('stores')),
+			'title'=>Input::get('title'),
+			'subtitle'=>Input::get('subtitle'),
+			'label'=>Input::get('label'),
+			'description'=>Input::get('description'),
+			'valid'=>Input::get('valid'),
+			'includes'=>Input::get('includes'),
+			'duration'=>Input::get('duration'),
+			'recomendations'=>Input::get('recomendations'),
+			'reservation'=>Input::get('reservation'),
+			'cancellation'=>Input::get('cancellation'),
+			'gallery'=>json_encode(Input::get('gallery')),
+			'price'=>Input::get('price'),
+			'discount'=>Input::get('discount'),
+			'amount'=>Input::get('amount'),
 			'start'=>$start[2].'-'.$start[1].'-'.$start[0],
 			'finish'=>$finish[2].'-'.$finish[1].'-'.$finish[0]
 		];
 
 		if(!parent::core_save(Input::get('id'),$values)) return false;
-		return true;
+		$promoid = parent::core_lastid();
+
+		parent::core_save_has_many((object) [
+			'items'=>Input::get('main_categories'),
+			'class'=>'PromosMainCategoriesRelations',
+			'class_filters'=>['promo'=>$promoid],
+			'foreign_key'=>'promo_id',
+			'foreign_key_id'=>$promoid,
+			'values'=>['main_category_id'],
+		]);
+
+		return $promoid;
 	}
 
 	public function delete($id=null){

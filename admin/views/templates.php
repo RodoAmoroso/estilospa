@@ -60,13 +60,13 @@
 
 <!-- MOD THUMB -->
 <div id="mod_thumb" class="thumbnail bg-black thumb-150x150 thumb-cover dp-none">
-	<div class="redbg">
+	<div class="hover">
 		<div class="dp-table wd-100 hg-100">
 			<div class="dp-table-cell text-center">
 				<button class="edit btn btn-sm btn-primary" title="Editar"><i class="fa fa-pencil" ></i></button>
 			</div>
 		</div>
-		<i class="delete fa fa-times cl-white" title="Borrar"></i>
+		<button class="btn btn-danger btn-xs delete" title="Borrar"><i class="fa fa-trash"></i></button>
 	</div>
 </div>
 

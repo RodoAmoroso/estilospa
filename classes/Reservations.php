@@ -204,7 +204,7 @@ class Reservations {
 			"SELECT rs.*
 			FROM {reservations_sales} rs
 			LEFT JOIN {sales} s ON s.id=rs.saleid
-			WHERE rs.reservationid=? AND s.collection_status=?",
+			WHERE rs.reservationid=? AND s.payment_status=?",
 			array($reservationid,'approved')
 		);
 		if(!$this->_db->count()) return false;

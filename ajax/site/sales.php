@@ -4,52 +4,54 @@ $User = new User();
 if(!$User->logged()) die(Responses::response('restricted'));
 
 $Sales = new Sales();
+$SalesVouchers = new SalesVouchers();
 
 if(!Input::check(Input::get('required'))) die(Responses::response('fail'));
 
 switch($_action){
 
-		case 'save':
+	case 'save':
 
-			if(!$Sales->find(Input::get('saleid'))) die(Responses::response('fail','No se encontró la compra'));
-			$sale = $Sales->data();
+		if(!$sale = $Sales->find(Input::get('saleid'))) die(Responses::response('fail','No se encontró la compra'));
+		///dd($sale);
 
-			if($sale->iduser != $User->data()->id) die(Responses::response('restricted'));
+		if($sale->iduser != $_userdata->id) die(Responses::response('restricted'));
 
-			if(empty(Input::get('id'))){
-				$vouchers = $Sales->get_vouchers($sale->id);
-				if($vouchers && count($vouchers) >= $sale->quantity) die(Responses::response('fail','Ya no podés generar más vouchers'));
-			}
+		if(empty(Input::get('id'))){
+			$SalesVouchers->filters = ['sale'=>$sale->id];
+			$vouchers = $SalesVouchers->get();
+			if($vouchers && count($vouchers) >= $sale->quantity) die(Responses::response('fail','Ya no podés generar más vouchers'));
+		}
+
+		$voucherid = $SalesVouchers->save();
+		echo Responses::response('ok','',['voucherid'=>$voucherid]);
+		break;
+
+	case 'update-voucher':
+		break;
+	case 'find-voucher':
+		if(!$voucher = $SalesVouchers->find(Input::get('voucherid'))) die(Responses::response('fail'));
+		if(!$sale = $Sales->find($voucher->saleid)) die(Responses::response('fail','No se encontró la compra'));
+
+		if($sale->iduser != $_userdata->id) die(Responses::response('restricted'));
+		echo Responses::response('ok','',[
+			'voucher'=>$voucher
+		]);
+		break;
 
 
-			$voucherid = $Sales->save_voucher();
-			echo Responses::response('ok','',['voucherid'=>$voucherid]);
-			break;
+	case 'upimage':
 
-		case 'update-voucher':
-			break;
-		case 'find-voucher':
-			if(!$voucher = $Sales->find_voucher(Input::get('voucherid'))) die(Responses::response('fail'));
-			if($voucher->iduser != $User->data()->id) die(Responses::response('restricted'));
-			echo Responses::response('ok','',[
-				'voucher'=>$voucher
-			]);
-			break;
+		$upfile = new File($_FILES['file'],'../img/gift');
+		$upfile->MoveFile();
+		$file = $upfile->Resize(array(array(600,600,'')), '', false);
 
-
-		case 'upimage':
-
-			$folder = '../'.Input::get('folder');
-			$upfile = new File($_FILES['file'],$folder);
-			$upfile->MoveFile();
-			$file = $upfile->Resize(array(array(600,600,'')), '', false);
-
-			echo json_encode($file);
+		echo json_encode($file);
 
 		break;
 
 
-		default:
+	default:
 		echo Responses::response('fail');
 		break;
 

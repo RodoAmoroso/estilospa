@@ -33,16 +33,20 @@ class MainCategories extends Core{
 	public function get(){
 		$query = $this->set_query("{$this->alias}.*");
 
-		$has_many = [
+		/* $has_many = [
 			 [
 				'class'=>'PromosCategories',
 				'foreign_key'=>'main_category_id',
 				'foreign_filter'=>'main_category_ids',
 				'name'=>'categories'
 			]
-		];
+		]; */
 
-		if(!$data = parent::core_get($query,$this->_filters->values,$has_many)) return false;
+		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
+
+		foreach($data as $k=>$row){
+			$data[$k]->categories = [];
+		}
 		return $data;
 	}
 	public function get_total(){

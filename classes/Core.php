@@ -3,7 +3,6 @@
 class Core {
 
 	protected $_db,
-						$_dbpx,
 						$_data,
 						$_lastid,
 						$_ids;
@@ -26,8 +25,6 @@ class Core {
 
 	public function __construct(){
 		global $DB,$_userdata;
-		//$this->_dbpx = Env::get('DB_PREFIX');
-		//$this->_db = DB::getInstance();
 		$this->_db = $DB;
 		$this->userdata = $_userdata;
 	}
@@ -405,8 +402,27 @@ class Core {
 					$obj->foreign_key=>$obj->foreign_key_id
 				];
 
-				foreach($obj->values as $kv=>$val){
-					$values[$val] = is_array($item[$val]) ? json_encode($item[$val]) : $item[$val];
+				if(property_exists($obj,'values')){
+					foreach($obj->values as $kv=>$val){
+						if(preg_match('/(\|)/', $val)){
+							$val_exploded = explode('|', $val);
+							switch($val_exploded[1]){
+								case 'date':
+									unset($values[$val]);
+									$values[$val_exploded[0]] = DateTime::createFromFormat('d/m/Y',$item[$val_exploded[0]])->format('Y-m-d');
+									break;
+								case 'json':
+									unset($values[$val]);
+									$values[$val_exploded[0]] = json_encode($item[$val_exploded[0]]);									
+									break;
+								default:
+									$values[$val] = $item[$val];
+									break;							
+							}
+						}else{							
+							$values[$val] = $item[$val];
+						}
+					}
 				}
 
 				if($saved_items){

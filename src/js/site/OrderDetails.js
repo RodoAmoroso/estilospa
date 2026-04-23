@@ -45,8 +45,7 @@ class OrderDetails{
 
 				let upimage = new UpFile({
 					container:'[data-input="image"]',
-					controller:'site/sales/upimage',
-					folder:'img/gift',
+					controller:'site/sales/upimage',					
 					thumbnail:'#image',
 					scope:'site',
 					sufix:''
@@ -57,7 +56,7 @@ class OrderDetails{
 
 	constructor(){
 
-		this.saleid = _subsection
+		this.saleid = _idsection
 		this.modal = $('#popups')
 
 		this.modal.on('submit','[data-form="voucher"]',form=>{

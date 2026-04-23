@@ -7,7 +7,7 @@ if($User->logged()){
 	$_userdata = $User->data();
 }
 
-//dd($_userdata);
+//dd(Env::get('SITE_URL'));
 
 $dbprovinces = DB::getInstance()->get('provinces',array('id','!=',0));
 foreach($dbprovinces->results() as $p){
@@ -45,3 +45,7 @@ $main_categories = $MainCategories->get();
 
 $GiftCardsUsersAssignments = new GiftCardsUsersAssignments;
 $giftcard_user_balance = $GiftCardsUsersAssignments->user_balance();
+
+
+
+//dd($giftcard_user_balance);

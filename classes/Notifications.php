@@ -26,7 +26,7 @@ class Notifications {
 			WHERE c.id IS NULL
 				AND p.id IS NOT NULL
 				AND u.mail IS NOT NULL
-				AND s.collection_status='approved'
+				AND s.payment_status='approved'
 				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range));
 
@@ -59,7 +59,7 @@ class Notifications {
 			WHERE s.status = 1
 				AND p.id IS NOT NULL
 				AND c.mail IS NOT NULL
-				AND s.collection_status='approved'
+				AND s.payment_status='approved'
 				AND DATE(NOW()) = DATE(s.added) + INTERVAL ? DAY",
 			array($this->range)
 		);

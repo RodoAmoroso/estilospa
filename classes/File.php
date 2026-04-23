@@ -24,11 +24,11 @@ class File {
 	}
 
 	////////////////////// MOVE FILE ///////////////////////
-	public function MoveFile($image=true){
+	public function MoveFile($image=true,$hashed=false){
 		$this->hash = hash('sha256',date('Y-m-d H:i:s').rand(1111,9999));
 		$this->image = $image;
 		$this->arrName = explode('.',$this->file['name']);
-		$this->filename = permalink($this->arrName[0].'-'.rand(1111,9999));
+		$this->filename = $hashed ? $this->hash : permalink($this->arrName[0].'-'.rand(1111,9999));
 		$this->extension = strtolower($this->arrName[count($this->arrName)-1]);
 		if($this->file['size'] > intval(ini_get('upload_max_filesize'))*1048576){
 			die(Responses::response('max_filesize','',array('size'=>substr(ini_get('upload_max_filesize'),0,-1))));
@@ -48,26 +48,40 @@ class File {
 	}
 
 	////////////////////// IMAGE CREATE //////////////////////
-	public function ImageCreate($type){
+	public function ImageCreate($type,$file=false){
+		$file = $file ?: PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension;
+		
 		switch($type){
 			case 1:
-				return imagecreatefromgif(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
+				return imagecreatefromgif($file);
 				//$this->extension = 'gif';
 				break;
 			case 2:
-				return imagecreatefromjpeg(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
+				return imagecreatefromjpeg($file);
 				//$this->extension = 'jpg';
 				break;
 			case 3:
-				return imagecreatefrompng(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
+				return imagecreatefrompng($file);
 				///$this->extension = 'png';
 				break;
 			case 18:
-				return imagecreatefromwebp(PATH.$this->main_folder.$this->folder.'tempname.'.$this->extension);
+				return imagecreatefromwebp($file);
 				///$this->extension = 'webp';
 				break;
 			default:
-				die( Responses::response('upload_fail') );
+
+				$imagick = new Imagick();
+				try {
+					$imagick->readImage($file);
+					$imagick->setImageFormat('jpg');
+					$imagick->writeImage(PATH.$this->main_folder.$this->folder.'tempname.jpg');
+				} catch (Exception $e) {
+					die( Responses::response('uploadfail','<div>No se reconoce el formato de la imagen.</div><br><div class="small text-danger">Los formatos de imagen soportados son: JPG, JPEG, PNG, GIF, WEBP</div>') );
+				}
+
+				return imagecreatefromjpeg(PATH.$this->main_folder.$this->folder.'tempname.jpg');
+
+				die( Responses::response('upload_fail','No se reconoce el formato de la imagen.') );
 				break;
 		}
 	}
@@ -159,13 +173,16 @@ class File {
 			$this->Resize($arrImg, $forced, $trim);
 		}
 		/////////////////////////////////////////////
+
 		return array(
 			'status'=>'ok',
 			'filename'=>$this->filename,
 			'extension'=>$this->extension,
 			'hash'=>$this->hash,
 			'folder'=>$this->folder,
-			'main_folder'=>$this->main_folder
+			'main_folder'=>$this->main_folder,
+			'size'=>round($this->file['size']/1024,2).' KB',
+			'url'=>ROOT.$this->main_folder.$this->folder.$this->filename.'.'.$this->extension
 		);
 	}
 
@@ -193,6 +210,7 @@ class File {
 		readfile($file);
 		return true;
 	}
+
 
 
 	public static function download_excel($file='',$extension='',$content=''){

@@ -1,6 +1,15 @@
+const SwalWarn = Swal.mixin({
+	type: 'warning',
+	showCancelButton: true,
+	cancelButtonText: 'Cancelar',
+	reverseButtons: true,
+	confirmButtonText: 'Si'
+})
+
 class Main {
 
 	constructor(){
+		
 		this.init()
 	}
 
@@ -142,6 +151,15 @@ class Main {
 		},1000)
 		$('.gift-balance-notification').on('click','.close-balance-notification',btn=>{
 			$('.gift-balance-notification').removeClass('active')
+		})
+
+
+		$('body').on('click','[data-swal]',el=>{
+			const text = $(el.currentTarget).attr('data-swal')
+			Swal.fire({
+				type:'info',
+				html:text
+			})
 		})
 
 	}

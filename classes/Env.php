@@ -29,6 +29,16 @@ class Env {
 				if (preg_match('/^(["\'])(.*)\1$/', $value, $matches)) {
 					$value = $matches[2];
 				}
+
+				// Resolver variables en el formato ${VAR_NAME}
+				$value = preg_replace_callback('/\$\{([a-zA-Z0-9_]+)\}/', function($m) {
+					$varName = $m[1];
+					if (isset(self::$env[$varName])) {
+						return self::$env[$varName];
+					}
+					$envVal = getenv($varName);
+					return $envVal !== false ? $envVal : $m[0];
+				}, $value);
 					
 				self::$env[$key] = $value;
 				putenv("$key=$value");

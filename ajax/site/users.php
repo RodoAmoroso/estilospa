@@ -1,12 +1,12 @@
 <?php
 
-
 $UserAdmin = new UserAdmin();
 $Sales = new Sales();
 $Favs = new Favs();
-$User = new User();
 $Mailing = new Mailing();
 $Subscribers = new Subscribers();
+
+$SalesComments = new SalesComments();
 
 View::$scope = Config::get('paths/site');
 View::$root = SITE;
@@ -120,13 +120,20 @@ switch($_action):
 	case 'qualify':
 		if(!$User->logged()) die(Responses::response('require_login'));
 
-		$Sales->iduser = $User->data()->id;
-		if(!$Sales->find(Input::get('idsale'))) die(Responses::response('fail'));
-		if(!is_null($Sales->data()->text)) die(Responses::response('fail'));
+		if($comment = $SalesComments->find_by_sale_user(Input::get('idsale'),$_userdata->id)) die(Responses::response('fail','Ya has calificado esta compra.'));
 
-		if(!$Sales->qualify()) die(Responses::response('fail'));
+		if(!$sale = $Sales->find(Input::get('idsale'))) die(Responses::response('fail'));
+		if($sale->iduser != $_userdata->id) die(Responses::response('restricted'));
+		
+		$SalesComments->save([
+			'id'=>null,
+			'iduser'=>$_userdata->id,
+			'idsale'=>Input::get('idsale','int'),
+			'rate'=>Input::get('rate','int'),
+			'text'=>Input::get('comment','xss')
+		]);
 
-		echo Responses::response('ok','Gracias por compartir tu experiencia con EstiloSPA.com!!!<br>Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.');
+		echo Responses::response('ok','<h3>¡Gracias por compartir tu experiencia!</h3><p>Con tu aporte podemos mejorar y ofrecer un mejor servicio día a día.</p>');
 		break;
 	case 'favs':
 		if(!$User->logged()) die(Responses::response('fail'));

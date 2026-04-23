@@ -13,13 +13,13 @@ $(function(){
 	$('#fd_newsletter,[for="fd_newsletter"]').click(function(){
 		$('#fd_newsletter').toggleClass('fa-check-square fa-square');
 	});
-	$('#form_user').submit(function(e){
-		e.preventDefault();
-		var post = get_form(this);
+	$('[data-form="profile"]').submit(async form=>{
+		form.preventDefault();
+		const post = get_form(form.currentTarget);
 		post.newsletter = $('#newsletter').is(':checked') ? 1 : 0;
-		ajax('site/users/update',post)
-			.then(function(data){
-				Swal.fire({type:'success',html:data.message});
-			});
+		const response = await ajax('site/users/update',post)
+		Swal.fire({type:'success',html:response.message});
+		
 	});
+
 });

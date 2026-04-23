@@ -219,31 +219,45 @@ var Promos = {
 				return false;
 			}
 		}
+
+		const main_categories = $('input[name="main_category"]:checked').map(function(){
+			return {main_category_id:$(this).val()};
+		}).get();
+				
+		if(main_categories.length==0){
+			Swal.fire({
+				type:'warning',
+				text:'Debes elegir al menos una categoría principal.'
+			});
+			return false;
+		}
+
 		ajax('admin/promos/save',{
-			Title:$('#fd_title').val(),
-			Subtitle:$('#fd_subtitle').val(),
-			Label:$('#fd_label').val(),
-			IDClient:$('#fd_clients').val(),
-			Stores:stores,
-			Start:$('#fd_start').val(),
-			Finish:$('#fd_finish').val(),
-			Gift:$('#fd_gift').hasClass('active') ? 1 : 0,
-			Sale:$('#fd_sale').hasClass('active') ? 1 : 0,
-			Price:$('#fd_price').val(),
-			IDPromotype:$('#fd_promotypes').val(),
-			CategoryID:$('#fd_category').val(),
-			Discount:$('#fd_discount').val(),
-			Amount:$('#fd_amount').val(),
-			Description:$('#fd_description').val(),
-			Valid:$('#fd_valid').val(),
-			Includes:$('#fd_includes').val(),
-			Recomendations:$('#fd_recomendations').val(),
-			Reservation:$('#fd_reservation').val(),
-			Duration:$('#fd_duration').val(),
-			Cancellation:$('#fd_cancellation').val(),
-			Glossary:$('[name="glossary"]').val(),
-			Gallery:gallery,
-			ID:$_id
+			title:$('#fd_title').val(),
+			subtitle:$('#fd_subtitle').val(),
+			label:$('#fd_label').val(),
+			idclient:$('#fd_clients').val(),
+			stores:stores,
+			start:$('#fd_start').val(),
+			finish:$('#fd_finish').val(),
+			gift:$('#fd_gift').hasClass('active') ? 1 : 0,
+			sale:$('#fd_sale').hasClass('active') ? 1 : 0,
+			price:$('#fd_price').val(),
+			idpromotype:$('#fd_promotypes').val(),
+			categoryid:$('#fd_category').val(),
+			discount:$('#fd_discount').val(),
+			amount:$('#fd_amount').val(),
+			description:$('#fd_description').val(),
+			valid:$('#fd_valid').val(),
+			includes:$('#fd_includes').val(),
+			recomendations:$('#fd_recomendations').val(),
+			reservation:$('#fd_reservation').val(),
+			duration:$('#fd_duration').val(),
+			cancellation:$('#fd_cancellation').val(),
+			glossary:$('[name="glossary"]').val(),
+			gallery:gallery,
+			main_categories:main_categories,
+			id:$_id
 		})
 			.then(function(data){
 				Promos.reset();

@@ -66,6 +66,10 @@ class Input {
 			case 'nullable':
 				$input = empty($input) ? null : $input;
 				break;
+			case 'nullable|xss':
+			case 'xss|nullable':
+				$input = empty($input) ? null : strip_tags($input);
+				break;
 			case 'xss':
 				$input = addslashes(strip_tags($input));
 				break;

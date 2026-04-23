@@ -17,32 +17,29 @@ $(function(){
 		$('.star-text-wrapper span:eq('+indx+')').addClass('active');
 	});
 
-	$('#fd_comment').keyup(function(){
-		var dif = 500-$(this).val().length;
+	$('[name="comment"]').keyup(function(){
+		var dif = 500-$(this).val().length;		
 		$('maxchar').text(dif);
 	});
 
-	$('#form_qualify').submit(function(e){
+	$('#form_qualify').submit(async e=>{
 		e.preventDefault();
 		
 		if($('.stars-wrapper input:checked').val() == undefined){
-			Swal.fire({text:'Seleccioná la cantidad de estrellas primero',type:'warning'});
+			Swal.fire({
+				text:'Seleccioná la cantidad de estrellas primero',
+				type:'warning'
+			});
 			return false;
 		}
-		var post = get_form(this);
-		ajax('site/users/qualify',post)
-			.then(function(data){				
-				Swal.fire({
-					type:'success',
-					html:data.message,
-					allowOutsideClick:false
-				})
-					.then(function(response){
-						if(response.value){
-							window.location.href = ROOT+'mis-compras';
-						}
-					});
-			});
-
+		const post = get_form(e.delegateTarget);
+		const response = await ajax('site/users/qualify',post)
+		
+		const swal = await Swal.fire({
+			type:'success',
+			html:response.message,
+			allowOutsideClick:false
+		});		
+		window.location.href = ROOT+'usuario/mis-experiencias';
 	});
 });

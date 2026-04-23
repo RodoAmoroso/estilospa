@@ -50,7 +50,7 @@
 			<div class="col-12 col-lg-4 text-center">
 						
 				<p class="text-muted mb-3">ó Ingresar con</p>
-				<a href="https://accounts.google.com/o/oauth2/auth?client_id=890654212350-j6l812ihgmgosf3309fn709g60h6fd78.apps.googleusercontent.com&redirect_uri=<?= urlencode(ROOT.'oauth2callback') ?>&scope=email%20profile&response_type=code" class="btn btn-outline-secondary btn-lg btn-block google-login-btn mb-2">
+				<a href="https://accounts.google.com/o/oauth2/auth?client_id=<?= Env::get('GOOGLE_CLIENT_ID') ?>&redirect_uri=<?= urlencode(Env::get('GOOGLE_REDIRECT_URI')) ?>&scope=email%20profile&response_type=code" class="btn btn-outline-secondary btn-lg btn-block google-login-btn mb-2">
 					<img src="<?= View::assets('icon-google.svg') ?>" alt=""> Continuar con Google
 				</a>							
 				

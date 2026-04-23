@@ -122,15 +122,17 @@
 		font-size 60pt
 		color $aqua_4
 		margin-right 1rem
-	.title 
-		font-size 12pt
-	.price 
-		font-size 18pt 
-		font-weight 900
-		color $green_2
-	.expiration 
-		margin-top .25rem
-		font-size 8pt
+	.content
+		color $green_1
+		.title 
+			font-size 12pt
+		.price 
+			font-size 18pt 
+			font-weight 900
+			color $green_2
+		.expiration 
+			margin-top .25rem
+			font-size 8pt
 	.close-balance-notification
 		position absolute
 		cursor pointer
@@ -214,3 +216,80 @@
 			outline none
 		&:hover 
 			border-color $aqua_4
+
+
+.giftcard-preview-container	
+	overflow-x auto
+	padding .425rem
+	.giftcard-preview
+		box-shadow 2px 2px 5px 0 alpha(black,.25)
+		border-radius 8pt 
+		min-width 820px
+		border 1px solid gray(20)
+		overflow hidden
+		position relative
+		img
+			width 100%
+
+		.content 
+			overprint()
+			display flex
+			.left-column 
+				background-size cover
+				background-position center
+				width 100px
+				min-width 100px
+			.center-column 
+				$width_center = 320px
+				width $width_center
+				min-width $width_center
+				text-align center
+				padding .5rem
+
+				display flex
+				flex-direction column
+				justify-content space-between
+				.name 
+					font-weight 900
+				.message 
+					font-size 11pt
+					line-height 1.15
+					font-style italic
+				.author  				
+					font-weight 900
+					font-style italic
+					font-size 11pt
+				.code 
+					font-size 14pt 
+					span
+						font-weight bold
+				.phrase
+					font-size 15pt
+					font-style italic
+					color $yellow_4
+					font-weight 400
+					line-height 1.15
+					span
+						color $aqua_3
+						font-weight bold
+				
+				
+				img
+					max-width 200px
+					margin 0 auto
+				.info 
+					font-size 9pt 
+					line-height 1.15
+			.right-column 
+				background-size cover
+				background-position center
+				width 100%			
+			
+		
+[data-toggle="user-image-container"]
+	.filename
+		max-width 200px
+		line-height 1.15
+		font-size 9pt
+		word-wrap break-word
+		text-overflow ellipsis

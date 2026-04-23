@@ -2,21 +2,13 @@
 	<div class="container d-flex justify-content-between align-items-center"> 
 
 		<ul class="site-menu">
+			<?php if($main_categories): foreach($main_categories as $main_category): ?>
 			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-mi" class="item-anchor">
-					Para <span class="script">Mi</span>
+				<a href="#" data-toggle="submenu" data-target="<?= $main_category->reference ?>" class="item-anchor">
+					<?= $main_category->name ?>
 				</a>
-			</li>
-			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-compartir" class="item-anchor">
-					Para <span class="script">Compartir</span>
-				</a>
-			</li>
-			<li class="menu-item">
-				<a href="#" data-toggle="submenu" data-target="para-regalar" class="item-anchor">
-					Para <span class="script">Regalar</span>
-				</a>
-			</li>
+			</li>			
+			<?php endforeach; endif; ?>
 
 			<li class="menu-item">
 				<a href="<?= View::url('giftcards') ?>" class="item-anchor">
@@ -66,15 +58,21 @@
 					<li><hr></li>			
 
 					<li>
-						<a href="<?= View::url('perfil') ?>" class="dropdown-item">
+						<a href="<?= View::url('usuario','mi-perfil') ?>" class="dropdown-item">
 							<i class="fal fa-user fa-fw"></i>
 							<span>Mi Perfil</span>
 						</a>
 					</li>
 					<li>
-						<a href="<?= View::url('mis-compras') ?>" class="dropdown-item">
+						<a href="<?= View::url('usuario','mis-compras') ?>" class="dropdown-item">
 							<i class="fal fa-shopping-bag fa-fw"></i>
 							<span>Mis Compras</span>
+						</a>
+					</li>
+					<li>
+						<a href="<?= View::url('usuario','mis-experiencias') ?>" class="dropdown-item">
+							<i class="fal fa-spa fa-fw"></i>
+							<span>Mis Experiencias</span>
 						</a>
 					</li>
 
@@ -87,7 +85,7 @@
 
 
 					<li>
-						<a href="<?= View::url('mis-favoritos') ?>" class="dropdown-item">
+						<a href="<?= View::url('usuario','mis-favoritos') ?>" class="dropdown-item">
 							<i class="fal fa-heart fa-fw"></i>
 							<span>Mis Favoritos</span>
 						</a>
@@ -314,12 +312,12 @@
 		<i class="fa fa-gift"></i>
 	</div>
 
-	<div class="content">
+	<a href="<?= View::url('usuario','mis-giftcards') ?>" class="content">
 		<div class="title">Tenés a tu favor</div>
 		<div class="price">$ <?= $giftcard_user_balance->total_formatted ?></div>
 	
 		<div class="expiration">Disponible hasta el <?= $giftcard_user_balance->expiration ?></div>
-	</div>
+	</a>
 	
 	<div class="close-balance-notification" >
 		<i class="fal fa-times"></i>

@@ -12,16 +12,16 @@
 					<div class="box-wrapper">
 						<div class="box">
 							<div class="box-title">
-								<h3><?= !is_null($Sales->data()->title) ? $Sales->data()->title : 'La experiencia fue borrada' ?></h3>
-								<h5><?= !is_null($Sales->data()->clientname) ? $Sales->data()->clientname : '' ?></h5>
+								<h3><?= $sale->promo ? $sale->promo->title : 'La experiencia fue borrada' ?></h3>
+								<h5><?= $sale->promo ? $sale->promo->client_name : '' ?></h5>
 							</div>
 							<div class="box-content">
 								<div class="thumb thumb-cover thumb-fullx180 bd-full-gray-20 bg-aqua-2" style="background-image:<?= $imagepromo ?>"></div>
 							</div>
 							<div class="box-footer">
-								<h4>$ <?= number_format($Sales->data()->price,2,',','.') ?> - Cantidad: <?= $Sales->data()->quantity ?></h4>
-								<p class="cl-gray-50"><?= $Sales->data()->fecha ?> hs.</p>
-								<small><?= nl2br($Sales->data()->subtitle) ?></small>
+								<h4><?= $sale->price_formatted ?> - Cantidad: <?= $sale->quantity ?></h4>
+								<p class="cl-gray-50"><?= $sale->added ?></p>
+								<small><?= $sale->promo ? nl2br($sale->promo->subtitle) : '' ?></small>
 							</div>
 						</div>
 
@@ -40,26 +40,26 @@
 								<form id="form_qualify">
 									<input type="hidden" name="idsale" value="<?=$idsale?>" >
 									<h3>Describinos cómo fue tu experiencia:</h3>
-									<p>Podés hacer referencia sobre la higiene general de lugar, atención de la recepcionista, atención del profesional, equipamiento, calificación general, etc.</p>
+									<div class="mb-3">Podés hacer referencia sobre la higiene general de lugar, atención de la recepcionista, atención del profesional, equipamiento, calificación general, etc.</div>
 
 									<div class="mb-3">
-										<textarea name="comment" rows="6" class="form-control" maxlength="500" required></textarea>
-										<small>Máximo <maxchar>500</maxchar> caracteres</small>
+										<textarea name="comment" rows="6" class="form-control" maxlength="500" required placeholder="Escribí tu comentario..."></textarea>
+										<div class="small-comment">Máximo <maxchar>500</maxchar> caracteres</div>
 									</div>
 
 									<h3>¿Cuántas estrellas le darías?</h3>
 									<div class="stars">
 										<div class="stars-wrapper">
 											<input id="star_5" value="5" type="radio" name="rate">
-											<label for="star_5" class="fa fa-star-o"></label>
+											<label for="star_5" class="fal fa-star"></label>
 											<input id="star_4" value="4" type="radio" name="rate">
-											<label for="star_4" class="fa fa-star-o"></label>
+											<label for="star_4" class="fal fa-star"></label>
 											<input id="star_3" value="3" type="radio" name="rate">
-											<label for="star_3" class="fa fa-star-o"></label>
+											<label for="star_3" class="fal fa-star"></label>
 											<input id="star_2" value="2" type="radio" name="rate">
-											<label for="star_2" class="fa fa-star-o"></label>
+											<label for="star_2" class="fal fa-star"></label>
 											<input id="star_1" value="1" type="radio" name="rate">
-											<label for="star_1" class="fa fa-star-o"></label>
+											<label for="star_1" class="fal fa-star"></label>
 										</div>
 										<div class="star-text-wrapper">
 											<span>Excelente</span>

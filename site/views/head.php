@@ -65,6 +65,7 @@
 		var MAXFILES = '<?= MAXFILES ?>';
 		var _section = '<?= $_section ?>';
 		var _subsection = '<?= $_subsection ?>';
+		var _idsection = '<?= $_idsection ?>';
 		var _vars = '<?= $_vars ?>';
 
 		var TOKEN = '<?= TOKEN ?>';

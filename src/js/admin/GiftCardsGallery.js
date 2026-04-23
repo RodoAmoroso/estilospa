@@ -32,6 +32,19 @@ class GiftCardsGallery {
 			$('[data-toggle="gallery"]').append(thumb)
 		})
 
+		$('[data-toggle="gallery"]').sortable({
+			update:async (event,ui)=>{
+				const items = []
+				$('[data-toggle="gallery"]').find('.thumbnail').each((index,elem)=>{
+					items.push($(elem).attr('data-id'))
+				})
+				await ajax('admin/core/reorder',{
+					class:this.class,
+					arrids:items
+				})
+			}
+		})
+
 	}
 
 

@@ -5,13 +5,13 @@
 if($Sales->check_hash($hash)){
 
 	$saleid = $Sales->data()->id;
-	if($Sales->data()->collection_status!=$collection_status){
+	if($Sales->data()->payment_status!=$payment_status){
 		$Sales->notified($Sales->data()->id,0);
 	}
 
 	$Sales->update($saleid,array(
 		'collection_id'=>$collection_id,
-		'collection_status'=>$collection_status,
+		'payment_status'=>$payment_status,
 		'payment_type'=>$payment_type,
 		'application_fee'=>$fees->application_fee,
 		'mercadopago_fee'=>$fees->mercadopago_fee,
@@ -36,7 +36,7 @@ if($Sales->check_hash($hash)){
 		'idclient'=>$idclient,
 		'idpromo'=>$idpromo,
 		'collection_id'=>$collection_id,
-		'collection_status'=>$collection_status,
+		'payment_status'=>$payment_status,
 		'preference_id'=>'',
 		'external_reference'=>$hash,
 		'payment_type'=>$payment_type,
@@ -128,13 +128,26 @@ if($collection_status == 'approved' && !$_salesdata->notified){
 	$Mailing->sales_success_user($_salesdata);
 	$Mailing->sales_success_client($_salesdata);
 	$Sales->notified($_salesdata->id,1);
+	$_salesdata->notified = 1;
 	/*if($_salesdata->gift){
 		$Mailing->sales_success_gift($_salesdata);
 	}*/
 }
-if(($collection_status == 'pending' || $collection_status == 'in_process' || $collection_status == 'in_mediation' || $collection_status == 'authorized')){
+if(
+	(
+		$payment_status == 'pending' || 
+		$payment_status == 'in_process' || 
+		$payment_status == 'in_mediation' || 
+		$payment_status == 'authorized'
+	) && !$_salesdata->notified
+){
 	$Mailing->sales_pending($_salesdata);
 }
-if(($collection_status == 'rejected' || $collection_status == 'cancelled') &&  !$_salesdata->notified){
+if(
+	(
+		$payment_status == 'rejected' || 
+		$payment_status == 'cancelled'
+	) &&  !$_salesdata->notified
+){
 	$Mailing->sales_rejected($_salesdata);
 }

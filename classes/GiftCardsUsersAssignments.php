@@ -90,17 +90,19 @@ class GiftCardsUsersAssignments extends Core{
 		];
 		
 		/// restar usage
-		$query = $this->set_query("SUM({$this->alias}.value) total, MIN(expiration) expiration");
+		$query = $this->set_query("SUM({$this->alias}.value) - IFNULL((SELECT SUM(value) FROM {giftcard_usage} gu WHERE gu.user_assignment_id={$this->alias}.id),0) total, MIN(expiration) expiration");
 
 		$this->_db->query($query,$this->_filters->values);		
 		if(!$total = $this->_db->first()->total) return false;
 
 		$expiration = new DateTime($this->_db->first()->expiration);
+		$today = new DateTime;
 
 		return (object) [
 			'total_formatted'=>number_format($total,2,',','.'),
 			'total'=>$total,
-			'expiration'=>$expiration->format('d/m/Y')
+			'expiration'=>$expiration->format('d/m/Y'),
+			'is_expired'=>$expiration < $today
 		];
 	}
 

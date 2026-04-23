@@ -1,23 +1,102 @@
 <?php
-
-
 use setasign\Fpdi\Fpdi;
 
-class SalesVouchers extends Sales{
+class SalesVouchers extends Core{
 
-	private $_pdf,
-					$_voucher;
+	protected 	$table='sales_vouchers',
+							$sizes=['small'=>'','big'=>''],
+							$folder='gift',
+							$alias='sv';
+
+	private 		$_pdf,
+							$_voucher,
+							$_filters;
 
 
-	public function voucher($voucher=null){
+	public function search_filters(){
 
-		if(is_null($voucher)) return false;
+		$this->_filters = parent::core_filters([
+			'filters'=>[
+				'id'=>"{$this->alias}.id=?",
+				'exclude'=>"{$this->alias}.id!=?",
+				'ids'=>"{$this->alias}.id IN ($)",
+				
+				'sale'=>"{$this->alias}.saleid=?"
+
+			],
+			'search'=>[
+				"{$this->alias}.message"
+			]
+		]);
+
+	}
+
+
+	public function get(){
+		$query = $this->set_query("{$this->alias}.*");
+		if(!$data = parent::core_get($query,$this->_filters->values)) return false;
+		foreach($data as $k=>$row){
+			if($row->image) $data[$k]->image->path = IMG.$this->folder.DS.$row->image->f.'.'.$row->image->e;
+		}
+		return $data;
+	}
+	public function get_total(){
+		$query = $this->set_query("COUNT({$this->alias}.id) total");
+		$this->_db->query($query,$this->_filters->values);
+		return $this->_db->first()->total;
+	}
+	protected function set_query($selects="*"){
+		$this->search_filters();
+		return "
+			SELECT {$selects}
+			FROM {{$this->table}} {$this->alias}
+			{$this->_filters->where}
+			{$this->_filters->sort}
+			LIMIT {$this->limit}";
+	}
+
+	public function find($id=null){
+		if(!$id) return false;
+		$this->filters = ['id'=>$id];
+		if(!$data = $this->get()) return false;
+		return $data[0];
+	}
+
+	public function save(){	
+
+		$values = [
+			'saleid'=>Input::get('saleid'),
+			'gift'=>Input::get('gift')
+		];
+		$values['to_user'] = Input::get('gift') ? Input::get('to_user','xss') : null;
+		$values['message'] = Input::get('gift') ? Input::get('message','xss') : null;
+		$values['image'] = Input::get('gift') ? Input::get('image','json|nullable') : null;		
+
+		if(!parent::core_save(Input::get('id'),$values)) return false;
+		$id = parent::core_lastid();
+		return $id;
+	}
+
+	public function delete($id=null){
+		if(!$id) return false;
+		if(is_object($id)){
+			$data = $id;
+		}else{
+			if(!$data = $this->find($id)) return false;
+		}
+		if(!parent::core_delete($data)) return false;
+		return true;
+	}
+
+
+	////// PDF ////////
+	public function voucher($voucher=null,$sale=null){
+
+		if(is_null($voucher) || is_null($sale)) return false;
 
 
 		$this->_voucher = $voucher;
-
-		if(!parent::find($voucher->saleid)) return false;
-		$voucher->sale = parent::data();
+		$voucher->sale = $sale;
 
 		$User = new User();
 		$User->find($voucher->sale->iduser);
@@ -95,8 +174,8 @@ class SalesVouchers extends Sales{
 
 		$this->_pdf->SetFont('ProximaNormal','',10);
 		$this->_pdf->SetXY(21,223.5);
-		$added = new DateTime($voucher->sale->added);
-		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 60 días a partir del ').$added->format('d/m/Y'),0,0,'L',false);
+		
+		$this->_pdf->Cell(180,6,utf8_decode('válido hasta 60 días a partir del ').$voucher->sale->added_obj->format('d/m/Y'),0,0,'L',false);
 
 		//$this->_pdf->SetFont('ProximaNormal','',9);
 		//$this->_pdf->SetXY(21,228);
@@ -121,7 +200,6 @@ class SalesVouchers extends Sales{
 		return $this->_pdf->Output();
 		//return true;
 	}
-
 	public function generate_voucher($voucher){
 
 		$this->_pdf->setSourceFile(PATH.'assets/voucher.pdf');
@@ -145,8 +223,9 @@ class SalesVouchers extends Sales{
 
 
 	}
-
 	public function generate_voucher_gift($voucher){
+
+		//dd($voucher->image);
 
 		$this->_pdf->setSourceFile(PATH.'assets/voucher-regalo.pdf');
 		$tplidx = $this->_pdf->importPage(1);
@@ -173,9 +252,6 @@ class SalesVouchers extends Sales{
 		$this->_pdf->MultiCell(180,6,utf8_decode('"'.$voucher->message.'"'),0,'L',false);
 		$this->_pdf->Ln();
 
-
-
-
 		//Image
 		if(!is_null($voucher->image) && file_exists($voucher->image->path)){
 			$image_size = getimagesize($voucher->image->path);
@@ -187,8 +263,6 @@ class SalesVouchers extends Sales{
 		}
 
 	}
-
-
 	public function add_download($voucherid=0){
 		$this->_db->query(
 			"UPDATE {sales_vouchers}
@@ -199,9 +273,4 @@ class SalesVouchers extends Sales{
 		return true;
 	}
 
-	public function delete($voucherid=0){
-		if(!$voucherid) return false;
-		$this->_db->query("DELETE FROM {sales_vouchers} WHERE id=?",[$voucherid]);
-		return true;
-	}
 }

@@ -20,47 +20,45 @@
 			img
 				width 100%
 
-		.owl-controls
-			z-index 1
+		
+
+		.owl-dots
 			width 100%
+			position absolute
+			bottom 0
+		.owl-dot
+			span
+				background-color white
+				box-shadow 2px 2px 6px alpha(black,.25)
+		.owl-dot.active
+			span
+				background-color $fucsia_4
 
-			.owl-dots
-				width 100%
-				position absolute
-				bottom 0
-			.owl-dot
-				span
-					background-color white
-					box-shadow 2px 2px 6px alpha(black,.25)
-			.owl-dot.active
-				span
-					background-color $fucsia_4
-
-			.owl-nav
-				position absolute
-				width 100%
-				height 5px
-				display flex
-				top 50%
-				justify-content space-between
-				.owl-prev,
-				.owl-next
+		.owl-nav
+			position absolute
+			width 100%
+			height 5px
+			display flex
+			top 50%
+			justify-content space-between
+			.owl-prev,
+			.owl-next
+				background-color transparent
+				border-radius 50%
+				height 30px
+				width 30px
+				flex()
+				&:hover
 					background-color transparent
-					border-radius 50%
-					height 30px
-					width 30px
-					flex()
-					&:hover
-						background-color transparent
-						i
-							color $pink_2
 					i
-						font-size 46pt
-						color black
-				.owl-prev
-					transform translateY(-20px) translateX(0px)
-				.owl-next
-					transform translateY(-20px) translateX(0px)
+						color $pink_2
+				i
+					font-size 46pt
+					color black
+			.owl-prev
+				transform translateY(-20px) translateX(0px)
+			.owl-next
+				transform translateY(-20px) translateX(0px)
 
 	@media screen and (max-width 991px)
 		.sliders
@@ -154,8 +152,80 @@
 					font-size 2rem
 
 
+.home-main-cards
+	padding 3rem 0
+
+	.main-card
+		background-color gray(5)
+		padding 2rem
+		text-align center
+		border-radius 8pt
+		height 100%
+		position relative
+
+		.title
+			font-size 16pt
+			line-height 1.15
+			color $aqua_4
+		.image 
+			position relative
+			background-size cover 
+			background-position center 
+			background-repeat no-repeat
+			margin .5rem 0
+			img
+				width 100%
+			.image-bar
+				background-color alpha($aqua_4, .75)
+				bottom 0
+				color white
+				padding .5rem 1rem				
+				position absolute
+				width 100%
+		.description
+			.caption
+				font-size 14pt
+				line-height 1.15
+				margin 1rem 0
+			.caption.italic
+				font-family "Google Sans Italic", sans-serif
+				font-size 11pt
+
+			.phrase
+				font-size 10pt
+				color $aqua_4
+				font-weight 500
+				display flex 
+				align-items center
+				justify-content center
+				margin-top 2rem
+				i
+					font-size 16pt
+					margin-right .5rem
+
+		.button-outer
+			margin 1rem 0
+			left 0
+			position absolute
+			bottom -50px
+			width 100%
+			.button
+				color white
+				background-color $aqua_4
+				padding .5rem 1.5rem
+				border-radius 5pt
+				font-size 13pt
+				display inline-block
+				cursor pointer
+				transition background-color .3s
+				&:hover
+					background-color $fucsia_4
+					color white
+
+
+
 .home-categories
-	margin-top -10px
+	padding 3rem 0
 	.home-categories-modules
 
 		display flex
@@ -198,9 +268,8 @@
 .home-carousel
 	padding 3rem 0
 
-
 .how-it-works
-	padding 2rem 0
+	padding 0 0 2rem 0
 	.title
 		display flex
 		justify-content center

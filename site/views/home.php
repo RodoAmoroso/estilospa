@@ -14,9 +14,83 @@
 
 </section>
 
+<section class="home-main-cards">
+	<div class="container">
+		<h2 class="main-title text-center"><i class="fal fa-spa fa-fw text-aqua-3"></i> ¿Cómo vas a vivir el bienestar hoy?</h2>
+
+		<div class="row mt-4">
+			<div class="col-lg-4">
+				<div class="main-card">
+					<div class="title">Experiencias SPA<br>diseñadas por expertos</div>
+					<div class="image" style="background-image:url(<?= View::assets('bg-2.jpg') ?>)">
+						<img src="<?= View::assets('blank-square.gif') ?>" alt="">
+						<div class="image-bar">La opción más elegida</div>
+					</div>
+					<div class="description">
+						<div class="caption">Sumergite en cientos de experiencias seleccionadas</div>
+						<div class="caption italic">Personalizá tu experiencia</div>
+						<div class="phrase"><i class="fal fa-spa fa-fw"></i> Ideal para vos o para compartir</div>
+					</div>
+					<div class="button-outer">
+						<a href="#" class="button">
+							<i class="fal fa-arrow-right fa-fw"></i> Ver Experiencias
+						</a>
+					</div>
+				</div>
+			</div>	
+			
+			<div class="col-lg-4">
+				<div class="main-card">
+					<div class="title">GiftCards<br>EstiloSPA</div>
+					<div class="image" style="background-image:url(<?= View::assets('bg-3.jpg') ?>)">
+						<img src="<?= View::assets('blank-square.gif') ?>" alt="">
+						<div class="image-bar">La opción más rápida</div>
+					</div>
+					<div class="description">
+						<div class="caption">Cargás el dinero que deseas regalar</div>
+						<div class="caption italic">Tu agasajado lo canjea por la experiencia que desee</div>
+						<div class="phrase"><i class="fal fa-spa fa-fw"></i> Ideal para un regalo inolvidable</div>
+					</div>
+					<div class="button-outer">
+						<a href="<?= View::url('giftcard') ?>" class="button">
+							<i class="fal fa-arrow-right fa-fw"></i> Crear GiftCard
+						</a>
+					</div>
+				</div>
+			</div>	
+
+			<div class="col-lg-4">
+				<div class="main-card">
+					<div class="title">Pase<br>MultiSPA</div>
+					<div class="image" style="background-image:url(<?= View::assets('bg-4.jpg') ?>)">
+						<img src="<?= View::assets('blank-square.gif') ?>" alt="">
+						<div class="image-bar">La opción más flexible</div>
+					</div>
+					<div class="description">
+						<div class="caption">Elegís el pase ideal</div>
+						<div class="caption italic">Quien recibe el pase elige dónde vivir su experiencia.</div>
+						<div class="phrase"><i class="fal fa-spa fa-fw"></i> Ideal para un regalo memorable</div>
+					</div>
+					<div class="button-outer">
+						<a href="<?= View::url('pases-multispa') ?>" class="button">
+							<i class="fal fa-arrow-right fa-fw"></i> Regalar Pase MultiSPA
+						</a>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</section>
+
+<hr class="line-dotted">
+
 <?php if($main_categories): ?>
 <section class="home-categories">
 	<div class="container">
+
+		<h2 class="main-title text-center">
+			<i class="fa fa-search fa-fw text-aqua-3"></i> Explora TODAS las Experiencias EstiloSPA
+		</h2>
 
 		<div class="home-categories-modules">
 
@@ -135,7 +209,7 @@
 
 		<div class="text-center">
 			<h2 class="main-title">
-				<i class="fa fa-heart text-fucsia-3 fa-fw"></i> <span>Experiencias más elegidas</span>
+				<i class="fal fa-heart text-aqua-3 fa-fw"></i> <span>Experiencias más elegidas</span>
 			</h2>
 		</div>
 
@@ -160,7 +234,7 @@
 		</div>
 
 		<div class="text-center mt-4">
-			<a href="<?=View::url('busqueda')?>" class="btn btn-sm btn-outline-dark">
+			<a href="<?=View::url('busqueda')?>" class="btn btn-sm btn-aqua-4">
 				<i class="fal fa-angle-right fa-fw"></i> ver más
 			</a>
 		</div>

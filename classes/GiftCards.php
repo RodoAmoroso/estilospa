@@ -47,8 +47,8 @@ class GiftCards extends Core{
 			$row->value_formatted = '$ '.number_format($row->value,0,',','.');
 			$row->value_novat_formatted = '$ '.number_format($row->value/1.21,0,',','.');
 
-			$row->permalink = ROOT.'giftcard/'.$row->id.'-'.Permalink($row->title);
-			$row->permalink_payment = ROOT.'giftcard-compra/'.$row->id.'-'.Permalink($row->title);
+			$row->permalink = ROOT.'pase-multispa/'.$row->id.'-'.Permalink($row->title);
+			$row->permalink_payment = ROOT.'pase-multispa-compra/'.$row->id.'-'.Permalink($row->title);
 			
 		}
 		return $data;

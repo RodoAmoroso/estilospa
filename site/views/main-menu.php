@@ -306,7 +306,7 @@
 </div>
 
 <?php if($User->logged() && $giftcard_user_balance): ?>					
-<div class="gift-balance-notification" >
+<div class="gift-balance-notification d-none" >
 
 	<div class="icon">
 		<i class="fa fa-gift"></i>

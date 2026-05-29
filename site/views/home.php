@@ -1,6 +1,6 @@
 <section class="home-slider">
 
-	<div class="containerx">
+	<div class="container">
 
 	<div class="sliders owl-carousel owl-theme">
 		<?php foreach($banners as $banner): ?>
@@ -125,18 +125,18 @@
 <section class="how-it-works">
 	<div class="container">
 	
-		<div class="title">
+		<div class="title d-none">
 			<div class="title-bar"></div>
 			<div class="title-button">¿Cómo Funciona?</div>
 		</div>
 
-		<div class="text-center py-3">
+		<div class="text-center py-3 d-none">
 			<div class="caption">Podés seleccionar una de las diferentes experiencias especialmentes diseñadas</div>
 			<div class="caption">ó</div>
 			<div class="caption">Podés regalar una <b class="ff-birthstone">Gift Card</b> para que el agasajado canjee el valor por la experiencia que desee.</div>
 		</div>
 
-		<div class="row justify-content-center my-3">
+		<div class="row justify-content-center my-3 d-none">
 			<div class="col-lg-4 mb-3">
 				<a href="#" class="gift-card shadow">
 					<img src="<?= View::assets('blank-wide-2.gif') ?>" alt="" class="w-100">
@@ -200,6 +200,60 @@
 
 	</div>
 </section>
+
+
+<section class="giftcard-section border-top">
+	<div class="container">		
+
+		<div class="row mb-5 align-items-center justify-content-centerx ">
+
+			<div class="col-lg-5">
+
+				<h1 class="main-title"><i class="fal fa-gift fa-fw"></i> GiftCard EstiloSPA</h1>
+				<h4>La opción más rápida</h4>
+				<h5>Ideal para un regalo inolvidable</h5>
+
+				<h5 class="main-title mt-5">Seleccioná el valor de la GiftCard</h5>
+				<input type="range" min="100" max="10000" value="500" class="giftcard-price-range w-100">
+
+
+				<h5 class="main-title">Acceso a +36 de Experiencias</h5>
+				
+			</div>
+
+			<div class="col-lg-2"></div>
+
+			<div class="col-lg-5 text-center">
+				
+
+				<div class="gift-card shadow my-3">
+					<img src="<?= View::assets('blank-wide-2.gif') ?>" alt="" class="w-100">
+					<div class="border"></div>
+					<div class="icon">
+						<i class="fal fa-spa"></i>
+					</div>
+					<div class="card-caption">
+						<div class="card-caption-inside">
+							<div class="subtitle-caption">Seleccioná una<br><b class="ff-birthstone">Experiencia Única</b></div>
+							<h3 class="price-selection">$ 100.000</h3>
+							<div class="small-caption">Vos o tu agasajado disfruta la experiencia que seleccionaste</div>
+						</div>
+					</div>
+				</div>
+				
+				<button class="btn btn-aqua-2">
+					<i class="fal fa-shopping-bag fa-fw"></i> Comprar GiftCard
+				</button>				
+				
+			</div>			
+			
+		</div>		
+
+	</div>
+</section>
+
+
+
 
 <!-- PROMOS -->
 <section class="home-carousel bg-gray-5">

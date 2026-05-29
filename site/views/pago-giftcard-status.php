@@ -5,7 +5,7 @@
 		<h1>Gracias!!!</h1>
 		<h3>Hemos procesado la solicitud de pago exitosamente!</h3>
 
-		<p>Tu GiftCard está lista para usar y lista para regalar.</p>
+		<p>Tu GiftCard está lista para personalizar y lista para regalar.</p>
 		<hr>
 
 		<a href="<?= View::url('usuario','mis-giftcards') ?>" class="btn btn-aqua-3">

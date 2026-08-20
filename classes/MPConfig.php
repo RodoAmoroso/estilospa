@@ -4,7 +4,20 @@ class MPConfig extends Core{
 
 	public 	$arrfields=array(),
 					$idclient=0,
-					$redirect_uri=ROOT.'mp';	
+					$redirect_uri=ROOT.'mp';
+
+	private $access_token,
+					$public_key,
+					$app_id,
+					$secret_key,
+					$notification_url,
+					$notification_url_giftcard,
+					$Promos,
+					$Clients,
+					$Sales,
+					$Users,
+					$MPErrors,
+					$Notifications;
 
 	public function __construct($access_token=false){
 		//$this->_dbprefix = Env::get('DB_PREFIX');

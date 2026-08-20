@@ -55,13 +55,33 @@
 		<p>El Servicio de Newsletter consiste en el envío de correo electrónico a la dirección de correo electrónico registrada por los Usuarios con la información correspondiente a las Promociones y/o Novedades relevante para los Usuarios.</p>
 		<p>&nbsp;</p>
 
-		<h4 class="fw-400">7 CAMBIO/DEVOLUCION/CANCELACION.</h4>
-		<p>7.1 El usuario podrá arrepentirse de la compra y solicitar la devolución del dinero, siempre y cuando no haya reservado su voucher.</p>
-		<p>7.2 El usuario tiene 72 hs para solicitar la cancelación de la compra y su posterior devolución del dinero. Pasadas las 72 hs de la compra el usuario no podrá cancelar la compra.</p>
-		<p>7.3 El sitio no permite cambios de promociones, el usuario deberá cancelar y volver a comprar la otra promoción.</p>
-		<p>7.4 El usuario que realice más de una cancelación no podrá volver a comprar en el sitio.</p>
-		<p>7.5 El usuario que desee cancelar su compra, deberá comunicarse excluyentemente con el prestador del servicio, indicando que desea solicitar la cancelación de la compra.</p>
-		<p>7.6 El proveedor / prestador del servicio deberá ingresar a su cuenta de Mercado Pago y realizar la acción de “Devolver Dinero”.</p>
+		
+		<h4 class="fw-400">7. CAMBIOS, DEVOLUCIONES, CANCELACIONES Y DERECHO DE ARREPENTIMIENTO</h4>
+
+		<p><b>7.1 Derecho de Arrepentimiento: </b>
+		Conforme a lo dispuesto por el artículo 34 de la Ley N.º 24.240 de Defensa del Consumidor, el artículo 1.110 del Código Civil y Comercial de la Nación y la Disposición 954/2025, el Usuario podrá revocar la compra realizada a través del Sitio dentro del plazo de diez (10) días corridos contados desde la confirmación de la compra, sin cargo ni penalidad alguna.
+		<br>
+		Transcurrido dicho plazo, toda solicitud de cancelación quedará sujeta exclusivamente a la aceptación y políticas del prestador del servicio.</p>
+
+		<p><b>7.2 Excepciones al Derecho de Arrepentimiento: </b>
+		El derecho de arrepentimiento no resultará aplicable en los siguientes casos:
+		<br>
+		a) Cuando el servicio de spa, alojamiento o cualquier otra prestación hubiera sido utilizado, total o parcialmente, por el Usuario dentro del plazo indicado.
+		<br>
+		b) Cuando la reserva hubiera sido contratada para una fecha y hora determinadas y la solicitud de arrepentimiento se efectúe con posterioridad al inicio del turno reservado, considerándose el servicio ejecutado o vencido.</p>
+		
+		<p><b>7.3 Cancelación de reservas: </b>
+		Una vez que el Usuario haya efectuado la reserva de su voucher con el prestador del servicio, cualquier modificación, reprogramación o cancelación quedará sujeta a las políticas comerciales y de cancelación del prestador.</p>
+
+		<p><b>7.4 Cambios de promociones: </b>
+		El Sitio no realiza cambios entre promociones o experiencias adquiridas. En caso de corresponder una cancelación conforme al derecho de arrepentimiento o a las políticas aplicables, el Usuario deberá solicitar la devolución correspondiente y efectuar una nueva compra.</p>
+
+		<p><b>7.5 Solicitud de cancelación: </b>
+		Las solicitudes de cancelación, devolución o ejercicio del derecho de arrepentimiento deberán realizarse a través de los canales de atención informados por EstiloSpa dentro de los plazos establecidos. Cuando la cancelación se encuentre fuera del plazo legal de arrepentimiento, la resolución quedará sujeta a la aceptación del prestador del servicio.</p>
+
+		<p><b>7.6 Devolución del dinero: </b>
+		Cuando corresponda la devolución del importe abonado, ésta se efectuará utilizando el mismo medio de pago empleado por el Usuario para la compra, o por el mecanismo que resulte aplicable según la plataforma de pago utilizada.</p>
+
 		<p>&nbsp;</p>
 
 		<h4 class="fw-400">8. CONDICIONES GENERALES DE LA UTILIZACIÓN DEL VOUCHER</h4>
@@ -143,7 +163,7 @@
 		<p>19.1. En caso que el Usuario encuentre algo que considere objetable o en violación de los presentes Términos y Condiciones, el Usuario podrá denunciarlo a estilospa.com@gmail.com</p>
 		<p>&nbsp;</p>
 
-		<p>Última actualización: 10/07/2017</p>
+		<p>Última actualización: 05/08/2026</p>
 
 
 	</div>

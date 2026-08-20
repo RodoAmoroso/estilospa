@@ -7,6 +7,8 @@ class PromosCategories extends Core{
 							$sizes=['small'=>'-t','big'=>'-o'],
 							$alias='pc';
 
+	private 		$_filters;
+
 	public function search_filters(){
 
 		$this->_filters = parent::core_filters([
